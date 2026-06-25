@@ -226,19 +226,22 @@ import reviews from '../data/reviews.json';
   </section>
 
   <!-- ── CTA final ────────────────────────────────────────────── -->
-  <section class="section section--bleu cta-final">
+  <section class="section cta-final">
     <div class="conteneur">
-      <h2>Demandez votre devis gratuit</h2>
-      <p>
-        Réponse rapide, déplacement et devis sans engagement partout en Eure-et-Loir.
-        Appelez-nous ou écrivez-nous, nous prenons soin de votre toiture.
-      </p>
-      <div class="cta-final__actions">
-        <a href={SITE.telHref} class="btn btn--rouge">
-          <svg class="icone" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M6.6 10.8a15.5 15.5 0 0 0 6.6 6.6l2.2-2.2a1 1 0 0 1 1-.25 11.4 11.4 0 0 0 3.6.57 1 1 0 0 1 1 1V20a1 1 0 0 1-1 1A17 17 0 0 1 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1 11.4 11.4 0 0 0 .57 3.6 1 1 0 0 1-.25 1z"/></svg>
-          {SITE.tel}
-        </a>
-        <a href="/devis-gratuit/" class="btn btn--blanc">Formulaire de devis</a>
+      <div class="cta-final__carte">
+        <p class="surtitre cta-final__surtitre">Un projet de toiture ?</p>
+        <h2>Demandez votre devis gratuit</h2>
+        <p class="cta-final__texte">
+          Réponse rapide, déplacement et devis sans engagement partout en Eure-et-Loir.
+          Appelez-nous ou écrivez-nous, nous prenons soin de votre toiture.
+        </p>
+        <div class="cta-final__actions">
+          <a href={SITE.telHref} class="btn btn--blanc">
+            <svg class="icone" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M6.6 10.8a15.5 15.5 0 0 0 6.6 6.6l2.2-2.2a1 1 0 0 1 1-.25 11.4 11.4 0 0 0 3.6.57 1 1 0 0 1 1 1V20a1 1 0 0 1-1 1A17 17 0 0 1 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1 11.4 11.4 0 0 0 .57 3.6 1 1 0 0 1-.25 1z"/></svg>
+            {SITE.tel}
+          </a>
+          <a href="/devis-gratuit/" class="btn btn--bleu">Formulaire de devis</a>
+        </div>
       </div>
     </div>
   </section>
