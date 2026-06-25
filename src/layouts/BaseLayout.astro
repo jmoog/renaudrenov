@@ -1,0 +1,95 @@
+---
+import '../styles/global.css';
+import { Font } from 'astro:assets';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import FloatingContact from '../components/FloatingContact.astro';
+import { SITE } from '../data/site.ts';
+
+export interface Props {
+  title: string;
+  description: string;
+  canonical?: string;
+  ogImage?: string;
+  extraSchemas?: object[];
+}
+
+const {
+  title,
+  description,
+  canonical,
+  ogImage = '/images/logo/logo-renaud-renov-512.webp',
+  extraSchemas = [],
+} = Astro.props;
+const canonicalURL = canonical || new URL(Astro.url.pathname, Astro.site).toString();
+---
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link rel="icon" href="/favicon.ico" sizes="any" />
+    <link rel="icon" href="/favicon.png" type="image/png" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+
+    <!-- Inter auto-hébergée : @font-face + WOFF2 servis depuis le domaine. RGPD-OK. -->
+    <Font cssVariable="--font-base" preload />
+
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonicalURL} />
+
+    <meta name="geo.region" content="FR-28" />
+    <meta name="geo.placename" content={`${SITE.ville}, ${SITE.departement}`} />
+    <meta name="geo.position" content={`${SITE.geo.lat};${SITE.geo.lng}`} />
+    <meta name="ICBM" content={`${SITE.geo.lat}, ${SITE.geo.lng}`} />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonicalURL} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={new URL(ogImage, Astro.site).toString()} />
+    <meta property="og:locale" content="fr_FR" />
+    <meta property="og:site_name" content={`${SITE.nom} — ${SITE.slogan}`} />
+
+    <!-- Données structurées LocalBusiness (RoofingContractor) -->
+    <script type="application/ld+json" set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "RoofingContractor",
+      "@id": `${SITE.url}/#localbusiness`,
+      "name": SITE.nom,
+      "alternateName": ["Entreprise Renaud Renov", "Couvreur 28 Renaud Renov", "Artisan couvreur Renaud"],
+      "description": description,
+      "image": `${SITE.url}/images/logo/logo-renaud-renov-512.webp`,
+      "logo": { "@type": "ImageObject", "url": `${SITE.url}/images/logo/logo-renaud-renov-512.webp`, "caption": `Logo ${SITE.nom}` },
+      "url": SITE.url,
+      "telephone": SITE.telE164,
+      "email": SITE.email,
+      "founder": { "@type": "Person", "name": SITE.dirigeant },
+      "priceRange": "€€",
+      "currenciesAccepted": "EUR",
+      "address": { "@type": "PostalAddress", "streetAddress": SITE.rue, "postalCode": SITE.cp, "addressLocality": SITE.ville, "addressRegion": SITE.region, "addressCountry": "FR" },
+      "geo": { "@type": "GeoCoordinates", "latitude": SITE.geo.lat, "longitude": SITE.geo.lng },
+      "openingHoursSpecification": [
+        { "@type": "OpeningHoursSpecification", "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"], "opens": "08:00", "closes": "19:00" }
+      ],
+      "areaServed": { "@type": "AdministrativeArea", "name": `${SITE.departement} (${SITE.departementNum})` },
+      "knowsAbout": ["Couverture", "Nettoyage de toiture", "Démoussage", "Traitement hydrofuge", "Zinguerie", "Réparation de toiture", "Rénovation de toiture", "Ravalement de façade", "Bâtiment métallique"],
+      "sameAs": [SITE.facebook]
+    })} />
+
+    {extraSchemas.map((schema) => (
+      <script type="application/ld+json" set:html={JSON.stringify(schema)} />
+    ))}
+  </head>
+  <body>
+    <Header />
+    <main>
+      <slot />
+    </main>
+    <Footer />
+    <FloatingContact />
+  </body>
+</html>

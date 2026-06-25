@@ -1,0 +1,25 @@
+# build output
+dist/
+# generated types
+.astro/
+# dependencies
+node_modules/
+# logs
+npm-debug.log*
+# environment variables
+.env
+.env.production
+# macOS
+.DS_Store
+
+# Assets sources lourds (photos/vidéos originales et WebP de travail) — hors dépôt
+# NB : le dossier source a un espace final dans son nom → motif glob robuste
+Artisan Couvreur RENAUD*/
+photos-web/
+*.afphoto
+*.HEIC
+*.heic
+*.MP4
+logo-*.jpg
+logo-*.png
+logo*-renaud-renov.jpg

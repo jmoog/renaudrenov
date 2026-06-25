@@ -1,0 +1,206 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import FilAriane from '../components/FilAriane.astro';
+import { SITE } from '../data/site.ts';
+import reviews from '../data/reviews.json';
+
+const title = 'À propos de Renaud Renov — Couvreur en Eure-et-Loir (28)';
+const description = "Renaud Renov, entreprise familiale de couverture à Villiers-le-Morhier (28) : nettoyage, démoussage, rénovation et zinguerie, transmis de père en fils. ☎ 07 64 40 24 22.";
+---
+<BaseLayout title={title} description={description}>
+
+  <!-- ── Présentation ─────────────────────────────────────────── -->
+  <section class="section">
+    <div class="conteneur">
+      <div class="duo">
+        <div>
+          <FilAriane items={[{ label: 'Accueil', href: '/' }, { label: 'À propos' }]} />
+          <h1>À propos de notre entreprise de couverture</h1>
+          <p class="apropos__accroche">
+            <strong>Renaud Renov, couvreur en Eure-et-Loir</strong> — votre spécialiste de la
+            toiture à {SITE.ville}.
+          </p>
+          <p>
+            Renaud Renov est une entreprise artisanale et familiale de couverture, installée à
+            {SITE.ville} ({SITE.cp}), dans l'Eure-et-Loir. Nous intervenons dans tout le département
+            pour le nettoyage et le démoussage de toiture, la couverture, la rénovation et la zinguerie.
+          </p>
+          <p>
+            Notre force, c'est de travailler <strong>en famille, le père et le fils</strong>, avec
+            un savoir-faire transmis et la même exigence sur chaque chantier. Nos clients le
+            soulignent souvent dans leurs avis : on sent l'amour du travail bien fait.
+          </p>
+          <p>
+            Ce qui nous guide au quotidien, c'est la qualité et la satisfaction du client. Qu'il
+            s'agisse d'un démoussage, d'une réparation ou d'une réfection complète, nous nous
+            engageons sur le résultat et couvrons tous nos travaux par une garantie décennale.
+          </p>
+          <ul class="apropos__badges">
+            <li><strong>{reviews.note.toLocaleString('fr-FR')}/5</strong> sur Google ({reviews.nombre} avis)</li>
+            <li><strong>Entreprise familiale</strong> — père &amp; fils</li>
+            <li><strong>Garantie décennale</strong></li>
+          </ul>
+        </div>
+        <img
+          src="/images/photos/artisan-renaud-renov.webp"
+          alt="L'artisan Renaud Renov devant un chantier de couverture en Eure-et-Loir"
+          width="1500"
+          height="2000"
+          loading="eager"
+        />
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Devis gratuit ────────────────────────────────────────── -->
+  <section class="section section--bleute">
+    <div class="conteneur">
+      <h2>Devis gratuit — sans engagement</h2>
+      <ul class="apropos__points">
+        <li>Entreprise familiale</li>
+        <li>Travail soigné</li>
+        <li>Garantie décennale</li>
+      </ul>
+      <p class="apropos__cta">
+        <a class="btn btn--rouge" href="/devis-gratuit/">Demander mon devis gratuit</a>
+      </p>
+    </div>
+  </section>
+
+  <!-- ── Le savoir-faire d'un artisan ─────────────────────────── -->
+  <section class="section">
+    <div class="conteneur">
+      <div class="duo duo--inverse">
+        <div>
+          <h2>Le savoir-faire d'un artisan couvreur</h2>
+          <p>
+            Être couvreur, ce n'est pas seulement poser des tuiles : c'est comprendre une toiture
+            dans son ensemble, lire ses faiblesses et choisir les bons gestes pour la protéger
+            durablement. Nous nous adaptons à chaque maison, qu'elle soit ancienne ou récente.
+          </p>
+          <p>
+            Nous travaillons la tuile terre cuite, l'ardoise naturelle et le zinc, et maîtrisons le
+            nettoyage, le démoussage et les traitements hydrofuges qui prolongent la vie de votre
+            toit. Cette polyvalence nous permet de vous proposer la solution la plus juste, sans
+            jamais sacrifier la finition.
+          </p>
+        </div>
+        <img
+          src="/images/photos/couverture-tuile.webp"
+          alt="Toiture neuve en tuiles posée par Renaud Renov en Eure-et-Loir"
+          width="1500"
+          height="2000"
+          loading="lazy"
+        />
+      </div>
+    </div>
+  </section>
+
+  <!-- ── À votre service ──────────────────────────────────────── -->
+  <section class="section section--gris">
+    <div class="conteneur">
+      <div class="duo">
+        <div>
+          <h2>Renaud Renov est à votre service</h2>
+          <p>{SITE.horaires}.</p>
+          <p>{SITE.rue}, {SITE.cp} {SITE.ville}</p>
+          <p>
+            <a href={SITE.telHref}><strong>{SITE.tel}</strong></a><br />
+            <a href={`mailto:${SITE.email}`}>{SITE.email}</a>
+          </p>
+          <p>
+            <a class="btn btn--bleu" href="/devis-gratuit/">Obtenir un devis gratuit</a>
+          </p>
+        </div>
+        <img
+          src="/images/photos/camion-renaud-renov.webp"
+          alt="Le véhicule Renaud Renov devant un chantier de toiture en Eure-et-Loir"
+          width="2000"
+          height="1500"
+          loading="lazy"
+        />
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Contenu éditorial ────────────────────────────────────── -->
+  <section class="section">
+    <div class="conteneur prose">
+      <h2>Le spécialiste du nettoyage et de la couverture en Eure-et-Loir</h2>
+      <p>
+        Depuis Villiers-le-Morhier, nous accompagnons les particuliers de toute l'Eure-et-Loir pour
+        entretenir, nettoyer, réparer ou rénover leur toiture. Du simple démoussage à la réfection
+        complète d'une couverture, nous apportons le même soin, parce qu'une toiture bien entretenue
+        est la meilleure protection d'une maison.
+      </p>
+      <p>
+        Notre spécialité, c'est le <strong>nettoyage et le démoussage de toiture</strong>, suivi de
+        l'application d'un <strong>traitement hydrofuge</strong> ou d'une résine colorée qui protège
+        durablement vos tuiles. Beaucoup de nos clients nous appellent aussi pour le nettoyage de
+        leurs pignons, murs et terrasses : l'avant/après est souvent spectaculaire.
+      </p>
+      <p>Nous travaillons tous les matériaux et tous les types de chantier :</p>
+      <ul>
+        <li><strong>Nettoyage, démoussage et hydrofuge</strong> : toitures, façades et terrasses.</li>
+        <li><strong>Couverture et rénovation</strong> : tuiles terre cuite, tuiles plates, ardoise naturelle.</li>
+        <li><strong>Zinguerie</strong> : noues, abergements, solins de cheminée et chéneaux.</li>
+        <li><strong>Réparation</strong> : tuiles cassées, ardoises déplacées, recherche d'infiltrations.</li>
+        <li><strong>Bâtiments métalliques</strong> : construction et bardage de hangars et dépendances.</li>
+      </ul>
+      <p>
+        Travailler en artisan local, c'est aussi être réactif et disponible. Parce que nous
+        connaissons bien le secteur, nous nous déplaçons rapidement chez vous pour évaluer la
+        situation et établir un devis gratuit, clair et détaillé.
+      </p>
+      <p>
+        La satisfaction de nos clients est notre meilleure publicité. Les avis 5 étoiles laissés
+        sur Google par les familles que nous avons accompagnées témoignent du sérieux et du soin que
+        nous mettons dans notre travail.
+      </p>
+      <p>
+        Où que vous soyez en Eure-et-Loir, à Maintenon, Nogent-le-Roi, Épernon, Chartres ou
+        alentour, nous sommes à votre disposition pour étudier votre projet.
+        <a href="/devis-gratuit/">Demandez votre devis gratuit</a> : c'est sans engagement.
+      </p>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .apropos__accroche { font-size: 1.12rem; color: var(--gris-700); font-weight: 600; margin-block: 0.8rem 1rem; }
+  .duo p { margin-block: 0.9rem; }
+  .apropos__badges {
+    list-style: none;
+    padding: 0;
+    margin-top: 1.4rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.8rem;
+  }
+  .apropos__badges li {
+    background: var(--rouge-pale);
+    color: var(--bleu);
+    border-radius: var(--rayon);
+    padding: 0.55em 1.1em;
+    font-size: 0.95rem;
+  }
+  .apropos__points {
+    list-style: none;
+    padding: 0;
+    margin: 1.4rem auto 0;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.5rem 2.2rem;
+    font-weight: 600;
+  }
+  .apropos__points li { padding-left: 1.5em; position: relative; }
+  .apropos__points li::before {
+    content: "✓";
+    position: absolute;
+    left: 0;
+    color: var(--rouge);
+    font-weight: 800;
+  }
+  .apropos__cta { text-align: center; margin-top: 1.8rem; }
+</style>

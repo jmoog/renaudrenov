@@ -1,0 +1,16 @@
+[
+  { "nom": "Villiers-le-Morhier", "slug": "villiers-le-morhier", "cp": "28130" },
+  { "nom": "Maintenon", "slug": "maintenon", "cp": "28130" },
+  { "nom": "Nogent-le-Roi", "slug": "nogent-le-roi", "cp": "28210" },
+  { "nom": "Épernon", "slug": "epernon", "cp": "28230" },
+  { "nom": "Hanches", "slug": "hanches", "cp": "28130" },
+  { "nom": "Gallardon", "slug": "gallardon", "cp": "28320" },
+  { "nom": "Pierres", "slug": "pierres", "cp": "28130" },
+  { "nom": "Saint-Piat", "slug": "saint-piat", "cp": "28130" },
+  { "nom": "Bouglainval", "slug": "bouglainval", "cp": "28130" },
+  { "nom": "Chartres", "slug": "chartres", "cp": "28000" },
+  { "nom": "Dreux", "slug": "dreux", "cp": "28100" },
+  { "nom": "Auneau-Bleury-Saint-Symphorien", "slug": "auneau", "cp": "28700" },
+  { "nom": "Rambouillet", "slug": "rambouillet", "cp": "78120" },
+  { "nom": "Houdan", "slug": "houdan", "cp": "78550" }
+]

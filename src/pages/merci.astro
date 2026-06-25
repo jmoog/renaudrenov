@@ -1,0 +1,30 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { SITE } from '../data/site.ts';
+const title = 'Merci — votre demande est bien reçue | Renaud Renov';
+const description = 'Votre demande de devis a bien été envoyée à Renaud Renov. Nous vous recontactons rapidement.';
+---
+<BaseLayout title={title} description={description}>
+  <section class="section section--bleute merci">
+    <div class="conteneur merci__bloc">
+      <svg class="merci__icone" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M9 12l2 2 4-4"/></svg>
+      <h1>Merci, votre demande est bien partie !</h1>
+      <p>
+        Nous avons bien reçu votre demande de devis. Nous vous recontactons rapidement pour convenir
+        d'une visite et établir un devis détaillé, gratuit et sans engagement.
+      </p>
+      <p>Une urgence ? Appelez-nous directement :</p>
+      <div class="merci__actions">
+        <a href={SITE.telHref} class="btn btn--rouge">{SITE.tel}</a>
+        <a href="/" class="btn btn--bleu">Retour à l'accueil</a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .merci { text-align: center; }
+  .merci__bloc { max-width: 60ch; margin-inline: auto; }
+  .merci__icone { width: 72px; height: 72px; color: var(--rouge); margin: 0 auto 1rem; }
+  .merci__actions { display: flex; flex-wrap: wrap; justify-content: center; gap: 1rem; margin-top: 1.8rem; }
+</style>

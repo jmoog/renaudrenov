@@ -1,0 +1,105 @@
+{
+  "note": 5,
+  "nombre": 20,
+  "urlFiche": "https://share.google/22rQqyvQnh4yaRM8Y",
+  "avis": [
+    {
+      "auteur": "Anne Marie Epossi Ekedi",
+      "date": "Juin 2026",
+      "note": 5,
+      "texte": "C'est la 2ème fois que nous faisons appel à M. Renaud pour le nettoyage de notre toiture et nous en sommes satisfaits. Un professionnel disponible, arrangeant et à l'écoute de ses clients. Merci à vous !",
+      "tags": ["nettoyage"]
+    },
+    {
+      "auteur": "Mario Feys",
+      "date": "Mai 2026",
+      "note": 5,
+      "texte": "Très satisfaisant au niveau du nettoyage de ma toiture. Équipe très qualifiée, je recommande.",
+      "tags": ["nettoyage"]
+    },
+    {
+      "auteur": "Hub S.",
+      "date": "Mars 2025",
+      "note": 5,
+      "texte": "Rénovation de la toiture impeccablement réalisée, entreprise sérieuse et bien localisée dans la région. Répond vite en cas de souci.",
+      "tags": ["renovation"]
+    },
+    {
+      "auteur": "Olivier Ayrault",
+      "date": "Mars 2024",
+      "note": 5,
+      "texte": "Vraiment content du travail effectué, des vrais pros sympas, le Père et le Fils. On sent l'amour du travail bien fait, on recommande vivement. Sérieux, ponctuel, efficace. Merci l'entreprise Renaud !",
+      "tags": ["renovation"]
+    },
+    {
+      "auteur": "Martine Vico",
+      "date": "Mai 2023",
+      "note": 5,
+      "texte": "Nettoyage de toiture + façades exécuté avec soin et professionnalisme. Rendu au top et immédiat, travail rapide et équipe super sympa. Je recommande sans hésiter !",
+      "tags": ["nettoyage", "ravalement"]
+    },
+    {
+      "auteur": "Jean-Michel Hanon",
+      "date": "Avril 2023",
+      "note": 5,
+      "texte": "M. Renaud est venu nettoyer la toiture (tuiles en terre cuite noircies et ponctuées de lichen) ainsi que les pignons de la maison. Excellent travail d'une équipe par ailleurs très sympathique.",
+      "tags": ["nettoyage", "ravalement"]
+    },
+    {
+      "auteur": "Cécile Hidrio",
+      "date": "Novembre 2022",
+      "note": 5,
+      "texte": "M. Renaud a procédé au nettoyage des pignons de notre maison. L'avant/après est magique, on dirait que le crépi est neuf ! Nous le remercions vivement.",
+      "tags": ["ravalement"]
+    },
+    {
+      "auteur": "Gilli G.",
+      "date": "Juillet 2022",
+      "note": 5,
+      "texte": "Travail soigné, action rapide après rédaction du devis, chantier impeccable. À recommander chaleureusement. Mes voisins l'ont appelé en voyant les résultats et il est intervenu chez eux très vite.",
+      "tags": ["nettoyage"]
+    },
+    {
+      "auteur": "Jean-Claude Hunault",
+      "date": "Mars 2022",
+      "note": 5,
+      "texte": "Merci à l'entreprise Renaud pour sa promptitude et son professionnalisme. Nous avons procédé au nettoyage et à la protection hydrofuge des tuiles. Artisan très sérieux et compétent, à recommander.",
+      "tags": ["hydrofuge", "nettoyage"]
+    },
+    {
+      "auteur": "Christel Flament",
+      "date": "Février 2022",
+      "note": 5,
+      "texte": "Je suis ravie du travail effectué sur la toiture et le pignon de mur. De la signature du devis à la facture, ce couvreur est à l'écoute, arrangeant et surtout sérieux. Je recommande.",
+      "tags": ["renovation", "ravalement"]
+    },
+    {
+      "auteur": "Dominique Ndiaye",
+      "date": "Février 2022",
+      "note": 5,
+      "texte": "Artisan Renaud est intervenu pour un démoussage et une résine hydrofuge de toiture à Bouglainval (28). Ponctuel, sérieux, travail impeccable et prix abordable. Sans hésiter, je recommande.",
+      "tags": ["hydrofuge", "nettoyage"]
+    },
+    {
+      "auteur": "Philippe Treff",
+      "date": "Novembre 2021",
+      "note": 5,
+      "texte": "Appelé le matin, M. Renaud s'est déplacé dans la matinée pour une ardoise déplacée. Très disponible et efficace.",
+      "tags": ["reparation"]
+    },
+    {
+      "auteur": "Daisy Chevalier",
+      "date": "Décembre 2020",
+      "note": 5,
+      "texte": "M. Renaud est intervenu chez moi et ma maman pour un nettoyage de toiture, un remplacement de tuiles et l'hydrofuge. Travail propre et soigné, personne respectueuse, sympa et arrangeante. N'hésitez pas à le contacter.",
+      "tags": ["nettoyage", "reparation"]
+    },
+    {
+      "auteur": "Julien Augier",
+      "date": "Novembre 2020",
+      "note": 5,
+      "texte": "Artisan fiable, travail impeccable et devis respecté. Travaux effectués aux dates prévues, conseils précieux. Artisan à recommander sans hésitation !",
+      "tags": ["renovation"]
+    }
+  ]
+}

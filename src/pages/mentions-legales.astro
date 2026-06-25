@@ -1,0 +1,109 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import FilAriane from '../components/FilAriane.astro';
+import { SITE } from '../data/site.ts';
+
+const title = 'Mentions légales — Renaud Renov, couvreur en Eure-et-Loir (28)';
+const description = "Mentions légales de Renaud Renov : éditeur (Jordy Renaud), SIREN, TVA, hébergeur Hetzner, RGPD et propriété intellectuelle.";
+---
+<BaseLayout title={title} description={description}>
+  <section class="section">
+    <div class="conteneur prose">
+      <FilAriane items={[{ label: 'Accueil', href: '/' }, { label: 'Mentions légales' }]} />
+      <h1>Mentions légales</h1>
+
+      <p>
+        Conformément aux dispositions des articles 6-III et 19 de la Loi n° 2004-575 du 21 juin 2004
+        pour la Confiance dans l'Économie Numérique, dite L.C.E.N., il est porté à la connaissance
+        des utilisateurs et visiteurs du présent site les informations suivantes.
+      </p>
+
+      <h2>1. Informations légales de l'éditeur</h2>
+      <ul>
+        <li><strong>Dénomination sociale :</strong> {SITE.nomLegal}</li>
+        <li><strong>Forme juridique :</strong> société au capital social de 100 €</li>
+        <li><strong>Siège social :</strong> {SITE.rue}, {SITE.cp} {SITE.ville}, France</li>
+        <li><strong>SIREN :</strong> 944 707 710</li>
+        <li><strong>SIRET (siège) :</strong> à compléter</li>
+        <li><strong>RCS :</strong> à compléter (probablement RCS Chartres)</li>
+        <li><strong>Numéro de TVA intracommunautaire :</strong> FR34944707710</li>
+        <li><strong>Code APE / NAF :</strong> à compléter (ex. 4391B — Travaux de couverture par éléments)</li>
+        <li><strong>Représentant légal / Directeur de la publication :</strong> {SITE.dirigeant}, Président</li>
+        <li><strong>Email :</strong> <a href={`mailto:${SITE.email}`}>{SITE.email}</a></li>
+        <li><strong>Téléphone :</strong> <a href={SITE.telHref}>{SITE.tel}</a></li>
+      </ul>
+
+      <h2>2. Assurance professionnelle</h2>
+      <p>
+        L'entreprise est couverte par une assurance de responsabilité civile professionnelle et une
+        garantie décennale pour l'ensemble de ses travaux de couverture.
+      </p>
+      <p>
+        <strong>Assureur :</strong> à compléter — <strong>Zone géographique de couverture :</strong>
+        France métropolitaine (à préciser).
+      </p>
+
+      <h2>3. Hébergeur du site</h2>
+      <p>
+        Le site est hébergé par <strong>Hetzner Online GmbH</strong> — Industriestr. 25, 91710
+        Gunzenhausen, Allemagne — <a href="https://www.hetzner.com" rel="noopener" target="_blank">www.hetzner.com</a>.
+      </p>
+
+      <h2>4. Protection des données personnelles (RGPD)</h2>
+      <p>
+        {SITE.nomLegal} s'engage à respecter les dispositions légales en vigueur en matière de
+        protection des données personnelles, notamment la Loi n° 78-17 du 6 janvier 1978 (modifiée)
+        et le Règlement Général sur la Protection des Données (RGPD).
+      </p>
+      <p>
+        <strong>Collecte des données :</strong> les informations personnelles collectées sur le site
+        ne le sont que pour le besoin des services proposés, en particulier via le
+        <a href="/devis-gratuit/">formulaire de demande de devis</a> (nom, téléphone, email, ville
+        et description du projet). Ces données servent uniquement à traiter votre demande et ne sont
+        pas utilisées à d'autres fins.
+      </p>
+      <p>
+        <strong>Droit d'accès et de rectification :</strong> tout utilisateur dispose d'un droit
+        d'accès, de rectification, de suppression et d'opposition aux données personnelles le
+        concernant. Pour l'exercer, veuillez adresser votre demande par email à
+        <a href={`mailto:${SITE.email}`}>{SITE.email}</a> ou par courrier postal, accompagnée d'une
+        copie d'une pièce d'identité.
+      </p>
+      <p>
+        <strong>Absence de diffusion :</strong> aucune information personnelle de l'utilisateur n'est
+        publiée, échangée, transférée, cédée ou vendue à des tiers, sauf en cas de rachat de
+        l'entreprise et de ses actifs.
+      </p>
+
+      <h2>5. Propriété intellectuelle</h2>
+      <p>
+        {SITE.nomLegal} est propriétaire exclusif des droits de propriété intellectuelle ou détient
+        les droits d'usage sur tous les éléments accessibles sur le site (textes, images, graphismes,
+        logo, icônes). Toute reproduction, représentation, modification, publication ou adaptation,
+        totale ou partielle, de ces éléments est interdite, sauf autorisation écrite préalable, et
+        serait constitutive d'une contrefaçon poursuivie conformément au Code de la Propriété
+        Intellectuelle.
+      </p>
+
+      <h2>6. Responsabilité et accessibilité</h2>
+      <p>
+        L'éditeur s'efforce de fournir des informations aussi précises que possible, mais ne saurait
+        garantir leur exactitude ou leur complétude. Le site est par principe accessible 24h/24 et
+        7j/7, sauf interruption, programmée ou non (maintenance, force majeure). L'éditeur ne saurait
+        être tenu responsable d'un dommage résultant d'une indisponibilité du service.
+      </p>
+
+      <h2>7. Liens hypertextes et cookies</h2>
+      <p>
+        <strong>Liens hypertextes :</strong> le site peut contenir des liens vers d'autres sites
+        (Facebook, Google, fournisseurs). {SITE.nomLegal} décline toute responsabilité quant aux
+        contenus des sites externes.
+      </p>
+      <p>
+        <strong>Cookies :</strong> ce site ne dépose pas de cookie publicitaire. En cas d'ajout
+        d'une mesure d'audience, un bandeau de consentement sera affiché conformément aux
+        recommandations de la <a href="https://www.cnil.fr" rel="noopener" target="_blank">CNIL</a>.
+      </p>
+    </div>
+  </section>
+</BaseLayout>

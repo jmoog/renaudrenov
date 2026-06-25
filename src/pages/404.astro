@@ -1,0 +1,25 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { SITE } from '../data/site.ts';
+const title = 'Page introuvable (404) | Renaud Renov';
+const description = "La page que vous cherchez n'existe pas ou a été déplacée.";
+---
+<BaseLayout title={title} description={description}>
+  <section class="section section--bleute merci">
+    <div class="conteneur merci__bloc">
+      <h1>Oups, page introuvable</h1>
+      <p>La page que vous cherchez n'existe pas ou a été déplacée.</p>
+      <div class="merci__actions">
+        <a href="/" class="btn btn--rouge">Retour à l'accueil</a>
+        <a href="/devis-gratuit/" class="btn btn--bleu">Demander un devis</a>
+      </div>
+      <p style="margin-top:1.5rem;">Besoin d'un couvreur ? Appelez-nous au <a href={SITE.telHref}><strong>{SITE.tel}</strong></a>.</p>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .merci { text-align: center; }
+  .merci__bloc { max-width: 60ch; margin-inline: auto; }
+  .merci__actions { display: flex; flex-wrap: wrap; justify-content: center; gap: 1rem; margin-top: 1.8rem; }
+</style>
