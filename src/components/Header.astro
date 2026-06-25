@@ -1,9 +1,12 @@
 ---
 // En-tête double barre : 1) barre orange (téléphone + liens) 2) barre claire
-// (logo + menu services). Repris du design Lafleur, adapté à Renaud Renov.
+// (logo + menu services + bouton devis). Repris du design Lafleur, adapté Renaud Renov.
 import { SITE } from '../data/site.ts';
 import services from '../data/services.json';
-const menuServices = services.slice(0, 6);
+// Menu desktop : 5 prestations phares (sans « Traitement hydrofuge » pour aérer)
+const menuServices = services
+  .filter((s) => s.slug !== 'traitement-hydrofuge')
+  .slice(0, 5);
 ---
 <header class="entete">
   <div class="entete__topbar">
@@ -26,10 +29,6 @@ const menuServices = services.slice(0, 6);
     <div class="conteneur entete__principal-int">
       <a href="/" class="entete__marque" aria-label={`${SITE.nom} — retour à l'accueil`}>
         <img src="/images/logo/logo-renaud-renov-256.webp" alt={`Logo ${SITE.nom} — ${SITE.slogan}`} width="72" height="72" />
-        <span class="entete__marque-texte">
-          <strong>RENAUD RENOV</strong>
-          <small>Artisan couvreur · 28</small>
-        </span>
       </a>
 
       <nav class="entete__nav" aria-label="Navigation principale">
@@ -38,13 +37,13 @@ const menuServices = services.slice(0, 6);
           <svg class="icone" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
         </button>
         <ul id="menu-principal" class="entete__menu">
-          <li><a href="/">Accueil</a></li>
-          <li><a href="/a-propos/">À propos</a></li>
+          <li class="entete__menu-mobile"><a href="/">Accueil</a></li>
+          <li class="entete__menu-mobile"><a href="/a-propos/">À propos</a></li>
           {menuServices.map((s) => (
-            <li><a href={`/#nos-services`}>{s.labelNav}</a></li>
+            <li><a href="/#nos-services">{s.labelNav}</a></li>
           ))}
-          <li class="entete__menu-cta"><a href={SITE.telHref} class="btn btn--rouge">{SITE.tel}</a></li>
-          <li class="entete__menu-cta"><a href="/devis-gratuit/" class="btn btn--bleu">Devis gratuit</a></li>
+          <li class="entete__menu-cta entete__menu-cta--devis"><a href="/devis-gratuit/" class="btn btn--rouge">Devis gratuit</a></li>
+          <li class="entete__menu-cta entete__menu-cta--tel"><a href={SITE.telHref} class="btn btn--bleu">{SITE.tel}</a></li>
         </ul>
       </nav>
     </div>
@@ -107,19 +106,17 @@ const menuServices = services.slice(0, 6);
     display: flex;
     align-items: center;
     justify-content: space-between;
-    gap: 1.5rem;
-    padding-block: 0.5rem;
+    gap: 2rem;
+    padding-block: 0.45rem;
   }
-  .entete__marque { display: inline-flex; align-items: center; gap: 0.8rem; text-decoration: none; }
-  .entete__marque img { height: 60px; width: auto; }
-  .entete__marque-texte { display: flex; flex-direction: column; line-height: 1.1; }
-  .entete__marque-texte strong { color: var(--bleu); font-size: 1.25rem; font-weight: 800; letter-spacing: 0.01em; }
-  .entete__marque-texte small { color: var(--rouge); font-weight: 600; font-size: 0.78rem; }
+  .entete__marque { display: inline-flex; align-items: center; flex-shrink: 0; }
+  .entete__marque img { height: 64px; width: auto; }
 
+  .entete__nav { flex: 1; display: flex; justify-content: flex-end; }
   .entete__menu {
     display: flex;
     align-items: center;
-    gap: 1.4rem;
+    gap: 1.7rem;
     list-style: none;
     margin: 0;
     padding: 0;
@@ -128,11 +125,29 @@ const menuServices = services.slice(0, 6);
     text-decoration: none;
     color: var(--bleu);
     font-weight: 600;
-    font-size: 0.95rem;
+    font-size: 0.98rem;
+    white-space: nowrap;
     transition: color var(--transition);
   }
   .entete__menu a:not(.btn):hover { color: var(--rouge); }
+
+  /* CTA dans le menu : masqués par défaut, réglés par média ci-dessous */
   .entete__menu-cta { display: none; }
+  /* Liens Accueil/À propos : visibles seulement dans le menu mobile */
+  .entete__menu-mobile { display: none; }
+
+  /* Desktop : bouton « Devis gratuit » visible à droite */
+  @media (min-width: 981px) {
+    .entete__menu-cta--devis { display: block; margin-left: 0.4rem; }
+    .entete__menu-cta--devis .btn { padding: 0.55em 1.2em; font-size: 0.95rem; }
+  }
+
+  /* Resserrement intermédiaire */
+  @media (max-width: 1180px) and (min-width: 981px) {
+    .entete__liens { gap: 1.1rem; }
+    .entete__menu { gap: 1.1rem; }
+    .entete__menu a:not(.btn) { font-size: 0.92rem; }
+  }
 
   .entete__burger {
     display: none;
@@ -144,16 +159,10 @@ const menuServices = services.slice(0, 6);
   }
   .entete__burger .icone { width: 1.9rem; height: 1.9rem; }
 
-  @media (max-width: 1180px) {
-    .entete__liens { display: none; }
-    .entete__topbar-int { justify-content: center; }
-    .entete__menu a:not(.btn) { font-size: 0.9rem; }
-    .entete__menu { gap: 1rem; }
-  }
+  /* Mobile / tablette : barre orange masquée, menu en tiroir */
   @media (max-width: 980px) {
     .entete__topbar { display: none; }
     .entete__burger { display: block; }
-    .entete__marque-texte small { display: none; }
     .entete__menu {
       display: none;
       position: absolute;
@@ -168,6 +177,7 @@ const menuServices = services.slice(0, 6);
     }
     .entete__menu.ouvert { display: flex; }
     .entete__menu li { border-bottom: 1px solid var(--gris-100); }
+    .entete__menu-mobile { display: block; }
     .entete__menu a:not(.btn) { display: block; padding: 0.8em 0.2em; font-size: 1.02rem; }
     .entete__menu-cta { display: block; border-bottom: none !important; padding-top: 0.8rem; }
     .entete__menu-cta .btn { width: 100%; }
