@@ -7,7 +7,7 @@ import reviews from '../data/reviews.json';
 export const prerender = false;
 const turnstileSiteKey = process.env.TURNSTILE_SITE_KEY || '';
 
-const title = 'Devis gratuit couvreur en Eure-et-Loir (28) — Renaud Renov';
+const title = 'Devis gratuit couvreur en Eure-et-Loir (28) — Renaud Rénov';
 const description = 'Recevez votre devis de couvreur gratuit en Eure-et-Loir (28) : nettoyage, démoussage, rénovation, zinguerie. Déplacement et devis sans engagement.';
 
 const prestations = [
@@ -15,10 +15,9 @@ const prestations = [
   { value: 'traitement-hydrofuge',   label: 'Traitement hydrofuge / résine de toiture' },
   { value: 'reparation-toiture',     label: 'Réparation de toiture' },
   { value: 'renovation-toiture',     label: 'Rénovation / réfection de toiture' },
-  { value: 'couverture',             label: 'Couverture neuve (tuile ou ardoise)' },
   { value: 'zinguerie',              label: 'Zinguerie (noues, chéneaux, cheminées)' },
-  { value: 'ravalement-facade',      label: 'Nettoyage / ravalement de façade' },
-  { value: 'batiment-metallique',    label: 'Bâtiment / bardage métallique' },
+  { value: 'pose-gouttiere',         label: 'Pose de gouttière' },
+  { value: 'couverture',             label: 'Couverture neuve (tuile ou ardoise)' },
   { value: 'autre',                  label: 'Autre / à préciser' },
 ];
 
@@ -32,7 +31,7 @@ const avisDevis = reviews.avis.slice(0, 3);
       <div class="devis__texte">
         <FilAriane items={[{ label: 'Accueil', href: '/' }, { label: 'Devis gratuit' }]} />
         <h1>Devis gratuit pour vos travaux de toiture (28)</h1>
-        <p class="devis__sous-titre">Renaud Renov — Artisan couvreur à {SITE.ville}</p>
+        <p class="devis__sous-titre">Renaud Rénov — Artisan couvreur à {SITE.ville}</p>
         <p>
           Vous avez un projet de toiture, une toiture à nettoyer ou simplement besoin d'un avis ?
           Décrivez-nous votre besoin et nous vous rappelons rapidement. Nous nous déplaçons chez vous
@@ -63,7 +62,7 @@ const avisDevis = reviews.avis.slice(0, 3);
         <img
           class="devis__photo"
           src="/images/photos/ravalement-facade.webp"
-          alt="Façade nettoyée par Renaud Renov en Eure-et-Loir — avant / après"
+          alt="Façade nettoyée par Renaud Rénov en Eure-et-Loir — avant / après"
           loading="lazy"
           width="2000"
           height="1500"
@@ -136,7 +135,6 @@ const avisDevis = reviews.avis.slice(0, 3);
   <!-- ── Avis (réassurance) ───────────────────────────────────── -->
   <section class="section section--gris">
     <div class="conteneur">
-      <p class="surtitre">Ils nous ont fait confiance</p>
       <h2>Les avis de nos clients en Eure-et-Loir</h2>
       <div class="grille-avis">
         {avisDevis.map((a) => (
@@ -162,10 +160,9 @@ const avisDevis = reviews.avis.slice(0, 3);
   <section class="section">
     <div class="conteneur duo">
       <div>
-        <p class="surtitre">Entreprise familiale, père &amp; fils</p>
-        <h2>Renaud Renov : la qualité avant tout</h2>
+        <h2>Renaud Rénov : la qualité avant tout</h2>
         <p>
-          Renaud Renov est une entreprise familiale de couverture, installée à {SITE.ville} dans
+          Renaud Rénov est une entreprise familiale de couverture, installée à {SITE.ville} dans
           l'Eure-et-Loir. Nous travaillons en père et fils, avec la même exigence : un travail
           soigné, durable, et des clients à qui nous expliquons chaque étape.
         </p>
@@ -184,7 +181,7 @@ const avisDevis = reviews.avis.slice(0, 3);
       </div>
       <img
         src="/images/photos/nettoyage-terrasse.webp"
-        alt="Allée et terrasse nettoyées par Renaud Renov en Eure-et-Loir"
+        alt="Allée et terrasse nettoyées par Renaud Rénov en Eure-et-Loir"
         loading="lazy"
         width="1500"
         height="2000"

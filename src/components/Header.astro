@@ -1,6 +1,6 @@
 ---
 // En-tête double barre : 1) barre orange (téléphone + liens) 2) barre claire
-// (logo + menu services + bouton devis). Repris du design Lafleur, adapté Renaud Renov.
+// (logo + menu services + bouton devis). Repris du design Lafleur, adapté Renaud Rénov.
 import { SITE } from '../data/site.ts';
 import services from '../data/services.json';
 // Menu desktop : 5 prestations phares (sans « Traitement hydrofuge » pour aérer)
@@ -11,28 +11,22 @@ const menuServices = services
 <header class="entete">
   <div class="entete__topbar">
     <div class="conteneur entete__topbar-int">
-      <div class="entete__contacts">
-        <a href={SITE.telHref} class="entete__tel">
-          <svg class="icone" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M6.6 10.8a15.5 15.5 0 0 0 6.6 6.6l2.2-2.2a1 1 0 0 1 1-.25 11.4 11.4 0 0 0 3.6.57 1 1 0 0 1 1 1V20a1 1 0 0 1-1 1A17 17 0 0 1 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1 11.4 11.4 0 0 0 .57 3.6 1 1 0 0 1-.25 1z"/></svg>
-          {SITE.tel}
-        </a>
-        <a href={SITE.telUrgenceHref} class="entete__urgence">Urgence : {SITE.telUrgence}</a>
-      </div>
-      <nav aria-label="Navigation secondaire">
-        <ul class="entete__liens">
-          <li><a href="/">Accueil</a></li>
-          <li><a href="/a-propos/">À propos</a></li>
-          <li><a href="/devis-gratuit/">Devis gratuit</a></li>
-        </ul>
-      </nav>
+      <a href={SITE.telHref} class="entete__tel">
+        <svg class="icone" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M6.6 10.8a15.5 15.5 0 0 0 6.6 6.6l2.2-2.2a1 1 0 0 1 1-.25 11.4 11.4 0 0 0 3.6.57 1 1 0 0 1 1 1V20a1 1 0 0 1-1 1A17 17 0 0 1 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1 11.4 11.4 0 0 0 .57 3.6 1 1 0 0 1-.25 1z"/></svg>
+        {SITE.tel}
+      </a>
+      <a href={SITE.telUrgenceHref} class="entete__urgence">Urgence : {SITE.telUrgence}</a>
     </div>
   </div>
 
   <div class="entete__principal">
     <div class="conteneur entete__principal-int">
-      <a href="/" class="entete__marque" aria-label={`${SITE.nom} — retour à l'accueil`}>
-        <img src="/images/logo/logo-renaud-renov-256.webp" alt={`Logo ${SITE.nom} — ${SITE.slogan}`} width="72" height="72" />
-      </a>
+      <div class="entete__gauche">
+        <a href="/" class="entete__marque" aria-label={`${SITE.nom} — retour à l'accueil`}>
+          <img src="/images/logo/logo-renaud-renov-256.webp" alt={`Logo ${SITE.nom} — ${SITE.slogan}`} width="72" height="72" />
+        </a>
+        <a href="/" class="entete__accueil">Accueil</a>
+      </div>
 
       <nav class="entete__nav" aria-label="Navigation principale">
         <button class="entete__burger" type="button" aria-expanded="false" aria-controls="menu-principal">
@@ -43,7 +37,7 @@ const menuServices = services
           <li class="entete__menu-mobile"><a href="/">Accueil</a></li>
           <li class="entete__menu-mobile"><a href="/a-propos/">À propos</a></li>
           {menuServices.map((s) => (
-            <li><a href="/#nos-services">{s.labelNav}</a></li>
+            <li><a href={s.href}>{s.labelNav}</a></li>
           ))}
           <li class="entete__menu-cta entete__menu-cta--devis"><a href="/devis-gratuit/" class="btn btn--rouge">Devis gratuit</a></li>
           <li class="entete__menu-cta entete__menu-cta--tel"><a href={SITE.telHref} class="btn btn--bleu">{SITE.tel}</a></li>
@@ -129,8 +123,17 @@ const menuServices = services
     gap: 2rem;
     padding-block: 0.45rem;
   }
+  .entete__gauche { display: inline-flex; align-items: center; gap: 1.5rem; }
   .entete__marque { display: inline-flex; align-items: center; flex-shrink: 0; }
   .entete__marque img { height: 64px; width: auto; }
+  .entete__accueil {
+    color: var(--bleu);
+    font-weight: 600;
+    font-size: 0.98rem;
+    text-decoration: none;
+    transition: color var(--transition);
+  }
+  .entete__accueil:hover { color: var(--rouge); }
 
   .entete__nav { flex: 1; display: flex; justify-content: flex-end; }
   .entete__menu {
@@ -182,6 +185,7 @@ const menuServices = services
   /* Mobile / tablette : barre orange masquée, menu en tiroir */
   @media (max-width: 980px) {
     .entete__topbar { display: none; }
+    .entete__accueil { display: none; }
     .entete__burger { display: block; }
     .entete__menu {
       display: none;

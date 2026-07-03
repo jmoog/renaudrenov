@@ -8,16 +8,15 @@ import CtaDevis from '../components/CtaDevis.astro';
 import reviews from '../data/reviews.json';
 ---
 <BaseLayout
-  title="Couvreur en Eure-et-Loir (28) — Renaud Renov | Devis gratuit"
-  description="Nettoyage et démoussage de toiture, couverture, zinguerie et ravalement de façade en Eure-et-Loir. Artisan couvreur à Villiers-le-Morhier, garantie décennale, déplacement et devis gratuits."
+  title="Couvreur en Eure-et-Loir (28) — Renaud Rénov | Devis gratuit"
+  description="Nettoyage et démoussage de toiture, traitement hydrofuge, réparation, rénovation, couverture, zinguerie et pose de gouttière en Eure-et-Loir. Artisan couvreur à Villiers-le-Morhier, garantie décennale, devis gratuit."
 >
   <!-- ── Hero clair, deux colonnes ────────────────────────────── -->
   <section class="hero">
     <div class="conteneur hero__grille">
       <div class="hero__texte">
-        <p class="hero__badge"><span class="hero__point" aria-hidden="true"></span> Devis gratuit sous 48 h</p>
         <h1>Couvreur en Eure-et-Loir (28)</h1>
-        <p class="hero__marque">RENAUD RENOV</p>
+        <p class="hero__marque">RENAUD RÉNOV</p>
         <p class="hero__google">
           <span class="hero__etoiles" aria-hidden="true">★★★★★</span>
           <strong>{reviews.note.toLocaleString('fr-FR')}/5 sur Google · {reviews.nombre} avis</strong>
@@ -25,7 +24,7 @@ import reviews from '../data/reviews.json';
         <p class="hero__accroche">
           Entreprise familiale de couverture installée à <strong>{SITE.ville}</strong>, je réalise
           tous vos travaux de toiture : <strong>nettoyage et démoussage</strong>, traitement hydrofuge,
-          réparation, rénovation, zinguerie et ravalement de façade.
+          réparation, rénovation, couverture, zinguerie et pose de gouttière.
         </p>
         <p>
           Un savoir-faire transmis <strong>de père en fils</strong>, au service des particuliers de
@@ -37,7 +36,7 @@ import reviews from '../data/reviews.json';
           <li><strong>Nettoyage et démoussage</strong> de toiture, application de <strong>traitements hydrofuges</strong> et anti-mousses.</li>
           <li><strong>Réparation</strong> de toiture : tuiles cassées, ardoises déplacées, faîtage et infiltrations.</li>
           <li><strong>Rénovation</strong> et <strong>couverture neuve</strong> en tuile ou ardoise.</li>
-          <li><strong>Zinguerie</strong>, ravalement de façade et bâtiments métalliques.</li>
+          <li><strong>Zinguerie</strong>, pose de gouttières et étanchéité des points sensibles.</li>
         </ul>
         <div class="hero__actions">
           <a href={SITE.telHref} class="btn btn--rouge">
@@ -52,7 +51,7 @@ import reviews from '../data/reviews.json';
         <img
           class="hero__photo"
           src="/images/photos/hero-renaud-renov.webp"
-          alt="Le véhicule Renaud Renov devant une maison et sa toiture en tuiles en Eure-et-Loir"
+          alt="Le véhicule Renaud Rénov devant une maison et sa toiture en tuiles en Eure-et-Loir"
           fetchpriority="high"
           width="2000"
           height="1500"
@@ -84,11 +83,10 @@ import reviews from '../data/reviews.json';
   <!-- ── Services ─────────────────────────────────────────────── -->
   <section id="nos-services" class="section section--gris">
     <div class="conteneur">
-      <p class="surtitre">Couvreur à {SITE.ville}</p>
       <h2>Notre savoir-faire d'artisan couvreur 28</h2>
       <div class="grille-services">
         {services.map((s) => (
-          <a href="/devis-gratuit/" class="carte carte-service">
+          <a href={s.href} class="carte carte-service">
             <img src={s.image} alt={s.alt} loading="lazy" width="400" height="250" />
             <span class="carte-service__corps">
               <h3>{s.label}</h3>
@@ -105,7 +103,6 @@ import reviews from '../data/reviews.json';
   <section class="section">
     <div class="conteneur">
       <div class="section__entete section__entete--gauche">
-        <p class="surtitre">Notre spécialité</p>
         <h2>Nettoyage, démoussage et traitement hydrofuge de toiture</h2>
       </div>
     </div>
@@ -113,7 +110,7 @@ import reviews from '../data/reviews.json';
       <div>
         <p>
           Avec le temps, mousses et lichens fragilisent votre couverture et retiennent l'humidité.
-          Renaud Renov est <strong>spécialiste du nettoyage et du démoussage de toiture</strong> en
+          Renaud Rénov est <strong>spécialiste du nettoyage et du démoussage de toiture</strong> en
           Eure-et-Loir, pour préserver l'étanchéité et prolonger la durée de vie de votre toit.
         </p>
         <h3>Nettoyage et démoussage</h3>
@@ -130,7 +127,7 @@ import reviews from '../data/reviews.json';
       </div>
       <img
         src="/images/photos/nettoyage-toiture-resultat.webp"
-        alt="Maison à la toiture propre après nettoyage et démoussage par Renaud Renov en Eure-et-Loir"
+        alt="Maison à la toiture propre après nettoyage et démoussage par Renaud Rénov en Eure-et-Loir"
         loading="lazy"
         width="2000"
         height="1500"
@@ -142,7 +139,6 @@ import reviews from '../data/reviews.json';
   <section class="section section--bleute">
     <div class="conteneur">
       <div class="section__entete section__entete--gauche">
-        <p class="surtitre">Tuile, ardoise, zinc</p>
         <h2>Couverture, rénovation et zinguerie en Eure-et-Loir</h2>
       </div>
     </div>
@@ -178,7 +174,7 @@ import reviews from '../data/reviews.json';
   <!-- ── Pourquoi nous choisir ────────────────────────────────── -->
   <section class="section section--bleu pourquoi">
     <div class="conteneur">
-      <h2>Pourquoi confier votre toiture à Renaud Renov ?</h2>
+      <h2>Pourquoi confier votre toiture à Renaud Rénov ?</h2>
       <div class="etapes">
         <div class="etape">
           <span class="etape__numero">01</span>
@@ -211,7 +207,6 @@ import reviews from '../data/reviews.json';
   <!-- ── Zone d'intervention ──────────────────────────────────── -->
   <section class="section section--gris">
     <div class="conteneur">
-      <p class="surtitre">Zone d'intervention</p>
       <h2>Votre couvreur autour de {SITE.ville}</h2>
       <p>
         Basés à {SITE.ville} ({SITE.cp}), nous intervenons dans toute l'Eure-et-Loir et aux portes
@@ -229,7 +224,6 @@ import reviews from '../data/reviews.json';
   <section class="section cta-final">
     <div class="conteneur">
       <div class="cta-final__carte">
-        <p class="surtitre cta-final__surtitre">Un projet de toiture ?</p>
         <h2>Demandez votre devis gratuit</h2>
         <p class="cta-final__texte">
           Réponse rapide, déplacement et devis sans engagement partout en Eure-et-Loir.

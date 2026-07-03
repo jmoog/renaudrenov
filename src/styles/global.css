@@ -1,5 +1,5 @@
 /* ════════════════════════════════════════════════════════════════════
-   RENAUD RENOV — Design system CSS vanilla (pas de framework)
+   RENAUD RÉNOV — Design system CSS vanilla (pas de framework)
    Palette extraite du logo : bleu marine #244B64 + orange #EF7E0F.
    Typo : Inter auto-hébergée (var --font-base injectée par Astro).
    NB : pour réutiliser le design d'origine, le token « --bleu » porte le
@@ -86,21 +86,8 @@ h1 { font-size: clamp(1.9rem, 4.5vw, 3rem); font-weight: 800; }
 h2 { font-size: clamp(1.5rem, 3vw, 2.1rem); }
 h3 { font-size: 1.2rem; }
 
-/* Sur-titre de section (petit texte orange au-dessus du H2) */
-.surtitre {
-  display: block;
-  color: var(--rouge);
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  font-size: 0.85rem;
-  margin-bottom: 0.5rem;
-  text-wrap: balance; /* coupe en lignes équilibrées, jamais 2-3 mots orphelins */
-}
-
 /* Titres de sections centrés (les titres dans les blocs deux-colonnes
    et le hero restent alignés à gauche) */
-.section > .conteneur > .surtitre,
 .section > .conteneur > h2 {
   text-align: center;
 }
@@ -116,7 +103,7 @@ h3 { font-size: 1.2rem; }
    les textes courants restent alignés à gauche
    (la règle `p, li { text-align: left }` ci-dessus garde la main) */
 @media (max-width: 800px) {
-  h1, h2, h3, .surtitre, .hero__marque { text-align: center; }
+  h1, h2, h3, .hero__marque { text-align: center; }
 
   /* Badge du hero : compact, ne coupe pas en plein milieu */
   .hero__badge {
@@ -125,14 +112,6 @@ h3 { font-size: 1.2rem; }
     white-space: nowrap; /* tous les badges font ≤ 33 caractères : une seule ligne */
   }
 
-  /* Sur-titres : plus petits et plus serrés sur mobile, sinon les
-     retours à la ligne en majuscules sont illisibles */
-  .surtitre {
-    font-size: 0.72rem;
-    letter-spacing: 0.05em;
-    max-width: 32ch;
-    margin-inline: auto;
-  }
 
   /* Groupes de boutons centrés */
   .hero__actions,
@@ -393,7 +372,6 @@ h3 { font-size: 1.2rem; }
   padding: clamp(2.5rem, 5vw, 4rem) clamp(1.5rem, 5vw, 4rem);
   box-shadow: 0 18px 40px rgba(36, 75, 100, 0.22);
 }
-.cta-final__surtitre { color: rgba(255, 255, 255, 0.9); }
 .cta-final h2 { color: var(--blanc); margin-top: 0.2rem; }
 .cta-final__texte { max-width: 55ch; margin: 1rem auto 0; color: rgba(255, 255, 255, 0.95); }
 .cta-final__actions { display: flex; flex-wrap: wrap; justify-content: center; gap: 1rem; margin-top: 2rem; }

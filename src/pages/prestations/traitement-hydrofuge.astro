@@ -1,0 +1,114 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { SITE } from '../../data/site.ts';
+import FilAriane from '../../components/FilAriane.astro';
+import AvisCarrousel from '../../components/AvisCarrousel.astro';
+import CtaDevis from '../../components/CtaDevis.astro';
+import PrestationsConnexes from '../../components/PrestationsConnexes.astro';
+
+const title = 'Traitement hydrofuge de toiture (28) — Renaud Rénov';
+const description =
+  "Après le nettoyage, l'hydrofuge imperméabilise vos tuiles et retarde le retour des mousses. Application par un artisan couvreur du 28. Garantie décennale.";
+---
+<BaseLayout title={title} description={description}>
+  <!-- ── Hero prestation ──────────────────────────────────────── -->
+  <section class="section">
+    <div class="conteneur">
+      <FilAriane items={[{ label: 'Accueil', href: '/' }, { label: 'Traitement hydrofuge de toiture' }]} />
+    </div>
+    <div class="conteneur duo">
+      <div>
+        <h1>Hydrofuge et résine : des tuiles protégées pour des années</h1>
+        <p class="hero__accroche">
+          Vous venez de faire nettoyer votre toit ou souhaitez le protéger durablement ? Renaud Rénov,
+          artisan couvreur en <strong>Eure-et-Loir (28)</strong>, applique des traitements hydrofuges
+          et des résines qui gardent vos tuiles saines et imperméables.
+        </p>
+        <p>
+          La bonne solution pour garder un toit propre plus longtemps et éviter le retour rapide des
+          mousses après un nettoyage.
+        </p>
+        <div class="hero__actions">
+          <a href={SITE.telHref} class="btn btn--rouge">
+            <svg class="icone" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M6.6 10.8a15.5 15.5 0 0 0 6.6 6.6l2.2-2.2a1 1 0 0 1 1-.25 11.4 11.4 0 0 0 3.6.57 1 1 0 0 1 1 1V20a1 1 0 0 1-1 1A17 17 0 0 1 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1 11.4 11.4 0 0 0 .57 3.6 1 1 0 0 1-.25 1z"/></svg>
+            {SITE.tel}
+          </a>
+          <a href="/devis-gratuit/" class="btn btn--bleu">Devis gratuit →</a>
+        </div>
+      </div>
+      <img
+        src="/images/photos/hydrofuge-toiture.webp"
+        alt="Toiture en tuiles propre et protégée après traitement hydrofuge en Eure-et-Loir"
+        fetchpriority="high"
+        width="2000"
+        height="1500"
+      />
+    </div>
+  </section>
+
+  <!-- ── Pourquoi un traitement hydrofuge ─────────────────────── -->
+  <section class="section section--gris">
+    <div class="conteneur">
+      <div class="section__entete section__entete--gauche">
+        <h2>Pourquoi appliquer un traitement hydrofuge ?</h2>
+      </div>
+      <p>
+        Nettoyer un toit lui redonne son éclat, mais sans protection les mousses reviennent vite. Une
+        tuile poreuse absorbe l'eau de pluie, se dégrade sous l'effet du gel et perd de son étanchéité
+        au fil des saisons. Le traitement hydrofuge répond exactement à ce besoin : protéger le toit
+        une fois qu'il est propre.
+      </p>
+      <p>
+        En rendant vos tuiles imperméables, l'hydrofuge fait glisser l'eau au lieu de la laisser
+        pénétrer. Résultat : un toit qui reste propre plus longtemps, des matériaux préservés et une
+        couverture dont vous prolongez nettement la durée de vie. Un investissement simple pour
+        protéger durablement votre maison.
+      </p>
+      <h3>Hydrofuge incolore ou résine colorée</h3>
+      <p>
+        Selon l'état et la teinte de votre couverture, nous appliquons un hydrofuge incolore qui
+        laisse respirer la tuile, ou une résine colorée qui protège et ravive l'aspect du toit. Ce
+        traitement vient toujours après un
+        <a href="/prestations/nettoyage-demoussage-toiture/">nettoyage et démoussage de toiture</a>
+        soigné, condition indispensable à sa bonne tenue.
+      </p>
+    </div>
+  </section>
+
+  <!-- ── Savoir-faire Renaud Rénov ────────────────────────────── -->
+  <section class="section">
+    <div class="conteneur duo duo--inverse">
+      <div>
+        <h2>Un artisan couvreur de confiance en Eure-et-Loir</h2>
+        <p>
+          Nettoyage, démoussage et traitement hydrofuge forment la spécialité de Renaud Rénov.
+          Entreprise familiale installée à <strong>{SITE.ville}</strong>, nous protégeons les toitures
+          de toute l'<strong>Eure-et-Loir (28)</strong> avec des produits professionnels et une
+          application maîtrisée.
+        </p>
+        <p>
+          Un travail soigné, transmis de père en fils, et la garantie décennale sur l'ensemble de nos
+          interventions. Nous vous conseillons le traitement le mieux adapté à votre toit, sans jargon
+          et sans engagement.
+        </p>
+        <a href="/devis-gratuit/" class="btn btn--bleu">Protéger ma toiture</a>
+      </div>
+      <img
+        src="/images/photos/hero-toiture-renaud-renov.webp"
+        alt="Toiture en tuiles saine et protégée après traitement hydrofuge en Eure-et-Loir"
+        loading="lazy"
+        width="1500"
+        height="2000"
+      />
+    </div>
+  </section>
+
+  <!-- ── Avis clients ─────────────────────────────────────────── -->
+  <AvisCarrousel tag="hydrofuge" ordre={2} />
+
+  <!-- ── Maillage interne ─────────────────────────────────────── -->
+  <PrestationsConnexes slugs={["nettoyage-demoussage-toiture", "renovation-toiture", "couverture"]} />
+
+  <!-- ── CTA devis ────────────────────────────────────────────── -->
+  <CtaDevis />
+</BaseLayout>

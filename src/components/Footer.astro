@@ -23,7 +23,7 @@ import reviews from '../data/reviews.json';
       <h2>Nos services</h2>
       <ul>
         {services.map((s) => (
-          <li><a href="/#nos-services">{s.labelNav}</a></li>
+          <li><a href={s.href}>{s.labelNav}</a></li>
         ))}
       </ul>
     </nav>

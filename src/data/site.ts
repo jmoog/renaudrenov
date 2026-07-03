@@ -2,8 +2,8 @@
 // Informations centrales de l'entreprise — modifier ici se répercute partout.
 // ─────────────────────────────────────────────────────────────────────────
 export const SITE = {
-  nom: 'RENAUD RENOV',
-  nomLegal: 'ENTREPRISE RENAUD RENOV',
+  nom: 'RENAUD RÉNOV',
+  nomLegal: 'ENTREPRISE RENAUD RÉNOV',
   slogan: 'Artisan couvreur en Eure-et-Loir (28)',
   baseline: 'Couverture · Nettoyage & démoussage · Zinguerie',
 

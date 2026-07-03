@@ -1,0 +1,114 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { SITE } from '../../data/site.ts';
+import FilAriane from '../../components/FilAriane.astro';
+import AvisCarrousel from '../../components/AvisCarrousel.astro';
+import CtaDevis from '../../components/CtaDevis.astro';
+import PrestationsConnexes from '../../components/PrestationsConnexes.astro';
+
+const title = 'Nettoyage et démoussage de toiture en Eure-et-Loir (28)';
+const description =
+  "Mousses, lichens, traînées noires ? Renaud Rénov redonne un toit propre et étanche aux maisons d'Eure-et-Loir. Déplacement et devis gratuits.";
+---
+<BaseLayout title={title} description={description}>
+  <!-- ── Hero prestation ──────────────────────────────────────── -->
+  <section class="section">
+    <div class="conteneur">
+      <FilAriane items={[{ label: 'Accueil', href: '/' }, { label: 'Nettoyage et démoussage de toiture' }]} />
+    </div>
+    <div class="conteneur duo">
+      <div>
+        <h1>Un toit propre, débarrassé des mousses et des lichens</h1>
+        <p class="hero__accroche">
+          Votre toiture se couvre de mousses, de lichens et de traînées noires ? Renaud Rénov,
+          artisan couvreur en <strong>Eure-et-Loir (28)</strong>, nettoie et démousse votre toit
+          pour lui redonner son aspect d'origine et préserver son étanchéité.
+        </p>
+        <p>
+          Une intervention simple, réalisée par un professionnel de proximité, qui protège votre
+          toiture pour de nombreuses années et valorise votre maison.
+        </p>
+        <div class="hero__actions">
+          <a href={SITE.telHref} class="btn btn--rouge">
+            <svg class="icone" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M6.6 10.8a15.5 15.5 0 0 0 6.6 6.6l2.2-2.2a1 1 0 0 1 1-.25 11.4 11.4 0 0 0 3.6.57 1 1 0 0 1 1 1V20a1 1 0 0 1-1 1A17 17 0 0 1 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1 11.4 11.4 0 0 0 .57 3.6 1 1 0 0 1-.25 1z"/></svg>
+            {SITE.tel}
+          </a>
+          <a href="/devis-gratuit/" class="btn btn--bleu">Devis gratuit →</a>
+        </div>
+      </div>
+      <img
+        src="/images/photos/nettoyage-demoussage-toiture.webp"
+        alt="Artisan Renaud Rénov nettoyant une toiture au jet en Eure-et-Loir"
+        fetchpriority="high"
+        width="2000"
+        height="1500"
+      />
+    </div>
+  </section>
+
+  <!-- ── Pourquoi nettoyer sa toiture ─────────────────────────── -->
+  <section class="section section--gris">
+    <div class="conteneur">
+      <div class="section__entete section__entete--gauche">
+        <h2>Pourquoi faire nettoyer et démousser votre toiture ?</h2>
+      </div>
+      <p>
+        Une toiture envahie par la mousse retient l'humidité en permanence. Les tuiles se gorgent
+        d'eau, gèlent en hiver, se fissurent, et les infiltrations finissent par gagner la charpente.
+        Ce qui n'était qu'un problème d'apparence devient vite un risque pour l'ensemble de votre toit.
+      </p>
+      <p>
+        Faire nettoyer sa toiture, c'est agir avant que les dégâts n'arrivent. Un toit propre et
+        démoussé retrouve toute son étanchéité, dure bien plus longtemps et redonne à votre maison
+        un aspect net et entretenu. C'est l'entretien le plus simple pour protéger durablement votre bien.
+      </p>
+      <h3>Notre méthode</h3>
+      <p>
+        Brossage manuel ou nettoyage adapté à votre couverture, élimination complète des mousses et
+        des lichens, puis rinçage soigné : nous traitons la tuile terre cuite comme l'ardoise, sans
+        agresser vos matériaux. Pour une protection qui dure, ce nettoyage se prolonge idéalement par
+        un <a href="/prestations/traitement-hydrofuge/">traitement hydrofuge de toiture</a>.
+      </p>
+    </div>
+  </section>
+
+  <!-- ── Savoir-faire Renaud Rénov ────────────────────────────── -->
+  <section class="section">
+    <div class="conteneur duo duo--inverse">
+      <div>
+        <h2>Votre spécialiste du démoussage en Eure-et-Loir</h2>
+        <p>
+          Le nettoyage de toiture est l'un des cœurs de métier de Renaud Rénov. Entreprise familiale
+          installée à <strong>{SITE.ville}</strong>, nous intervenons chaque semaine sur les toits de
+          l'<strong>Eure-et-Loir (28)</strong> et connaissons les couvertures de la région.
+        </p>
+        <p>
+          Un travail soigné, réalisé par le père et le fils, salué par de nombreux clients sur Google.
+          C'est justement pour le nettoyage et le démoussage que nos clients nous recommandent le plus
+          souvent : la meilleure preuve de notre savoir-faire.
+        </p>
+        <p>
+          Déplacement, conseil et devis gratuits, sans engagement, et l'ensemble de nos travaux
+          couverts par la garantie décennale.
+        </p>
+        <a href="/devis-gratuit/" class="btn btn--bleu">Nettoyer et démousser mon toit</a>
+      </div>
+      <img
+        src="/images/photos/nettoyage-toiture-resultat.webp"
+        alt="Maison à la toiture propre après nettoyage et démoussage par Renaud Rénov en Eure-et-Loir"
+        loading="lazy"
+        width="2000"
+        height="1500"
+      />
+    </div>
+  </section>
+
+  <!-- ── Avis clients ─────────────────────────────────────────── -->
+  <AvisCarrousel tag="nettoyage" />
+
+  <!-- ── Maillage interne ─────────────────────────────────────── -->
+  <PrestationsConnexes slugs={["traitement-hydrofuge", "reparation-toiture", "renovation-toiture"]} />
+
+  <!-- ── CTA devis ────────────────────────────────────────────── -->
+  <CtaDevis />
+</BaseLayout>

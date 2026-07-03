@@ -5,8 +5,11 @@
     "label": "Nettoyage et démoussage de toiture",
     "accroche": "Brossage, nettoyage et élimination des mousses et lichens pour préserver l'étanchéité et prolonger la vie de votre toit.",
     "image": "/images/photos/nettoyage-demoussage-toiture.webp",
-    "alt": "Artisan Renaud Renov nettoyant une toiture au jet en Eure-et-Loir",
-    "lien": "Nettoyer et démousser mon toit"
+    "alt": "Artisan Renaud Rénov nettoyant une toiture au jet en Eure-et-Loir",
+    "lien": "Nettoyer et démousser mon toit",
+    "href": "/prestations/nettoyage-demoussage-toiture/",
+    "avisTag": "nettoyage",
+    "connexes": ["traitement-hydrofuge", "reparation-toiture", "renovation-toiture"]
   },
   {
     "slug": "traitement-hydrofuge",
@@ -15,16 +18,10 @@
     "accroche": "Application de résine et de traitements hydrofuges colorés qui protègent durablement les tuiles et limitent la repousse des mousses.",
     "image": "/images/photos/hydrofuge-toiture.webp",
     "alt": "Toiture en tuiles propre et protégée après traitement hydrofuge en Eure-et-Loir",
-    "lien": "Protéger ma toiture (hydrofuge)"
-  },
-  {
-    "slug": "renovation-toiture",
-    "labelNav": "Rénovation",
-    "label": "Rénovation et réfection de toiture",
-    "accroche": "Reprise partielle ou réfection complète : liteaunage, écran sous-toiture et couverture neuve pour un toit sain et durable.",
-    "image": "/images/photos/renovation-toiture.webp",
-    "alt": "Rénovation de toiture avec liteaunage neuf sur charpente en Eure-et-Loir",
-    "lien": "Rénover ma toiture"
+    "lien": "Protéger ma toiture (hydrofuge)",
+    "href": "/prestations/traitement-hydrofuge/",
+    "avisTag": "hydrofuge",
+    "connexes": ["nettoyage-demoussage-toiture", "renovation-toiture", "couverture"]
   },
   {
     "slug": "reparation-toiture",
@@ -33,42 +30,57 @@
     "accroche": "Tuiles cassées, ardoises déplacées, faîtage abîmé, infiltrations : intervention rapide pour remettre votre toit hors d'eau.",
     "image": "/images/photos/reparation-toiture.webp",
     "alt": "Réparation du faîtage d'une toiture en tuiles en Eure-et-Loir",
-    "lien": "Réparer ma toiture"
+    "lien": "Réparer ma toiture",
+    "href": "/prestations/reparation-toiture/",
+    "avisTag": "reparation",
+    "connexes": ["renovation-toiture", "zinguerie", "nettoyage-demoussage-toiture"]
+  },
+  {
+    "slug": "renovation-toiture",
+    "labelNav": "Rénovation",
+    "label": "Rénovation et réfection de toiture",
+    "accroche": "Reprise partielle ou réfection complète : liteaunage, écran sous-toiture et couverture neuve pour un toit sain et durable.",
+    "image": "/images/photos/renovation-toiture.webp",
+    "alt": "Rénovation de toiture avec liteaunage neuf sur charpente en Eure-et-Loir",
+    "lien": "Rénover ma toiture",
+    "href": "/prestations/renovation-toiture/",
+    "avisTag": "renovation",
+    "connexes": ["couverture", "reparation-toiture", "zinguerie"]
   },
   {
     "slug": "zinguerie",
     "labelNav": "Zinguerie",
     "label": "Zinguerie : noues, chéneaux, cheminées",
     "accroche": "Travail du zinc soigné : noues, abergements, solins de cheminée et chéneaux pour une étanchéité parfaite face aux intempéries.",
-    "image": "/images/photos/zinguerie-cheminee.webp",
-    "alt": "Souche de cheminée et zinguerie réalisées par Renaud Renov en Eure-et-Loir",
-    "lien": "Mes travaux de zinguerie"
+    "image": "/images/photos/zinguerie-epi.webp",
+    "alt": "Épi de faîtage en zinc réalisé par Renaud Rénov, artisan couvreur-zingueur en Eure-et-Loir",
+    "lien": "Mes travaux de zinguerie",
+    "href": "/prestations/zinguerie/",
+    "avisTag": null,
+    "connexes": ["pose-gouttiere", "reparation-toiture", "couverture"]
+  },
+  {
+    "slug": "pose-gouttiere",
+    "labelNav": "Pose de gouttière",
+    "label": "Pose de gouttière",
+    "accroche": "Pose, remplacement et raccordement de gouttières et descentes pour évacuer les eaux de pluie et protéger façades et fondations.",
+    "image": "/images/photos/gouttiere-descente.webp",
+    "alt": "Descente de gouttière posée le long d'un pignon par Renaud Rénov en Eure-et-Loir",
+    "lien": "Poser ou remplacer mes gouttières",
+    "href": "/prestations/pose-gouttiere/",
+    "avisTag": null,
+    "connexes": ["zinguerie", "reparation-toiture", "renovation-toiture"]
   },
   {
     "slug": "couverture",
-    "labelNav": "Couverture",
+    "labelNav": "Couverture neuve",
     "label": "Couverture neuve : tuile et ardoise",
     "accroche": "Pose de couverture neuve, tuiles terre cuite, tuiles plates ou ardoise, pour une toiture étanche réalisée dans les règles de l'art.",
     "image": "/images/photos/couverture-tuile.webp",
-    "alt": "Toiture neuve en tuiles terre cuite posée par Renaud Renov en Eure-et-Loir",
-    "lien": "Découvrir la couverture neuve"
-  },
-  {
-    "slug": "ravalement-facade",
-    "labelNav": "Ravalement façade",
-    "label": "Nettoyage et ravalement de façade",
-    "accroche": "Nettoyage de pignons, murs et terrasses : on efface traînées, mousses et salissures pour redonner un aspect neuf à votre extérieur.",
-    "image": "/images/photos/ravalement-facade.webp",
-    "alt": "Façade et pignon nettoyés après ravalement par Renaud Renov en Eure-et-Loir",
-    "lien": "Nettoyer ma façade"
-  },
-  {
-    "slug": "batiment-metallique",
-    "labelNav": "Bâtiment métallique",
-    "label": "Bâtiments et bardage métalliques",
-    "accroche": "Construction et bardage de bâtiments métalliques (hangars, dépendances) pour vos projets agricoles, professionnels ou particuliers.",
-    "image": "/images/photos/batiment-metallique.webp",
-    "alt": "Bâtiment métallique avec bardage réalisé par Renaud Renov en Eure-et-Loir",
-    "lien": "Mon projet de bâtiment métallique"
+    "alt": "Toiture neuve en tuiles terre cuite posée par Renaud Rénov en Eure-et-Loir",
+    "lien": "Découvrir la couverture neuve",
+    "href": "/prestations/couverture/",
+    "avisTag": "renovation",
+    "connexes": ["renovation-toiture", "zinguerie", "traitement-hydrofuge"]
   }
 ]

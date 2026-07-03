@@ -9,7 +9,7 @@ export const prerender = false;
 //   BREVO_API_KEY        → Clé API Brevo (xkeysib-...)
 //   ADMIN_EMAILS         → emails admin séparés par virgule (notification)
 //   FROM_EMAIL           → expéditeur vérifié dans Brevo (ex. artisan.renaud.couverture@gmail.com)
-//   FROM_NAME            → Renaud Renov - Couvreur 28 (optionnel)
+//   FROM_NAME            → Renaud Rénov - Couvreur 28 (optionnel)
 //   TURNSTILE_SECRET_KEY → clé secrète Cloudflare Turnstile (anti-robot)
 //   SPAM_RULES_URL       → JSON central des règles anti-spam (optionnel)
 //
@@ -32,7 +32,7 @@ const PRESTATION_LABELS: Record<string, string> = {
   'autre':                   'Autre / à préciser',
 };
 
-// Charte Renaud Renov (marine + orange)
+// Charte Renaud Rénov (marine + orange)
 const COLOR_BLUE   = '#244b64';
 const COLOR_BLUE_D = '#173445';
 const COLOR_ORANGE = '#ef7e0f';
@@ -45,7 +45,7 @@ const SITE_URL   = 'https://renaud-renov.fr';
 const TEL        = '07 64 40 24 22';
 const TEL_HREF   = 'tel:+33764402422';
 const ARTISAN    = 'Jordy Renaud';
-const ENTREPRISE = 'Renaud Renov - Couvreur en Eure-et-Loir (28)';
+const ENTREPRISE = 'Renaud Rénov - Couvreur en Eure-et-Loir (28)';
 const LOGO_URL   = `${SITE_URL}/images/logo/logo-renaud-renov-512.webp`;
 
 // ────────────────────────────────────────────────────────────────────────
@@ -175,7 +175,7 @@ function notifTemplate(d: DevisData) {
             </tr>
             <tr>
               <td style="padding:8px 0;">
-                <a href="mailto:${escapeHtml(d.email)}?subject=${encodeURIComponent('Re: votre demande de devis - Renaud Renov')}" style="display:block;background:${COLOR_BLUE};color:#fff;text-decoration:none;padding:20px 24px;border-radius:10px;font-weight:700;font-size:17px;line-height:1.3;text-align:center;">✉️ Répondre par email</a>
+                <a href="mailto:${escapeHtml(d.email)}?subject=${encodeURIComponent('Re: votre demande de devis - Renaud Rénov')}" style="display:block;background:${COLOR_BLUE};color:#fff;text-decoration:none;padding:20px 24px;border-radius:10px;font-weight:700;font-size:17px;line-height:1.3;text-align:center;">✉️ Répondre par email</a>
               </td>
             </tr>
           </table>
@@ -206,7 +206,7 @@ function notifTemplate(d: DevisData) {
 
 function ackTemplate(d: DevisData) {
   const presta = PRESTATION_LABELS[d.prestation] || d.prestation || 'votre demande';
-  const subject = `Nous avons bien reçu votre demande - Renaud Renov`
+  const subject = `Nous avons bien reçu votre demande - Renaud Rénov`
   const prenom = (d.nom || '').split(' ')[0];
 
   const html = `<!DOCTYPE html>
@@ -217,7 +217,7 @@ function ackTemplate(d: DevisData) {
       <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="600" style="max-width:600px;background:#fff;border-radius:12px;overflow:hidden;box-shadow:0 4px 20px rgba(0,0,0,0.06);">
         <tr><td style="background:${COLOR_BLUE_D};padding:32px 32px 28px;color:#fff;text-align:center;">
           <img src="${LOGO_URL}" width="72" height="72" alt="${ENTREPRISE}" style="display:block;margin:0 auto 14px;border-radius:14px;background:#fff;padding:8px;box-sizing:border-box;">
-          <div style="font-size:20px;font-weight:800;">Renaud Renov</div>
+          <div style="font-size:20px;font-weight:800;">Renaud Rénov</div>
           <div style="font-size:13px;opacity:.85;margin-top:2px;">Artisan couvreur en Eure-et-Loir (28)</div>
         </td></tr>
         <tr><td style="padding:32px 32px 12px;">
@@ -401,7 +401,7 @@ export const POST: APIRoute = async ({ request }) => {
   const r2 = await brevoSend({
     apiKey,
     fromEmail,
-    fromName: `${ARTISAN} - Renaud Renov`,
+    fromName: `${ARTISAN} - Renaud Rénov`,
     to: [{ email: data.email, name: data.nom }],
     replyTo: { email: fromEmail, name: fromName },
     subject: ack.subject,

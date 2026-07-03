@@ -1,0 +1,31 @@
+---
+// Bloc de maillage interne : cartes vers les prestations connexes.
+import services from '../data/services.json';
+
+export interface Props {
+  slugs: string[];
+  titre?: string;
+}
+const { slugs, titre = 'Nos autres prestations de couverture' } = Astro.props;
+
+const connexes = slugs
+  .map((slug) => services.find((s) => s.slug === slug))
+  .filter((s): s is (typeof services)[number] => Boolean(s));
+---
+<section class="section section--gris">
+  <div class="conteneur">
+    <h2>{titre}</h2>
+    <div class="grille-services">
+      {connexes.map((s) => (
+        <a href={s.href} class="carte carte-service">
+          <img src={s.image} alt={s.alt} loading="lazy" width="400" height="250" />
+          <span class="carte-service__corps">
+            <h3>{s.label}</h3>
+            <p>{s.accroche}</p>
+            <span class="carte-service__lien">{s.lien} →</span>
+          </span>
+        </a>
+      ))}
+    </div>
+  </div>
+</section>
