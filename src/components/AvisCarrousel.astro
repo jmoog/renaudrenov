@@ -6,8 +6,10 @@ export interface Props {
   tag?: string;
   lieu?: string;
   ordre?: number;
+  titre?: string;
 }
-const { tag, lieu = 'en Eure-et-Loir', ordre = 0 } = Astro.props;
+const { tag, lieu = 'en Eure-et-Loir', ordre = 0, titre } = Astro.props;
+const titreAffiche = titre ?? `Les avis de mes clients ${lieu}`;
 
 const base = reviews.avis;
 const n = base.length;
@@ -24,7 +26,7 @@ const avisTries = tag
 ---
 <section class="section section--gris avis-carrousel">
   <div class="conteneur">
-    <h2>Les avis de mes clients {lieu}</h2>
+    <h2>{titreAffiche}</h2>
     <p class="note-google">
       <span class="avis__etoiles" aria-hidden="true">★★★★★</span>
       <strong>{reviews.note.toLocaleString('fr-FR')}/5</strong> · {reviews.nombre} avis Google ·

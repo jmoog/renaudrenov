@@ -8,14 +8,14 @@ import CtaDevis from '../components/CtaDevis.astro';
 import reviews from '../data/reviews.json';
 ---
 <BaseLayout
-  title="Couvreur en Eure-et-Loir (28) — Renaud Rénov | Devis gratuit"
-  description="Nettoyage et démoussage de toiture, traitement hydrofuge, réparation, rénovation, couverture, zinguerie et pose de gouttière en Eure-et-Loir. Artisan couvreur à Villiers-le-Morhier, garantie décennale, devis gratuit."
+  title="Couvreur 28 - Renaud Rénov - un pro de la toiture"
+  description="Couvreur zingueur en Eure-et-Loir (28) - tous travaux de couverture - entretien, réparation et rénovation de toiture. Devis gratuit."
 >
   <!-- ── Hero clair, deux colonnes ────────────────────────────── -->
   <section class="hero">
     <div class="conteneur hero__grille">
       <div class="hero__texte">
-        <h1>Couvreur en Eure-et-Loir (28)</h1>
+        <h1>Entreprise de couverture en Eure-et-Loir (28)</h1>
         <p class="hero__marque">RENAUD RÉNOV</p>
         <p class="hero__google">
           <span class="hero__etoiles" aria-hidden="true">★★★★★</span>
@@ -75,15 +75,15 @@ import reviews from '../data/reviews.json';
   </div>
 
   <!-- ── Avis clients ─────────────────────────────────────────── -->
-  <AvisCarrousel />
+  <AvisCarrousel titre="Ce que mes clients pensent de mon travail" />
 
   <!-- ── CTA devis ────────────────────────────────────────────── -->
-  <CtaDevis />
+  <CtaDevis titre="Parlons de votre projet de toiture" />
 
   <!-- ── Services ─────────────────────────────────────────────── -->
   <section id="nos-services" class="section section--gris">
     <div class="conteneur">
-      <h2>Notre savoir-faire d'artisan couvreur 28</h2>
+      <h2>Notre savoir-faire, transmis de père en fils</h2>
       <div class="grille-services">
         {services.map((s) => (
           <a href={s.href} class="carte carte-service">

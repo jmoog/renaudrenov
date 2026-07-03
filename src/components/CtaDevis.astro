@@ -1,6 +1,11 @@
 ---
 // Bandeau CTA devis : photo de l'artisan à gauche, panneau marine à droite.
 import { SITE } from '../data/site.ts';
+
+export interface Props {
+  titre?: string;
+}
+const { titre = 'Contactez votre artisan couvreur' } = Astro.props;
 ---
 <section class="cta-devis">
   <div class="conteneur cta-devis__grille">
@@ -13,7 +18,7 @@ import { SITE } from '../data/site.ts';
       height="2000"
     />
     <div class="cta-devis__panneau">
-      <h2>Contactez votre artisan couvreur</h2>
+      <h2>{titre}</h2>
       <p class="cta-devis__texte">
         Une toiture à nettoyer, des tuiles à remplacer ou un projet de rénovation ?
         J'interviens à {SITE.ville} et dans toute l'{SITE.departement} ({SITE.departementNum}),
