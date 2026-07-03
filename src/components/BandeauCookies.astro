@@ -1,0 +1,99 @@
+---
+// Bandeau de consentement RGPD : Google Analytics ne se charge qu'après « Accepter ».
+// Le choix est mémorisé dans localStorage (clé « rr-cookies » : accepte / refuse).
+---
+<div id="bandeau-cookies" class="bandeau" hidden role="dialog" aria-live="polite" aria-label="Consentement aux cookies">
+  <p class="bandeau__texte">
+    <span class="bandeau__emoji" aria-hidden="true">🍪</span>
+    Ce site utilise des cookies de mesure d'audience (Google&nbsp;Analytics) pour améliorer votre
+    expérience. Vous pouvez accepter ou refuser.
+    <a href="/mentions-legales/">En savoir plus</a>
+  </p>
+  <div class="bandeau__actions">
+    <button type="button" id="cookies-refuser" class="bandeau__btn bandeau__btn--refuser">Refuser</button>
+    <button type="button" id="cookies-accepter" class="bandeau__btn bandeau__btn--accepter">Accepter</button>
+  </div>
+</div>
+
+<style>
+  .bandeau {
+    position: fixed;
+    inset-inline: 1rem;
+    bottom: 1rem;
+    z-index: 1000;
+    max-width: 40rem;
+    margin-inline: auto;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.75rem 1rem;
+    padding: 1rem 1.25rem;
+    background: var(--bleu, #244b64);
+    color: #fff;
+    border-radius: 0.75rem;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.35);
+  }
+  .bandeau__texte {
+    flex: 1 1 18rem;
+    margin: 0;
+    font-size: 0.9rem;
+    line-height: 1.5;
+  }
+  .bandeau__texte a {
+    color: #fff;
+    text-decoration: underline;
+  }
+  .bandeau__emoji {
+    font-size: 1.25rem;
+    margin-right: 0.35rem;
+    vertical-align: -0.1em;
+  }
+  .bandeau__actions {
+    display: flex;
+    gap: 0.5rem;
+    margin-left: auto;
+  }
+  .bandeau__btn {
+    font: inherit;
+    font-weight: 600;
+    padding: 0.55rem 1.1rem;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    border: 1px solid transparent;
+  }
+  .bandeau__btn--accepter {
+    background: var(--rouge, #ef7e0f);
+    color: #fff;
+    border-color: var(--rouge, #ef7e0f);
+  }
+  .bandeau__btn--refuser {
+    background: transparent;
+    color: #fff;
+    border-color: rgba(255, 255, 255, 0.6);
+  }
+  .bandeau__btn:hover {
+    opacity: 0.88;
+  }
+</style>
+
+<script is:inline>
+  (function () {
+    var bandeau = document.getElementById('bandeau-cookies');
+    if (!bandeau) return;
+    var choix = null;
+    try { choix = localStorage.getItem('rr-cookies'); } catch (e) {}
+    if (choix === 'accepte' || choix === 'refuse') return; // choix déjà fait, bandeau masqué
+
+    bandeau.hidden = false;
+
+    function repondre(valeur) {
+      try { localStorage.setItem('rr-cookies', valeur); } catch (e) {}
+      bandeau.hidden = true;
+      if (valeur === 'accepte' && typeof window.rrLoadAnalytics === 'function') {
+        window.rrLoadAnalytics();
+      }
+    }
+    document.getElementById('cookies-accepter').addEventListener('click', function () { repondre('accepte'); });
+    document.getElementById('cookies-refuser').addEventListener('click', function () { repondre('refuse'); });
+  })();
+</script>

@@ -4,6 +4,7 @@ import { Font } from 'astro:assets';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import FloatingContact from '../components/FloatingContact.astro';
+import BandeauCookies from '../components/BandeauCookies.astro';
 import { SITE } from '../data/site.ts';
 
 export interface Props {
@@ -39,6 +40,7 @@ const canonicalURL = canonical || new URL(Astro.url.pathname, Astro.site).toStri
 
     <title>{title}</title>
     <meta name="description" content={description} />
+    <meta name="google-site-verification" content="CmFFNCQIv9r4qBSILwhPX2NI5BfN4uDdY0SdGajsOwk" />
     <link rel="canonical" href={canonicalURL} />
 
     <meta name="geo.region" content="FR-28" />
@@ -88,6 +90,26 @@ const canonicalURL = canonical || new URL(Astro.url.pathname, Astro.site).toStri
     {extraSchemas.map((schema) => (
       <script type="application/ld+json" set:html={JSON.stringify(schema)} />
     ))}
+
+    <!-- Google tag (gtag.js) — chargé uniquement après consentement (bandeau cookies RGPD) -->
+    <script is:inline>
+      window.rrLoadAnalytics = function () {
+        if (window.rrGaLoaded) return;
+        window.rrGaLoaded = true;
+        var s = document.createElement('script');
+        s.async = true;
+        s.src = 'https://www.googletagmanager.com/gtag/js?id=G-QF3D4SFKSG';
+        document.head.appendChild(s);
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        window.gtag = gtag;
+        gtag('js', new Date());
+        gtag('config', 'G-QF3D4SFKSG');
+      };
+      try {
+        if (localStorage.getItem('rr-cookies') === 'accepte') window.rrLoadAnalytics();
+      } catch (e) {}
+    </script>
   </head>
   <body>
     <Header />
@@ -96,5 +118,6 @@ const canonicalURL = canonical || new URL(Astro.url.pathname, Astro.site).toStri
     </main>
     <Footer />
     <FloatingContact />
+    <BandeauCookies />
   </body>
 </html>
