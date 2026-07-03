@@ -16,6 +16,10 @@
 </div>
 
 <style>
+  /* Indispensable : display:flex ci-dessous écraserait l'attribut hidden sans cette règle */
+  .bandeau[hidden] {
+    display: none;
+  }
   .bandeau {
     position: fixed;
     inset-inline: 1rem;
