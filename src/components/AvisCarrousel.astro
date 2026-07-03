@@ -25,7 +25,7 @@ const avisTries = tag
     })
   : avisDecales;
 ---
-<section class="section section--gris avis-carrousel">
+<section class="section section--bleu avis-carrousel">
   <div class="conteneur">
     <h2>{titreAffiche}</h2>
     <p class="note-google">
@@ -61,6 +61,13 @@ const avisTries = tag
 </section>
 
 <style>
+  /* Section avis sur fond marine foncé : détache nettement la section du
+     hero clair et fait ressortir les cartes d'avis blanches. */
+  .avis-carrousel .note-google { color: rgba(255, 255, 255, 0.9); }
+  .avis-carrousel .note-google strong { color: var(--blanc); }
+  .avis-carrousel .note-google a { color: var(--blanc); text-decoration: underline; }
+  .avis-carrousel .note-google a:hover { color: var(--rouge); }
+
   .carrousel { position: relative; margin-top: 2rem; display: flex; align-items: stretch; gap: 0.5rem; }
   .carrousel__piste {
     list-style: none;

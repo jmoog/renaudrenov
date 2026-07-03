@@ -310,32 +310,6 @@ h3 { font-size: 1.2rem; }
   .hero__media > .hero__garantie { order: 10; margin-top: 1.6rem; }
 }
 
-/* ── Bandeau de réassurance sous le hero ───────────────────────── */
-.reassurance { background: var(--bleu); color: var(--blanc); }
-.reassurance ul {
-  list-style: none;
-  padding: 0.9rem 1rem;
-  margin: 0 auto;
-  max-width: var(--conteneur);
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 0.5rem 2.2rem;
-  font-size: 0.92rem;
-  font-weight: 600;
-}
-.reassurance li { display: inline-flex; align-items: center; gap: 0.5em; }
-.reassurance .icone { color: var(--rouge); }
-/* Mobile : liste empilée et alignée à gauche */
-@media (max-width: 800px) {
-  .reassurance ul {
-    flex-direction: column;
-    align-items: flex-start;
-    justify-content: flex-start;
-    gap: 0.7rem;
-  }
-}
-
 /* ── Grille services ───────────────────────────────────────────── */
 .grille-services {
   display: grid;
