@@ -120,14 +120,18 @@ h3 { font-size: 1.2rem; }
     justify-content: center;
     gap: 0.9rem;
   }
-  /* Boutons d'action : pleine largeur plafonnée et centrés — ni collés,
-     ni étirés bord à bord, cible tactile généreuse */
-  .hero__actions .btn,
+  /* Boutons CTA (blocs devis / final) : pleine largeur plafonnée et centrés */
   .cta-devis__actions .btn,
   .cta-final__actions .btn {
     width: 100%;
     max-width: 360px;
     margin-inline: auto;
+  }
+  /* Boutons du hero : largeur naturelle (jamais pleine largeur), centrés
+     et espacés — plus compacts sur mobile */
+  .hero__actions .btn {
+    width: auto;
+    max-width: 100%;
   }
 
   /* Boutons seuls (fin des blocs texte) centrés */
