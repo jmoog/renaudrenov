@@ -1,0 +1,73 @@
+---
+// Bandeau des marques et fournisseurs de matériaux (logos cliquables).
+const marques = [
+  { nom: 'Gedimat Maintenon', url: 'https://www.gedimat.fr/?magDest=2573', logo: '/images/marques/logo-gedimat-maintenon.webp', alt: 'Gedimat Maintenon – matériaux de construction près de Villiers-le-Morhier' },
+  { nom: 'Point P', url: 'https://www.pointp.fr/infos-agence/chartres-mainvilliers-point-p-3370', logo: '/images/marques/logo-point-p.webp', alt: 'Point P Chartres-Mainvilliers – distributeur de matériaux de couverture' },
+  { nom: 'Larivière', url: 'https://www.lariviere.fr/', logo: '/images/marques/logo-lariviere.webp', alt: 'Larivière – négoce spécialisé couverture' },
+  { nom: 'Raboni', url: 'https://www.raboni.fr/', logo: '/images/marques/logo-raboni.webp', alt: 'Raboni – matériaux de construction et couverture' },
+  { nom: 'Edilians', url: 'https://www.edilians.com/', logo: '/images/marques/logo-edilians.webp', alt: 'Edilians – tuiles en terre cuite' },
+  { nom: 'Monier', url: 'https://www.monier.fr/', logo: '/images/marques/logo-monier.webp', alt: 'Monier – tuiles en terre cuite et béton pour la couverture' },
+  { nom: 'VM Zinc', url: 'https://www.vmzinc.fr/', logo: '/images/marques/logo-vmzinc.webp', alt: 'VM Zinc – zinc pour couverture et zinguerie' },
+  { nom: 'Velux', url: 'https://www.velux.fr/', logo: '/images/marques/logo-velux.webp', alt: 'Velux – fenêtres de toit' },
+];
+---
+<section class="section marques">
+  <div class="conteneur">
+    <h2>Des matériaux de qualité, choisis chez les grandes marques</h2>
+    <p class="marques__intro">
+      Tuiles, zinc, gouttières ou fenêtres de toit : je sélectionne mes matériaux auprès de
+      fabricants et distributeurs reconnus, pour une toiture durable.
+    </p>
+    <ul class="marques__grille">
+      {marques.map((m) => (
+        <li>
+          <a href={m.url} class="carte marques__carte" rel="noopener" target="_blank" aria-label={m.nom}>
+            <img src={m.logo} alt={m.alt} loading="lazy" height="56" />
+          </a>
+        </li>
+      ))}
+    </ul>
+  </div>
+</section>
+
+<style>
+  .marques h2 {
+    text-align: center;
+  }
+  .marques__intro {
+    text-align: center;
+    max-width: 46rem;
+    margin: 0.75rem auto 2rem;
+    color: var(--gris-700, #444);
+  }
+  .marques__grille {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 1rem;
+  }
+  /* Mobile / petites tablettes : 2 colonnes maximum (jamais 3),
+     pour des logos plus lisibles et un alignement propre */
+  @media (max-width: 800px) {
+    .marques__grille { grid-template-columns: repeat(2, 1fr); }
+  }
+  /* Très petits écrans : une seule colonne */
+  @media (max-width: 380px) {
+    .marques__grille { grid-template-columns: 1fr; }
+  }
+  .marques__carte {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1.1rem 1rem;
+    min-height: 96px;
+  }
+  .marques__carte img {
+    max-height: 56px;
+    max-width: 100%;
+    width: auto;
+    object-fit: contain;
+  }
+</style>

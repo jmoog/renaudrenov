@@ -113,11 +113,21 @@ h3 { font-size: 1.2rem; }
   }
 
 
-  /* Groupes de boutons centrés */
+  /* Groupes de boutons centrés, empilés et bien espacés (anti-mistap) */
   .hero__actions,
   .cta-devis__actions,
   .cta-final__actions {
     justify-content: center;
+    gap: 0.9rem;
+  }
+  /* Boutons d'action : pleine largeur plafonnée et centrés — ni collés,
+     ni étirés bord à bord, cible tactile généreuse */
+  .hero__actions .btn,
+  .cta-devis__actions .btn,
+  .cta-final__actions .btn {
+    width: 100%;
+    max-width: 360px;
+    margin-inline: auto;
   }
 
   /* Boutons seuls (fin des blocs texte) centrés */
@@ -135,6 +145,35 @@ h3 { font-size: 1.2rem; }
     margin-inline: auto;
   }
   .hero__google { justify-content: center; }
+}
+
+/* ── Rythme vertical du texte de contenu ───────────────────────── */
+/* Le reset global (« * { margin: 0 } ») supprime toutes les marges : on
+   les rétablit pour le texte éditorial (paragraphes, listes, sous-titres)
+   des sections et des blocs deux-colonnes. Sans ça, les paragraphes se
+   collent les uns aux autres — très visible sur mobile (colonne étroite). */
+.section > .conteneur > p,
+.section > .conteneur > ul,
+.section > .conteneur > ol,
+.duo > div > p,
+.duo > div > ul,
+.duo > div > ol {
+  margin-block: 1.05rem;
+}
+.section > .conteneur > h3,
+.duo > div > h3 {
+  margin-block: 1.8rem 0.5rem;
+}
+.section > .conteneur > *:first-child,
+.duo > div > *:first-child {
+  margin-top: 0;
+}
+/* Mobile : un peu plus d'air entre les paragraphes pour aérer la lecture */
+@media (max-width: 800px) {
+  .section > .conteneur > p,
+  .duo > div > p { margin-block: 1.15rem; }
+  .section > .conteneur > h3,
+  .duo > div > h3 { margin-block: 2rem 0.5rem; }
 }
 
 /* ── Layout ────────────────────────────────────────────────────── */
@@ -163,6 +202,7 @@ h3 { font-size: 1.2rem; }
   justify-content: center;
   gap: 0.5em;
   padding: 0.8em 1.6em;
+  min-height: 48px; /* cible tactile confortable (recommandation mobile) */
   border-radius: var(--rayon); /* 10px — pas de pills */
   font-weight: 700;
   font-size: 1rem;

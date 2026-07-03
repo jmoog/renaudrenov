@@ -3,6 +3,7 @@ import { SITE } from '../data/site.ts';
 import services from '../data/services.json';
 import villes from '../data/villes.json';
 import reviews from '../data/reviews.json';
+import LogoGoogle from './LogoGoogle.astro';
 ---
 <footer class="pied">
   <div class="conteneur pied__grille">
@@ -15,6 +16,7 @@ import reviews from '../data/reviews.json';
         <a href={`mailto:${SITE.email}`}>{SITE.email}</a>
       </p>
       <p class="pied__note">
+        <LogoGoogle taille={18} />
         <span class="pied__etoiles" aria-hidden="true">★★★★★</span> {reviews.note.toLocaleString('fr-FR')}/5 · {reviews.nombre} avis Google
       </p>
     </div>

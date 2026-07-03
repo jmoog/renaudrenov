@@ -197,14 +197,22 @@ const menuServices = services
       gap: 0;
       background: var(--blanc);
       box-shadow: var(--ombre-forte);
-      padding: 0.5rem 1rem 1.2rem;
+      padding: 0.5rem 1.1rem 1.4rem;
     }
     .entete__menu.ouvert { display: flex; }
     .entete__menu li { border-bottom: 1px solid var(--gris-100); }
     .entete__menu-mobile { display: block; }
-    .entete__menu a:not(.btn) { display: block; padding: 0.8em 0.2em; font-size: 1.02rem; }
-    .entete__menu-cta { display: block; border-bottom: none !important; padding-top: 0.8rem; }
-    .entete__menu-cta .btn { width: 100%; }
+    .entete__menu a:not(.btn) { display: block; padding: 0.9em 0.2em; font-size: 1.02rem; }
+    /* CTA du tiroir : boutons centrés et plafonnés (pas étirés bord à bord),
+       espacés l'un de l'autre pour éviter les mistaps */
+    .entete__menu-cta { display: block; border-bottom: none !important; }
+    .entete__menu-cta--devis { padding-top: 1rem; }
+    .entete__menu-cta--tel { padding-top: 0.7rem; }
+    .entete__menu-cta .btn {
+      width: 100%;
+      max-width: 320px;
+      margin-inline: auto;
+    }
   }
 </style>
 

@@ -6,6 +6,8 @@ import villes from '../data/villes.json';
 import AvisCarrousel from '../components/AvisCarrousel.astro';
 import CtaDevis from '../components/CtaDevis.astro';
 import reviews from '../data/reviews.json';
+import LogoGoogle from '../components/LogoGoogle.astro';
+import LogosMarques from '../components/LogosMarques.astro';
 ---
 <BaseLayout
   title="Couvreur 28 - Renaud Rénov - un pro de la toiture"
@@ -18,18 +20,19 @@ import reviews from '../data/reviews.json';
         <h1>Entreprise de couverture en Eure-et-Loir (28)</h1>
         <p class="hero__marque">RENAUD RÉNOV</p>
         <p class="hero__google">
+          <LogoGoogle taille={20} />
           <span class="hero__etoiles" aria-hidden="true">★★★★★</span>
           <strong>{reviews.note.toLocaleString('fr-FR')}/5 sur Google · {reviews.nombre} avis</strong>
         </p>
         <p class="hero__accroche">
-          Entreprise familiale de couverture installée à <strong>{SITE.ville}</strong>, je réalise
-          tous vos travaux de toiture : <strong>nettoyage et démoussage</strong>, traitement hydrofuge,
-          réparation, rénovation, couverture, zinguerie et pose de gouttière.
+          Je suis M. Renaud. À la tête de mon entreprise de couverture basée en
+          <strong>Eure-et-Loir</strong>, à <strong>{SITE.ville}</strong>, je réalise tous les travaux
+          de couverture : <strong>nettoyage et démoussage</strong>, traitement hydrofuge, réparation,
+          rénovation, couverture, zinguerie et pose de gouttière.
         </p>
         <p>
-          Un savoir-faire transmis <strong>de père en fils</strong>, au service des particuliers de
-          l'<strong>Eure-et-Loir</strong> (<strong>28</strong>), avec la garantie décennale sur
-          l'ensemble de mes travaux. Devis gratuit et sans engagement.
+          Je suis au service des particuliers partout dans le <strong>28</strong> et je propose des
+          <strong>devis gratuits et sans engagement</strong>.
         </p>
         <p>Mon métier, c'est de prendre soin de votre toit :</p>
         <ul>
@@ -203,6 +206,9 @@ import reviews from '../data/reviews.json';
       </div>
     </div>
   </section>
+
+  <!-- ── Marques & fournisseurs ───────────────────────────────── -->
+  <LogosMarques />
 
   <!-- ── Zone d'intervention ──────────────────────────────────── -->
   <section class="section section--gris">

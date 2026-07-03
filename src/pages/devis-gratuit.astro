@@ -3,6 +3,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import FilAriane from '../components/FilAriane.astro';
 import { SITE } from '../data/site.ts';
 import reviews from '../data/reviews.json';
+import LogoGoogle from '../components/LogoGoogle.astro';
 
 export const prerender = false;
 const turnstileSiteKey = process.env.TURNSTILE_SITE_KEY || '';
@@ -149,6 +150,7 @@ const avisDevis = reviews.avis.slice(0, 3);
         ))}
       </div>
       <p class="note-google">
+        <LogoGoogle taille={20} />
         <span class="avis__etoiles" aria-hidden="true">★★★★★</span>
         <strong>{reviews.note.toLocaleString('fr-FR')}/5</strong> · {reviews.nombre} avis Google ·
         <a href={reviews.urlFiche} rel="noopener" target="_blank">Voir tous les avis sur Google</a>
