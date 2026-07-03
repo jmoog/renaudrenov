@@ -8,9 +8,14 @@ export const SITE = {
   baseline: 'Couverture · Nettoyage & démoussage · Zinguerie',
 
   // Contact
-  tel: '07 64 40 24 22',
-  telE164: '+33764402422',
-  telHref: 'tel:+33764402422',
+  // Numéro principal (ligne fixe) — à mettre en avant partout.
+  tel: '02 34 40 17 61',
+  telE164: '+33234401761',
+  telHref: 'tel:+33234401761',
+  // Numéro mobile réservé aux urgences (fuite active, sinistre, bâchage).
+  telUrgence: '07 64 40 24 22',
+  telUrgenceE164: '+33764402422',
+  telUrgenceHref: 'tel:+33764402422',
   whatsapp: 'https://wa.me/33764402422',
   email: 'artisan.renaud.couverture@gmail.com',
 

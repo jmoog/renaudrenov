@@ -31,6 +31,10 @@ import { SITE } from '../data/site.ts';
         </a>
         <a href="/devis-gratuit/" class="btn btn--blanc">Devis gratuit →</a>
       </div>
+      <p class="cta-devis__urgence">
+        Urgence (fuite, sinistre, bâchage) ?
+        <a href={SITE.telUrgenceHref}>{SITE.telUrgence}</a>
+      </p>
     </div>
   </div>
 </section>
@@ -73,6 +77,8 @@ import { SITE } from '../data/site.ts';
     margin-right: 0.6em;
   }
   .cta-devis__actions { display: flex; flex-wrap: wrap; justify-content: flex-start; gap: 0.9rem; }
+  .cta-devis__urgence { margin: 0; font-size: 0.95rem; opacity: 0.9; }
+  .cta-devis__urgence a { color: var(--blanc); font-weight: 700; text-decoration: underline; }
   @media (max-width: 800px) {
     .cta-devis__actions { justify-content: center; width: 100%; }
   }
