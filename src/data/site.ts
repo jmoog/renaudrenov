@@ -40,5 +40,5 @@ export const SITE = {
   url: 'https://renaud-renov.fr',
 
   // Horaires
-  horaires: 'Du lundi au samedi, de 8 h 00 à 19 h 00',
+  horaires: 'Du lundi au samedi, de 8 h 00 à 20 h 00',
 };

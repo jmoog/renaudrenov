@@ -21,7 +21,7 @@
     "lien": "Protéger ma toiture (hydrofuge)",
     "href": "/prestations/traitement-hydrofuge/",
     "avisTag": "hydrofuge",
-    "connexes": ["nettoyage-demoussage-toiture", "renovation-toiture", "couverture"]
+    "connexes": ["nettoyage-demoussage-toiture", "renovation-toiture", "reparation-toiture"]
   },
   {
     "slug": "reparation-toiture",
@@ -45,7 +45,7 @@
     "lien": "Rénover ma toiture",
     "href": "/prestations/renovation-toiture/",
     "avisTag": "renovation",
-    "connexes": ["couverture", "reparation-toiture", "zinguerie"]
+    "connexes": ["reparation-toiture", "zinguerie", "traitement-hydrofuge"]
   },
   {
     "slug": "zinguerie",
@@ -57,7 +57,7 @@
     "lien": "Mes travaux de zinguerie",
     "href": "/prestations/zinguerie/",
     "avisTag": null,
-    "connexes": ["pose-gouttiere", "reparation-toiture", "couverture"]
+    "connexes": ["pose-gouttiere", "reparation-toiture", "renovation-toiture"]
   },
   {
     "slug": "pose-gouttiere",
@@ -70,17 +70,5 @@
     "href": "/prestations/pose-gouttiere/",
     "avisTag": null,
     "connexes": ["zinguerie", "reparation-toiture", "renovation-toiture"]
-  },
-  {
-    "slug": "couverture",
-    "labelNav": "Couverture neuve",
-    "label": "Couverture neuve : tuile et ardoise",
-    "accroche": "Pose de couverture neuve, tuiles terre cuite, tuiles plates ou ardoise, pour une toiture étanche réalisée dans les règles de l'art.",
-    "image": "/images/photos/couverture-tuile.webp",
-    "alt": "Toiture neuve en tuiles terre cuite posée par Renaud Rénov en Eure-et-Loir",
-    "lien": "Découvrir la couverture neuve",
-    "href": "/prestations/couverture/",
-    "avisTag": "renovation",
-    "connexes": ["renovation-toiture", "zinguerie", "traitement-hydrofuge"]
   }
 ]

@@ -1,6 +1,5 @@
 // @ts-check
 import { defineConfig, fontProviders } from 'astro/config';
-import sitemap from '@astrojs/sitemap';
 import node from '@astrojs/node';
 
 export default defineConfig({
@@ -29,21 +28,7 @@ export default defineConfig({
   adapter: node({ mode: 'standalone' }),
   security: { checkOrigin: false },
 
-  integrations: [
-    sitemap({
-      filter: (page) => !page.includes('/merci/'),
-      serialize(item) {
-        const u = new URL(item.url);
-        let path = u.pathname;
-        if (!path.endsWith('/')) path += '/';
-        if (path === '/') item.priority = 1.0;
-        else if (path === '/devis-gratuit/') item.priority = 0.9;
-        else if (path === '/a-propos/') item.priority = 0.7;
-        else if (['/mentions-legales/'].includes(path)) item.priority = 0.3;
-        else item.priority = 0.6;
-        item.changefreq = 'monthly';
-        return item;
-      },
-    }),
-  ],
+  // Pas d'intégration sitemap : on sert UN SEUL sitemap simple et lisible,
+  // maintenu à la main dans public/sitemap.xml (référencé par robots.txt).
+  // À mettre à jour lors de l'ajout/suppression d'une page.
 });

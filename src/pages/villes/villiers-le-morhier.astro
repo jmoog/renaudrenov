@@ -1,0 +1,384 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { SITE } from '../../data/site.ts';
+import services from '../../data/services.json';
+import reviews from '../../data/reviews.json';
+import FilAriane from '../../components/FilAriane.astro';
+import AvisCarrousel from '../../components/AvisCarrousel.astro';
+import CtaDevis from '../../components/CtaDevis.astro';
+import LogoGoogle from '../../components/LogoGoogle.astro';
+import LogosMarques from '../../components/LogosMarques.astro';
+
+const ville = 'Villiers-le-Morhier';
+
+// Marques mises en avant sur la page ville (4 logos).
+const marquesVille = [
+  { nom: 'Dalep', url: 'https://www.dalep.com/', logo: '/images/marques/logo-dalep.webp', alt: 'Dalep – traitements hydrofuges et anti-mousse pour toiture' },
+  { nom: 'Monier', url: 'https://www.monier.fr/', logo: '/images/marques/logo-monier.webp', alt: 'Monier – tuiles en terre cuite et béton pour la couverture' },
+  { nom: 'Edilians', url: 'https://www.edilians.com/', logo: '/images/marques/logo-edilians.webp', alt: 'Edilians – tuiles en terre cuite' },
+  { nom: 'Knauf', url: 'https://www.knaufinsulation.fr/', logo: '/images/marques/logo-knauf.webp', alt: 'Knauf – isolation thermique' },
+];
+
+const title = 'Couvreur à Villiers-le-Morhier (28) — Renaud Rénov';
+const description =
+  "Démoussage, réparation et rénovation de toiture, zinguerie sur le secteur de Villiers-le-Morhier (28130). Entreprise familiale, devis gratuit.";
+
+// Contenu des cards optimisé pour la page ville. Le nom de la commune n'est
+// ajouté que sur le nettoyage/démoussage et la réparation (services phares
+// locaux) ; les autres restent en formulation générique pour éviter la
+// sur-optimisation d'ancres géo vers les pages génériques.
+const cartesVille: Record<string, { titre: string; texte: string }> = {
+  'nettoyage-demoussage-toiture': {
+    titre: `Nettoyage et démoussage de toiture à ${ville}`,
+    texte:
+      "J'élimine mousses, lichens et traînées noires pour rendre à votre toit son étanchéité et son aspect d'origine.",
+  },
+  'traitement-hydrofuge': {
+    titre: 'Traitement hydrofuge de toiture',
+    texte:
+      "J'applique résine et hydrofuge pour protéger durablement vos tuiles et freiner la repousse des mousses.",
+  },
+  'reparation-toiture': {
+    titre: `Réparation de toiture à ${ville}`,
+    texte:
+      "Tuile cassée, ardoise déplacée, faîtage abîmé ou fuite : j'interviens vite pour remettre votre toit hors d'eau.",
+  },
+  'renovation-toiture': {
+    titre: 'Rénovation et réfection de toiture',
+    texte:
+      "Reprise partielle ou toit entièrement refait : liteaunage, écran sous-toiture et couverture neuve, saine et durable.",
+  },
+  zinguerie: {
+    titre: 'Zinguerie : noues, chéneaux, cheminées',
+    texte:
+      "Noues, solins de cheminée, chéneaux et abergements en zinc pour une étanchéité parfaite face aux intempéries.",
+  },
+  'pose-gouttiere': {
+    titre: 'Pose de gouttière',
+    texte:
+      "Pose et remplacement de gouttières et descentes pour évacuer les eaux de pluie et protéger vos façades.",
+  },
+};
+
+// Lien Google Maps depuis les coordonnées de l'entreprise.
+const mapsUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(
+  `${SITE.rue}, ${SITE.cp} ${SITE.ville}`
+)}`;
+
+// Schema de la page ville. On NE crée PAS une seconde entreprise : on réutilise
+// le MÊME @id que la fiche LocalBusiness globale (Google fusionne les nœuds de
+// même @id) et on y ajoute uniquement les facettes locales — areaServed sur la
+// commune, catalogue de prestations et knowsAbout. Conforme schema.org + Google
+// (une seule entité pour un établissement physique unique).
+const businessId = `${SITE.url}/#localbusiness`;
+const schemaVille = {
+  '@context': 'https://schema.org',
+  '@type': 'RoofingContractor',
+  '@id': businessId,
+  name: SITE.nom,
+  url: SITE.url,
+  areaServed: [
+    { '@type': 'AdministrativeArea', name: `${SITE.departement} (${SITE.departementNum})` },
+    { '@type': 'City', name: ville, postalCode: SITE.cp },
+  ],
+  knowsAbout: [
+    'Nettoyage de toiture',
+    'Démoussage de toiture',
+    'Traitement hydrofuge',
+    'Réparation de toiture',
+    'Rénovation de toiture',
+    'Zinguerie',
+    'Pose de gouttière',
+    'Couverture tuile et ardoise',
+  ],
+  hasOfferCatalog: {
+    '@type': 'OfferCatalog',
+    name: `Prestations de couverture à ${ville}`,
+    itemListElement: services.map((s, i) => ({
+      '@type': 'Offer',
+      position: i + 1,
+      itemOffered: {
+        '@type': 'Service',
+        name: s.label,
+        url: `${SITE.url}${s.href}`,
+        provider: { '@id': businessId },
+      },
+    })),
+  },
+};
+---
+<BaseLayout title={title} description={description} extraSchemas={[schemaVille]}>
+  <!-- ── Fil d'Ariane ─────────────────────────────────────────── -->
+  <section class="section" style="padding-block: 1.5rem 0;">
+    <div class="conteneur">
+      <FilAriane items={[{ label: 'Accueil', href: '/' }, { label: `Couvreur à ${ville}` }]} />
+    </div>
+  </section>
+
+  <!-- ── Hero (design repris de la home) ──────────────────────── -->
+  <section class="hero" style="padding-top: 1.5rem;">
+    <div class="conteneur hero__grille">
+      <div class="hero__texte">
+        <h1>Entreprise de couverture à {ville}</h1>
+        <p class="hero__marque">RENAUD RÉNOV</p>
+        <p class="hero__google">
+          <LogoGoogle taille={20} />
+          <span class="hero__etoiles" aria-hidden="true">★★★★★</span>
+          <strong>{reviews.note.toLocaleString('fr-FR')}/5 sur Google · {reviews.nombre} avis</strong>
+        </p>
+        <div class="hero__accroche hero__encadre">
+          <p>
+            Vous êtes à la recherche d'un <strong>artisan</strong> spécialiste de la
+            <strong>toiture</strong> à {ville} ? Vous souhaitez retirer les mousses de votre toit ?
+            Effectuer des réparations ? Vous envisagez de remplacer une toiture ancienne ?
+          </p>
+          <p>
+            Je suis M. Renaud, <strong>couvreur à {ville}</strong> : j'interviens rapidement chez
+            vous, mes <strong>devis</strong> sont <strong>gratuits</strong> et sans engagement.
+          </p>
+        </div>
+        <div class="hero__actions">
+          <a href={SITE.telHref} class="btn btn--rouge">
+            <svg class="icone" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M6.6 10.8a15.5 15.5 0 0 0 6.6 6.6l2.2-2.2a1 1 0 0 1 1-.25 11.4 11.4 0 0 0 3.6.57 1 1 0 0 1 1 1V20a1 1 0 0 1-1 1A17 17 0 0 1 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1 11.4 11.4 0 0 0 .57 3.6 1 1 0 0 1-.25 1z"/></svg>
+            {SITE.tel}
+          </a>
+          <a href="/devis-gratuit/" class="btn btn--bleu">Devis gratuit →</a>
+        </div>
+      </div>
+
+      <div class="hero__media">
+        <img
+          class="hero__photo"
+          src="/images/photos/hero-renaud-renov.webp"
+          srcset="/images/photos/hero-renaud-renov-640.webp 640w, /images/photos/hero-renaud-renov-960.webp 960w, /images/photos/hero-renaud-renov-1280.webp 1280w, /images/photos/hero-renaud-renov.webp 1600w"
+          sizes="(min-width: 980px) 540px, 94vw"
+          alt={`Le véhicule de Renaud Rénov devant une maison et sa toiture en tuiles à ${ville}`}
+          fetchpriority="high"
+          width="1600"
+          height="1200"
+        />
+        <div class="carte hero__garantie">
+          <img src="/images/logo/logo-renaud-renov-128.webp" alt="" width="80" height="80" loading="lazy" />
+          <p><strong>Garantie décennale</strong><br />Pour tous travaux de couverture</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Adresse & horaires (uniquement sur la page du siège) ─── -->
+  <section class="section coord" style="padding-block: 0 clamp(3rem, 7vw, 5rem);">
+    <div class="conteneur">
+      <div class="carte coord__carte">
+        <div class="coord__bloc">
+          <span class="coord__icone" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          </span>
+          <div>
+            <h2>Mon adresse</h2>
+            <address>
+              <strong>{SITE.nomLegal}</strong><br />
+              {SITE.rue}<br />
+              {SITE.cp} {SITE.ville}
+            </address>
+            <a href={mapsUrl} rel="noopener" target="_blank" class="coord__lien">Voir sur Google Maps →</a>
+          </div>
+        </div>
+
+        <div class="coord__bloc">
+          <span class="coord__icone" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
+          </span>
+          <div>
+            <h2>Horaires d'ouverture</h2>
+            <p class="coord__horaires"><strong>Du lundi au samedi</strong><br />8 h 00 – 20 h 00</p>
+            <p class="coord__urgence">Fermé le dimanche.</p>
+          </div>
+        </div>
+
+        <div class="coord__bloc">
+          <span class="coord__icone" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="7" y="2" width="10" height="20" rx="2"/><line x1="11" y1="18" x2="13" y2="18"/></svg>
+          </span>
+          <div>
+            <h2>Me contacter en cas d'urgence</h2>
+            <p class="coord__contact">
+              <a href={SITE.telUrgenceHref}>{SITE.telUrgence}</a>
+            </p>
+            <p class="coord__urgence">Disponible <strong>24h/24 et 7j/7</strong>.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Avis clients ─────────────────────────────────────────── -->
+  <AvisCarrousel lieu={`à ${ville}`} titre={`Ce que pensent mes clients à ${ville}`} />
+
+  <!-- ── Prestations (cards) ──────────────────────────────────── -->
+  <section class="section section--gris">
+    <div class="conteneur">
+      <h2>Mes services de couvreur à {ville}</h2>
+      <div class="encadre">
+        <p>
+          Je propose toute une gamme de services pour <strong>entretenir, réparer et rénover</strong>
+          votre toit à {ville}. Du simple démoussage à la réfection complète d'une couverture,
+          j'apporte le même soin à chaque chantier, qu'il s'agisse d'une intervention ponctuelle ou
+          d'un projet de rénovation.
+        </p>
+        <p>
+          J'interviens sur <strong>tous les matériaux de couverture</strong> : tuiles plates de pays,
+          tuiles mécaniques, ardoises, bac acier et tuiles fibrociment. Je réalise également la
+          <strong>zinguerie</strong> (noues, solins, chéneaux, gouttières et descentes) ainsi que la
+          reprise de <strong>charpente</strong> lorsque l'état du toit le nécessite.
+        </p>
+        <p>
+          Que votre toiture ait besoin d'un nettoyage, d'un traitement hydrofuge ou d'une couverture
+          neuve, je me déplace chez vous pour examiner et vérifier votre toit, puis vous proposer une
+          solution adaptée à votre problème de toiture et un <strong>devis gratuit</strong>, sans
+          engagement. L'ensemble de mes travaux est couvert par la garantie décennale.
+        </p>
+      </div>
+      <div class="grille-services">
+        {services.map((s) => {
+          const c = cartesVille[s.slug] ?? { titre: s.label, texte: s.accroche };
+          return (
+            <a href={s.href} class="carte carte-service">
+              <img src={s.image} alt={s.alt} loading="lazy" width="400" height="250" />
+              <span class="carte-service__corps">
+                <h3>{c.titre}</h3>
+                <p>{c.texte}</p>
+                <span class="carte-service__lien">{s.lien} →</span>
+              </span>
+            </a>
+          );
+        })}
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Autorisations en mairie ──────────────────────────────── -->
+  <section class="section">
+    <div class="conteneur">
+      <h2>Toiture et autorisations d'urbanisme à {ville}</h2>
+      <div class="duo mairie-duo">
+        <div>
+          <p>
+            Un simple entretien ou une réparation à l'identique ne demande en général aucune
+            formalité. En revanche, dès que les travaux modifient l'aspect extérieur du toit —
+            changement de tuiles, de teinte ou de matériau, pose d'une fenêtre de toit — une
+            <strong>déclaration préalable de travaux</strong> est le plus souvent nécessaire. Pour une
+            surélévation ou une extension, c'est un <strong>permis de construire</strong>. Les règles
+            varient selon la commune et son plan local d'urbanisme, et sont renforcées à proximité
+            d'un monument historique : le mieux est de les vérifier auprès de votre mairie.
+          </p>
+          <p>
+            De mon côté, je vous <strong>conseille en amont</strong> et je vous fournis les
+            <strong>informations techniques</strong> utiles à votre projet — nature exacte des
+            travaux, matériaux et teintes envisagés — pour que vous abordiez vos démarches en toute
+            sérénité.
+          </p>
+        </div>
+        <div class="carte mairie">
+          <span class="mairie__icone" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18"/><path d="M5 21V10l7-5 7 5v11"/><path d="M9 21v-6h6v6"/></svg>
+          </span>
+          <p class="mairie__nom"><strong>Mairie de {ville}</strong></p>
+          <address>9 Rue de la Mairie, 28130 {ville}</address>
+          <a href="https://villiers-le-morhier.com/" rel="noopener nofollow" target="_blank" class="btn btn--bleu mairie__lien">
+            Site de la mairie →
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Marques & fournisseurs ───────────────────────────────── -->
+  <LogosMarques marques={marquesVille} />
+
+  <!-- ── CTA devis ────────────────────────────────────────────── -->
+  <CtaDevis titre={`Contactez-moi pour votre toit à ${ville}`} />
+</BaseLayout>
+
+<style>
+  /* Encadré d'accroche mis en avant sous le H1 */
+  .hero__encadre {
+    background: var(--bleu-pale);
+    border-left: 4px solid var(--rouge);
+    border-radius: var(--rayon);
+    padding: 1.2rem 1.4rem;
+    margin-bottom: 1.4rem;
+  }
+  .hero__encadre p { margin: 0; color: var(--gris-700); }
+  .hero__encadre p + p { margin-top: 0.8rem; }
+
+  /* Encadré de section (même traitement que le hero) */
+  .encadre {
+    background: var(--bleu-pale);
+    border-left: 4px solid var(--rouge);
+    border-radius: var(--rayon);
+    padding: clamp(1.3rem, 3vw, 1.8rem);
+    margin-top: 1.5rem;
+  }
+  .encadre p { margin: 0; color: var(--gris-700); }
+  .encadre p + p { margin-top: 0.9rem; }
+
+  /* Bloc mairie (colonne de droite) */
+  .mairie-duo { margin-top: 1.5rem; }
+  .mairie {
+    padding: clamp(1.5rem, 4vw, 2rem);
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.4rem;
+  }
+  .mairie:hover { transform: none; }
+  .mairie__icone {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: var(--bleu-pale);
+    color: var(--bleu);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 0.5rem;
+  }
+  .mairie__icone svg { width: 1.5rem; height: 1.5rem; }
+  .mairie__nom { font-size: 1.15rem; margin: 0; color: var(--bleu); }
+  .mairie address { font-style: normal; color: var(--gris-700); margin: 0 0 1rem; }
+  .mairie__lien { margin-top: 0.2rem; }
+
+  .coord__carte {
+    display: grid;
+    gap: 2rem;
+    padding: clamp(1.5rem, 4vw, 2.5rem);
+  }
+  @media (min-width: 800px) {
+    .coord__carte { grid-template-columns: repeat(3, 1fr); gap: 2.5rem; }
+    .coord__bloc + .coord__bloc { border-left: 1px solid var(--gris-200); padding-left: 2.5rem; }
+  }
+  .coord__carte:hover { transform: none; }
+  .coord__bloc { display: flex; gap: 1rem; align-items: flex-start; }
+  .coord__icone {
+    flex-shrink: 0;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: var(--rouge-pale);
+    color: var(--rouge);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .coord__icone svg { width: 1.4rem; height: 1.4rem; }
+  .coord__bloc h2 { font-size: 1.2rem; margin: 0 0 0.5rem; color: var(--bleu); }
+  .coord__bloc address { font-style: normal; color: var(--gris-700); line-height: 1.6; }
+  .coord__horaires { margin: 0 0 0.6rem; color: var(--gris-700); line-height: 1.6; }
+  .coord__urgence { margin: 0; font-size: 0.92rem; color: var(--gris-500); line-height: 1.55; }
+  .coord__lien { display: inline-block; margin-top: 0.6rem; color: var(--rouge); font-weight: 700; font-size: 0.95rem; }
+  .coord__contact { margin: 0 0 1rem; font-size: 1.25rem; font-weight: 700; color: var(--bleu); line-height: 1.6; }
+  .coord__contact a { color: var(--bleu); }
+  .coord__contact a:hover { color: var(--rouge); }
+  .coord__mob { display: inline-block; font-size: 0.95rem; font-weight: 500; color: var(--gris-500); }
+  .coord__mob a { color: var(--gris-700); text-decoration: underline; }
+</style>

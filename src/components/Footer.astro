@@ -4,6 +4,10 @@ import services from '../data/services.json';
 import villes from '../data/villes.json';
 import reviews from '../data/reviews.json';
 import LogoGoogle from './LogoGoogle.astro';
+
+// Villes dont la page dédiée existe : elles s'affichent en lien cliquable.
+// Toutes les villes de villes.json ont désormais une page dédiée.
+const villesPubliees = villes.map((v) => v.slug);
 ---
 <footer class="pied">
   <div class="conteneur pied__grille">
@@ -34,7 +38,11 @@ import LogoGoogle from './LogoGoogle.astro';
       <h2>Eure-et-Loir et alentours</h2>
       <ul class="pied__villes">
         {villes.map((v) => (
-          <li>{v.nom}</li>
+          <li>
+            {villesPubliees.includes(v.slug)
+              ? <a href={`/villes/${v.slug}/`}>{v.nom}</a>
+              : v.nom}
+          </li>
         ))}
       </ul>
     </nav>

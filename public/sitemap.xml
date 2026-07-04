@@ -55,11 +55,29 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://renaud-renov.fr/prestations/couverture/</loc>
-    <lastmod>2026-07-03</lastmod>
+    <loc>https://renaud-renov.fr/villes/villiers-le-morhier/</loc>
+    <lastmod>2026-07-04</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
+  <url>
+    <loc>https://renaud-renov.fr/villes/maintenon/</loc>
+    <lastmod>2026-07-04</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url><loc>https://renaud-renov.fr/villes/nogent-le-roi/</loc><lastmod>2026-07-04</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://renaud-renov.fr/villes/epernon/</loc><lastmod>2026-07-04</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://renaud-renov.fr/villes/hanches/</loc><lastmod>2026-07-04</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://renaud-renov.fr/villes/gallardon/</loc><lastmod>2026-07-04</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://renaud-renov.fr/villes/pierres/</loc><lastmod>2026-07-04</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://renaud-renov.fr/villes/saint-piat/</loc><lastmod>2026-07-04</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://renaud-renov.fr/villes/bouglainval/</loc><lastmod>2026-07-04</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://renaud-renov.fr/villes/chartres/</loc><lastmod>2026-07-04</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://renaud-renov.fr/villes/dreux/</loc><lastmod>2026-07-04</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://renaud-renov.fr/villes/auneau/</loc><lastmod>2026-07-04</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://renaud-renov.fr/villes/rambouillet/</loc><lastmod>2026-07-04</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://renaud-renov.fr/villes/houdan/</loc><lastmod>2026-07-04</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
   <url>
     <loc>https://renaud-renov.fr/mentions-legales/</loc>
     <lastmod>2026-07-03</lastmod>
