@@ -348,4 +348,13 @@ const schemaFil = {
     font-weight: 600;
     color: var(--bleu);
   }
+
+  /* ══ Mobile : mêmes règles de centrage que le reste du site ══ */
+  @media (max-width: 800px) {
+    .reno-hero__texte { text-align: center; }
+    .reno-tag { display: block; width: fit-content; margin-inline: auto; }
+    .reno-marque { text-align: center; }
+    .reno-chapo { text-align: center; margin-inline: auto; }
+    .reno-hero__actions { justify-content: center; }
+  }
 </style>
