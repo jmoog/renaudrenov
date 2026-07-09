@@ -1,48 +1,154 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { SITE } from '../../data/site.ts';
+import villes from '../../data/villes.json';
+import reviews from '../../data/reviews.json';
 import FilAriane from '../../components/FilAriane.astro';
-import AvisCarrousel from '../../components/AvisCarrousel.astro';
+import LogoGoogle from '../../components/LogoGoogle.astro';
 import CtaDevis from '../../components/CtaDevis.astro';
 import PrestationsConnexes from '../../components/PrestationsConnexes.astro';
 
-const title = 'Traitement hydrofuge de toiture (28) — Renaud Rénov';
+// ── Balises : angles différenciés (règle anti-triplette du projet) ──
+// Intention ciblée : « application hydrofuge toiture » (quelqu'un qui veut faire appliquer un hydrofuge).
+// H1 → mot-clé exact « Application d'hydrofuge toiture » ; Title → variante « pose » + zone ;
+// Meta → problème + imperméabilisation + preuve artisan. Jamais la même formulation dans les 3.
+const title = 'Hydrofuge de toiture en Eure-et-Loir | Renaud Rénov';
 const description =
-  "Après le nettoyage, l'hydrofuge imperméabilise vos tuiles et retarde le retour des mousses. Application par un artisan couvreur du 28. Garantie décennale.";
+  "Tuiles poreuses, mousses qui reviennent ? J'imperméabilise votre toit avec un hydrofuge incolore ou une résine colorée. Couvreur du 28, devis gratuit.";
+
+// ── Cocon : quelques communes de la zone, ancres volontairement variées ──
+const zone = [
+  { slug: 'maintenon', ancre: 'hydrofuge de toiture à Maintenon' },
+  { slug: 'epernon', ancre: 'résine de toiture à Épernon' },
+  { slug: 'nogent-le-roi', ancre: 'imperméabilisation de toit à Nogent-le-Roi' },
+  { slug: 'gallardon', ancre: 'protection des tuiles à Gallardon' },
+  { slug: 'villiers-le-morhier', ancre: 'traitement hydrofuge à Villiers-le-Morhier' },
+  { slug: 'pierres', ancre: 'hydrofuge coloré à Pierres' },
+  { slug: 'hanches', ancre: 'protéger sa toiture à Hanches' },
+  { slug: 'saint-piat', ancre: 'résine hydrofuge à Saint-Piat' },
+  { slug: 'bouglainval', ancre: 'toiture imperméabilisée à Bouglainval' },
+  { slug: 'chartres', ancre: 'couvreur hydrofuge à Chartres' },
+];
+const villeParSlug = Object.fromEntries(villes.map((v) => [v.slug, v]));
+
+// ── Schémas : le Service rattaché à la fiche LocalBusiness + une FAQ ──
+const businessId = `${SITE.url}/#localbusiness`;
+const schemaService = {
+  '@context': 'https://schema.org',
+  '@type': 'Service',
+  '@id': `${SITE.url}/prestations/traitement-hydrofuge/#service`,
+  serviceType: "Application d'hydrofuge et de résine de toiture",
+  name: "Application d'hydrofuge et de résine colorée de toiture en Eure-et-Loir",
+  description:
+    "Application d'un hydrofuge incolore ou d'une résine colorée qui imperméabilise les tuiles, ravive le toit et retarde la repousse des mousses, par un artisan couvreur du 28.",
+  url: `${SITE.url}/prestations/traitement-hydrofuge/`,
+  image: `${SITE.url}/images/photos/hydrofuge-toiture-resultat-eure-et-loir.webp`,
+  provider: { '@id': businessId },
+  areaServed: {
+    '@type': 'AdministrativeArea',
+    name: `${SITE.departement} (${SITE.departementNum})`,
+  },
+  offers: { '@type': 'Offer', priceCurrency: 'EUR', availability: 'https://schema.org/InStock' },
+};
+
+const faq = [
+  {
+    q: "Comment s'applique un hydrofuge sur une toiture ?",
+    r: "Au pulvérisateur basse pression, sur un toit propre, démoussé et parfaitement sec. Je travaille du faîtage vers les gouttières, en une à deux couches selon la porosité de la tuile, par temps sec et sans pluie annoncée dans les 24 à 48 heures. C'est cette méthode qui garantit une imprégnation uniforme et une protection qui dure.",
+  },
+  {
+    q: "Peut-on appliquer un hydrofuge de toiture soi-même ?",
+    r: "Techniquement oui, mais c'est déconseillé : travail en hauteur sans équipement de sécurité, choix du produit et dosage délicats, fenêtre météo à respecter... Un hydrofuge mal appliqué ne tient pas, et l'économie réalisée se paie en refaisant le traitement. En passant par un artisan couvreur, vous avez le bon produit, le bon geste et une intervention couverte par la garantie décennale.",
+  },
+  {
+    q: "Quelle différence entre un hydrofuge incolore et une résine colorée ?",
+    r: "L'hydrofuge incolore imperméabilise la tuile sans en changer la teinte : l'eau perle au lieu de pénétrer, mais l'aspect reste naturel. La résine colorée protège de la même façon tout en ravivant la couleur du toit, idéale quand les tuiles sont ternies ou décolorées. Je vous conseille l'un ou l'autre selon l'état et la teinte de votre couverture.",
+  },
+  {
+    q: 'Combien de temps dure un traitement hydrofuge ?',
+    r: "Correctement appliqué sur un toit propre, un hydrofuge protège généralement pendant 8 à 10 ans, parfois davantage selon l'exposition et le produit utilisé. La résine colorée offre en plus une protection de surface renforcée qui tient bien dans le temps.",
+  },
+  {
+    q: "Faut-il nettoyer le toit avant d'appliquer l'hydrofuge ?",
+    r: "Oui, c'est indispensable. L'hydrofuge se pose toujours après un nettoyage et démoussage soigné : sur une tuile encore chargée de mousses ou de poussières, le produit n'adhère pas et ne dure pas. Je réalise les deux étapes, ce qui garantit une bonne tenue du traitement.",
+  },
+  {
+    q: "L'hydrofuge empêche-t-il vraiment le retour des mousses ?",
+    r: "Il le retarde nettement. En rendant la tuile imperméable, l'hydrofuge empêche l'eau de stagner : les mousses et lichens ont beaucoup plus de mal à s'accrocher et à se réinstaller. Votre toit reste propre bien plus longtemps après le nettoyage.",
+  },
+  {
+    q: 'Le déplacement et le devis sont-ils gratuits ?',
+    r: `Oui. Je me déplace gratuitement partout en ${SITE.departement} pour examiner votre toiture, vous conseiller le bon traitement et vous remettre un devis clair, gratuit et sans engagement.`,
+  },
+];
+
+// ── 4 avis Google ciblés hydrofuge / résine ──
+const nomsAvis = [
+  'Jean-Claude Hunault',
+  'Dominique Ndiaye',
+  'Daisy Chevalier',
+  'Julien Augier',
+];
+const avisHydrofuge = nomsAvis
+  .map((n) => reviews.avis.find((a) => a.auteur === n))
+  .filter(Boolean);
+
+const schemaFaq = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faq.map((f) => ({
+    '@type': 'Question',
+    name: f.q,
+    acceptedAnswer: { '@type': 'Answer', text: f.r },
+  })),
+};
 ---
-<BaseLayout title={title} description={description}>
+<BaseLayout title={title} description={description} extraSchemas={[schemaService, schemaFaq]}>
   <!-- ── Hero prestation ──────────────────────────────────────── -->
   <section class="section">
     <div class="conteneur">
       <FilAriane items={[{ label: 'Accueil', href: '/' }, { label: 'Traitement hydrofuge de toiture' }]} />
     </div>
-    <div class="conteneur duo">
-      <div>
-        <h1>Hydrofuge et résine : des tuiles protégées pour des années</h1>
+    <div class="conteneur duo hero-duo">
+      <div class="hero-haut">
+        <a href={reviews.urlFiche} class="note-google-box" rel="noopener" target="_blank" aria-label={`Note Google ${reviews.note} sur 5 sur ${reviews.nombre} avis`}>
+          <LogoGoogle taille={22} />
+          <span class="note-google-box__note"><strong>{reviews.note.toLocaleString('fr-FR')}</strong>/5</span>
+          <span class="note-google-box__etoiles" aria-hidden="true">★★★★★</span>
+          <span class="note-google-box__avis">{reviews.nombre} avis</span>
+        </a>
+        <h1 class="hero-titre">Application d'hydrofuge toiture en Eure-et-Loir (28)</h1>
+        <p class="marque-orange">RENAUD RÉNOV</p>
+      </div>
+      <img
+        class="hero-photo-prestation"
+        src="/images/photos/hydrofuge-toiture-resultat-eure-et-loir.webp"
+        alt="Maison à la toiture en tuiles ravivée et imperméabilisée après traitement hydrofuge coloré en Eure-et-Loir"
+        fetchpriority="high"
+        width="2000"
+        height="1500"
+      />
+      <div class="hero-bas">
         <p class="hero__accroche">
-          Vous venez de faire nettoyer votre toit ou souhaitez le protéger durablement ? Renaud Rénov,
-          artisan couvreur en <strong>Eure-et-Loir (28)</strong>, applique des traitements hydrofuges
-          et des résines qui gardent vos tuiles saines et imperméables.
+          Vos tuiles sont ternes, poreuses, ou se rechargent vite en mousses après un nettoyage ?
+          Vous cherchez un professionnel pour
+          <strong>appliquer un hydrofuge sur votre toiture en Eure-et-Loir (28)</strong> ?
         </p>
         <p>
-          La bonne solution pour garder un toit propre plus longtemps et éviter le retour rapide des
-          mousses après un nettoyage.
+          Je suis <strong>M. Renaud</strong>, <a href="/">artisan couvreur dans le 28</a>.
+          J'applique des <strong>hydrofuges incolores</strong> et des
+          <strong>résines colorées</strong> professionnels, au pulvérisateur, sur un toit
+          préalablement nettoyé et démoussé : vos tuiles sont imperméabilisées, ravivées, et les
+          mousses reviennent beaucoup plus lentement.
         </p>
         <div class="hero__actions">
           <a href={SITE.telHref} class="btn btn--rouge">
             <svg class="icone" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M6.6 10.8a15.5 15.5 0 0 0 6.6 6.6l2.2-2.2a1 1 0 0 1 1-.25 11.4 11.4 0 0 0 3.6.57 1 1 0 0 1 1 1V20a1 1 0 0 1-1 1A17 17 0 0 1 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1 11.4 11.4 0 0 0 .57 3.6 1 1 0 0 1-.25 1z"/></svg>
             {SITE.tel}
           </a>
-          <a href="/devis-gratuit/" class="btn btn--bleu">Devis gratuit →</a>
+          <a href="/devis-gratuit/" class="btn btn--bleu">Protéger votre toiture →</a>
         </div>
       </div>
-      <img
-        src="/images/photos/hydrofuge-toiture.webp"
-        alt="Toiture en tuiles propre et protégée après traitement hydrofuge en Eure-et-Loir"
-        fetchpriority="high"
-        width="2000"
-        height="1500"
-      />
     </div>
   </section>
 
@@ -52,63 +158,519 @@ const description =
       <div class="section__entete section__entete--gauche">
         <h2>Pourquoi appliquer un traitement hydrofuge ?</h2>
       </div>
-      <p>
+      <p style="max-width: 72ch;">
         Nettoyer un toit lui redonne son éclat, mais sans protection les mousses reviennent vite. Une
-        tuile poreuse absorbe l'eau de pluie, se dégrade sous l'effet du gel et perd de son étanchéité
-        au fil des saisons. Le traitement hydrofuge répond exactement à ce besoin : protéger le toit
-        une fois qu'il est propre.
+        tuile poreuse absorbe l'eau de pluie, se dégrade sous l'effet du gel et perd peu à peu de son
+        étanchéité. Le traitement hydrofuge répond exactement à ce besoin : protéger la couverture une
+        fois qu'elle est propre.
       </p>
-      <p>
+      <p style="max-width: 72ch;">
         En rendant vos tuiles imperméables, l'hydrofuge fait glisser l'eau au lieu de la laisser
         pénétrer. Résultat : un toit qui reste propre plus longtemps, des matériaux préservés et une
         couverture dont vous prolongez nettement la durée de vie. Un investissement simple pour
         protéger durablement votre maison.
       </p>
       <h3>Hydrofuge incolore ou résine colorée</h3>
-      <p>
-        Selon l'état et la teinte de votre couverture, nous appliquons un hydrofuge incolore qui
-        laisse respirer la tuile, ou une résine colorée qui protège et ravive l'aspect du toit. Ce
-        traitement vient toujours après un
+      <p style="max-width: 72ch;">
+        Selon l'état et la teinte de votre couverture, j'applique un hydrofuge incolore qui laisse
+        respirer la tuile, ou une résine colorée qui protège et ravive l'aspect du toit. Ce traitement
+        vient toujours après un
         <a href="/prestations/nettoyage-demoussage-toiture/">nettoyage et démoussage de toiture</a>
         soigné, condition indispensable à sa bonne tenue.
       </p>
     </div>
   </section>
 
-  <!-- ── Savoir-faire Renaud Rénov ────────────────────────────── -->
+  <!-- ── Comment se déroule l'application (répond à l'intention) ── -->
   <section class="section">
+    <div class="conteneur">
+      <div class="section__entete section__entete--gauche">
+        <h2>Comment j'applique l'hydrofuge sur votre toiture</h2>
+      </div>
+      <p style="max-width: 72ch;">
+        L'application d'un hydrofuge ne s'improvise pas : la tenue du produit dépend autant de la
+        préparation du toit que du geste. Voici comment je procède, étape par étape.
+      </p>
+      <div class="etapes">
+        <div class="etape">
+          <span class="etape__numero">01</span>
+          <h3>Diagnostic de la couverture</h3>
+          <p>
+            J'examine le matériau, la porosité et la teinte de vos tuiles. C'est ce qui détermine le
+            produit adapté : hydrofuge incolore si la teinte est belle, résine colorée si le toit est
+            terni ou décoloré.
+          </p>
+        </div>
+        <div class="etape">
+          <span class="etape__numero">02</span>
+          <h3>Nettoyage et démoussage</h3>
+          <p>
+            Le produit ne tient que sur une tuile propre. Je nettoie la couverture, je la démousse et
+            je traite les mousses en profondeur avant toute chose.
+          </p>
+        </div>
+        <div class="etape">
+          <span class="etape__numero">03</span>
+          <h3>Séchage complet du toit</h3>
+          <p>
+            L'hydrofuge se pose sur un support parfaitement sec, par temps sec et sans pluie annoncée
+            dans les 24 à 48&nbsp;heures. Je choisis la bonne fenêtre météo pour intervenir.
+          </p>
+        </div>
+        <div class="etape">
+          <span class="etape__numero">04</span>
+          <h3>Pulvérisation en couches régulières</h3>
+          <p>
+            J'applique le produit au pulvérisateur basse pression, du faîtage vers les gouttières,
+            en une à deux couches selon la porosité. Sans surcharge, pour une imprégnation uniforme
+            et durable.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Avant / après : la preuve de la résine colorée ───────── -->
+  <section class="section section--gris">
+    <div class="conteneur">
+      <div class="section__entete section__entete--gauche">
+        <h2>Avant / après : une résine colorée récente en Eure-et-Loir</h2>
+      </div>
+      <p>
+        Une toiture terne, encrassée et gagnée par les mousses, retrouvée saine, imperméable et
+        ravivée après l'application d'une résine colorée. Même maison, même pan de toit : le résultat
+        parle de lui-même.
+      </p>
+      <div class="avant-apres">
+        <figure>
+          <span class="badge badge--avant">Avant</span>
+          <img
+            src="/images/photos/toiture-avant-hydrofuge-mousse-28.webp"
+            alt="Toiture en tuiles foncée, encrassée et envahie de mousses avant traitement hydrofuge en Eure-et-Loir"
+            loading="lazy" width="2000" height="1500"
+          />
+        </figure>
+        <figure>
+          <span class="badge badge--apres">Après</span>
+          <img
+            src="/images/photos/toiture-apres-hydrofuge-resine-28.webp"
+            alt="Même toiture ravivée et imperméabilisée après application d'une résine hydrofuge colorée par M. Renaud"
+            loading="lazy" width="2000" height="1500"
+          />
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── 4 avis Google ciblés hydrofuge / résine ──────────────── -->
+  <section class="section section--bleu">
+    <div class="conteneur">
+      <div class="section__entete">
+        <h2>Ils m'ont confié la protection de leur toiture</h2>
+        <p class="avis-note-google">
+          <LogoGoogle taille={20} />
+          <span class="avis-note-google__etoiles" aria-hidden="true">★★★★★</span>
+          <strong>{reviews.note.toLocaleString('fr-FR')}/5</strong> · {reviews.nombre} avis Google
+        </p>
+      </div>
+      <div class="avis-grille">
+        {avisHydrofuge.map((a) => (
+          <figure class="avis-carte">
+            <div class="avis-carte__haut">
+              <span class="avis-carte__etoiles" aria-hidden="true">★★★★★</span>
+              <LogoGoogle taille={18} />
+            </div>
+            <blockquote>{a.texte}</blockquote>
+            <figcaption>{a.auteur}<span>{a.date}</span></figcaption>
+          </figure>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Pourquoi choisir mon service hydrofuge ───────────────── -->
+  <section class="section section--bleute">
+    <div class="conteneur">
+      <div class="section__entete">
+        <h2>Pourquoi me confier la protection de votre toit</h2>
+      </div>
+      <p style="max-width: 66ch; margin-inline: auto; text-align: center; text-wrap: balance;">
+        Un hydrofuge n'est efficace que s'il est posé dans les règles, sur un toit sain et avec le bon
+        produit. Entreprise familiale installée à <strong>{SITE.ville}</strong>, je protège les
+        toitures de toute l'<strong>Eure-et-Loir (28)</strong> avec un savoir-faire transmis de père
+        en fils et la garantie décennale sur mes interventions.
+      </p>
+
+      <div class="atouts">
+        <article class="atout">
+          <h3>Le bon diagnostic</h3>
+          <p>
+            J'examine le matériau, la porosité et la teinte de vos tuiles pour choisir le traitement
+            le mieux adapté : incolore pour respecter l'aspect, coloré pour raviver un toit fatigué.
+          </p>
+        </article>
+
+        <article class="atout">
+          <h3>Un toit propre d'abord</h3>
+          <p>
+            L'hydrofuge se pose toujours sur une couverture parfaitement nettoyée et démoussée. C'est
+            la condition d'une bonne adhérence et d'une protection qui dure dans le temps.
+          </p>
+        </article>
+
+        <article class="atout">
+          <h3>Des produits professionnels</h3>
+          <p>
+            J'utilise des hydrofuges et des résines de qualité professionnelle, dosés selon votre
+            toiture, pour imperméabiliser la tuile en profondeur et retarder durablement les mousses.
+          </p>
+        </article>
+
+        <article class="atout">
+          <h3>Une application maîtrisée</h3>
+          <p>
+            Application régulière, sans surcharge, avec le geste d'un artisan couvreur expérimenté.
+            Un travail soigné, couvert par la garantie décennale, pour protéger votre maison.
+          </p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Prendre soin de votre toiture ────────────────────────── -->
+  <section class="section section--gris">
     <div class="conteneur duo duo--inverse">
       <div>
-        <h2>Un artisan couvreur de confiance en Eure-et-Loir</h2>
+        <h2>Ne laissez pas vos tuiles se dégrader</h2>
         <p>
-          Nettoyage, démoussage et traitement hydrofuge forment la spécialité de Renaud Rénov.
-          Entreprise familiale installée à <strong>{SITE.ville}</strong>, nous protégeons les toitures
-          de toute l'<strong>Eure-et-Loir (28)</strong> avec des produits professionnels et une
-          application maîtrisée.
+          Des tuiles ternes, poreuses ou qui verdissent à nouveau après un nettoyage&nbsp;? C'est le
+          moment de les protéger. Artisan couvreur en <strong>Eure-et-Loir (28)</strong>, j'interviens
+          rapidement pour un <strong>diagnostic gratuit</strong> de votre toit.
         </p>
         <p>
-          Un travail soigné, transmis de père en fils, et la garantie décennale sur l'ensemble de nos
-          interventions. Nous vous conseillons le traitement le mieux adapté à votre toit, sans jargon
-          et sans engagement.
+          Profitez de tarifs avantageux et d'un <strong>devis détaillé sous 24&nbsp;h</strong>.
         </p>
-        <a href="/devis-gratuit/" class="btn btn--bleu">Protéger ma toiture</a>
+        <a href="/devis-gratuit/" class="btn btn--bleu">Demander mon diagnostic gratuit</a>
       </div>
       <img
-        src="/images/photos/hero-toiture-renaud-renov.webp"
-        alt="Toiture en tuiles saine et protégée après traitement hydrofuge en Eure-et-Loir"
+        src="/images/photos/tuiles-ternes-avant-hydrofuge-28.webp"
+        alt="Toiture aux tuiles ternes et décolorées à protéger par un traitement hydrofuge en Eure-et-Loir (28)"
         loading="lazy"
-        width="1500"
-        height="2000"
+        width="2000"
+        height="1500"
       />
     </div>
   </section>
 
-  <!-- ── Avis clients ─────────────────────────────────────────── -->
-  <AvisCarrousel tag="hydrofuge" ordre={2} />
+  <!-- ── Fournisseurs / produits pros (confiance + E-E-A-T) ───── -->
+  <section class="section">
+    <div class="conteneur">
+      <div class="section__entete">
+        <h2>Des produits professionnels pour un hydrofuge durable</h2>
+      </div>
+      <p style="max-width: 60ch; margin-inline: auto; text-align: center; text-wrap: balance;">
+        Pour l'imperméabilisation, la résine colorée et le traitement anti-mousse, je m'appuie sur des
+        produits et des fournisseurs reconnus du métier.
+      </p>
+      <ul class="fournisseurs">
+        <li>
+          <a href="https://www.dalep.com/" class="fournisseurs__carte" rel="noopener" target="_blank" aria-label="Dalep">
+            <img src="/images/marques/logo-dalep.webp" alt="Dalep – traitements hydrofuges et anti-mousse pour toiture" loading="lazy" height="56" />
+          </a>
+        </li>
+        <li>
+          <a href="https://www.pointp.fr/infos-agence/chartres-mainvilliers-point-p-3370" class="fournisseurs__carte" rel="noopener" target="_blank" aria-label="Point P Chartres-Mainvilliers">
+            <img src="/images/marques/logo-point-p.webp" alt="Point P Chartres-Mainvilliers – distributeur de matériaux de couverture" loading="lazy" height="56" />
+          </a>
+        </li>
+        <li>
+          <a href="https://www.lariviere.fr/trouver-votre-agence/lariviere-SEB/entry-383-lariviere-chartres.html" class="fournisseurs__carte" rel="noopener" target="_blank" aria-label="Larivière Chartres">
+            <img src="/images/marques/logo-lariviere.webp" alt="Larivière Chartres – négoce spécialisé couverture" loading="lazy" height="56" />
+          </a>
+        </li>
+        <li>
+          <a href="https://www.gedimat.fr/?magDest=2573" class="fournisseurs__carte" rel="noopener" target="_blank" aria-label="Gedimat Maintenon">
+            <img src="/images/marques/logo-gedimat-maintenon.webp" alt="Gedimat Maintenon – matériaux de construction près de Villiers-le-Morhier" loading="lazy" height="56" />
+          </a>
+        </li>
+      </ul>
+    </div>
+  </section>
 
-  <!-- ── Maillage interne ─────────────────────────────────────── -->
+  <!-- ── Zone d'intervention : le maillage du cocon (ancres variées) ──── -->
+  <section class="section zone">
+    <div class="conteneur">
+      <div class="section__entete">
+        <h2>Protéger votre toit partout en Eure-et-Loir</h2>
+      </div>
+      <p style="max-width: 64ch; margin-inline: auto; text-align: center; text-wrap: balance;">
+        Installé à Villiers-le-Morhier, je me déplace partout en Eure-et-Loir (28) et ses alentours
+        pour imperméabiliser et raviver les toitures. Voici quelques communes où j'interviens
+        régulièrement&nbsp;:
+      </p>
+      <ul class="zone-villes">
+        {zone.map((z) => (
+          villeParSlug[z.slug] && (
+            <li>
+              <a href={`/villes/${z.slug}/`}>
+                <span class="zone-villes__ville">{villeParSlug[z.slug].nom}</span>
+                <span class="zone-villes__ancre">{z.ancre}</span>
+              </a>
+            </li>
+          )
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <!-- ── FAQ : capte l'intention informationnelle + montre l'expertise ── -->
+  <section class="section">
+    <div class="conteneur">
+      <div class="section__entete section__entete--gauche">
+        <h2>Vos questions sur le traitement hydrofuge</h2>
+      </div>
+      <div class="faq">
+        {faq.map((f) => (
+          <div class="faq__item">
+            <h3>{f.q}</h3>
+            <p>{f.r}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Maillage prestations ─────────────────────────────────── -->
   <PrestationsConnexes slugs={["nettoyage-demoussage-toiture", "renovation-toiture", "reparation-toiture"]} />
 
   <!-- ── CTA devis ────────────────────────────────────────────── -->
   <CtaDevis />
 </BaseLayout>
+
+<style>
+  /* Encadré note Google — au-dessus du H1 */
+  .note-google-box {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.55rem;
+    padding: 0.5rem 0.9rem;
+    margin-bottom: 1rem;
+    background: #fff;
+    border: 1px solid rgba(36, 75, 100, 0.14);
+    border-radius: 14px;
+    box-shadow: 0 2px 10px rgba(36, 75, 100, 0.08);
+    text-decoration: none;
+    color: var(--bleu, #244B64);
+    font-size: 0.95rem;
+    line-height: 1;
+    transition: box-shadow 0.2s ease, transform 0.2s ease;
+  }
+  .note-google-box:hover {
+    box-shadow: 0 4px 16px rgba(36, 75, 100, 0.14);
+    transform: translateY(-1px);
+  }
+  .note-google-box__note { font-weight: 500; }
+  .note-google-box__note strong { font-size: 1.15rem; font-weight: 800; }
+  .note-google-box__etoiles { color: var(--etoile, #f5a623); letter-spacing: 0.06em; }
+  .note-google-box__avis { color: var(--gris-700, #4b5563); }
+
+  /* ── Grille de 4 avis hydrofuge ── */
+  .avis-note-google {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    margin-top: 0.6rem;
+    color: var(--gris-700, #4b5563);
+    font-size: 0.95rem;
+  }
+  .avis-note-google strong { color: #fff; }
+  .avis-note-google__etoiles { color: var(--etoile, #f5b400); letter-spacing: 0.06em; }
+  .section--bleu .avis-note-google { color: rgba(255, 255, 255, 0.88); }
+
+  .avis-grille {
+    display: flex;
+    gap: 1rem;
+    margin-top: 2rem;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scroll-padding-inline: 1rem;
+    padding-bottom: 0.5rem;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: thin;
+  }
+  .avis-grille > .avis-carte { flex: 0 0 82%; scroll-snap-align: center; }
+  @media (min-width: 560px) {
+    .avis-grille { display: grid; grid-template-columns: 1fr 1fr; overflow: visible; padding-bottom: 0; }
+    .avis-grille > .avis-carte { flex: none; }
+  }
+  @media (min-width: 960px) { .avis-grille { grid-template-columns: repeat(4, 1fr); } }
+  .avis-carte {
+    margin: 0;
+    background: #fff;
+    border-radius: 16px;
+    padding: 1.5rem 1.7rem;
+    box-shadow: 0 8px 24px rgba(36, 75, 100, 0.10);
+    display: flex;
+    flex-direction: column;
+    gap: 0.85rem;
+  }
+  .avis-carte__haut { display: flex; align-items: center; justify-content: space-between; }
+  .avis-carte__etoiles { color: var(--etoile, #f5a623); letter-spacing: 0.08em; font-size: 1.05rem; }
+  .avis-carte blockquote { margin: 0; color: var(--gris-700, #4b5563); font-style: italic; line-height: 1.55; }
+  .avis-carte figcaption { margin-top: 0.2rem; font-weight: 700; color: var(--bleu, #244B64); }
+  .avis-carte figcaption span { display: block; font-weight: 500; font-size: 0.85rem; color: var(--gris-700, #4b5563); }
+
+  /* ── Cartes « atouts » à icônes, sans numéros ── */
+  .atouts {
+    display: grid;
+    gap: 1.3rem;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    margin-top: 2.4rem;
+  }
+  .atout {
+    background: #fff;
+    border: 1px solid rgba(36, 75, 100, 0.08);
+    border-radius: 18px;
+    padding: 1.9rem 1.7rem;
+    box-shadow: 0 10px 28px rgba(36, 75, 100, 0.09);
+    display: flex;
+    flex-direction: column;
+    gap: 0.85rem;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+  .atout:hover { transform: translateY(-3px); box-shadow: 0 16px 36px rgba(36, 75, 100, 0.14); }
+  .atout h3 { margin: 0; color: var(--bleu, #244B64); font-size: 1.12rem; }
+  .atout p { margin: 0; color: var(--gris-700, #4b5563); }
+
+  /* ── Fournisseurs : logos centrés ── */
+  .fournisseurs {
+    list-style: none;
+    padding: 0;
+    margin: 2rem auto 0;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1.4rem;
+  }
+  .fournisseurs__carte {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 200px;
+    min-height: 104px;
+    padding: 1.2rem 1.4rem;
+    background: #fff;
+    border: 1px solid rgba(36, 75, 100, 0.08);
+    border-radius: 16px;
+    box-shadow: 0 8px 22px rgba(36, 75, 100, 0.08);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+  .fournisseurs__carte:hover { transform: translateY(-3px); box-shadow: 0 14px 30px rgba(36, 75, 100, 0.14); }
+  .fournisseurs__carte img { max-height: 56px; max-width: 100%; width: auto; object-fit: contain; }
+
+  /* ── Hero ── */
+  .hero-duo { gap: 1.4rem; }
+  .hero-haut > *:first-child { margin-top: 0; }
+  @media (min-width: 900px) {
+    .hero-duo {
+      grid-template-columns: 1fr 1fr;
+      grid-template-areas: "haut img" "bas img";
+      column-gap: 4rem;
+      row-gap: 0;
+      align-items: start;
+    }
+    .hero-haut { grid-area: haut; }
+    .hero-bas { grid-area: bas; }
+    .hero-photo-prestation { grid-area: img; align-self: center; }
+  }
+
+  .hero-titre {
+    font-size: clamp(1.4rem, 2.6vw, 1.85rem);
+    line-height: 1.2;
+    max-width: 24ch;
+    margin-bottom: 0.2rem;
+  }
+  @media (max-width: 899px) {
+    .hero-titre { text-align: center; margin-inline: auto; }
+    .marque-orange { text-align: center; }
+    .hero__actions .btn { font-size: 0.88rem; padding-inline: 1rem; }
+  }
+
+  .marque-orange {
+    font-size: clamp(1.5rem, 5vw, 2.6rem);
+    font-weight: 800;
+    color: var(--rouge, #EF7E0F);
+    line-height: 1.05;
+    margin: 0.35rem 0 1.1rem;
+    letter-spacing: 0.01em;
+  }
+
+  .faq { display: grid; gap: 1.4rem; margin-top: 1.6rem; max-width: 75ch; }
+  .faq__item {
+    border-left: 3px solid var(--rouge, #EF7E0F);
+    padding-left: 1.1rem;
+  }
+  .faq__item h3 { margin: 0 0 0.4rem; color: var(--bleu, #244B64); font-size: 1.08rem; }
+  .faq__item p { margin: 0; color: var(--gris-700, #4b5563); line-height: 1.55; }
+
+  /* ── Zone d'intervention ── */
+  .zone { background: linear-gradient(160deg, #244B64 0%, #173445 100%); }
+  .zone .section__entete h2 { color: #fff; }
+  .zone > .conteneur > p { color: rgba(255, 255, 255, 0.9); }
+  .zone-villes {
+    list-style: none;
+    padding: 0;
+    margin: 2.2rem 0 0;
+    display: grid;
+    gap: 0.9rem;
+    grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  }
+  .zone-villes a {
+    display: flex;
+    flex-direction: column;
+    gap: 0.15rem;
+    padding: 0.95rem 1.15rem;
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    border-radius: 13px;
+    text-decoration: none;
+    transition: background 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+  }
+  .zone-villes a:hover {
+    background: rgba(255, 255, 255, 0.12);
+    border-color: var(--rouge, #EF7E0F);
+    transform: translateY(-2px);
+  }
+  .zone-villes__ville { color: #fff; font-weight: 700; font-size: 1.02rem; }
+  .zone-villes__ancre { color: rgba(255, 255, 255, 0.68); font-size: 0.85rem; }
+
+  /* ── Avant / après ── */
+  .avant-apres {
+    display: grid;
+    gap: 1rem;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    margin-top: 1.5rem;
+  }
+  .avant-apres figure { position: relative; margin: 0; }
+  .avant-apres img {
+    width: 100%;
+    height: auto;
+    border-radius: 12px;
+    display: block;
+    object-fit: cover;
+  }
+  .badge {
+    position: absolute;
+    top: 0.8rem;
+    left: 0.8rem;
+    z-index: 1;
+    padding: 0.3rem 0.8rem;
+    border-radius: 999px;
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: #fff;
+    letter-spacing: 0.02em;
+  }
+  .badge--avant { background: var(--gris-700, #4b5563); }
+  .badge--apres { background: var(--rouge, #EF7E0F); }
+</style>

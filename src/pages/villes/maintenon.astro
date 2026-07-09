@@ -22,7 +22,7 @@ const description =
 // phares locaux (nettoyage/démoussage et réparation). ──
 const cartesVille: Record<string, { titre: string; texte: string }> = {
   'nettoyage-demoussage-toiture': {
-    titre: `Nettoyage et démoussage de toiture à ${ville}`,
+    titre: `Démoussage de toiture à ${ville}`,
     texte:
       "Je débarrasse votre couverture des mousses, lichens et dépôts noirs pour lui rendre propreté et étanchéité.",
   },
@@ -76,10 +76,11 @@ const schemaVille = {
     { '@type': 'City', name: ville, postalCode: cp },
   ],
   knowsAbout: [
+    `Démoussage de toiture à ${ville}`,
     'Nettoyage de toiture',
-    'Démoussage de toiture',
-    'Traitement hydrofuge',
+    'Recherche de fuite de toiture',
     'Réparation de toiture',
+    'Traitement hydrofuge',
     'Rénovation de toiture',
     'Zinguerie',
     'Pose de gouttière',
@@ -122,15 +123,16 @@ const schemaVille = {
         </p>
         <div class="hero__accroche hero__encadre">
           <p>
-            Vous cherchez un <strong>artisan couvreur</strong> à {ville} pour entretenir, réparer ou
-            refaire votre <strong>toiture</strong> ? Des maisons anciennes en pierre du centre, à deux
-            pas du château, aux pavillons des quartiers plus récents, je connais bien les toits de la
-            commune.
+            Vous cherchez un <strong>artisan couvreur</strong> à {ville} pour un
+            <strong>démoussage de toiture</strong>, une <strong>recherche de fuite</strong> ou des
+            <strong>réparations de toiture</strong> ? Des maisons anciennes en pierre du centre, à
+            deux pas du château, aux pavillons des quartiers plus récents, je connais bien les toits
+            de la commune.
           </p>
           <p>
-            Je suis M. Renaud, <strong>couvreur</strong> installé tout près, à Villiers-le-Morhier :
-            j'interviens rapidement à {ville} et je réalise des <strong>devis gratuits</strong>, sans
-            engagement.
+            Je suis M. Renaud, <a href="/">couvreur dans le 28</a> installé tout près, à
+            Villiers-le-Morhier : j'interviens rapidement à {ville} et je réalise des
+            <strong>devis gratuits</strong>, sans engagement.
           </p>
         </div>
         <div class="hero__actions">

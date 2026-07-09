@@ -31,7 +31,13 @@ const h1 = `Entreprise de couverture à ${nom}`;
 
 // 2e phrase de l'accroche : focalisée sur la ville du client, sans jamais
 // mentionner une autre commune (le siège). Mots-clés en gras.
-const heroP2 = `Je suis M. Renaud, <strong>couvreur à ${nom}</strong> : j'interviens rapidement chez vous, mes <strong>devis</strong> sont <strong>gratuits</strong> et sans engagement.`;
+// Ancre tournante vers l'accueil (page « couvreur 28 ») — variée pour le maillage.
+const ancreAccueil = [
+  'couvreur en Eure-et-Loir',
+  'couvreur dans le 28',
+  'artisan couvreur du 28',
+][contenu.cardSet % 3];
+const heroP2 = `Je suis M. Renaud, <strong>couvreur à ${nom}</strong> : j'interviens rapidement chez vous, mes <strong>devis</strong> sont <strong>gratuits</strong> et sans engagement. Découvrez tous mes services de <a href="/">${ancreAccueil}</a>.`;
 
 const servicesP2 = [
   "Tuile plate de pays, tuile mécanique, ardoise, bac acier ou fibrociment : je maîtrise <strong>tous les matériaux de couverture</strong>, et je réalise la <strong>zinguerie</strong> (noues, solins, chéneaux, gouttières) comme la reprise de <strong>charpente</strong>.",
