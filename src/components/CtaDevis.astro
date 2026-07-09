@@ -4,18 +4,28 @@ import { SITE } from '../data/site.ts';
 
 export interface Props {
   titre?: string;
+  image?: string;
+  imageAlt?: string;
+  imageWidth?: number;
+  imageHeight?: number;
 }
-const { titre = 'Contactez votre artisan couvreur' } = Astro.props;
+const {
+  titre = 'Contactez votre artisan couvreur',
+  image = '/images/photos/artisan-sur-toit.webp',
+  imageAlt = 'Artisan Renaud Rénov au travail sur une toiture en tuiles en Eure-et-Loir',
+  imageWidth = 1500,
+  imageHeight = 2000,
+} = Astro.props;
 ---
 <section class="cta-devis">
   <div class="conteneur cta-devis__grille">
     <img
       class="cta-devis__photo"
-      src="/images/photos/artisan-sur-toit.webp"
-      alt="Artisan Renaud Rénov au travail sur une toiture en tuiles en Eure-et-Loir"
+      src={image}
+      alt={imageAlt}
       loading="lazy"
-      width="1500"
-      height="2000"
+      width={imageWidth}
+      height={imageHeight}
     />
     <div class="cta-devis__panneau">
       <h2>{titre}</h2>

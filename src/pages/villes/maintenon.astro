@@ -187,6 +187,11 @@ const schemaVille = {
           proposer la solution la plus adaptée, avec un <strong>devis gratuit</strong> et sans
           engagement. L'ensemble de mes travaux est garanti décennale.
         </p>
+        <p>
+          Envie de voir le résultat ? Découvrez un
+          <a href="/realisations/demoussage-toiture-maintenon/">démoussage de toiture réalisé à {ville} en juin 2026</a>,
+          avec les photos avant / après.
+        </p>
       </div>
       <div class="grille-services">
         {services.map((s) => {
@@ -250,7 +255,13 @@ const schemaVille = {
   />
 
   <!-- ── CTA devis ────────────────────────────────────────────── -->
-  <CtaDevis titre={`Contactez-moi pour votre toit à ${ville}`} />
+  <CtaDevis
+    titre={`Contactez-moi pour votre toit à ${ville}`}
+    image="/images/photos/traitement-hydrofuge-28.webp"
+    imageAlt={`Toiture en tuiles traitée et protégée par Renaud Rénov, couvreur à ${ville} en Eure-et-Loir`}
+    imageWidth={2000}
+    imageHeight={1500}
+  />
 </BaseLayout>
 
 <style>

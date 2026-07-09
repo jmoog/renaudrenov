@@ -1,0 +1,351 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { SITE } from '../../data/site.ts';
+import FilAriane from '../../components/FilAriane.astro';
+import CtaDevis from '../../components/CtaDevis.astro';
+
+const ville = 'Maintenon';
+const cp = '28130';
+
+// ── Balises différenciées (règle anti-triplette du projet) ──
+// Title → chantier + localité ; H1 → geste + maison ; Meta → date + preuve.
+const title = 'Chantier de nettoyage de toiture à Maintenon (28) | Renaud Rénov';
+const description =
+  "Juin 2026 : Renaud Rénov a démoussé un toit à Maintenon. Photos avant / après et déroulé du chantier, la preuve d'un travail d'artisan soigné.";
+
+const businessId = `${SITE.url}/#localbusiness`;
+const pageUrl = `${SITE.url}/realisations/demoussage-toiture-maintenon/`;
+const imgApres = '/images/photos/demoussage-toiture-maintenon-apres.webp';
+const imgAvant = '/images/photos/demoussage-toiture-maintenon-avant.webp';
+
+// ── Fiche chantier (données factuelles → structure + confiance) ──
+const fiche = [
+  { label: 'Commune', valeur: `${ville} (28)`, icone: 'pin' },
+  { label: 'Période', valeur: 'Juin 2026', icone: 'cal' },
+  { label: 'Intervention', valeur: 'Démoussage + anti-mousse', icone: 'drop' },
+  { label: 'Couverture', valeur: 'Tuiles terre cuite', icone: 'toit' },
+];
+
+// ── Déroulé du chantier : le savoir-faire, étape par étape ──
+const etapes = [
+  {
+    t: 'Diagnostic et sécurisation',
+    d: "J'examine d'abord l'état des tuiles, du faîtage et des points sensibles, puis j'installe échelle de toit et dispositifs de sécurité. Aucun geste avant ce repérage.",
+  },
+  {
+    t: 'Nettoyage en douceur',
+    d: "Brossage et basse pression décollent mousses, lichens et dépôts noirs sans jamais attaquer l'émail des tuiles. Le matériau est préservé, l'écoulement des eaux rétabli.",
+  },
+  {
+    t: 'Traitement protecteur',
+    d: "Un anti-mousse fongicide de qualité professionnelle est appliqué : il agit sur les spores en profondeur et retarde nettement leur retour. Le résultat est fait pour durer.",
+  },
+];
+
+const schemaRealisation = {
+  '@context': 'https://schema.org',
+  '@type': 'Service',
+  '@id': `${pageUrl}#realisation`,
+  serviceType: 'Démoussage de toiture',
+  name: `Démoussage de toiture à ${ville} — juin 2026`,
+  description:
+    `Chantier de nettoyage et démoussage d'un toit en tuiles réalisé à ${ville} (${cp}) en juin 2026 par Renaud Rénov : diagnostic, brossage basse pression et traitement anti-mousse.`,
+  provider: { '@id': businessId },
+  areaServed: { '@type': 'City', name: ville, postalCode: cp },
+  image: [`${SITE.url}${imgAvant}`, `${SITE.url}${imgApres}`],
+};
+
+const schemaFil = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Accueil', item: `${SITE.url}/` },
+    { '@type': 'ListItem', position: 2, name: `Démoussage de toiture à ${ville}`, item: pageUrl },
+  ],
+};
+---
+<BaseLayout title={title} description={description} extraSchemas={[schemaRealisation, schemaFil]}>
+  <!-- ── Fil d'Ariane ─────────────────────────────────────────── -->
+  <section class="section" style="padding-block: 1.4rem 0;">
+    <div class="conteneur">
+      <FilAriane items={[{ label: 'Accueil', href: '/' }, { label: `Démoussage de toiture à ${ville}` }]} />
+    </div>
+  </section>
+
+  <!-- ── Hero : bandeau marine + photo « après » encadrée ─────── -->
+  <section class="reno-hero">
+    <div class="conteneur reno-hero__grille">
+      <div class="reno-hero__texte">
+        <span class="reno-tag">Réalisation · Juin 2026</span>
+        <h1>Démoussage d'une toiture à {ville}</h1>
+        <p class="reno-marque">RENAUD RÉNOV</p>
+        <p class="reno-chapo">
+          Une couverture en tuiles gagnée par le vert et les traînées sombres, redevenue nette en une
+          seule intervention. Retour sur un chantier mené en juin 2026 pour un particulier, un aperçu
+          concret de mon métier de <a href="/villes/maintenon/">couvreur à {ville}</a>.
+        </p>
+        <div class="reno-hero__actions">
+          <a href={SITE.telHref} class="btn btn--rouge">
+            <svg class="icone" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M6.6 10.8a15.5 15.5 0 0 0 6.6 6.6l2.2-2.2a1 1 0 0 1 1-.25 11.4 11.4 0 0 0 3.6.57 1 1 0 0 1 1 1V20a1 1 0 0 1-1 1A17 17 0 0 1 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1 11.4 11.4 0 0 0 .57 3.6 1 1 0 0 1-.25 1z"/></svg>
+            {SITE.tel}
+          </a>
+          <a href="/devis-gratuit/" class="btn btn--blanc">Devis gratuit →</a>
+        </div>
+      </div>
+      <figure class="reno-hero__media">
+        <span class="reno-etiquette">Après</span>
+        <img
+          src={imgApres}
+          alt={`Toiture en tuiles propre et démoussée par Renaud Rénov à ${ville} sous un ciel bleu`}
+          fetchpriority="high" width="1200" height="900"
+        />
+      </figure>
+    </div>
+  </section>
+
+  <!-- ── Fiche chantier : cartes en chevauchement du hero ─────── -->
+  <section class="section reno-fiche-wrap">
+    <div class="conteneur">
+      <ul class="reno-fiche">
+        {fiche.map((f) => (
+          <li>
+            <span class="reno-fiche__icone" aria-hidden="true">
+              {f.icone === 'pin' && <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>}
+              {f.icone === 'cal' && <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>}
+              {f.icone === 'drop' && <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2s6 6.5 6 11a6 6 0 0 1-12 0c0-4.5 6-11 6-11Z"/></svg>}
+              {f.icone === 'toit' && <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11 12 4l9 7"/><path d="M5 10v10h14V10"/></svg>}
+            </span>
+            <span class="reno-fiche__txt">
+              <span class="reno-fiche__label">{f.label}</span>
+              <strong>{f.valeur}</strong>
+            </span>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <!-- ── Avant / après : la preuve ────────────────────────────── -->
+  <section class="section">
+    <div class="conteneur">
+      <div class="section__entete">
+        <h2>Avant / après : le toit avant et après mon passage</h2>
+      </div>
+      <div class="reno-av-ap">
+        <figure>
+          <span class="badge badge--avant">Avant</span>
+          <img src={imgAvant} alt={`Toit encrassé, envahi de mousses et de lichens avant nettoyage à ${ville}`} loading="lazy" width="1200" height="900" />
+        </figure>
+        <figure>
+          <span class="badge badge--apres">Après</span>
+          <img src={imgApres} alt={`Le même toit, tuiles propres et saines une fois le démoussage terminé à ${ville}`} loading="lazy" width="1200" height="900" />
+        </figure>
+      </div>
+      <p class="reno-legende">Même pan de toit, photographié à mon arrivée puis une fois le chantier terminé.</p>
+    </div>
+  </section>
+
+  <!-- ── Déroulé du chantier : le savoir-faire en 3 temps ─────── -->
+  <section class="section section--gris">
+    <div class="conteneur">
+      <div class="section__entete">
+        <h2>Comment s'est déroulé le chantier</h2>
+      </div>
+      <p class="reno-intro">
+        Redonner de l'éclat à un toit sans le fragiliser, c'est un métier. Voici les trois temps de
+        cette <a href="/prestations/nettoyage-demoussage-toiture/">prestation de nettoyage et de
+        démoussage</a>, telle que je l'ai menée à {ville}.
+      </p>
+      <ol class="reno-etapes">
+        {etapes.map((e, i) => (
+          <li class="reno-etape">
+            <span class="reno-etape__num">{i + 1}</span>
+            <div>
+              <h3>{e.t}</h3>
+              <p>{e.d}</p>
+            </div>
+          </li>
+        ))}
+      </ol>
+      <p class="reno-signature">
+        Un chantier propre, sécurisé et livré dans les délais&nbsp;: la marque d'un artisan qui aime
+        le travail bien fait, à {ville} comme partout en {SITE.departement}.
+      </p>
+    </div>
+  </section>
+
+  <!-- ── CTA devis ────────────────────────────────────────────── -->
+  <CtaDevis
+    titre={`Une toiture à démousser du côté de ${ville} ?`}
+    image="/images/photos/hero-renaud-renov-640.webp"
+    imageAlt={`Renaud Rénov, artisan couvreur intervenant sur les toitures à ${ville} et en ${SITE.departement}`}
+    imageWidth={640}
+    imageHeight={480}
+  />
+</BaseLayout>
+
+<style>
+  /* ══ Hero marine ══ */
+  .reno-hero {
+    background: linear-gradient(160deg, #244b64 0%, #173445 100%);
+    color: #fff;
+    padding: clamp(2rem, 5vw, 3.4rem) 0 clamp(3.5rem, 7vw, 5rem);
+  }
+  .reno-hero__grille {
+    display: grid;
+    gap: clamp(1.6rem, 4vw, 3rem);
+    align-items: center;
+  }
+  @media (min-width: 900px) {
+    .reno-hero__grille { grid-template-columns: 1.05fr 1fr; }
+  }
+  .reno-tag {
+    display: inline-block;
+    padding: 0.4rem 0.95rem;
+    border-radius: 999px;
+    background: rgba(239, 126, 15, 0.18);
+    border: 1px solid rgba(239, 126, 15, 0.5);
+    color: #ffb060;
+    font-size: 0.82rem;
+    font-weight: 700;
+    letter-spacing: 0.03em;
+    margin-bottom: 1rem;
+  }
+  .reno-hero h1 { color: #fff; margin: 0; }
+  .reno-marque {
+    font-size: clamp(1.4rem, 4.5vw, 2.1rem);
+    font-weight: 800;
+    color: var(--rouge);
+    line-height: 1.05;
+    margin: 0.35rem 0 1.1rem;
+  }
+  .reno-chapo { color: rgba(255, 255, 255, 0.9); margin: 0 0 1.5rem; max-width: 52ch; }
+  .reno-chapo a { color: #ffb060; font-weight: 600; }
+  .reno-chapo a:hover { color: #fff; }
+  .reno-hero__actions { display: flex; flex-wrap: wrap; gap: 0.8rem; }
+
+  .reno-hero__media {
+    position: relative;
+    margin: 0;
+    border-radius: 18px;
+    overflow: hidden;
+    box-shadow: 0 22px 50px rgba(0, 0, 0, 0.35);
+  }
+  .reno-hero__media img { width: 100%; height: 100%; object-fit: cover; display: block; aspect-ratio: 4 / 3; }
+  .reno-etiquette {
+    position: absolute;
+    top: 1rem; left: 1rem;
+    z-index: 1;
+    padding: 0.35rem 0.85rem;
+    border-radius: 999px;
+    background: var(--rouge);
+    color: #fff;
+    font-size: 0.85rem;
+    font-weight: 700;
+  }
+
+  /* ══ Fiche chantier (chevauche le hero) ══ */
+  .reno-fiche-wrap { padding-top: 0; }
+  .reno-fiche {
+    list-style: none;
+    padding: 0;
+    margin: clamp(-3rem, -5vw, -2.4rem) 0 0;
+    position: relative;
+    z-index: 2;
+    display: grid;
+    gap: 1rem;
+    grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+  }
+  .reno-fiche li {
+    display: flex;
+    align-items: center;
+    gap: 0.9rem;
+    background: #fff;
+    border: 1px solid rgba(36, 75, 100, 0.08);
+    border-radius: 16px;
+    padding: 1.1rem 1.25rem;
+    box-shadow: 0 12px 30px rgba(36, 75, 100, 0.14);
+  }
+  .reno-fiche__icone {
+    flex: 0 0 auto;
+    width: 44px; height: 44px;
+    display: inline-flex; align-items: center; justify-content: center;
+    border-radius: 12px;
+    background: var(--rouge-pale);
+    color: var(--rouge);
+  }
+  .reno-fiche__icone svg { width: 1.4rem; height: 1.4rem; }
+  .reno-fiche__txt { display: flex; flex-direction: column; line-height: 1.3; }
+  .reno-fiche__label { font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.05em; color: var(--gris-500); }
+  .reno-fiche__txt strong { color: var(--bleu); font-size: 1.02rem; }
+
+  /* ══ Avant / après ══ */
+  .reno-av-ap {
+    display: grid;
+    gap: 1.1rem;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    margin-top: 0.5rem;
+  }
+  .reno-av-ap figure { position: relative; margin: 0; }
+  .reno-av-ap img {
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+    border-radius: 16px;
+    display: block;
+    box-shadow: 0 12px 30px rgba(36, 75, 100, 0.16);
+  }
+  .badge {
+    position: absolute;
+    top: 0.85rem; left: 0.85rem;
+    z-index: 1;
+    padding: 0.32rem 0.9rem;
+    border-radius: 999px;
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: #fff;
+  }
+  .badge--avant { background: var(--gris-700); }
+  .badge--apres { background: var(--rouge); }
+  .reno-legende { margin-top: 1.1rem; text-align: center; font-style: italic; color: var(--gris-700); }
+
+  /* ══ Déroulé en étapes ══ */
+  .reno-intro { max-width: 64ch; margin: 0 auto 2.4rem; text-align: center; text-wrap: balance; color: var(--gris-700); }
+  .reno-etapes {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    gap: 1.2rem;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  }
+  .reno-etape {
+    background: #fff;
+    border-radius: 18px;
+    padding: 1.9rem 1.7rem;
+    box-shadow: 0 10px 28px rgba(36, 75, 100, 0.10);
+    border-top: 3px solid var(--rouge);
+  }
+  .reno-etape__num {
+    display: inline-flex;
+    align-items: center; justify-content: center;
+    width: 42px; height: 42px;
+    border-radius: 50%;
+    background: var(--bleu);
+    color: #fff;
+    font-weight: 800;
+    font-size: 1.15rem;
+    margin-bottom: 1rem;
+  }
+  .reno-etape h3 { margin: 0 0 0.5rem; color: var(--bleu); }
+  .reno-etape p { margin: 0; color: var(--gris-700); }
+  .reno-signature {
+    max-width: 60ch;
+    margin: 2.4rem auto 0;
+    text-align: center;
+    text-wrap: balance;
+    font-size: 1.08rem;
+    font-weight: 600;
+    color: var(--bleu);
+  }
+</style>
