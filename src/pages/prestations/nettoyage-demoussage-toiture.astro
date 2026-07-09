@@ -98,8 +98,8 @@ const schemaFaq = {
     <div class="conteneur">
       <FilAriane items={[{ label: 'Accueil', href: '/' }, { label: 'Démoussage et nettoyage de toiture' }]} />
     </div>
-    <div class="conteneur duo">
-      <div>
+    <div class="conteneur duo hero-duo">
+      <div class="hero-haut">
         <a href={reviews.urlFiche} class="note-google-box" rel="noopener" target="_blank" aria-label={`Note Google ${reviews.note} sur 5 sur ${reviews.nombre} avis`}>
           <LogoGoogle taille={22} />
           <span class="note-google-box__note"><strong>{reviews.note.toLocaleString('fr-FR')}</strong>/5</span>
@@ -108,6 +108,16 @@ const schemaFaq = {
         </a>
         <h1 class="hero-titre">Le spécialiste du démoussage de toiture en Eure-et-Loir (28)</h1>
         <p class="marque-orange">RENAUD RÉNOV</p>
+      </div>
+      <img
+        class="hero-photo-prestation"
+        src="/images/photos/nettoyage-demoussage-toiture.webp"
+        alt="M. Renaud, artisan couvreur, nettoyant et démoussant une toiture en Eure-et-Loir"
+        fetchpriority="high"
+        width="2000"
+        height="1500"
+      />
+      <div class="hero-bas">
         <p class="hero__accroche">
           Votre toiture est couverte de mousses et de lichens, ou simplement salie et marquée par des
           traînées noires de pollution ? Vous cherchez un professionnel, spécialiste du nettoyage de
@@ -127,13 +137,6 @@ const schemaFaq = {
           <a href="/devis-gratuit/" class="btn btn--bleu">Demander le démoussage de votre toit →</a>
         </div>
       </div>
-      <img
-        src="/images/photos/nettoyage-demoussage-toiture.webp"
-        alt="M. Renaud, artisan couvreur, nettoyant et démoussant une toiture en Eure-et-Loir"
-        fetchpriority="high"
-        width="2000"
-        height="1500"
-      />
     </div>
   </section>
 
@@ -544,8 +547,24 @@ const schemaFaq = {
   .avis-note-google__etoiles { color: var(--etoile, #f5b400); letter-spacing: 0.06em; }
   .section--bleu .avis-note-google { color: rgba(255, 255, 255, 0.88); }
 
-  .avis-grille { display: grid; gap: 1.1rem; grid-template-columns: 1fr; margin-top: 2rem; }
-  @media (min-width: 560px) { .avis-grille { grid-template-columns: 1fr 1fr; } }
+  /* Mobile : slider horizontal (scroll-snap), comme sur l'accueil */
+  .avis-grille {
+    display: flex;
+    gap: 1rem;
+    margin-top: 2rem;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scroll-padding-inline: 1rem;
+    padding-bottom: 0.5rem;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: thin;
+  }
+  .avis-grille > .avis-carte { flex: 0 0 82%; scroll-snap-align: center; }
+  /* Tablette / desktop : on repasse en grille classique */
+  @media (min-width: 560px) {
+    .avis-grille { display: grid; grid-template-columns: 1fr 1fr; overflow: visible; padding-bottom: 0; }
+    .avis-grille > .avis-carte { flex: none; }
+  }
   @media (min-width: 960px) { .avis-grille { grid-template-columns: repeat(4, 1fr); } }
   .avis-carte {
     margin: 0;
@@ -610,6 +629,22 @@ const schemaFaq = {
   }
   .fournisseurs__carte:hover { transform: translateY(-3px); box-shadow: 0 14px 30px rgba(36, 75, 100, 0.14); }
   .fournisseurs__carte img { max-height: 56px; max-width: 100%; width: auto; object-fit: contain; }
+
+  /* ── Hero : sur mobile la photo remonte juste sous la marque ── */
+  .hero-duo { gap: 1.4rem; }
+  .hero-haut > *:first-child { margin-top: 0; }
+  @media (min-width: 900px) {
+    .hero-duo {
+      grid-template-columns: 1fr 1fr;
+      grid-template-areas: "haut img" "bas img";
+      column-gap: 4rem;
+      row-gap: 0;
+      align-items: start;
+    }
+    .hero-haut { grid-area: haut; }
+    .hero-bas { grid-area: bas; }
+    .hero-photo-prestation { grid-area: img; align-self: center; }
+  }
 
   /* H1 réduit et volontairement cassé sur deux lignes */
   .hero-titre {
