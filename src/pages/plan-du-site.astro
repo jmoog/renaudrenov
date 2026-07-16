@@ -1,0 +1,274 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import FilAriane from '../components/FilAriane.astro';
+import services from '../data/services.json';
+import villes from '../data/villes.json';
+
+const title = 'Plan du site — Renaud Rénov, couvreur en Eure-et-Loir (28)';
+const description =
+  "Toutes les pages du site Renaud Rénov : prestations de couverture, zone d'intervention en Eure-et-Loir, réalisations, devis et informations pratiques.";
+---
+<BaseLayout title={title} description={description}>
+  <!-- ── En-tête ─────────────────────────────────────────────── -->
+  <section class="plan-entete">
+    <div class="conteneur">
+      <FilAriane items={[{ label: 'Accueil', href: '/' }, { label: 'Plan du site' }]} />
+      <p class="plan-entete__sur">Renaud Rénov — Couvreur en Eure-et-Loir</p>
+      <h1>Plan du site</h1>
+      <p class="plan-entete__intro">
+        Toutes les pages du site, organisées par thème : nos prestations de couverture, notre zone
+        d'intervention, nos réalisations et les informations pratiques.
+      </p>
+    </div>
+  </section>
+
+  <!-- ── Blocs ───────────────────────────────────────────────── -->
+  <section class="section" style="padding-top: clamp(2rem, 5vw, 3.5rem);">
+    <div class="conteneur">
+      <div class="plan-grille">
+        <article class="plan-carte">
+          <span class="plan-carte__num">01</span>
+          <h2>Présentation</h2>
+          <ul>
+            <li><a href="/">Accueil</a></li>
+            <li><a href="/a-propos/">À propos de Renaud Rénov</a></li>
+          </ul>
+        </article>
+
+        <article class="plan-carte plan-carte--vedette">
+          <span class="plan-carte__num">02</span>
+          <h2>Nos prestations</h2>
+          <ul>
+            {services.map((s) => (
+              <li><a href={s.href}>{s.label}</a></li>
+            ))}
+          </ul>
+        </article>
+
+        <article class="plan-carte">
+          <span class="plan-carte__num">03</span>
+          <h2>Réalisations</h2>
+          <ul>
+            <li><a href="/realisations/demoussage-toiture-maintenon/">Nettoyage de toiture à Maintenon</a></li>
+          </ul>
+        </article>
+
+        <article class="plan-carte">
+          <span class="plan-carte__num">04</span>
+          <h2>Devis &amp; contact</h2>
+          <ul>
+            <li><a href="/devis-gratuit/">Demander un devis gratuit</a></li>
+          </ul>
+        </article>
+
+        <article class="plan-carte">
+          <span class="plan-carte__num">05</span>
+          <h2>Informations</h2>
+          <ul>
+            <li><a href="/mentions-legales/">Mentions légales</a></li>
+            <li><span aria-current="page">Plan du site</span></li>
+          </ul>
+        </article>
+      </div>
+
+      <!-- ── Zone d'intervention ───────────────────────────────── -->
+      <div class="plan-villes">
+        <div class="plan-villes__tete">
+          <span class="plan-carte__num">06</span>
+          <div>
+            <h2>Zone d'intervention</h2>
+            <p>
+              J'interviens à Villiers-le-Morhier et dans tout l'Eure-et-Loir. Une page dédiée existe
+              pour chaque commune :
+            </p>
+          </div>
+        </div>
+        <ul class="plan-villes__liste">
+          {villes.map((v) => (
+            <li><a href={`/villes/${v.slug}/`}>{v.nom}</a></li>
+          ))}
+        </ul>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  /* ── En-tête dégradé marine ──────────────────────────────── */
+  .plan-entete {
+    background: linear-gradient(135deg, var(--bleu) 0%, var(--bleu-fonce) 100%);
+    color: var(--blanc);
+    padding-block: clamp(2.5rem, 6vw, 4rem);
+    position: relative;
+    overflow: hidden;
+  }
+  .plan-entete::after {
+    content: '';
+    position: absolute;
+    right: -80px;
+    top: -80px;
+    width: 320px;
+    height: 320px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(239, 126, 15, 0.22) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .plan-entete :global(.fil-ariane),
+  .plan-entete :global(.fil-ariane a),
+  .plan-entete :global(.fil-ariane [aria-current]) {
+    color: rgba(255, 255, 255, 0.7);
+  }
+  .plan-entete :global(.fil-ariane a:hover) { color: var(--rouge); }
+  .plan-entete__sur {
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: var(--rouge);
+    margin-bottom: 0.6rem;
+  }
+  .plan-entete h1 { color: var(--blanc); margin: 0; }
+  .plan-entete__intro {
+    max-width: 60ch;
+    color: rgba(255, 255, 255, 0.85);
+    margin-top: 1rem;
+    font-size: 1.08rem;
+  }
+
+  /* ── Grille de cartes ────────────────────────────────────── */
+  .plan-grille {
+    display: grid;
+    gap: 1.5rem;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  }
+  .plan-carte {
+    position: relative;
+    background: var(--blanc);
+    border: 1px solid var(--gris-200);
+    border-radius: var(--rayon);
+    padding: 1.9rem 1.7rem 1.7rem;
+    box-shadow: var(--ombre);
+    transition: transform var(--transition), box-shadow var(--transition), border-color var(--transition);
+    overflow: hidden;
+  }
+  .plan-carte::before {
+    content: '';
+    position: absolute;
+    inset: 0 auto 0 0;
+    width: 4px;
+    background: var(--rouge);
+    transform: scaleY(0);
+    transform-origin: top;
+    transition: transform var(--transition);
+  }
+  .plan-carte:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--ombre-forte);
+    border-color: transparent;
+  }
+  .plan-carte:hover::before { transform: scaleY(1); }
+
+  .plan-carte__num {
+    display: block;
+    font-size: 1.6rem;
+    font-weight: 800;
+    color: var(--rouge-pale);
+    line-height: 1;
+    margin-bottom: 0.4rem;
+    -webkit-text-stroke: 1px var(--rouge);
+  }
+  .plan-carte h2 {
+    font-size: 1.15rem;
+    color: var(--bleu);
+    margin-bottom: 1.1rem;
+  }
+  .plan-carte ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    gap: 0.7rem;
+  }
+  .plan-carte li {
+    border-top: 1px solid var(--gris-100);
+    padding-top: 0.7rem;
+  }
+  .plan-carte li:first-child { border-top: 0; padding-top: 0; }
+  .plan-carte a {
+    color: var(--gris-700);
+    text-decoration: none;
+    font-weight: 500;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4em;
+    transition: color var(--transition), gap var(--transition);
+  }
+  .plan-carte a::after {
+    content: '→';
+    color: var(--rouge);
+    opacity: 0;
+    transform: translateX(-4px);
+    transition: opacity var(--transition), transform var(--transition);
+  }
+  .plan-carte a:hover { color: var(--rouge-fonce); }
+  .plan-carte a:hover::after { opacity: 1; transform: translateX(0); }
+  .plan-carte [aria-current] { color: var(--gris-500); font-style: italic; }
+
+  /* Carte vedette (prestations) : fond bleu pâle */
+  .plan-carte--vedette {
+    background: var(--bleu-pale);
+    border-color: transparent;
+  }
+
+  /* ── Zone d'intervention ─────────────────────────────────── */
+  .plan-villes {
+    margin-top: 2.5rem;
+    background: var(--bleu-fonce);
+    border-radius: var(--rayon);
+    padding: clamp(1.8rem, 4vw, 2.5rem);
+    color: rgba(255, 255, 255, 0.9);
+  }
+  .plan-villes__tete {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+    margin-bottom: 1.6rem;
+  }
+  .plan-villes__tete .plan-carte__num {
+    color: transparent;
+    -webkit-text-stroke: 1px rgba(239, 126, 15, 0.8);
+    margin-bottom: 0;
+    flex-shrink: 0;
+  }
+  .plan-villes h2 { color: var(--blanc); margin: 0 0 0.4rem; }
+  .plan-villes p { color: rgba(255, 255, 255, 0.8); margin: 0; max-width: 60ch; }
+  .plan-villes__liste {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+  }
+  .plan-villes__liste a {
+    display: inline-block;
+    padding: 0.5em 1.1em;
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.16);
+    border-radius: var(--rayon);
+    color: rgba(255, 255, 255, 0.92);
+    text-decoration: none;
+    font-size: 0.92rem;
+    font-weight: 500;
+    transition: background var(--transition), border-color var(--transition), color var(--transition);
+  }
+  .plan-villes__liste a:hover {
+    background: var(--rouge);
+    border-color: var(--rouge);
+    color: var(--blanc);
+  }
+
+  @media (max-width: 640px) {
+    .plan-villes__tete { flex-direction: column; gap: 0.5rem; }
+  }
+</style>
