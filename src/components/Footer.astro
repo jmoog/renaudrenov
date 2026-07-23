@@ -1,42 +1,65 @@
 ---
+// Footer (design modèle artisan) : 4 blocs — marque + labels officiels,
+// navigation, zones d'intervention (toutes les pages villes), contact avec
+// boutons — et mention légale. À la place des badges SVG du modèle : les
+// deux logos officiels (Artisan CMA 28 lié à cma28.fr + Garantie décennale).
 import { SITE } from '../data/site.ts';
 import services from '../data/services.json';
 import villes from '../data/villes.json';
 import reviews from '../data/reviews.json';
 import LogoGoogle from './LogoGoogle.astro';
+import FlecheRonde from './FlecheRonde.astro';
 
 // Villes dont la page dédiée existe : elles s'affichent en lien cliquable.
-// Toutes les villes de villes.json ont désormais une page dédiée.
 const villesPubliees = villes.map((v) => v.slug);
 ---
 <footer class="pied">
   <div class="conteneur pied__grille">
     <div class="pied__bloc pied__marque">
-      <img src="/images/logo/logo-renaud-renov-256.webp" alt={`Logo ${SITE.nom}`} width="96" height="96" loading="lazy" />
+      <img
+        class="pied__logo"
+        src="/images/logo/logo-renaud-renov-256.webp"
+        width="96"
+        height="96"
+        alt={`Logo ${SITE.nom} — ${SITE.slogan}`}
+        loading="lazy"
+      />
       <p><strong>{SITE.nom}</strong><br />{SITE.slogan}</p>
       <p>{SITE.rue}<br />{SITE.cp} {SITE.ville}</p>
-      <p>
-        <a href={SITE.telHref}>{SITE.tel}</a><br />
-        <a href={`mailto:${SITE.email}`}>{SITE.email}</a>
-      </p>
       <p class="pied__note">
         <LogoGoogle taille={18} />
         <span class="pied__etoiles" aria-hidden="true">★★★★★</span> {reviews.note.toLocaleString('fr-FR')}/5 · {reviews.nombre} avis Google
       </p>
+
+      <ul class="pied__badges">
+        <li class="pied__badge">
+          <a href="https://www.cma28.fr/" target="_blank" rel="noopener" aria-label="Chambre de Métiers et de l'Artisanat d'Eure-et-Loir">
+            <img src="/images/labels/artisan-cma28.png" alt="Artisan — Chambre de Métiers et de l'Artisanat d'Eure-et-Loir" width="320" height="228" class="pied__badge-img pied__badge-img--artisan" loading="lazy" />
+          </a>
+        </li>
+        <li class="pied__badge">
+          <img src="/images/labels/garantie-decennale-10-ans.png" alt="Garantie décennale 10 ans" width="220" height="220" class="pied__badge-img" loading="lazy" />
+        </li>
+      </ul>
     </div>
 
-    <nav class="pied__bloc" aria-label="Nos services">
-      <h2>Nos services</h2>
+    <nav class="pied__bloc" aria-label="Navigation">
+      <h2>Navigation</h2>
       <ul>
+        <li><a href="/">Accueil</a></li>
         {services.map((s) => (
           <li><a href={s.href}>{s.labelNav}</a></li>
         ))}
+        <li><a href="/a-propos/">À propos</a></li>
+        <li><a href="/devis-gratuit/">Devis gratuit et contact</a></li>
+        <li><a href="/plan-du-site/">Plan du site</a></li>
+        <li><a href="/mentions-legales/">Mentions légales</a></li>
       </ul>
     </nav>
 
-    <nav class="pied__bloc" aria-label="Zone d'intervention">
-      <h2>Eure-et-Loir et alentours</h2>
-      <ul class="pied__villes">
+    <nav class="pied__bloc" aria-label="Zones d'intervention">
+      <h2>Zones d’intervention</h2>
+      <ul>
         {villes.map((v) => (
           <li>
             {villesPubliees.includes(v.slug)
@@ -47,28 +70,22 @@ const villesPubliees = villes.map((v) => v.slug);
       </ul>
     </nav>
 
-    <nav class="pied__bloc" aria-label="Informations">
-      <h2>Informations</h2>
+    <nav class="pied__bloc" aria-label="Contact">
+      <h2>Contact</h2>
       <ul>
-        <li><a href="/a-propos/">À propos</a></li>
-        <li><a href="/devis-gratuit/">Devis gratuit et contact</a></li>
+        <li>{SITE.horaires}</li>
+        <li><a href={`mailto:${SITE.email}`}>{SITE.email}</a></li>
         <li><a href={SITE.facebook} rel="noopener" target="_blank">Facebook</a></li>
         <li><a href={SITE.googleAvis} rel="noopener" target="_blank">Avis Google</a></li>
-        <li><a href="/mentions-legales/">Mentions légales</a></li>
-        <li><a href="/plan-du-site/">Plan du site</a></li>
       </ul>
-    </nav>
-  </div>
-
-  <div class="pied__labels-bar">
-    <div class="conteneur pied__labels-wrap">
-      <div class="pied__labels">
-        <a href="https://www.cma28.fr/" target="_blank" rel="noopener" aria-label="Chambre de Métiers et de l'Artisanat d'Eure-et-Loir">
-          <img src="/images/labels/artisan-cma28.png" alt="Artisan — Chambre de Métiers et de l'Artisanat d'Eure-et-Loir" width="320" height="228" class="pied__label pied__label--artisan" loading="lazy" />
+      <div class="pied__actions">
+        <a href="/devis-gratuit/" class="btn btn--rouge pied__btn-intervention">Demander une intervention<FlecheRonde /></a>
+        <a href={SITE.telHref} class="btn btn--blanc">
+          <svg class="icone" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M6.6 10.8a15.5 15.5 0 0 0 6.6 6.6l2.2-2.2a1 1 0 0 1 1-.25 11.4 11.4 0 0 0 3.6.57 1 1 0 0 1 1 1V20a1 1 0 0 1-1 1A17 17 0 0 1 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1 11.4 11.4 0 0 0 .57 3.6 1 1 0 0 1-.25 1z"/></svg>
+          {SITE.tel}
         </a>
-        <img src="/images/labels/garantie-decennale-10-ans.png" alt="Garantie décennale 10 ans" width="220" height="220" class="pied__label" loading="lazy" />
       </div>
-    </div>
+    </nav>
   </div>
 
   <div class="pied__legal">
@@ -82,14 +99,22 @@ const villesPubliees = villes.map((v) => v.slug);
     color: rgba(255, 255, 255, 0.85);
     margin-top: auto;
     font-size: 0.93rem;
-    /* Liseré orange (design modèle) : répond au bandeau d'accent du header */
     border-top: 3px solid var(--rouge);
   }
+
   .pied__grille {
     display: grid;
     gap: 2.5rem;
     padding-block: 3rem;
     grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  }
+  .pied__logo {
+    display: block;
+    height: 84px;
+    width: 84px;
+    margin-bottom: 0.6rem;
+    border-radius: 50%;
+    background: var(--blanc);
   }
   .pied__bloc h2 {
     color: var(--blanc);
@@ -99,13 +124,46 @@ const villesPubliees = villes.map((v) => v.slug);
     margin-bottom: 1rem;
   }
   .pied__bloc ul { list-style: none; padding: 0; display: grid; gap: 0.4rem; }
-  .pied__villes li { color: rgba(255, 255, 255, 0.7); }
-  .pied a { color: rgba(255, 255, 255, 0.85); text-decoration: none; }
-  .pied a:hover { color: var(--rouge); text-decoration: underline; }
-  .pied__marque img { height: 80px; width: auto; margin-bottom: 1rem; border-radius: 50%; background: var(--blanc); }
+  .pied a:not(.btn) { color: rgba(255, 255, 255, 0.85); text-decoration: none; }
+  .pied a:not(.btn):hover { color: var(--rouge); text-decoration: underline; }
   .pied__marque p { margin-block: 0.5rem; }
   .pied__etoiles { color: var(--etoile); letter-spacing: 0.1em; }
   .pied__note { font-weight: 600; color: var(--blanc); }
+
+  /* Labels officiels (à la place des badges SVG du modèle) :
+     chaque logo sur sa pastille blanche */
+  .pied__badges {
+    list-style: none;
+    padding: 0;
+    margin-top: 1.2rem;
+    display: flex !important;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.9rem;
+  }
+  .pied__badge a { display: inline-flex; }
+  .pied__badge a:hover { opacity: 0.85; }
+  .pied__badge-img {
+    display: block;
+    width: auto;
+    height: 64px;
+    background: var(--blanc);
+    border-radius: var(--rayon);
+    padding: 0.45rem 0.7rem;
+  }
+  .pied__badge-img--artisan { height: 60px; }
+
+  /* Boutons de contact */
+  .pied__actions {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.7rem;
+    margin-top: 1.1rem;
+  }
+  .pied__actions .btn { white-space: nowrap; }
+  .pied__btn-intervention { font-size: 0.9rem; }
+
   .pied__legal {
     border-top: 1px solid rgba(255, 255, 255, 0.12);
     text-align: center;
@@ -116,32 +174,13 @@ const villesPubliees = villes.map((v) => v.slug);
   .pied__legal p { margin: 0; text-align: center; }
   .pied__legal span { display: inline-block; }
 
-  /* Bandeau labels / réassurance : logos sur carte blanche centrée */
-  .pied__labels-bar {
-    border-top: 1px solid rgba(255, 255, 255, 0.12);
-    padding: 2.25rem 0;
-  }
-  .pied__labels-wrap { text-align: center; }
-  .pied__labels {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: 2.5rem;
-    flex-wrap: wrap;
-    background: var(--blanc);
-    border-radius: var(--rayon);
-    padding: 1.1rem 2.25rem;
-  }
-  .pied__labels a { display: inline-flex; }
-  .pied__label { width: auto; height: 76px; }
-  .pied__label--artisan { height: 66px; }
-  .pied__labels a:hover .pied__label--artisan { opacity: 0.85; }
-
   @media (max-width: 800px) {
     .pied__grille { text-align: center; }
     .pied__grille p { text-align: center; }
     .pied__bloc h2 { text-align: center; }
     .pied__bloc ul { justify-items: center; }
-    .pied__marque img { margin-inline: auto; }
+    .pied__logo { margin-inline: auto; }
+    .pied__badges { justify-content: center; }
+    .pied__actions { align-items: center; width: 100%; }
   }
 </style>
