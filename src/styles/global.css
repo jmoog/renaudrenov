@@ -237,6 +237,14 @@ h3 { font-size: clamp(1.25rem, 1rem + 1vw, 1.5rem); }
   transition: background var(--transition), color var(--transition), border-color var(--transition), transform var(--transition);
 }
 .btn:active { transform: scale(0.97); }
+/* Mobile : boutons plus compacts (cible tactile ≥ 44px conservée) */
+@media (max-width: 800px) {
+  .btn {
+    font-size: 0.95rem;
+    padding: 0.65em 1.2em;
+    min-height: 44px;
+  }
+}
 .btn--rouge { background: var(--rouge-fonce); color: var(--blanc); }
 .btn--rouge:hover { background: var(--rouge-sombre); color: var(--blanc); }
 .btn--blanc { background: var(--blanc); color: var(--bleu); }

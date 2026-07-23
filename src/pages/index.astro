@@ -20,62 +20,57 @@ import FlecheRonde from '../components/FlecheRonde.astro';
   title="Couvreur 28 - Renaud Rénov - un pro de la toiture"
   description="Couvreur zingueur en Eure-et-Loir (28) - tous travaux de couverture - entretien, réparation et rénovation de toiture. Devis gratuit."
 >
-  <!-- ── Hero éditorial : grande photo + cartouche en surplomb ── -->
+  <!-- ── Hero deux colonnes : texte à gauche, photo entière à droite ── -->
   <section class="hero3">
-    <div class="conteneur">
-      <div class="hero3__bloc">
+    <div class="conteneur hero3__grille">
+      <div class="hero3__texte">
+        <p class="hero3__eyebrow">Entretenir, réparer, protéger votre toiture</p>
+        <h1>Entreprise de couverture en Eure-et-Loir (28)</h1>
+        <p class="hero3__marque">RENAUD RÉNOV</p>
+        <p class="hero3__google">
+          <LogoGoogle taille={20} />
+          <span class="hero3__etoiles" aria-hidden="true">★★★★★</span>
+          <strong>{reviews.note.toLocaleString('fr-FR')}/5 sur Google · {reviews.nombre} avis</strong>
+        </p>
+        <p class="hero3__accroche">
+          Je suis M. Renaud. À la tête de mon entreprise de couverture basée en
+          <strong>Eure-et-Loir</strong>, à <strong>{SITE.ville}</strong>, je réalise tous les travaux
+          de couverture : <strong>nettoyage et démoussage</strong>, traitement hydrofuge, réparation,
+          rénovation, couverture, zinguerie et pose de gouttière.
+        </p>
+        <p>
+          Je suis au service des particuliers partout dans le <strong>28</strong> et je propose des
+          <strong>devis gratuits et sans engagement</strong>.
+        </p>
+        <p>Mon métier, c'est de prendre soin de votre toit :</p>
+        <ul>
+          <li><strong>Nettoyage et démoussage</strong> de toiture, application de <strong>traitements hydrofuges</strong> et anti-mousses.</li>
+          <li><strong>Réparation</strong> de toiture : tuiles cassées, ardoises déplacées, faîtage et infiltrations.</li>
+          <li><strong>Rénovation</strong> et <strong>couverture neuve</strong> en tuile ou ardoise.</li>
+          <li><strong>Zinguerie</strong>, pose de gouttières et étanchéité des points sensibles.</li>
+        </ul>
+        <div class="hero3__actions">
+          <a href={SITE.telHref} class="btn btn--rouge">
+            <svg class="icone" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M6.6 10.8a15.5 15.5 0 0 0 6.6 6.6l2.2-2.2a1 1 0 0 1 1-.25 11.4 11.4 0 0 0 3.6.57 1 1 0 0 1 1 1V20a1 1 0 0 1-1 1A17 17 0 0 1 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1 11.4 11.4 0 0 0 .57 3.6 1 1 0 0 1-.25 1z"/></svg>
+            {SITE.tel}
+          </a>
+          <a href="/devis-gratuit/" class="btn btn--bleu">Devis gratuit<FlecheRonde /></a>
+        </div>
+      </div>
+
+      <div class="hero3__media">
         <img
           class="hero3__img"
           src="/images/photos/hero-renaud-renov.webp"
           srcset="/images/photos/hero-renaud-renov-640.webp 640w, /images/photos/hero-renaud-renov-960.webp 960w, /images/photos/hero-renaud-renov-1280.webp 1280w, /images/photos/hero-renaud-renov.webp 1600w"
-          sizes="(min-width: 960px) 940px, calc(100vw - 2rem)"
+          sizes="(min-width: 980px) 540px, 94vw"
           width="1600"
           height="1200"
           alt="Le véhicule Renaud Rénov devant une maison et sa toiture en tuiles en Eure-et-Loir"
           fetchpriority="high"
         />
-        <div class="hero3__carte">
-          <p class="hero3__eyebrow">{SITE.baseline}</p>
-          <h1>Entreprise de couverture en Eure-et-Loir (28)</h1>
-          <p class="hero3__marque">RENAUD RÉNOV</p>
-          <p class="hero3__google">
-            <LogoGoogle taille={20} />
-            <span class="hero3__etoiles" aria-hidden="true">★★★★★</span>
-            <strong>{reviews.note.toLocaleString('fr-FR')}/5 sur Google · {reviews.nombre} avis</strong>
-          </p>
-          <p class="hero3__accroche">
-            Je suis M. Renaud. À la tête de mon entreprise de couverture basée en
-            <strong>Eure-et-Loir</strong>, à <strong>{SITE.ville}</strong>, je réalise tous les travaux
-            de couverture : <strong>nettoyage et démoussage</strong>, traitement hydrofuge, réparation,
-            rénovation, couverture, zinguerie et pose de gouttière.
-          </p>
-          <div class="hero3__actions">
-            <a href={SITE.telHref} class="btn btn--rouge">
-              <svg class="icone" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M6.6 10.8a15.5 15.5 0 0 0 6.6 6.6l2.2-2.2a1 1 0 0 1 1-.25 11.4 11.4 0 0 0 3.6.57 1 1 0 0 1 1 1V20a1 1 0 0 1-1 1A17 17 0 0 1 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1 11.4 11.4 0 0 0 .57 3.6 1 1 0 0 1-.25 1z"/></svg>
-              {SITE.tel}
-            </a>
-            <a href="/devis-gratuit/" class="btn btn--bleu">Devis gratuit<FlecheRonde /></a>
-          </div>
-        </div>
-      </div>
-
-      <!-- Suite du texte d'origine du hero, sous le cartouche -->
-      <div class="hero3__suite">
-        <div class="hero3__suite-texte">
-          <p>
-            Je suis au service des particuliers partout dans le <strong>28</strong> et je propose des
-            <strong>devis gratuits et sans engagement</strong>.
-          </p>
-          <p>Mon métier, c'est de prendre soin de votre toit :</p>
-          <ul>
-            <li><strong>Nettoyage et démoussage</strong> de toiture, application de <strong>traitements hydrofuges</strong> et anti-mousses.</li>
-            <li><strong>Réparation</strong> de toiture : tuiles cassées, ardoises déplacées, faîtage et infiltrations.</li>
-            <li><strong>Rénovation</strong> et <strong>couverture neuve</strong> en tuile ou ardoise.</li>
-            <li><strong>Zinguerie</strong>, pose de gouttières et étanchéité des points sensibles.</li>
-          </ul>
-        </div>
-        <div class="carte hero3__garantie">
-          <img src="/images/logo/logo-renaud-renov-128.webp" alt="" width="80" height="80" loading="lazy" />
+        <div class="hero3__garantie">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2 3 6v6c0 5 3.8 8.3 9 10 5.2-1.7 9-5 9-10V6l-9-4Z"/><text x="12" y="15.5" text-anchor="middle" font-size="8" font-weight="700" fill="currentColor" stroke="none">10</text></svg>
           <p><strong>Garantie décennale</strong><br />Pour tous travaux de couverture</p>
         </div>
       </div>
@@ -253,41 +248,27 @@ import FlecheRonde from '../components/FlecheRonde.astro';
 </BaseLayout>
 
 <style>
-  /* Hero éditorial : GRANDE image bien visible + cartouche compact
-     en surplomb bas-gauche (le cartouche ne couvre que le bas de la photo) */
-  .hero3 { padding-block: clamp(1.8rem, 4vw, 3rem); }
-  .hero3__bloc { max-width: 1040px; margin-inline: auto; }
-  .hero3__img {
-    display: block;
-    width: 100%;
-    height: clamp(320px, 46vw, 540px);
-    object-fit: cover;
-    object-position: center 35%;
-    border-radius: var(--rayon);
+  /* Hero deux colonnes : texte à gauche, photo ENTIÈRE à droite
+     (aucun élément ne recouvre la photo) */
+  .hero3 { padding-block: clamp(2rem, 4vw, 3.5rem); }
+  .hero3__grille { display: grid; gap: 2.5rem; align-items: center; }
+  @media (min-width: 980px) {
+    .hero3__grille { grid-template-columns: 1.05fr 0.95fr; gap: 4rem; }
   }
-  .hero3__carte {
-    position: relative;
-    z-index: 2;
-    background: var(--blanc);
-    border-radius: var(--rayon);
-    box-shadow: var(--ombre-forte);
-    padding: clamp(1.4rem, 3vw, 2rem);
-    margin: -4.5rem 1.4rem 0;
-    max-width: 600px;
-  }
+
   .hero3__eyebrow {
     text-transform: uppercase;
     letter-spacing: 0.1em;
     font-weight: 700;
-    font-size: 0.8rem;
+    font-size: 0.82rem;
     color: var(--rouge-fonce);
-    margin-bottom: 0.5rem;
+    margin-bottom: 0.6rem;
   }
-  .hero3__carte h1 { margin: 0; font-size: clamp(1.5rem, 5.2vw, 2.3rem); line-height: 1.15; }
+  .hero3__texte h1 { margin: 0; font-size: clamp(1.55rem, 3.2vw, 2.3rem); line-height: 1.15; }
   .hero3__marque {
     color: var(--rouge);
     font-weight: 800;
-    font-size: clamp(1.5rem, 4vw, 2rem);
+    font-size: clamp(1.5rem, 4vw, 2.1rem);
     line-height: 1.1;
     margin: 0.4rem 0 0;
     white-space: nowrap;
@@ -297,52 +278,62 @@ import FlecheRonde from '../components/FlecheRonde.astro';
     align-items: center;
     gap: 0.5em;
     color: var(--bleu);
-    margin: 0.7rem 0 0;
+    margin: 0.8rem 0 0;
     flex-wrap: wrap;
   }
   .hero3__etoiles { color: var(--etoile); letter-spacing: 0.08em; }
-  .hero3__accroche { color: var(--gris-700); margin: 0.9rem 0 0; font-size: 1.05rem; }
-  .hero3__actions { display: flex; flex-wrap: wrap; gap: 0.8rem; margin-top: 1.3rem; }
-
-  /* Suite du texte du hero : sous le cartouche, texte + carte garantie */
-  .hero3__suite {
-    max-width: 1040px;
-    margin: 2rem auto 0;
-    display: grid;
-    gap: 1.5rem 3rem;
-    align-items: center;
+  .hero3__accroche { font-size: 1.08rem; }
+  .hero3__texte > p:not(.hero3__eyebrow):not(.hero3__marque):not(.hero3__google) {
+    color: var(--gris-700);
+    margin: 0.9rem 0 0;
   }
-  @media (min-width: 900px) {
-    .hero3__suite { grid-template-columns: 1.4fr 1fr; }
-  }
-  .hero3__suite-texte p { color: var(--gris-700); margin-block: 0.6rem; }
-  .hero3__suite-texte ul { margin: 0.4rem 0 0; }
-  .hero3__suite-texte li { margin-block: 0.3rem; color: var(--gris-700); }
+  .hero3__texte > ul { margin: 0.6rem 0 0; }
+  .hero3__texte > ul li { margin-block: 0.3rem; color: var(--gris-700); }
+  .hero3__actions { display: flex; flex-wrap: wrap; gap: 0.8rem; margin-top: 1.4rem; }
 
-  /* Carte garantie décennale (contenu d'origine du hero) */
+  /* Photo : entièrement visible, jamais recouverte */
+  .hero3__media { display: grid; gap: 1.2rem; align-content: center; justify-items: center; }
+  .hero3__img {
+    width: 100%;
+    border-radius: var(--rayon);
+    box-shadow: var(--ombre-forte);
+    object-fit: cover;
+  }
+
+  /* Badge garantie décennale : compact, sous la photo */
   .hero3__garantie {
-    display: flex;
+    display: inline-flex;
     align-items: center;
-    gap: 1.2rem;
-    padding: 1.2rem 1.5rem;
-    align-self: center;
+    gap: 0.9rem;
+    background: var(--blanc);
+    border: 1px solid var(--gris-200);
+    border-left: 4px solid var(--rouge);
+    border-radius: var(--rayon);
+    box-shadow: var(--ombre);
+    padding: 0.8rem 1.3rem;
   }
-  .hero3__garantie:hover { transform: none; }
-  .hero3__garantie img { width: 72px; height: auto; flex-shrink: 0; }
-  .hero3__garantie strong { color: var(--rouge-fonce); font-size: 1.2rem; }
-  .hero3__garantie p { margin: 0; font-size: 1.02rem; color: var(--gris-700); }
+  .hero3__garantie svg { width: 2.4rem; height: 2.4rem; color: var(--rouge-fonce); flex-shrink: 0; }
+  .hero3__garantie strong { color: var(--bleu); font-size: 1.05rem; }
+  .hero3__garantie p { margin: 0; font-size: 0.95rem; color: var(--gris-700); line-height: 1.4; }
 
-  @media (max-width: 700px) {
-    .hero3__carte { margin: -1.6rem 0.6rem 0; padding: 1.2rem 1.1rem 1.4rem; }
-    .hero3__img { height: clamp(220px, 60vw, 340px); }
-    .hero3__eyebrow, .hero3__carte h1 { text-align: left; }
-    .hero3__carte h1 { font-size: 1.55rem; line-height: 1.2; }
-    .hero3__marque { font-size: 1.35rem; text-align: left; }
-    .hero3__google { justify-content: flex-start; }
-    .hero3__actions { justify-content: center; }
-    .hero3__actions .btn { flex: 1 1 auto; min-width: 0; justify-content: center; }
+  /* Mobile / colonne unique : la photo remonte juste sous la note Google,
+     titres et accroches centrés. */
+  @media (max-width: 979px) {
+    .hero3__grille { gap: 0; }
+    .hero3__texte, .hero3__media { display: contents; }
+    .hero3__texte > p { order: 7; }
+    .hero3__texte > .hero3__eyebrow { order: 1; text-align: center; }
+    .hero3__texte > h1 { order: 2; text-align: center; }
+    .hero3__texte > .hero3__marque { order: 3; text-align: center; }
+    .hero3__texte > .hero3__google { order: 4; justify-content: center; }
+    .hero3__media > .hero3__img { order: 5; margin-block: 1rem 0.4rem; }
+    .hero3__texte > .hero3__accroche { order: 6; }
+    .hero3__texte > ul { order: 8; }
+    .hero3__texte > .hero3__actions { order: 9; justify-content: center; }
+    .hero3__media > .hero3__garantie { order: 10; margin-top: 1.4rem; justify-self: center; }
   }
   @media (max-width: 380px) {
-    .hero3__carte h1 { font-size: 1.4rem; }
+    .hero3__texte h1 { font-size: 1.4rem; }
+    .hero3__marque { font-size: 1.3rem; }
   }
 </style>
