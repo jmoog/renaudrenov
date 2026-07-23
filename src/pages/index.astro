@@ -1,78 +1,26 @@
 ---
 // ─────────────────────────────────────────────────────────────────────────
-// ACCUEIL (design modèle artisan) — structure : hero éditorial (grande photo
-// + cartouche) → bandeau spécialité → intro + 3 focus → avis → section
-// éditoriale + galerie + 4 blocs → CTA panneau sombre → 3 cartes complé-
-// mentaires → duo rénovation → pourquoi → marques → CTA devis → zones → CTA.
+// ACCUEIL — contenu d'origine INCHANGÉ, seul l'habillage reprend le design
+// du modèle artisan (hero grande photo + cartouche en surplomb).
+// Structure : hero → avis → CTA devis → services → 2 duos → pourquoi →
+// marques → zones → CTA final.
 // ─────────────────────────────────────────────────────────────────────────
 import BaseLayout from '../layouts/BaseLayout.astro';
-import FlecheRonde from '../components/FlecheRonde.astro';
 import { SITE } from '../data/site.ts';
+import services from '../data/services.json';
 import villes from '../data/villes.json';
-import reviews from '../data/reviews.json';
 import AvisCarrousel from '../components/AvisCarrousel.astro';
 import CtaDevis from '../components/CtaDevis.astro';
+import reviews from '../data/reviews.json';
 import LogoGoogle from '../components/LogoGoogle.astro';
 import LogosMarques from '../components/LogosMarques.astro';
-
-// Trois focus mis en avant : les prestations phares.
-const focus = [
-  {
-    titre: 'Nettoyage et démoussage de toiture',
-    img: '/images/photos/nettoyage-demoussage-toiture.webp',
-    alt: 'Artisan Renaud Rénov nettoyant une toiture au jet en Eure-et-Loir',
-    texte: 'Mousses et lichens fragilisent votre couverture. Brossage et <a href="/prestations/nettoyage-demoussage-toiture/">nettoyage-démoussage de toiture</a> adaptés à vos tuiles ou ardoises, pour préserver l’étanchéité.',
-  },
-  {
-    titre: 'Traitement hydrofuge et résine',
-    img: '/images/photos/hydrofuge-toiture-resultat-eure-et-loir.webp',
-    alt: 'Toiture en tuiles ravivée et imperméabilisée après traitement hydrofuge coloré par Renaud Rénov en Eure-et-Loir',
-    texte: 'Après le nettoyage, un <a href="/prestations/traitement-hydrofuge/">traitement hydrofuge ou une résine colorée</a> protège durablement les matériaux et limite la repousse des mousses.',
-  },
-  {
-    titre: 'Réparation de toiture',
-    img: '/images/photos/reparation-toiture.webp',
-    alt: 'Réparation du faîtage d’une toiture en tuiles en Eure-et-Loir',
-    texte: 'Tuile cassée, ardoise déplacée, faîtage abîmé ou infiltration : une <a href="/prestations/reparation-toiture/">réparation rapide</a> remet votre toit hors d’eau avant que les dégâts ne s’aggravent.',
-  },
-];
-
-// Trois prestations complémentaires.
-const complements = [
-  {
-    titre: 'Rénovation et couverture neuve',
-    img: '/images/photos/renovation-toiture.webp',
-    alt: 'Rénovation de toiture avec liteaunage neuf sur charpente en Eure-et-Loir',
-    texte: 'Reprise partielle ou réfection complète : liteaunage, écran sous-toiture et couverture neuve. La <a href="/prestations/renovation-toiture/">rénovation de toiture</a> pour un toit sain et durable.',
-  },
-  {
-    titre: 'Zinguerie : noues, chéneaux, cheminées',
-    img: '/images/photos/zinguerie-epi.webp',
-    alt: 'Épi de faîtage en zinc réalisé par Renaud Rénov, artisan couvreur-zingueur en Eure-et-Loir',
-    texte: 'Noues, abergements, solins de cheminée et chéneaux : un <a href="/prestations/zinguerie/">travail du zinc</a> précis qui assure une excellente étanchéité face aux intempéries.',
-  },
-  {
-    titre: 'Pose de gouttière',
-    img: '/images/photos/gouttiere-descente.webp',
-    alt: 'Descente de gouttière posée le long d’un pignon par Renaud Rénov en Eure-et-Loir',
-    texte: 'Pose, remplacement et raccordement de <a href="/prestations/pose-gouttiere/">gouttières et descentes</a> pour évacuer les eaux de pluie et protéger façades et fondations.',
-  },
-];
-
-// Galerie de la section éditoriale : 4 photos de chantiers réels.
-const galerie = [
-  { img: '/images/photos/brossage-manuel-tuiles-anciennes-28.webp', alt: 'Brossage manuel de tuiles anciennes par Renaud Rénov en Eure-et-Loir' },
-  { img: '/images/photos/toiture-nettoyee-apres-demoussage.webp', alt: 'Toiture propre après nettoyage et démoussage en Eure-et-Loir' },
-  { img: '/images/photos/zinguerie-cheminee.webp', alt: 'Abergement de cheminée en zinc réalisé par Renaud Rénov' },
-  { img: '/images/photos/camion-renaud-renov.webp', alt: 'Le camion Renaud Rénov sur un chantier de couverture en Eure-et-Loir' },
-];
+import FlecheRonde from '../components/FlecheRonde.astro';
 ---
 <BaseLayout
   title="Couvreur 28 - Renaud Rénov - un pro de la toiture"
   description="Couvreur zingueur en Eure-et-Loir (28) - tous travaux de couverture - entretien, réparation et rénovation de toiture. Devis gratuit."
 >
-
-  <!-- ── Hero éditorial : image contenue + cartouche titre ────── -->
+  <!-- ── Hero éditorial : grande photo + cartouche en surplomb ── -->
   <section class="hero3">
     <div class="conteneur">
       <div class="hero3__bloc">
@@ -87,21 +35,19 @@ const galerie = [
           fetchpriority="high"
         />
         <div class="hero3__carte">
-          <p class="hero3__eyebrow">Couverture · Démoussage · Zinguerie</p>
-          <h1>Entreprise de couverture en Eure-et-Loir&nbsp;(28)</h1>
-          <p class="hero3__marque">{SITE.nom}</p>
+          <p class="hero3__eyebrow">{SITE.baseline}</p>
+          <h1>Entreprise de couverture en Eure-et-Loir (28)</h1>
+          <p class="hero3__marque">RENAUD RÉNOV</p>
           <p class="hero3__google">
             <LogoGoogle taille={20} />
             <span class="hero3__etoiles" aria-hidden="true">★★★★★</span>
             <strong>{reviews.note.toLocaleString('fr-FR')}/5 sur Google · {reviews.nombre} avis</strong>
           </p>
           <p class="hero3__accroche">
-            Je suis M. Renaud. À la tête de mon entreprise familiale basée à
-            <strong>{SITE.ville}</strong>, je prends soin de votre toit partout dans
-            le <strong>28</strong> : <strong>nettoyage et démoussage</strong>,
-            traitement hydrofuge, <strong>réparation</strong>, rénovation,
-            <strong>zinguerie</strong> et pose de gouttière. Déplacement et
-            <strong>devis gratuits</strong>, sans engagement.
+            Je suis M. Renaud. À la tête de mon entreprise de couverture basée en
+            <strong>Eure-et-Loir</strong>, à <strong>{SITE.ville}</strong>, je réalise tous les travaux
+            de couverture : <strong>nettoyage et démoussage</strong>, traitement hydrofuge, réparation,
+            rénovation, couverture, zinguerie et pose de gouttière.
           </p>
           <div class="hero3__actions">
             <a href={SITE.telHref} class="btn btn--rouge">
@@ -112,54 +58,26 @@ const galerie = [
           </div>
         </div>
       </div>
-    </div>
-  </section>
 
-  <!-- ── Bandeau spécialité sous le hero (photo + texte incrusté) ─ -->
-  <a class="bandeau-saison" href="/prestations/nettoyage-demoussage-toiture/" aria-label="Démoussage et hydrofuge de toiture — notre spécialité, demandez un devis gratuit">
-    <img
-      class="bandeau-saison__img"
-      src="/images/photos/maison-toiture-eure-et-loir.webp"
-      sizes="(min-width: 1032px) 1000px, calc(100vw - 2rem)"
-      alt=""
-      loading="lazy"
-      width="2000"
-      height="1500"
-    />
-    <span class="bandeau-saison__label">
-      <svg class="bandeau-saison__icone" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
-      <span class="bandeau-saison__texte">Démoussage &amp; hydrofuge : notre spécialité</span>
-    </span>
-  </a>
-
-  <!-- ── Intro + trois focus ──────────────────────────────────── -->
-  <section class="section">
-    <div class="conteneur">
-      <!-- H2 masqué visuellement : conserve la hiérarchie h1 → h2 → h3
-           (accessibilité / lecteurs d'écran) sans rien changer au rendu. -->
-      <h2 class="visuallyhidden">Les prestations phares de votre couvreur</h2>
-      <div class="carte carte-intro">
-        <p>
-          Du simple entretien à la réfection complète, Renaud Rénov intervient sur toutes
-          les toitures d'Eure-et-Loir : <a href="/prestations/nettoyage-demoussage-toiture/">nettoyage
-          et démoussage</a>, <a href="/prestations/traitement-hydrofuge/">traitement hydrofuge</a>,
-          <a href="/prestations/reparation-toiture/">réparation</a> et
-          <a href="/prestations/renovation-toiture/">rénovation</a>, sans oublier la
-          <a href="/prestations/zinguerie/">zinguerie</a> et la
-          <a href="/prestations/pose-gouttiere/">pose de gouttière</a>. Une entreprise familiale,
-          le père et le fils sur le chantier, à {SITE.ville} et dans tout le {SITE.departement}.
-        </p>
-      </div>
-      <div class="grille-cartes grille-cartes--3">
-        {focus.map((f) => (
-          <div class="carte carte-presta">
-            <img class="carte-presta__img" src={f.img} alt={f.alt} loading="lazy" width="700" height="470" />
-            <div class="carte-presta__corps">
-              <h3>{f.titre}</h3>
-              <p set:html={f.texte} />
-            </div>
-          </div>
-        ))}
+      <!-- Suite du texte d'origine du hero, sous le cartouche -->
+      <div class="hero3__suite">
+        <div class="hero3__suite-texte">
+          <p>
+            Je suis au service des particuliers partout dans le <strong>28</strong> et je propose des
+            <strong>devis gratuits et sans engagement</strong>.
+          </p>
+          <p>Mon métier, c'est de prendre soin de votre toit :</p>
+          <ul>
+            <li><strong>Nettoyage et démoussage</strong> de toiture, application de <strong>traitements hydrofuges</strong> et anti-mousses.</li>
+            <li><strong>Réparation</strong> de toiture : tuiles cassées, ardoises déplacées, faîtage et infiltrations.</li>
+            <li><strong>Rénovation</strong> et <strong>couverture neuve</strong> en tuile ou ardoise.</li>
+            <li><strong>Zinguerie</strong>, pose de gouttières et étanchéité des points sensibles.</li>
+          </ul>
+        </div>
+        <div class="carte hero3__garantie">
+          <img src="/images/logo/logo-renaud-renov-128.webp" alt="" width="80" height="80" loading="lazy" />
+          <p><strong>Garantie décennale</strong><br />Pour tous travaux de couverture</p>
+        </div>
       </div>
     </div>
   </section>
@@ -167,110 +85,97 @@ const galerie = [
   <!-- ── Avis clients ─────────────────────────────────────────── -->
   <AvisCarrousel titre="Ce que mes clients pensent de mon travail" />
 
-  <!-- ── Section éditoriale (texte + galerie + 4 blocs) ───────── -->
-  <section class="section">
+  <!-- ── CTA devis ────────────────────────────────────────────── -->
+  <CtaDevis titre="Parlons de votre projet de toiture" />
+
+  <!-- ── Services ─────────────────────────────────────────────── -->
+  <section id="nos-services" class="section section--gris">
     <div class="conteneur">
       <h2>Notre savoir-faire, transmis de père en fils</h2>
-      <p class="intro-editorial">
-        Avec le temps, mousses et lichens fragilisent votre couverture et retiennent l'humidité.
-        Renaud Rénov est <strong>spécialiste du nettoyage et du démoussage de toiture</strong> en
-        Eure-et-Loir : nous préservons l'étanchéité de votre toit et prolongeons sa durée de vie,
-        tuiles comme ardoises.
-      </p>
-      <div class="galerie">
-        {galerie.map((g) => (
-          <img class="galerie__img" src={g.img} alt={g.alt} loading="lazy" width="700" height="470" />
-        ))}
-      </div>
-      <div class="blocs-texte">
-        <div class="bloc-texte">
-          <h3>Nettoyage et démoussage</h3>
-          <p>
-            Brossage, nettoyage adapté à votre couverture et élimination des mousses : nous
-            redonnons à votre toiture son aspect et ses performances d'origine, en douceur.
-          </p>
-        </div>
-        <div class="bloc-texte">
-          <h3>Traitement hydrofuge et résine</h3>
-          <p>
-            Après le nettoyage, nous appliquons des traitements hydrofuges et des résines colorées
-            professionnels qui protègent durablement les matériaux et limitent la repousse des mousses.
-          </p>
-        </div>
-        <div class="bloc-texte">
-          <h3>Zinguerie soignée</h3>
-          <p>
-            Noues, abergements, solins de cheminée et chéneaux : un travail du zinc précis qui
-            assure une protection durable et une excellente étanchéité face aux intempéries.
-          </p>
-        </div>
-        <div class="bloc-texte">
-          <h3>Garanties et suivi de chantier</h3>
-          <p>
-            Devis détaillé, chantier propre et suivi du début à la fin. Tous nos travaux de
-            couverture sont couverts par la garantie décennale, pour votre tranquillité.
-          </p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ── CTA (photo + panneau sombre) ─────────────────────────── -->
-  <section class="section">
-    <div class="conteneur">
-      <div class="cta-reno">
-        <img class="cta-reno__img" src="/images/photos/nettoyage-toiture-resultat.webp" alt="Maison à la toiture propre après nettoyage et démoussage par Renaud Rénov en Eure-et-Loir" loading="lazy" width="2000" height="1500" />
-        <div class="cta-reno__panneau">
-          <h2>Obtenez un devis pour votre toiture dans le&nbsp;28</h2>
-          <p>
-            Un toit à nettoyer, à réparer ou à rénover en {SITE.departement} ? Faites confiance
-            à {SITE.nom} pour un devis gratuit, clair et détaillé, établi sur place et sans
-            engagement. Contactez-nous dès maintenant.
-          </p>
-          <a href="/devis-gratuit/" class="btn btn--blanc">Demander mon devis<FlecheRonde /></a>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ── Rénovation, zinguerie, gouttières ────────────────────── -->
-  <section class="section section--gris">
-    <div class="conteneur">
-      <h2>Couverture, zinguerie et gouttières : le métier complet</h2>
-      <div class="grille-cartes grille-cartes--3">
-        {complements.map((u) => (
-          <div class="carte carte-presta">
-            <img class="carte-presta__img" src={u.img} alt={u.alt} loading="lazy" width="700" height="470" />
-            <div class="carte-presta__corps">
-              <h3>{u.titre}</h3>
-              <p set:html={u.texte} />
-            </div>
-          </div>
+      <div class="grille-services">
+        {services.map((s) => (
+          <a href={s.href} class="carte carte-service">
+            <img src={s.image} alt={s.alt} loading="lazy" width="400" height="250" />
+            <span class="carte-service__corps">
+              <h3>{s.label}</h3>
+              <p>{s.accroche}</p>
+              <span class="carte-service__lien">{s.lien} →</span>
+            </span>
+          </a>
         ))}
       </div>
     </div>
   </section>
 
-  <!-- ── Duo photo + texte : rénovation ────────────────────────── -->
+  <!-- ── Spécialité : nettoyage & démoussage ──────────────────── -->
   <section class="section">
     <div class="conteneur">
-      <div class="duo">
-        <img src="/images/photos/renovation-chantier.webp" alt="Chantier de rénovation de toiture avec écran sous-toiture et liteaunage en Eure-et-Loir" loading="lazy" width="2000" height="1500" />
-        <div>
-          <h2>De la tuile cassée à la couverture neuve</h2>
-          <p>
-            De la simple tuile cassée à la réfection complète d'une couverture, j'apporte le même
-            soin et la même exigence. Je travaille la <strong>tuile terre cuite</strong>,
-            l'<strong>ardoise naturelle</strong> et le <strong>zinc</strong>, en rénovation
-            comme en neuf.
-          </p>
-          <p>
-            Reprise partielle ou réfection complète : liteaunage, écran sous-toiture et couverture
-            neuve pour un toit sain, étanche et durable pendant des décennies.
-          </p>
-          <a href="/devis-gratuit/" class="btn btn--rouge">Devis gratuit<FlecheRonde /></a>
-        </div>
+      <div class="section__entete section__entete--gauche">
+        <h2>Nettoyage, démoussage et traitement hydrofuge de toiture</h2>
       </div>
+    </div>
+    <div class="conteneur duo">
+      <div>
+        <p>
+          Avec le temps, mousses et lichens fragilisent votre couverture et retiennent l'humidité.
+          Renaud Rénov est <strong>spécialiste du nettoyage et du démoussage de toiture</strong> en
+          Eure-et-Loir, pour préserver l'étanchéité et prolonger la durée de vie de votre toit.
+        </p>
+        <h3>Nettoyage et démoussage</h3>
+        <p>
+          Brossage, nettoyage adapté à votre couverture et élimination des mousses : nous redonnons
+          à votre toiture son aspect et ses performances d'origine, tuiles comme ardoises.
+        </p>
+        <h3>Traitement hydrofuge et résine</h3>
+        <p>
+          Après le nettoyage, nous appliquons des traitements hydrofuges et des résines colorées
+          professionnels qui protègent durablement les matériaux et limitent la repousse des mousses.
+        </p>
+        <a href="/devis-gratuit/" class="btn btn--bleu">Nettoyer et protéger mon toit</a>
+      </div>
+      <img
+        src="/images/photos/nettoyage-toiture-resultat.webp"
+        alt="Maison à la toiture propre après nettoyage et démoussage par Renaud Rénov en Eure-et-Loir"
+        loading="lazy"
+        width="2000"
+        height="1500"
+      />
+    </div>
+  </section>
+
+  <!-- ── Couverture, rénovation & zinguerie ───────────────────── -->
+  <section class="section section--bleute">
+    <div class="conteneur">
+      <div class="section__entete section__entete--gauche">
+        <h2>Couverture, rénovation et zinguerie en Eure-et-Loir</h2>
+      </div>
+    </div>
+    <div class="conteneur duo duo--inverse">
+      <div>
+        <p>
+          De la simple tuile cassée à la réfection complète d'une couverture, j'apporte le même
+          soin et la même exigence. Je travaille la tuile terre cuite, l'ardoise naturelle et le
+          zinc, en rénovation comme en neuf.
+        </p>
+        <h3>Rénovation et couverture neuve</h3>
+        <p>
+          Reprise partielle ou réfection complète : liteaunage, écran sous-toiture et couverture
+          neuve pour un toit sain, étanche et durable pendant des décennies.
+        </p>
+        <h3>Zinguerie soignée</h3>
+        <p>
+          Noues, abergements, solins de cheminée et chéneaux : un travail du zinc précis qui assure
+          une protection durable et une excellente étanchéité face aux intempéries.
+        </p>
+        <a href="/devis-gratuit/" class="btn btn--bleu">Demander un devis</a>
+      </div>
+      <img
+        src="/images/photos/renovation-chantier.webp"
+        alt="Chantier de rénovation de toiture avec écran sous-toiture et liteaunage en Eure-et-Loir"
+        loading="lazy"
+        width="2000"
+        height="1500"
+      />
     </div>
   </section>
 
@@ -310,20 +215,17 @@ const galerie = [
   <!-- ── Marques & fournisseurs ───────────────────────────────── -->
   <LogosMarques />
 
-  <!-- ── CTA devis (photo artisan + panneau marine) ───────────── -->
-  <CtaDevis titre="Parlons de votre projet de toiture" />
-
   <!-- ── Zone d'intervention ──────────────────────────────────── -->
   <section class="section section--gris">
     <div class="conteneur">
       <h2>Votre couvreur autour de {SITE.ville}</h2>
-      <p class="zones__intro">
+      <p>
         Basés à {SITE.ville} ({SITE.cp}), nous intervenons dans toute l'Eure-et-Loir et aux portes
         des Yvelines. Quelques communes où nous travaillons :
       </p>
       <ul class="nuage-villes">
         {villes.map((v) => (
-          <li><a href={`/villes/${v.slug}/`}>{v.nom}</a></li>
+          <li><span>{v.nom}</span></li>
         ))}
       </ul>
     </div>
@@ -343,7 +245,7 @@ const galerie = [
             <svg class="icone" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M6.6 10.8a15.5 15.5 0 0 0 6.6 6.6l2.2-2.2a1 1 0 0 1 1-.25 11.4 11.4 0 0 0 3.6.57 1 1 0 0 1 1 1V20a1 1 0 0 1-1 1A17 17 0 0 1 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1 11.4 11.4 0 0 0 .57 3.6 1 1 0 0 1-.25 1z"/></svg>
             {SITE.tel}
           </a>
-          <a href="/devis-gratuit/" class="btn btn--bleu">Formulaire de devis<FlecheRonde /></a>
+          <a href="/devis-gratuit/" class="btn btn--bleu">Formulaire de devis</a>
         </div>
       </div>
     </div>
@@ -351,14 +253,16 @@ const galerie = [
 </BaseLayout>
 
 <style>
-  /* Hero éditorial : image contenue avec cartouche titre en surplomb bas-gauche */
+  /* Hero éditorial : GRANDE image bien visible + cartouche compact
+     en surplomb bas-gauche (le cartouche ne couvre que le bas de la photo) */
   .hero3 { padding-block: clamp(1.8rem, 4vw, 3rem); }
-  .hero3__bloc { max-width: 940px; margin-inline: auto; }
+  .hero3__bloc { max-width: 1040px; margin-inline: auto; }
   .hero3__img {
     display: block;
     width: 100%;
-    height: clamp(240px, 40vw, 420px);
+    height: clamp(320px, 46vw, 540px);
     object-fit: cover;
+    object-position: center 35%;
     border-radius: var(--rayon);
   }
   .hero3__carte {
@@ -367,9 +271,9 @@ const galerie = [
     background: var(--blanc);
     border-radius: var(--rayon);
     box-shadow: var(--ombre-forte);
-    padding: clamp(1.4rem, 3vw, 2.2rem);
-    margin: -3.5rem 1.4rem 0;
-    max-width: 660px;
+    padding: clamp(1.4rem, 3vw, 2rem);
+    margin: -4.5rem 1.4rem 0;
+    max-width: 600px;
   }
   .hero3__eyebrow {
     text-transform: uppercase;
@@ -397,11 +301,40 @@ const galerie = [
     flex-wrap: wrap;
   }
   .hero3__etoiles { color: var(--etoile); letter-spacing: 0.08em; }
-  .hero3__accroche { color: var(--gris-700); margin: 0.9rem 0 1.3rem; }
-  .hero3__actions { display: flex; flex-wrap: wrap; gap: 0.8rem; }
+  .hero3__accroche { color: var(--gris-700); margin: 0.9rem 0 0; font-size: 1.05rem; }
+  .hero3__actions { display: flex; flex-wrap: wrap; gap: 0.8rem; margin-top: 1.3rem; }
+
+  /* Suite du texte du hero : sous le cartouche, texte + carte garantie */
+  .hero3__suite {
+    max-width: 1040px;
+    margin: 2rem auto 0;
+    display: grid;
+    gap: 1.5rem 3rem;
+    align-items: center;
+  }
+  @media (min-width: 900px) {
+    .hero3__suite { grid-template-columns: 1.4fr 1fr; }
+  }
+  .hero3__suite-texte p { color: var(--gris-700); margin-block: 0.6rem; }
+  .hero3__suite-texte ul { margin: 0.4rem 0 0; }
+  .hero3__suite-texte li { margin-block: 0.3rem; color: var(--gris-700); }
+
+  /* Carte garantie décennale (contenu d'origine du hero) */
+  .hero3__garantie {
+    display: flex;
+    align-items: center;
+    gap: 1.2rem;
+    padding: 1.2rem 1.5rem;
+    align-self: center;
+  }
+  .hero3__garantie:hover { transform: none; }
+  .hero3__garantie img { width: 72px; height: auto; flex-shrink: 0; }
+  .hero3__garantie strong { color: var(--rouge-fonce); font-size: 1.2rem; }
+  .hero3__garantie p { margin: 0; font-size: 1.02rem; color: var(--gris-700); }
 
   @media (max-width: 700px) {
-    .hero3__carte { margin: -2rem 0.6rem 0; padding: 1.2rem 1.1rem 1.4rem; }
+    .hero3__carte { margin: -1.6rem 0.6rem 0; padding: 1.2rem 1.1rem 1.4rem; }
+    .hero3__img { height: clamp(220px, 60vw, 340px); }
     .hero3__eyebrow, .hero3__carte h1 { text-align: left; }
     .hero3__carte h1 { font-size: 1.55rem; line-height: 1.2; }
     .hero3__marque { font-size: 1.35rem; text-align: left; }
@@ -412,137 +345,4 @@ const galerie = [
   @media (max-width: 380px) {
     .hero3__carte h1 { font-size: 1.4rem; }
   }
-
-  /* ── Bandeau spécialité (photo pleine largeur + texte incrusté) ─ */
-  .bandeau-saison {
-    position: relative;
-    display: block;
-    width: calc(100% - 2rem);
-    max-width: 1000px;
-    margin: 1.5rem auto;
-    border-radius: var(--rayon);
-    overflow: hidden;
-    box-shadow: var(--ombre);
-    text-decoration: none;
-  }
-  .bandeau-saison__img {
-    width: 100%;
-    height: clamp(160px, 19vw, 270px);
-    object-fit: cover;
-    object-position: center 40%;
-    display: block;
-  }
-  .bandeau-saison__label {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    display: inline-flex;
-    align-items: center;
-    gap: 0.6em;
-    max-width: calc(100% - 1rem);
-    padding: 0.5em 1.1em;
-    background: var(--rouge-fonce); /* texte blanc dessus : AA 4.8:1 */
-    color: var(--blanc);
-    border-radius: var(--rayon);
-    box-shadow: var(--ombre-forte);
-  }
-  .bandeau-saison__icone { width: 1.4rem; height: 1.4rem; flex-shrink: 0; }
-  .bandeau-saison__texte {
-    font-weight: 800;
-    font-size: clamp(0.9rem, 3.2vw, 1.4rem);
-    line-height: 1.2;
-    white-space: nowrap;
-  }
-  .bandeau-saison:hover .bandeau-saison__label { background: var(--rouge-sombre); }
-
-  /* Carte de texte pleine largeur au-dessus des 3 cards */
-  .carte-intro {
-    width: 100%;
-    padding: clamp(1.4rem, 3vw, 2.2rem);
-    margin-bottom: 1.4rem;
-  }
-  .carte-intro p { color: var(--gris-700); margin: 0 auto; max-width: 70ch; }
-
-  /* Cartes prestations illustrées */
-  .grille-cartes {
-    display: grid;
-    gap: 1.4rem;
-    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-  }
-  @media (min-width: 900px) {
-    .grille-cartes--3 { grid-template-columns: repeat(3, 1fr); }
-  }
-  .carte-presta { padding: 0; overflow: hidden; display: flex; flex-direction: column; }
-  .carte-presta__img { width: 100%; height: 190px; object-fit: cover; }
-  .carte-presta__corps { padding: 1.3rem 1.4rem 1.5rem; display: flex; flex-direction: column; gap: 0.5rem; flex: 1; }
-  .carte-presta__corps h3 { color: var(--bleu); }
-  .carte-presta__corps p { color: var(--gris-700); margin: 0; }
-
-  /* Section éditoriale */
-  .intro-editorial { max-width: 70ch; color: var(--gris-700); margin-inline: auto; margin-bottom: 1.8rem; }
-
-  /* Galerie de photos : 2×2 sur mobile, 4 colonnes sur desktop */
-  .galerie {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 1rem;
-    margin-top: 1.8rem;
-  }
-  @media (min-width: 700px) {
-    .galerie { grid-template-columns: repeat(4, 1fr); }
-  }
-  .galerie__img {
-    width: 100%;
-    aspect-ratio: 4 / 3;
-    object-fit: cover;
-    border-radius: var(--rayon);
-    box-shadow: var(--ombre);
-  }
-
-  /* Quatre blocs de texte */
-  .blocs-texte {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 1.6rem 2.5rem;
-    margin-top: 2.2rem;
-  }
-  @media (min-width: 700px) {
-    .blocs-texte { grid-template-columns: repeat(2, 1fr); }
-  }
-  .bloc-texte h3 { color: var(--bleu); margin-bottom: 0.5rem; }
-  .bloc-texte p { color: var(--gris-700); margin: 0; }
-
-  /* CTA : photo à gauche, panneau marine à droite */
-  .cta-reno {
-    display: grid;
-    grid-template-columns: 1fr;
-    border-radius: 20px;
-    overflow: hidden;
-    box-shadow: var(--ombre-forte);
-  }
-  @media (min-width: 800px) {
-    .cta-reno { grid-template-columns: 1fr 1fr; }
-  }
-  .cta-reno__img { width: 100%; height: 100%; min-height: 220px; object-fit: cover; }
-  .cta-reno__panneau {
-    background: var(--bleu);
-    color: var(--blanc);
-    padding: clamp(1.8rem, 4vw, 3rem);
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: flex-start;
-    gap: 1.1rem;
-  }
-  .cta-reno__panneau h2 { color: var(--blanc); text-align: left; }
-  .cta-reno__panneau p { color: rgba(255, 255, 255, 0.9); margin: 0; max-width: 45ch; }
-  @media (max-width: 800px) {
-    .cta-reno__panneau { align-items: center; text-align: center; }
-    .cta-reno__panneau h2 { font-size: clamp(1.3rem, 5.4vw, 1.7rem); line-height: 1.2; text-wrap: balance; }
-    .cta-reno__panneau .btn { width: 100%; max-width: 360px; justify-content: center; }
-  }
-
-  /* Zone d'intervention */
-  .zones__intro { max-width: 70ch; color: var(--gris-700); margin-inline: auto; }
 </style>

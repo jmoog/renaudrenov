@@ -8,15 +8,11 @@ import { SITE } from '../data/site.ts';
 import services from '../data/services.json';
 import FlecheRonde from './FlecheRonde.astro';
 
-// Menu desktop : libellés courts pour tenir sur une ligne
-// (le tiroir mobile liste les 6 prestations avec leur nom complet)
-const menuDesktop = [
-  { href: '/prestations/nettoyage-demoussage-toiture/', label: 'Démoussage' },
-  { href: '/prestations/reparation-toiture/', label: 'Réparation' },
-  { href: '/prestations/renovation-toiture/', label: 'Rénovation' },
-  { href: '/prestations/zinguerie/', label: 'Zinguerie' },
-  { href: '/a-propos/', label: 'À propos' },
-];
+// Menu desktop : 4 prestations phares avec leur libellé d'origine
+// (labelNav de services.json) ; le tiroir mobile liste les 6.
+const menuServices = services.filter((s) =>
+  ['nettoyage-demoussage-toiture', 'reparation-toiture', 'renovation-toiture', 'zinguerie'].includes(s.slug)
+);
 ---
 <div class="entete-accent" aria-hidden="true"></div>
 <header class="entete">
@@ -30,17 +26,14 @@ const menuDesktop = [
         alt={`Logo ${SITE.nom} — ${SITE.slogan}`}
         fetchpriority="high"
       />
-      <span class="entete__nom">
-        <span class="entete__titre">RENAUD RÉNOV</span>
-        <span class="entete__baseline">Artisan couvreur — Eure-et-Loir (28)</span>
-      </span>
     </a>
 
     <nav class="entete__nav" aria-label="Navigation principale">
       <ul class="entete__liens">
-        {menuDesktop.map((l) => (
-          <li><a href={l.href}>{l.label}</a></li>
+        {menuServices.map((s) => (
+          <li><a href={s.href}>{s.labelNav}</a></li>
         ))}
+        <li><a href="/a-propos/">À propos</a></li>
       </ul>
     </nav>
 
@@ -96,29 +89,14 @@ const menuDesktop = [
     padding-block: 0.65rem;
   }
 
-  /* Logo circulaire + nom de marque */
+  /* Logo circulaire (il porte déjà le nom de la marque) */
   .entete__marque {
     flex-shrink: 0;
     display: inline-flex;
     align-items: center;
-    gap: 0.8rem;
     text-decoration: none;
   }
-  .entete__logo { display: block; height: 64px; width: 64px; }
-  .entete__nom { display: flex; flex-direction: column; line-height: 1.15; }
-  .entete__titre {
-    color: var(--bleu);
-    font-weight: 800;
-    font-size: 1.18rem;
-    letter-spacing: 0.02em;
-    white-space: nowrap;
-  }
-  .entete__baseline {
-    color: var(--gris-500);
-    font-size: 0.78rem;
-    font-weight: 500;
-    white-space: nowrap;
-  }
+  .entete__logo { display: block; height: 68px; width: 68px; }
 
   /* Navigation à séparateurs verticaux */
   .entete__nav { display: flex; margin-left: auto; }
@@ -164,10 +142,7 @@ const menuDesktop = [
   .entete__devis { padding: 0.6em 1.3em; white-space: nowrap; }
 
   /* Resserrement intermédiaire */
-  @media (max-width: 1360px) and (min-width: 1101px) {
-    .entete__baseline { display: none; }
-  }
-  @media (max-width: 1240px) and (min-width: 1101px) {
+  @media (max-width: 1300px) and (min-width: 1101px) {
     .entete__liens a { padding-inline: 0.7rem; font-size: 0.92rem; }
     .entete__int { gap: 1rem; }
     .entete__actions { gap: 0.8rem; }
@@ -211,8 +186,7 @@ const menuDesktop = [
     .entete__nav,
     .entete__actions { display: none; }
     .entete__burger { display: inline-flex; }
-    .entete__logo { height: 52px; width: 52px; }
-    .entete__titre { font-size: 1.05rem; }
+    .entete__logo { height: 56px; width: 56px; }
   }
 </style>
 
