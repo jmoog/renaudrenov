@@ -4,6 +4,7 @@
    Typo : Inter auto-hébergée (var --font-base injectée par Astro).
    NB : pour réutiliser le design d'origine, le token « --bleu » porte le
    bleu marine et le token « --rouge » porte l'orange (rôle = accent / CTA).
+   Contrastes vérifiés AA (texte 4.5:1, boutons/grand texte 3:1).
    ════════════════════════════════════════════════════════════════════ */
 
 :root {
@@ -14,9 +15,14 @@
   --bleu-clair: #356c91;      /* variante claire — survols */
   --bleu-pale: #e8eff3;       /* fonds discrets marine (badges, sections) */
 
-  /* Couleur d'accent (logo) — orange */
-  --rouge: #ef7e0f;           /* orange du logo — CTA et accents */
-  --rouge-fonce: #cc680a;     /* hover CTA */
+  /* Couleur d'accent (logo) — orange.
+     --rouge (l'orange vif du logo) reste réservé aux accents DÉCORATIFS,
+     aux puces et aux grands textes sur fond sombre. Tout TEXTE BLANC de
+     taille normale posé sur un aplat orange doit utiliser --rouge-fonce
+     (4.8:1, AA) — c'est le fond des boutons ; --rouge-sombre = hover. */
+  --rouge: #ef7e0f;           /* orange du logo — accents décoratifs */
+  --rouge-fonce: #b45806;     /* fond des CTA (blanc dessus 4.8:1) */
+  --rouge-sombre: #9c4c05;    /* hover des CTA (blanc dessus 6.1:1) */
   --rouge-pale: #fdf0e0;      /* fonds discrets, badges */
 
   /* Accent ponctuel */
@@ -65,6 +71,9 @@ body {
   font-family: var(--font);
   color: var(--noir);
   background: var(--blanc);
+  /* Base 16px explicite : plancher de lisibilité et garde-fou anti-zoom mobile.
+     Les champs de formulaire ne doivent jamais descendre sous cette valeur. */
+  font-size: 16px;
   line-height: 1.65;
   -webkit-font-smoothing: antialiased;
   min-height: 100vh;
@@ -84,12 +93,24 @@ h1, h2, h3, h4 { line-height: 1.2; color: var(--bleu); text-wrap: balance; font-
 p, li { text-wrap: pretty; text-align: left; }
 h1 { font-size: clamp(1.9rem, 4.5vw, 3rem); font-weight: 800; }
 h2 { font-size: clamp(1.5rem, 3vw, 2.1rem); }
-h3 { font-size: 1.2rem; }
+/* H3 réactif : ~20px sur mobile, ~24px sur desktop (min lisible = 20px) */
+h3 { font-size: clamp(1.25rem, 1rem + 1vw, 1.5rem); }
 
 /* Titres de sections centrés (les titres dans les blocs deux-colonnes
    et le hero restent alignés à gauche) */
 .section > .conteneur > h2 {
   text-align: center;
+}
+/* Rappel du trait orange du logo : petit soulignement sous les titres de
+   section (motif identitaire discret, décliné dans tout le site). */
+.section > .conteneur > h2::after {
+  content: "";
+  display: block;
+  width: 52px;
+  height: 4px;
+  border-radius: 2px;
+  background: var(--rouge);
+  margin: 0.7rem auto 0;
 }
 
 /* En-tête de section au-dessus d'un bloc deux-colonnes :
@@ -216,8 +237,8 @@ h3 { font-size: 1.2rem; }
   transition: background var(--transition), color var(--transition), border-color var(--transition), transform var(--transition);
 }
 .btn:active { transform: scale(0.97); }
-.btn--rouge { background: var(--rouge); color: var(--blanc); }
-.btn--rouge:hover { background: var(--rouge-fonce); color: var(--blanc); }
+.btn--rouge { background: var(--rouge-fonce); color: var(--blanc); }
+.btn--rouge:hover { background: var(--rouge-sombre); color: var(--blanc); }
 .btn--blanc { background: var(--blanc); color: var(--bleu); }
 .btn--blanc:hover { background: var(--gris-100); color: var(--bleu); }
 .btn--contour { border-color: currentColor; color: var(--blanc); background: transparent; }
@@ -227,6 +248,27 @@ h3 { font-size: 1.2rem; }
 
 /* Icône inline dans les boutons et liens (remplace les emojis) */
 .icone { width: 1.1em; height: 1.1em; flex-shrink: 0; display: inline-block; vertical-align: -0.18em; }
+
+/* Flèche dans un rond (pastille) pour les boutons « Devis gratuit » —
+   pastille contrastée + flèche épaisse, invite au clic. */
+.btn__fleche {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.7em;
+  height: 1.7em;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.22);
+  flex-shrink: 0;
+  margin-left: 0.15em;
+  transition: transform var(--transition), background var(--transition);
+}
+.btn__fleche svg { width: 0.95em; height: 0.95em; }
+/* Sur bouton blanc : pastille sombre, flèche blanche */
+.btn--blanc .btn__fleche { background: var(--bleu); color: var(--blanc); }
+/* Effet de survol unifié : la flèche glisse à droite de la même façon
+   sur tous les boutons, quelle que soit leur couleur. */
+.btn:hover .btn__fleche { transform: translateX(3px); }
 
 /* ── Cartes ────────────────────────────────────────────────────── */
 .carte {
@@ -331,7 +373,7 @@ h3 { font-size: 1.2rem; }
 .carte-service__corps { padding: 1.3rem; display: flex; flex-direction: column; gap: 0.5rem; flex: 1; }
 .carte-service h3 { color: var(--bleu); }
 .carte-service p { font-size: 0.95rem; color: var(--gris-700); flex: 1; }
-.carte-service__lien { color: var(--rouge); font-weight: 700; font-size: 0.95rem; }
+.carte-service__lien { color: var(--rouge-fonce); font-weight: 700; font-size: 0.95rem; }
 .carte-service:hover .carte-service__lien { text-decoration: underline; }
 
 /* ── Avis clients ──────────────────────────────────────────────── */
