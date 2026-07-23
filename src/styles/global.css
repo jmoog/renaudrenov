@@ -141,18 +141,14 @@ h3 { font-size: clamp(1.25rem, 1rem + 1vw, 1.5rem); }
     justify-content: center;
     gap: 0.9rem;
   }
-  /* Boutons CTA (blocs devis / final) : pleine largeur plafonnée et centrés */
+  /* Boutons CTA : largeur NATURELLE (jamais étirés bord à bord),
+     centrés par le conteneur — esthétique et compacts */
   .cta-devis__actions .btn,
-  .cta-final__actions .btn {
-    width: 100%;
-    max-width: 360px;
-    margin-inline: auto;
-  }
-  /* Boutons du hero : largeur naturelle (jamais pleine largeur), centrés
-     et espacés — plus compacts sur mobile */
+  .cta-final__actions .btn,
   .hero__actions .btn {
     width: auto;
     max-width: 100%;
+    margin-inline: 0;
   }
 
   /* Boutons seuls (fin des blocs texte) centrés */
