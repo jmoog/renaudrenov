@@ -1,178 +1,253 @@
 ---
 // ─────────────────────────────────────────────────────────────────────────
-// ACCUEIL — contenu d'origine INCHANGÉ, seul l'habillage reprend le design
-// du modèle artisan (hero grande photo + cartouche en surplomb).
-// Structure : hero → avis → CTA devis → services → 2 duos → pourquoi →
-// marques → zones → CTA final.
+// ACCUEIL — refonte juillet 2026 : design repris de la home Charles Lopez
+// (hero deux colonnes titre/photo + coches, cards photo, avis en grille,
+// CTA panneau marine) avec le contenu fourni par le client.
+// Structure : hero → nettoyage/lavage (3 cards) → avis → couverture &
+// zinguerie (3 cards) → CTA devis → services → pourquoi → marques → zones
+// → CTA final.
 // ─────────────────────────────────────────────────────────────────────────
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { SITE } from '../data/site.ts';
-import services from '../data/services.json';
 import villes from '../data/villes.json';
-import AvisCarrousel from '../components/AvisCarrousel.astro';
 import CtaDevis from '../components/CtaDevis.astro';
 import reviews from '../data/reviews.json';
 import LogoGoogle from '../components/LogoGoogle.astro';
 import LogosMarques from '../components/LogosMarques.astro';
 import FlecheRonde from '../components/FlecheRonde.astro';
+
+// Avis mis en avant sur la home (grille design CL) — les 6 premiers.
+const avisHome = reviews.avis.slice(0, 6);
 ---
 <BaseLayout
   title="Couvreur 28 - Renaud Rénov - un pro de la toiture"
   description="Couvreur zingueur en Eure-et-Loir (28) - tous travaux de couverture - entretien, réparation et rénovation de toiture. Devis gratuit."
 >
-  <!-- ── Hero deux colonnes : texte à gauche, photo entière à droite ── -->
-  <section class="hero3">
-    <div class="conteneur hero3__grille">
-      <div class="hero3__texte">
-        <p class="hero3__eyebrow">Entretenir, réparer, protéger votre toiture</p>
-        <h1>Entreprise de couverture en Eure-et-Loir (28)</h1>
-        <p class="hero3__marque">RENAUD RÉNOV</p>
-        <p class="hero3__google">
-          <LogoGoogle taille={20} />
-          <span class="hero3__etoiles" aria-hidden="true">★★★★★</span>
-          <strong>{reviews.note.toLocaleString('fr-FR')}/5 sur Google · {reviews.nombre} avis</strong>
-        </p>
-        <p class="hero3__accroche">
-          Je suis M. Renaud. À la tête de mon entreprise de couverture basée en
-          <strong>Eure-et-Loir</strong>, à <strong>{SITE.ville}</strong>, je réalise tous les travaux
-          de couverture : <strong>nettoyage et démoussage</strong>, traitement hydrofuge, réparation,
-          rénovation, couverture, zinguerie et pose de gouttière.
-        </p>
-        <p>
-          Je suis au service des particuliers partout dans le <strong>28</strong> et je propose des
-          <strong>devis gratuits et sans engagement</strong>.
-        </p>
-        <p>Mon métier, c'est de prendre soin de votre toit :</p>
-        <ul>
-          <li><strong>Nettoyage et démoussage</strong> de toiture, application de <strong>traitements hydrofuges</strong> et anti-mousses.</li>
-          <li><strong>Réparation</strong> de toiture : tuiles cassées, ardoises déplacées, faîtage et infiltrations.</li>
-          <li><strong>Rénovation</strong> et <strong>couverture neuve</strong> en tuile ou ardoise.</li>
-          <li><strong>Zinguerie</strong>, pose de gouttières et étanchéité des points sensibles.</li>
-        </ul>
-        <div class="hero3__actions">
-          <a href={SITE.telHref} class="btn btn--rouge">
-            <svg class="icone" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M6.6 10.8a15.5 15.5 0 0 0 6.6 6.6l2.2-2.2a1 1 0 0 1 1-.25 11.4 11.4 0 0 0 3.6.57 1 1 0 0 1 1 1V20a1 1 0 0 1-1 1A17 17 0 0 1 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1 11.4 11.4 0 0 0 .57 3.6 1 1 0 0 1-.25 1z"/></svg>
-            {SITE.tel}
-          </a>
-          <a href="/devis-gratuit/" class="btn btn--bleu">Devis gratuit<FlecheRonde /></a>
-        </div>
+  <!-- ── Hero (titre + photo + coches + badges) ───────────────── -->
+  <section class="hx">
+    <div class="conteneur hx__grid">
+      <div class="hx__head">
+        <h1 class="hx__title">Entreprise de couverture<br />en Eure-et-Loir&nbsp;(28)</h1>
+        <p class="hx__marque">RENAUD RÉNOV</p>
       </div>
 
-      <div class="hero3__media">
+      <div class="hx__right">
         <img
-          class="hero3__img"
-          src="/images/photos/hero-renaud-renov.webp"
-          srcset="/images/photos/hero-renaud-renov-640.webp 640w, /images/photos/hero-renaud-renov-960.webp 960w, /images/photos/hero-renaud-renov-1280.webp 1280w, /images/photos/hero-renaud-renov.webp 1600w"
-          sizes="(min-width: 980px) 540px, 94vw"
-          width="1600"
-          height="1200"
-          alt="Le véhicule Renaud Rénov devant une maison et sa toiture en tuiles en Eure-et-Loir"
+          class="hx__photo"
+          src="/images/photos/renaud-renov-couvreur-28.webp"
+          srcset="/images/photos/renaud-renov-couvreur-28-640.webp 640w, /images/photos/renaud-renov-couvreur-28.webp 1024w"
+          sizes="(min-width: 960px) 46vw, calc(100vw - 2rem)"
+          width="1024"
+          height="768"
+          alt="Couvreur 28 – Renaud Rénov"
           fetchpriority="high"
         />
-        <div class="hero3__garantie">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2 3 6v6c0 5 3.8 8.3 9 10 5.2-1.7 9-5 9-10V6l-9-4Z"/><text x="12" y="15.5" text-anchor="middle" font-size="8" font-weight="700" fill="currentColor" stroke="none">10</text></svg>
-          <p><strong>Garantie décennale</strong><br />Pour tous travaux de couverture</p>
+        <div class="hx__note">
+          <div class="hx__note-top">
+            <LogoGoogle taille={26} />
+            <span class="hx__note-stars" aria-label={`${reviews.note} étoiles sur 5`}>
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l2.9 6.26 6.9.6-5.2 4.53 1.55 6.75L12 17.77 5.85 20.7 7.4 13.95 2.2 9.42l6.9-.6L12 2z"/></svg>
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l2.9 6.26 6.9.6-5.2 4.53 1.55 6.75L12 17.77 5.85 20.7 7.4 13.95 2.2 9.42l6.9-.6L12 2z"/></svg>
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l2.9 6.26 6.9.6-5.2 4.53 1.55 6.75L12 17.77 5.85 20.7 7.4 13.95 2.2 9.42l6.9-.6L12 2z"/></svg>
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l2.9 6.26 6.9.6-5.2 4.53 1.55 6.75L12 17.77 5.85 20.7 7.4 13.95 2.2 9.42l6.9-.6L12 2z"/></svg>
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l2.9 6.26 6.9.6-5.2 4.53 1.55 6.75L12 17.77 5.85 20.7 7.4 13.95 2.2 9.42l6.9-.6L12 2z"/></svg>
+            </span>
+          </div>
+          <p class="hx__note-txt">Noté <strong>{reviews.note.toLocaleString('fr-FR')}/5</strong> sur Google · {reviews.nombre} avis</p>
         </div>
       </div>
-    </div>
-  </section>
 
-  <!-- ── Avis clients ─────────────────────────────────────────── -->
-  <AvisCarrousel titre="Ce que mes clients pensent de mon travail" />
+      <div class="hx__body">
+        <ul class="hx__points">
+          <li>
+            <span class="hx__check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="4"/><path d="M8 12.5l2.5 2.5 5-6"/></svg></span>
+            Devis gratuit pour tous travaux de couverture
+          </li>
+          <li>
+            <span class="hx__check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="4"/><path d="M8 12.5l2.5 2.5 5-6"/></svg></span>
+            15 années d’expérience, tous matériaux
+          </li>
+          <li>
+            <span class="hx__check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="4"/><path d="M8 12.5l2.5 2.5 5-6"/></svg></span>
+            Expert du démoussage des toitures
+          </li>
+          <li>
+            <span class="hx__check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="4"/><path d="M8 12.5l2.5 2.5 5-6"/></svg></span>
+            Nettoyage des façades et des extérieurs des maisons
+          </li>
+        </ul>
 
-  <!-- ── CTA devis ────────────────────────────────────────────── -->
-  <CtaDevis titre="Parlons de votre projet de toiture" />
+        <div class="hx__badges">
+          <img src="/images/labels/applicateur-dalep.webp" alt="Applicateur de solutions DALEP certifié" width="240" height="240" loading="lazy" />
+          <img src="/images/labels/garantie-decennale-10-ans.png" alt="Garantie décennale 10 ans" width="220" height="220" loading="lazy" />
+          <img src="/images/labels/artisan-cma28.png" alt="Artisan — Chambre de Métiers et de l'Artisanat d'Eure-et-Loir" width="320" height="228" loading="lazy" />
+        </div>
 
-  <!-- ── Services ─────────────────────────────────────────────── -->
-  <section id="nos-services" class="section section--gris">
-    <div class="conteneur">
-      <h2>Notre savoir-faire, transmis de père en fils</h2>
-      <div class="grille-services">
-        {services.map((s) => (
-          <a href={s.href} class="carte carte-service">
-            <img src={s.image} alt={s.alt} loading="lazy" width="400" height="250" />
-            <span class="carte-service__corps">
-              <h3>{s.label}</h3>
-              <p>{s.accroche}</p>
-              <span class="carte-service__lien">{s.lien} →</span>
-            </span>
+        <div class="hx__actions">
+          <a href="/devis-gratuit/" class="btn btn--rouge">Devis gratuit<FlecheRonde /></a>
+          <a href={SITE.telHref} class="btn btn--bleu">
+            <svg class="icone" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6.5 3.5h-2A1.5 1.5 0 0 0 3 5.2C3.4 13 11 20.6 18.8 21a1.5 1.5 0 0 0 1.7-1.5v-2a1.5 1.5 0 0 0-1.3-1.5l-2.5-.35a1.5 1.5 0 0 0-1.4.6l-.7.95a11.5 11.5 0 0 1-4.9-4.9l.95-.7a1.5 1.5 0 0 0 .6-1.4l-.35-2.5a1.5 1.5 0 0 0-1.5-1.3Z"/><path d="M14.5 3.6a5.5 5.5 0 0 1 4.9 4.9"/><path d="M14 7a2.4 2.4 0 0 1 2 2"/></svg>
+            {SITE.tel}
           </a>
-        ))}
+        </div>
+        <p class="hx__cta-sub">Réponse rapide, sans engagement</p>
       </div>
     </div>
   </section>
 
-  <!-- ── Spécialité : nettoyage & démoussage ──────────────────── -->
+  <!-- ── Nettoyage & lavage : intro + 3 cards ─────────────────── -->
+  <section class="section section--gris">
+    <div class="conteneur">
+      <h2>Nettoyage et lavage professionnel des toitures et façades dans le 28</h2>
+      <p class="intro-section">
+        Utilisation de techniques de nettoyage professionnelles adaptées à votre toit et aux
+        façades de votre habitation. L’objectif est de nettoyer et laver efficacement sans abîmer
+        les matériaux, ni polluer votre environnement. Avoir recours aux services de Renaud Rénov,
+        c’est faire confiance à un <strong>professionnel certifié Applicateur DALEP</strong>, ce
+        qui vous garantit une utilisation conforme des produits biocides&nbsp;; c’est l’expérience
+        et le savoir-faire d’un artisan installé en Eure-et-Loir depuis plus de 15&nbsp;années.
+      </p>
+
+      <div class="grille-cartes grille-cartes--3">
+        <article class="carte carte-presta">
+          <img class="carte-presta__img" src="/images/photos/nettoyage-toiture-pavillon-eure-et-loir-28.webp" alt="Nettoyage de la toiture d'un pavillon en Eure-et-Loir (28) — toit à moitié démoussé par Renaud Rénov" loading="lazy" width="900" height="675" />
+          <div class="carte-presta__corps">
+            <h3>Nettoyage de toiture en Eure-et-Loir</h3>
+            <p>
+              Brossage manuel, démoussage haute pression ou lavage basse pression&nbsp;: j’utilise
+              les bonnes techniques pour être certain de ne pas abîmer votre toiture. Le travail
+              est délicat et demande un véritable savoir-faire, que vous pouvez confier à
+              Renaud Rénov, <strong>artisan couvreur en Eure-et-Loir</strong>.
+            </p>
+            <a class="carte-presta__lien" href="/prestations/nettoyage-demoussage-toiture/">En savoir plus sur le démoussage de toiture</a>
+          </div>
+        </article>
+
+        <article class="carte carte-presta">
+          <img class="carte-presta__img" src="/images/photos/application-peinture-hydrofuge-toiture-28-renaud-renov.webp" alt="Application d'une peinture hydrofuge de toiture dans le 28 par Renaud Rénov" loading="lazy" width="900" height="675" />
+          <div class="carte-presta__corps">
+            <h3>Application de traitements sur votre toit</h3>
+            <p>
+              Traitements hydrofuges et anti-mousses, hydrofuges colorés et peintures de toitures.
+              Je renforce votre toit contre l’usure du temps et l’installation des mousses. Je vous
+              propose la solution idéale, avec le bon produit, pour bien protéger votre toiture.
+              Adaptés aux toitures anciennes en tuiles et ardoises, les traitements sont une bonne
+              solution pour améliorer la longévité de votre toit et lui redonner une belle apparence.
+            </p>
+            <a class="carte-presta__lien" href="/prestations/traitement-hydrofuge/">Plus d’infos sur les traitements de toitures</a>
+          </div>
+        </article>
+
+        <article class="carte carte-presta">
+          <img class="carte-presta__img" src="/images/photos/facade-pignon-sale-28.webp" alt="Façade et pignon sales avant nettoyage dans le 28 — coulures et traces d'humidité" loading="lazy" width="900" height="675" />
+          <div class="carte-presta__corps">
+            <h3>Nettoyage des façades et pignons</h3>
+            <p>
+              Retrouvez une maison avec des façades propres, sans présence de mousses ou de traces
+              d’humidité. Une maison saine et propre grâce au nettoyage de vos murs, sans abîmer
+              les peintures et les revêtements&nbsp;: enduits, crépis, pierres, briques, bardages.
+              Un nettoyage effectué par un professionnel, une garantie de savoir-faire et
+              d’efficacité.
+            </p>
+            <a class="carte-presta__lien" href="/devis-gratuit/">En savoir plus sur le nettoyage de façade</a>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Avis clients (grille) ────────────────────────────────── -->
   <section class="section">
     <div class="conteneur">
-      <div class="section__entete section__entete--gauche">
-        <h2>Nettoyage, démoussage et traitement hydrofuge de toiture</h2>
+      <h2>Les avis de mes clients satisfaits en Eure-et-Loir</h2>
+      <p class="avis-intro">
+        <LogoGoogle taille={22} />
+        <span class="hx__etoiles" aria-hidden="true">★★★★★</span>
+        <strong>{reviews.note.toLocaleString('fr-FR')}/5</strong> · {reviews.nombre} avis Google ·
+        <a href={reviews.urlFiche} rel="noopener" target="_blank">Voir tous les avis</a>
+      </p>
+
+      <div class="avis-grille">
+        {avisHome.map((a) => (
+          <article class="carte avis">
+            <div class="avis__entete">
+              <span class="avis__nom">{a.auteur}</span>
+              <span class="avis__date">{a.date}</span>
+            </div>
+            <span class="avis__etoiles" aria-label={`${a.note} étoiles sur 5`}>{'★'.repeat(a.note)}{'☆'.repeat(5 - a.note)}</span>
+            <p>{a.texte}</p>
+          </article>
+        ))}
       </div>
-    </div>
-    <div class="conteneur duo">
-      <div>
-        <p>
-          Avec le temps, mousses et lichens fragilisent votre couverture et retiennent l'humidité.
-          Renaud Rénov est <strong>spécialiste du nettoyage et du démoussage de toiture</strong> en
-          Eure-et-Loir, pour préserver l'étanchéité et prolonger la durée de vie de votre toit.
-        </p>
-        <h3>Nettoyage et démoussage</h3>
-        <p>
-          Brossage, nettoyage adapté à votre couverture et élimination des mousses : nous redonnons
-          à votre toiture son aspect et ses performances d'origine, tuiles comme ardoises.
-        </p>
-        <h3>Traitement hydrofuge et résine</h3>
-        <p>
-          Après le nettoyage, nous appliquons des traitements hydrofuges et des résines colorées
-          professionnels qui protègent durablement les matériaux et limitent la repousse des mousses.
-        </p>
-        <a href="/devis-gratuit/" class="btn btn--bleu">Nettoyer et protéger mon toit</a>
+
+      <div class="avis-cta">
+        <a href={reviews.urlFiche} target="_blank" rel="noopener" class="btn btn--bleu">
+          Laisser un avis Google<FlecheRonde />
+        </a>
       </div>
-      <img
-        src="/images/photos/nettoyage-toiture-resultat.webp"
-        alt="Maison à la toiture propre après nettoyage et démoussage par Renaud Rénov en Eure-et-Loir"
-        loading="lazy"
-        width="2000"
-        height="1500"
-      />
     </div>
   </section>
 
-  <!-- ── Couverture, rénovation & zinguerie ───────────────────── -->
+  <!-- ── Couverture, zinguerie, urgences : 3 cards ────────────── -->
   <section class="section section--bleute">
     <div class="conteneur">
-      <div class="section__entete section__entete--gauche">
-        <h2>Couverture, rénovation et zinguerie en Eure-et-Loir</h2>
+      <h2>Travaux de couverture, zinguerie et réparations d’urgence</h2>
+
+      <div class="grille-cartes grille-cartes--3">
+        <article class="carte carte-presta">
+          <img class="carte-presta__img" src="/images/photos/renovation-toiture-28-renaud-renov.webp" alt="Rénovation de toiture dans le 28 par Renaud Rénov — écran sous-toiture, liteaunage et tuiles neuves" loading="lazy" width="900" height="675" />
+          <div class="carte-presta__corps">
+            <h3>Travaux de couverture</h3>
+            <p>
+              Rénovation de toiture abîmée, remplacement de toiture ancienne. Je suis Jordy Renaud,
+              votre <strong>artisan couvreur dans le 28</strong>&nbsp;: spécialiste de la couverture traditionnelle
+              — tuiles pays, tuiles plates, ardoises — et des techniques traditionnelles de pose,
+              je refais tous les types de toitures. Je vous garantis une toiture rénovée,
+              résistante contre les intempéries.
+            </p>
+            <a class="carte-presta__lien" href="/prestations/renovation-toiture/">En savoir plus sur la rénovation de toiture</a>
+          </div>
+        </article>
+
+        <article class="carte carte-presta">
+          <img class="carte-presta__img" src="/images/photos/couvreur-zingueur-28.webp" alt="Couvreur zingueur 28 — épi de faîtage et arêtier en zinc réalisés par Renaud Rénov" loading="lazy" width="900" height="1200" />
+          <div class="carte-presta__corps">
+            <h3>Travaux de zinguerie</h3>
+            <p>
+              Gouttières, solins, rives, noues, chéneaux, habillage des rives&nbsp;: la zinguerie
+              est essentielle pour l’étanchéité et la résistance de votre toiture. Mon savoir-faire
+              de <strong>couvreur zingueur dans le 28</strong> me permet de façonner ces éléments en zinc pour les
+              adapter à votre toit et aux parties saillantes de la toiture.
+            </p>
+            <a class="carte-presta__lien" href="/prestations/zinguerie/">En savoir plus sur la zinguerie</a>
+          </div>
+        </article>
+
+        <article class="carte carte-presta">
+          <img class="carte-presta__img" src="/images/photos/reparation-toiture-urgence-28.webp" alt="Intervention de Renaud Rénov pour la réparation d'une toiture en Eure-et-Loir" loading="lazy" width="900" height="675" />
+          <div class="carte-presta__corps">
+            <h3>Réparation des toitures en urgence</h3>
+            <p>
+              Recherche de fuites et infiltrations, pose de bâches&nbsp;: j’interviens rapidement
+              chez vous pour remettre en état une toiture abîmée. Pose de bâches en urgence,
+              7&nbsp;j/7, partout dans le département. Je protège et répare votre toit pour
+              empêcher l’eau de pénétrer dans votre habitation.
+            </p>
+            <a class="carte-presta__lien" href="/prestations/reparation-toiture/">En savoir plus sur la réparation de toiture</a>
+          </div>
+        </article>
       </div>
-    </div>
-    <div class="conteneur duo duo--inverse">
-      <div>
-        <p>
-          De la simple tuile cassée à la réfection complète d'une couverture, j'apporte le même
-          soin et la même exigence. Je travaille la tuile terre cuite, l'ardoise naturelle et le
-          zinc, en rénovation comme en neuf.
-        </p>
-        <h3>Rénovation et couverture neuve</h3>
-        <p>
-          Reprise partielle ou réfection complète : liteaunage, écran sous-toiture et couverture
-          neuve pour un toit sain, étanche et durable pendant des décennies.
-        </p>
-        <h3>Zinguerie soignée</h3>
-        <p>
-          Noues, abergements, solins de cheminée et chéneaux : un travail du zinc précis qui assure
-          une protection durable et une excellente étanchéité face aux intempéries.
-        </p>
-        <a href="/devis-gratuit/" class="btn btn--bleu">Demander un devis</a>
-      </div>
-      <img
-        src="/images/photos/renovation-chantier.webp"
-        alt="Chantier de rénovation de toiture avec écran sous-toiture et liteaunage en Eure-et-Loir"
-        loading="lazy"
-        width="2000"
-        height="1500"
-      />
     </div>
   </section>
+
+  <!-- ── CTA devis ────────────────────────────────────────────── -->
+  <CtaDevis
+    titre="Contactez votre couvreur en Eure-et-Loir"
+    image="/images/photos/contact-couvreur-eure-et-loir-28.webp"
+    imageAlt="Jordy Renaud, votre couvreur en Eure-et-Loir, sur un chantier de toiture"
+    imageWidth={1200}
+    imageHeight={1600}
+  />
 
   <!-- ── Pourquoi nous choisir ────────────────────────────────── -->
   <section class="section section--bleu pourquoi">
@@ -213,7 +288,7 @@ import FlecheRonde from '../components/FlecheRonde.astro';
   <!-- ── Zone d'intervention ──────────────────────────────────── -->
   <section class="section section--gris">
     <div class="conteneur">
-      <h2>Votre couvreur autour de {SITE.ville}</h2>
+      <h2>Votre artisan couvreur de confiance en Eure-et-Loir</h2>
       <p>
         Basés à {SITE.ville} ({SITE.cp}), nous intervenons dans toute l'Eure-et-Loir et aux portes
         des Yvelines. Quelques communes où nous travaillons :
@@ -237,7 +312,7 @@ import FlecheRonde from '../components/FlecheRonde.astro';
         </p>
         <div class="cta-final__actions">
           <a href={SITE.telHref} class="btn btn--blanc">
-            <svg class="icone" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M6.6 10.8a15.5 15.5 0 0 0 6.6 6.6l2.2-2.2a1 1 0 0 1 1-.25 11.4 11.4 0 0 0 3.6.57 1 1 0 0 1 1 1V20a1 1 0 0 1-1 1A17 17 0 0 1 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1 11.4 11.4 0 0 0 .57 3.6 1 1 0 0 1-.25 1z"/></svg>
+            <svg class="icone" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6.5 3.5h-2A1.5 1.5 0 0 0 3 5.2C3.4 13 11 20.6 18.8 21a1.5 1.5 0 0 0 1.7-1.5v-2a1.5 1.5 0 0 0-1.3-1.5l-2.5-.35a1.5 1.5 0 0 0-1.4.6l-.7.95a11.5 11.5 0 0 1-4.9-4.9l.95-.7a1.5 1.5 0 0 0 .6-1.4l-.35-2.5a1.5 1.5 0 0 0-1.5-1.3Z"/><path d="M14.5 3.6a5.5 5.5 0 0 1 4.9 4.9"/><path d="M14 7a2.4 2.4 0 0 1 2 2"/></svg>
             {SITE.tel}
           </a>
           <a href="/devis-gratuit/" class="btn btn--bleu">Formulaire de devis</a>
@@ -248,92 +323,120 @@ import FlecheRonde from '../components/FlecheRonde.astro';
 </BaseLayout>
 
 <style>
-  /* Hero deux colonnes : texte à gauche, photo ENTIÈRE à droite
-     (aucun élément ne recouvre la photo) */
-  .hero3 { padding-block: clamp(2rem, 4vw, 3.5rem); }
-  .hero3__grille { display: grid; gap: 2.5rem; align-items: center; }
-  @media (min-width: 980px) {
-    .hero3__grille { grid-template-columns: 1.05fr 0.95fr; gap: 4rem; }
+  /* ── Hero (design Charles Lopez : titre à gauche, photo à droite,
+        coches + note Google + badges + CTA sous le titre) ─────── */
+  .hx { padding-block: clamp(1.6rem, 4vw, 3rem); }
+  .hx__grid {
+    display: grid;
+    gap: 1.6rem;
+    grid-template-columns: 1fr;
+    grid-template-areas: "head" "photo" "body";
   }
+  @media (min-width: 960px) {
+    .hx__grid {
+      grid-template-columns: 1.05fr 1fr;
+      grid-template-areas: "head photo" "body photo";
+      column-gap: 3.5rem;
+      row-gap: 1.1rem;
+      align-items: center;
+    }
+  }
+  .hx__head { grid-area: head; }
+  .hx__right { grid-area: photo; position: relative; }
+  /* Voile sombre en bas de la photo : garantit le contraste sous la carte note */
+  .hx__right::after {
+    content: "";
+    position: absolute;
+    left: 0; right: 0; bottom: 0;
+    height: 42%;
+    border-radius: 0 0 24px 24px;
+    background: linear-gradient(to top, rgba(15, 34, 45, 0.6), rgba(15, 34, 45, 0));
+    pointer-events: none;
+    z-index: 1;
+  }
+  .hx__body { grid-area: body; }
+  .hx__title { margin: 0; color: var(--bleu); font-size: clamp(1.45rem, 2.6vw, 1.85rem); line-height: 1.2; letter-spacing: -0.01em; }
+  .hx__marque { color: var(--rouge); font-weight: 800; font-size: clamp(1.9rem, 4.4vw, 2.9rem); line-height: 1.1; margin: 0.6rem 0 0; }
+  .hx__photo { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; border-radius: 24px; box-shadow: var(--ombre-forte); display: block; }
+  @media (min-width: 960px) { .hx__photo { aspect-ratio: 4 / 5; } }
 
-  .hero3__eyebrow {
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-    font-weight: 700;
-    font-size: 0.82rem;
-    color: var(--rouge-fonce);
-    margin-bottom: 0.6rem;
+  .hx__points { list-style: none; padding: 0; margin: 0.4rem 0 1.2rem; display: grid; gap: 0.9rem; }
+  .hx__points li {
+    display: flex; align-items: center; gap: 0.8rem;
+    font-size: 1.08rem; font-weight: 600; color: var(--bleu);
   }
-  .hero3__texte h1 { margin: 0; font-size: clamp(1.55rem, 3.2vw, 2.3rem); line-height: 1.15; }
-  .hero3__marque {
-    color: var(--rouge);
-    font-weight: 800;
-    font-size: clamp(1.5rem, 4vw, 2.1rem);
-    line-height: 1.1;
-    margin: 0.4rem 0 0;
-    white-space: nowrap;
-  }
-  .hero3__google {
-    display: flex;
-    align-items: center;
-    gap: 0.5em;
-    color: var(--bleu);
-    margin: 0.8rem 0 0;
-    flex-wrap: wrap;
-  }
-  .hero3__etoiles { color: var(--etoile); letter-spacing: 0.08em; }
-  .hero3__accroche { font-size: 1.08rem; }
-  .hero3__texte > p:not(.hero3__eyebrow):not(.hero3__marque):not(.hero3__google) {
-    color: var(--gris-700);
-    margin: 0.9rem 0 0;
-  }
-  .hero3__texte > ul { margin: 0.6rem 0 0; }
-  .hero3__texte > ul li { margin-block: 0.3rem; color: var(--gris-700); }
-  .hero3__actions { display: flex; flex-wrap: wrap; gap: 0.8rem; margin-top: 1.4rem; }
+  .hx__check { color: var(--rouge); flex-shrink: 0; line-height: 0; }
+  .hx__check svg { width: 30px; height: 30px; }
 
-  /* Photo : entièrement visible, jamais recouverte */
-  .hero3__media { display: grid; gap: 1.2rem; align-content: center; justify-items: center; }
-  .hero3__img {
-    width: 100%;
-    border-radius: var(--rayon);
-    box-shadow: var(--ombre-forte);
-    object-fit: cover;
-  }
-
-  /* Badge garantie décennale : compact, sous la photo */
-  .hero3__garantie {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.9rem;
+  /* Carte note Google — posée en bas de la photo (style capture client) */
+  .hx__note {
+    position: absolute;
+    left: 50%;
+    bottom: 1rem;
+    transform: translateX(-50%);
+    width: max-content;
+    max-width: calc(100% - 1.6rem);
+    display: flex; flex-direction: column; align-items: center; gap: 0.3rem;
     background: var(--blanc);
-    border: 1px solid var(--gris-200);
-    border-left: 4px solid var(--rouge);
-    border-radius: var(--rayon);
-    box-shadow: var(--ombre);
-    padding: 0.8rem 1.3rem;
+    border-radius: 16px;
+    box-shadow: 0 14px 34px rgba(15, 34, 45, 0.42);
+    padding: 0.8rem 1.5rem;
+    z-index: 2;
   }
-  .hero3__garantie svg { width: 2.4rem; height: 2.4rem; color: var(--rouge-fonce); flex-shrink: 0; }
-  .hero3__garantie strong { color: var(--bleu); font-size: 1.05rem; }
-  .hero3__garantie p { margin: 0; font-size: 0.95rem; color: var(--gris-700); line-height: 1.4; }
+  .hx__note-top { display: flex; align-items: center; gap: 0.6rem; }
+  .hx__note-stars { display: inline-flex; gap: 0.1em; }
+  .hx__note-stars svg { width: 1.35rem; height: 1.35rem; fill: var(--etoile); }
+  .hx__note-txt { margin: 0; color: var(--gris-700); font-size: 1.02rem; }
+  .hx__note-txt strong { color: var(--bleu); }
+  .hx__etoiles { color: var(--etoile); letter-spacing: 0.08em; }
 
-  /* Mobile / colonne unique : la photo remonte juste sous la note Google,
-     titres et accroches centrés. */
-  @media (max-width: 979px) {
-    .hero3__grille { gap: 0; }
-    .hero3__texte, .hero3__media { display: contents; }
-    .hero3__texte > p { order: 7; }
-    .hero3__texte > .hero3__eyebrow { order: 1; text-align: center; }
-    .hero3__texte > h1 { order: 2; text-align: center; }
-    .hero3__texte > .hero3__marque { order: 3; text-align: center; }
-    .hero3__texte > .hero3__google { order: 4; justify-content: center; }
-    .hero3__media > .hero3__img { order: 5; margin-block: 1rem 0.4rem; }
-    .hero3__texte > .hero3__accroche { order: 6; }
-    .hero3__texte > ul { order: 8; }
-    .hero3__texte > .hero3__actions { order: 9; justify-content: center; }
-    .hero3__media > .hero3__garantie { order: 10; margin-top: 1.4rem; justify-self: center; }
+  .hx__badges { display: flex; align-items: center; gap: 1.3rem; flex-wrap: wrap; margin: 0 0 1.6rem; }
+  .hx__badges img { height: 64px; width: auto; }
+
+  .hx__actions { display: flex; flex-wrap: wrap; gap: 0.8rem; }
+  .hx__cta-sub { color: var(--rouge-fonce); font-size: 0.9rem; margin: 0.5rem 0 0; }
+
+  /* Mobile : titre + marque centrés, photo sous le titre, CTA centrés */
+  @media (max-width: 959px) {
+    .hx__title, .hx__marque { text-align: center; }
+    .hx__badges, .hx__actions { justify-content: center; }
+    .hx__cta-sub { text-align: center; }
+    .hx__badges img { height: 56px; }
   }
-  @media (max-width: 380px) {
-    .hero3__texte h1 { font-size: 1.4rem; }
-    .hero3__marque { font-size: 1.3rem; }
+
+  /* ── Intro de section (paragraphe centré sous le H2) ──────────── */
+  .intro-section { max-width: 74ch; margin: 1.2rem auto 2.4rem; color: var(--gris-700); }
+
+  /* ── Cards prestation illustrées (design CL) ──────────────────── */
+  .grille-cartes {
+    display: grid;
+    gap: 1.4rem;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    margin-top: 2.4rem;
   }
+  @media (min-width: 900px) {
+    .grille-cartes--3 { grid-template-columns: repeat(3, 1fr); }
+  }
+  .carte-presta { padding: 0; overflow: hidden; display: flex; flex-direction: column; }
+  .carte-presta__img { width: 100%; height: 210px; object-fit: cover; }
+  .carte-presta__corps { padding: 1.3rem 1.4rem 1.5rem; display: flex; flex-direction: column; gap: 0.6rem; flex: 1; }
+  .carte-presta__corps h3 { color: var(--bleu); }
+  .carte-presta__corps p { color: var(--gris-700); font-size: 0.97rem; margin: 0; flex: 1; }
+  .carte-presta__lien {
+    color: var(--rouge-fonce); font-weight: 700; font-size: 0.85rem;
+    text-decoration: underline; text-underline-offset: 4px; text-decoration-thickness: 1.5px;
+    margin-top: auto;
+  }
+  .carte-presta__lien:hover { color: var(--rouge-sombre); }
+
+  /* ── Avis clients en grille (design CL) ───────────────────────── */
+  .avis-intro {
+    display: flex; align-items: center; justify-content: center; gap: 0.6rem; flex-wrap: wrap;
+    color: var(--bleu); margin: 1rem auto 2.2rem; font-size: 1.05rem; font-weight: 600;
+  }
+  .avis-intro a { color: var(--bleu-accent); }
+  .avis-grille { display: grid; gap: 1.4rem; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); }
+  @media (min-width: 900px) { .avis-grille { grid-template-columns: repeat(3, 1fr); } }
+  .avis-grille .avis:hover { transform: none; }
+  .avis-cta { text-align: center; margin-top: 2.4rem; }
 </style>
