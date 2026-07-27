@@ -240,6 +240,13 @@ const avisFacade = nomsAvis
           height={1333}
         />
       </div>
+
+      <p class="facade-preuve">
+        Envie de voir un chantier en entier&nbsp;? J'ai documenté le
+        <a href="/realisations/nettoyage-facade-haras-guainville/">nettoyage des façades d'un haras à
+        Guainville</a>&nbsp;: l'état de départ, le déroulé de l'intervention et les trois murs
+        photographiés avant puis après.
+      </p>
     </div>
   </section>
 
@@ -547,4 +554,13 @@ const avisFacade = nomsAvis
   @media (min-width: 900px) {
     .cta-devis__grille { grid-template-columns: 1fr 1fr; }
   }
+  /* Passerelle vers la réalisation documentée (maillage interne) */
+  .facade-preuve {
+    max-width: 66ch;
+    margin: 2rem auto 0;
+    text-align: center;
+    text-wrap: balance;
+    color: var(--gris-700);
+  }
+  .facade-preuve a { color: var(--rouge-fonce); font-weight: 600; }
 </style>

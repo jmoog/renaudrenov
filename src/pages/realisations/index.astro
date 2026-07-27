@@ -1,0 +1,224 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { SITE } from '../../data/site.ts';
+import FilAriane from '../../components/FilAriane.astro';
+import CtaDevis from '../../components/CtaDevis.astro';
+
+// ── Balises différenciées (règle anti-triplette du projet) ──
+// Title → le mot-clé + le département ; H1 → la promesse ; Meta → la preuve concrète.
+const title = 'Réalisations : chantiers de couverture en Eure-et-Loir | Renaud Rénov';
+const description =
+  "Toitures démoussées, façades ravivées : chaque chantier est documenté avec ses photos avant / après et le détail de l'intervention, commune par commune.";
+
+const pageUrl = `${SITE.url}/realisations/`;
+
+// ── Le silo : une entrée par chantier documenté ──
+// Ajouter une réalisation = ajouter une entrée ici + la page + une ligne au sitemap.
+const realisations = [
+  {
+    href: '/realisations/nettoyage-facade-haras-guainville/',
+    titre: "Nettoyage de façade d'un haras à Guainville",
+    commune: 'Guainville (28)',
+    service: 'Nettoyage de façade',
+    resume:
+      "Trois façades d'un centre équestre débarrassées des mousses, des lichens et des coulures de ruissellement, sans toucher à l'enduit.",
+    img: '/images/photos/nettoyage-facade-haras-guainville-entree-apres.webp',
+    alt: "Façade d'un haras à Guainville ravivée après le nettoyage par Renaud Rénov",
+  },
+  {
+    href: '/realisations/demoussage-toiture-maintenon/',
+    titre: "Démoussage d'une toiture à Maintenon",
+    commune: 'Maintenon (28)',
+    service: 'Nettoyage & démoussage',
+    resume:
+      "Une couverture en tuiles gagnée par le vert et les traînées sombres, redevenue nette en une seule intervention.",
+    img: '/images/photos/demoussage-toiture-maintenon-apres.webp',
+    alt: 'Toiture en tuiles propre et démoussée par Renaud Rénov à Maintenon',
+  },
+];
+
+const schemaListe = {
+  '@context': 'https://schema.org',
+  '@type': 'ItemList',
+  '@id': `${pageUrl}#realisations`,
+  name: `Chantiers réalisés par Renaud Rénov en ${SITE.departement}`,
+  itemListElement: realisations.map((r, i) => ({
+    '@type': 'ListItem',
+    position: i + 1,
+    name: r.titre,
+    url: `${SITE.url}${r.href}`,
+  })),
+};
+---
+<BaseLayout title={title} description={description} extraSchemas={[schemaListe]}>
+  <!-- ── En-tête marine (même trame que le plan du site) ──────── -->
+  <section class="reals-entete">
+    <div class="conteneur">
+      <FilAriane items={[{ label: 'Accueil', href: '/' }, { label: 'Réalisations' }]} />
+      <p class="reals-entete__sur">Renaud Rénov — Couvreur en {SITE.departement}</p>
+      <h1>Les chantiers que j'ai menés, en photos</h1>
+      <p class="reals-entete__intro">
+        Une toiture ou une façade, ça ne se juge pas sur une promesse. Voici mes interventions
+        documentées&nbsp;: l'état de départ, ce que j'ai fait, et le résultat photographié au même
+        endroit une fois le chantier terminé.
+      </p>
+    </div>
+  </section>
+
+  <!-- ── Liste des réalisations ───────────────────────────────── -->
+  <section class="section">
+    <div class="conteneur">
+      <div class="reals-grille">
+        {realisations.map((r) => (
+          <article class="real-carte">
+            <a class="real-carte__lien" href={r.href}>
+              <span class="real-carte__media">
+                <img src={r.img} alt={r.alt} loading="lazy" width="1600" height="1200" />
+                <span class="real-carte__service">{r.service}</span>
+              </span>
+              <span class="real-carte__corps">
+                <span class="real-carte__commune">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+                  {r.commune}
+                </span>
+                <span class="real-carte__titre">{r.titre}</span>
+                <span class="real-carte__resume">{r.resume}</span>
+                <span class="real-carte__cta">Voir le chantier →</span>
+              </span>
+            </a>
+          </article>
+        ))}
+      </div>
+
+      <p class="reals-note">
+        D'autres chantiers rejoindront cette page au fil des interventions. Pour voir le détail d'une
+        prestation, rendez-vous sur les pages
+        <a href="/prestations/nettoyage-demoussage-toiture/">nettoyage et démoussage de toiture</a> et
+        <a href="/prestations/nettoyage-facade/">nettoyage de façade</a>.
+      </p>
+    </div>
+  </section>
+
+  <CtaDevis titre="Votre chantier, le prochain sur cette page ?" />
+</BaseLayout>
+
+<style>
+  /* ── En-tête dégradé marine ──────────────────────────────── */
+  .reals-entete {
+    background: linear-gradient(135deg, var(--bleu) 0%, var(--bleu-fonce) 100%);
+    color: var(--blanc);
+    padding-block: clamp(2.5rem, 6vw, 4rem);
+    position: relative;
+    overflow: hidden;
+  }
+  .reals-entete::after {
+    content: '';
+    position: absolute;
+    right: -80px;
+    top: -80px;
+    width: 320px;
+    height: 320px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(239, 126, 15, 0.22) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .reals-entete :global(.fil-ariane),
+  .reals-entete :global(.fil-ariane a),
+  .reals-entete :global(.fil-ariane [aria-current]) {
+    color: rgba(255, 255, 255, 0.7);
+  }
+  .reals-entete :global(.fil-ariane a:hover) { color: var(--rouge); }
+  .reals-entete__sur {
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: var(--rouge);
+    margin-bottom: 0.6rem;
+  }
+  .reals-entete h1 { color: var(--blanc); margin: 0; }
+  .reals-entete__intro {
+    max-width: 62ch;
+    color: rgba(255, 255, 255, 0.85);
+    margin-top: 1rem;
+    font-size: 1.08rem;
+  }
+
+  /* ── Grille de cartes chantier ───────────────────────────── */
+  .reals-grille {
+    display: grid;
+    gap: 1.6rem;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  }
+  .real-carte {
+    background: var(--blanc);
+    border: 1px solid var(--gris-200);
+    border-radius: var(--rayon);
+    overflow: hidden;
+    box-shadow: var(--ombre);
+    transition: transform var(--transition), box-shadow var(--transition), border-color var(--transition);
+  }
+  .real-carte:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--ombre-forte);
+    border-color: transparent;
+  }
+  .real-carte__lien { display: block; text-decoration: none; color: inherit; height: 100%; }
+  .real-carte__media { position: relative; display: block; }
+  .real-carte__media img {
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+    display: block;
+  }
+  .real-carte__service {
+    position: absolute;
+    top: 0.9rem; left: 0.9rem;
+    padding: 0.32rem 0.9rem;
+    border-radius: 999px;
+    background: var(--rouge-fonce);
+    color: var(--blanc);
+    font-size: 0.82rem;
+    font-weight: 700;
+  }
+  .real-carte__corps { display: block; padding: 1.5rem 1.6rem 1.7rem; }
+  .real-carte__commune {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35em;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--gris-500);
+    margin-bottom: 0.55rem;
+  }
+  .real-carte__commune svg { width: 1em; height: 1em; color: var(--rouge); }
+  .real-carte__titre {
+    display: block;
+    font-size: 1.22rem;
+    font-weight: 700;
+    color: var(--bleu);
+    line-height: 1.3;
+    margin-bottom: 0.6rem;
+  }
+  .real-carte__resume {
+    display: block;
+    color: var(--gris-700);
+    line-height: 1.55;
+    margin-bottom: 1rem;
+  }
+  .real-carte__cta {
+    display: inline-block;
+    font-weight: 700;
+    color: var(--rouge-fonce);
+    transition: transform var(--transition);
+  }
+  .real-carte:hover .real-carte__cta { transform: translateX(3px); }
+
+  .reals-note {
+    max-width: 66ch;
+    margin: 2.4rem auto 0;
+    text-align: center;
+    text-wrap: balance;
+    color: var(--gris-700);
+  }
+</style>

@@ -55,6 +55,18 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://renaud-renov.fr/realisations/</loc>
+    <lastmod>2026-07-27</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://renaud-renov.fr/realisations/nettoyage-facade-haras-guainville/</loc>
+    <lastmod>2026-07-27</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://renaud-renov.fr/realisations/demoussage-toiture-maintenon/</loc>
     <lastmod>2026-07-09</lastmod>
     <changefreq>monthly</changefreq>

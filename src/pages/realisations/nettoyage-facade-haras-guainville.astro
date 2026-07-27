@@ -1,0 +1,570 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { SITE } from '../../data/site.ts';
+import FilAriane from '../../components/FilAriane.astro';
+import AvantApresSlider from '../../components/AvantApresSlider.astro';
+import CtaDevis from '../../components/CtaDevis.astro';
+
+const ville = 'Guainville';
+const cp = '28260';
+
+// ── Balises différenciées (règle anti-triplette du projet) ──
+// Title → geste + commune ; H1 → résultat + type de bâtiment ; Meta → salissures + preuve.
+const title = "Nettoyage de façade d'un haras à Guainville (28) | Renaud Rénov";
+const description =
+  "Mousses, lichens et coulures effacés sur les murs d'un centre équestre d'Eure-et-Loir. Photos avant / après à faire glisser et déroulé complet de l'intervention.";
+
+const businessId = `${SITE.url}/#localbusiness`;
+const pageUrl = `${SITE.url}/realisations/nettoyage-facade-haras-guainville/`;
+
+const img = (n: string) => `/images/photos/nettoyage-facade-haras-guainville-${n}.webp`;
+
+// ── Les trois façades traitées, dans l'ordre du chantier ──
+const comparaisons = [
+  {
+    cle: 'entree',
+    titre: "La façade d'entrée",
+    legende:
+      "Plein sud, la façade d'accueil du bâtiment principal : le premier mur que voient les visiteurs et les cavaliers.",
+    altAvant: `Façade d'entrée d'un haras à ${ville} grisée par les algues avant nettoyage`,
+    altApres: `La même façade d'entrée à ${ville}, enduit ravivé après le nettoyage`,
+  },
+  {
+    cle: 'pignon',
+    titre: 'Le pignon nord-ouest',
+    legende:
+      "Le mur le plus attaqué : traînées rouges de ruissellement, voile vert sur tout le soubassement et lierre en pied de façade.",
+    altAvant: `Pignon d'un haras à ${ville} couvert de mousses et de coulures rouges avant intervention`,
+    altApres: `Le même pignon à ${ville} débarrassé des mousses et des traînées après nettoyage`,
+  },
+  {
+    cle: 'parc',
+    titre: 'La façade côté parc',
+    legende:
+      "Côté prairies, exposée aux embruns de pollution et à l'humidité qui monte des pâtures.",
+    altAvant: `Façade côté parc d'un centre équestre à ${ville} ternie par les dépôts avant lavage`,
+    altApres: `Façade côté parc d'un centre équestre à ${ville} propre et uniforme après lavage`,
+  },
+];
+
+// ── Fiche chantier (données factuelles → structure + confiance) ──
+const fiche = [
+  { label: 'Commune', valeur: `${ville} (28)`, icone: 'pin' },
+  { label: 'Bâtiment', valeur: 'Haras et centre équestre', icone: 'cheval' },
+  { label: 'Intervention', valeur: 'Nettoyage de façades', icone: 'drop' },
+  { label: 'Support', valeur: 'Enduit de finition', icone: 'mur' },
+];
+
+// ── Déroulé du chantier : le savoir-faire, étape par étape ──
+const etapes = [
+  {
+    t: 'Lecture du support',
+    d: "Avant la moindre goutte d'eau, je regarde de quoi le mur est fait et ce qu'il a subi : nature de l'enduit, fissures, zones creuses, hauteur de remontée du vert. C'est ce diagnostic qui décide de la pression et du produit, pas l'inverse.",
+  },
+  {
+    t: 'Protection des abords',
+    d: "Boxes, paddocks, abreuvoirs et plantations sont repérés puis protégés, et les chevaux tenus à distance de la zone traitée. Sur un site vivant, l'organisation du chantier compte autant que le lavage lui-même.",
+  },
+  {
+    t: 'Traitement et lavage',
+    d: "Application d'un produit qui détruit mousses, lichens et algues jusque dans les pores de l'enduit, temps de pose respecté, puis rinçage à pression maîtrisée. La salissure part, l'enduit reste.",
+  },
+  {
+    t: 'Reprise des détails et repli',
+    d: "Angles, appuis de fenêtres, soubassements et sous-face de débord sont repris à la main. Le chantier est rendu nettoyé, sans résidus ni bidons abandonnés dans l'herbe.",
+  },
+];
+
+const schemaRealisation = {
+  '@context': 'https://schema.org',
+  '@type': 'Service',
+  '@id': `${pageUrl}#realisation`,
+  serviceType: 'Nettoyage de façade',
+  name: `Nettoyage des façades d'un haras à ${ville}`,
+  description:
+    `Chantier de nettoyage de façades réalisé par Renaud Rénov sur un haras de ${ville} (${cp}), en Eure-et-Loir : diagnostic du support, traitement des mousses, lichens et algues, lavage à pression maîtrisée et reprise des détails.`,
+  provider: { '@id': businessId },
+  areaServed: { '@type': 'City', name: ville, postalCode: cp },
+  image: comparaisons.flatMap((c) => [
+    `${SITE.url}${img(`${c.cle}-avant`)}`,
+    `${SITE.url}${img(`${c.cle}-apres`)}`,
+  ]),
+};
+---
+<BaseLayout title={title} description={description} extraSchemas={[schemaRealisation]}>
+  <!-- ── Fil d'Ariane (BreadcrumbList émis par le composant, une seule fois) ── -->
+  <section class="section" style="padding-block: 1.4rem 0;">
+    <div class="conteneur">
+      <FilAriane
+        items={[
+          { label: 'Accueil', href: '/' },
+          { label: 'Réalisations', href: '/realisations/' },
+          { label: `Nettoyage de façade à ${ville}` },
+        ]}
+      />
+    </div>
+  </section>
+
+  <!-- ── Hero : bandeau marine + photo « après » encadrée ─────── -->
+  <section class="reno-hero">
+    <div class="conteneur reno-hero__grille">
+      <div class="reno-hero__texte">
+        <span class="reno-tag">Réalisation · Nettoyage de façade</span>
+        <h1>Redonner leur éclat aux murs d'un centre équestre à {ville}</h1>
+        <p class="reno-marque">RENAUD RÉNOV</p>
+        <p class="reno-chapo">
+          Trois façades gagnées par le vert, les lichens et les coulures de ruissellement, revenues à
+          leur teinte d'origine sans une goutte de peinture. Retour sur une intervention menée dans
+          un haras de {ville}, au nord de l'{SITE.departement}, à une quinzaine de kilomètres de mon
+          secteur de <a href="/villes/dreux/">couvreur à Dreux</a>.
+        </p>
+        <div class="reno-hero__actions">
+          <a href={SITE.telHref} class="btn btn--rouge">
+            <svg class="icone" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6.5 3.5h-2A1.5 1.5 0 0 0 3 5.2C3.4 13 11 20.6 18.8 21a1.5 1.5 0 0 0 1.7-1.5v-2a1.5 1.5 0 0 0-1.3-1.5l-2.5-.35a1.5 1.5 0 0 0-1.4.6l-.7.95a11.5 11.5 0 0 1-4.9-4.9l.95-.7a1.5 1.5 0 0 0 .6-1.4l-.35-2.5a1.5 1.5 0 0 0-1.5-1.3Z"/><path d="M14.5 3.6a5.5 5.5 0 0 1 4.9 4.9"/><path d="M14 7a2.4 2.4 0 0 1 2 2"/></svg>
+            {SITE.tel}
+          </a>
+          <a href="/devis-gratuit/" class="btn btn--blanc">Devis gratuit →</a>
+        </div>
+      </div>
+      <figure class="reno-hero__media">
+        <span class="reno-etiquette">Après</span>
+        <img
+          src={img('entree-apres')}
+          alt={`Façade d'un haras à ${ville} nettoyée par Renaud Rénov, enduit ravivé sous un ciel bleu`}
+          fetchpriority="high" width="1600" height="1200"
+        />
+      </figure>
+    </div>
+  </section>
+
+  <!-- ── Fiche chantier : cartes en chevauchement du hero ─────── -->
+  <section class="section reno-fiche-wrap">
+    <div class="conteneur">
+      <ul class="reno-fiche">
+        {fiche.map((f) => (
+          <li>
+            <span class="reno-fiche__icone" aria-hidden="true">
+              {f.icone === 'pin' && <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>}
+              {f.icone === 'cheval' && <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 21c0-4.2 2.2-7.4 5.6-9L8 8.4 5.6 9.6 4.4 7.4 9 5l1.6 1.2A6 6 0 0 1 20 11v10"/><path d="M9 5.2 8.4 3l2.6.8"/></svg>}
+              {f.icone === 'drop' && <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2s6 6.5 6 11a6 6 0 0 1-12 0c0-4.5 6-11 6-11Z"/></svg>}
+              {f.icone === 'mur' && <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="1.5"/><path d="M3 9.3h18M3 14.7h18M9 4v5.3M15 9.3v5.4M9 14.7V20"/></svg>}
+            </span>
+            <span class="reno-fiche__txt">
+              <span class="reno-fiche__label">{f.label}</span>
+              <strong>{f.valeur}</strong>
+            </span>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <!-- ── Ce que les murs avaient accumulé ─────────────────────── -->
+  <section class="section">
+    <div class="conteneur">
+      <div class="section__entete">
+        <h2>Ce que les murs avaient accumulé</h2>
+      </div>
+      <p class="reno-intro">
+        Au nord de l'{SITE.departement}, entre les pâtures et la vallée de l'Eure, les façades
+        prennent l'humidité de plein fouet. Sur ce haras, le diagnostic était le même sur les trois
+        murs&nbsp;: un voile vert d'algues sur les parties basses, des plaques de lichen sur les
+        appuis, et de longues traînées rouges parties du haut du pignon.
+      </p>
+      <p class="reno-intro">
+        Ces dépôts ne sont pas qu'une question de regard. Ils retiennent l'eau contre l'enduit,
+        l'empêchent de sécher entre deux pluies et finissent par le faire cloquer puis se détacher.
+        Nettoyer un mur à temps, c'est éviter d'avoir à le refaire.
+      </p>
+    </div>
+  </section>
+
+  <!-- ── Avant / après : la preuve, en curseurs à faire glisser ── -->
+  <section class="section section--gris">
+    <div class="conteneur">
+      <div class="section__entete">
+        <h2>Avant / après&nbsp;: les trois façades, mur par mur</h2>
+      </div>
+      <p class="reno-intro">
+        Chaque photo a été prise deux fois, au même endroit&nbsp;: à mon arrivée, puis le chantier
+        terminé. Passez la souris sur une image pour révéler le résultat, ou glissez le doigt sur
+        mobile.
+      </p>
+
+      <div class="reno-compare">
+        {comparaisons.map((c) => (
+          <figure class="reno-compare__item">
+            <AvantApresSlider
+              avantSrc={img(`${c.cle}-avant`)}
+              apresSrc={img(`${c.cle}-apres`)}
+              avantAlt={c.altAvant}
+              apresAlt={c.altApres}
+              width={1600}
+              height={1200}
+            />
+            <figcaption>
+              <strong>{c.titre}</strong>
+              {c.legende}
+            </figcaption>
+          </figure>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Déroulé du chantier ──────────────────────────────────── -->
+  <section class="section">
+    <div class="conteneur">
+      <div class="section__entete">
+        <h2>Comment s'est déroulée l'intervention</h2>
+      </div>
+      <p class="reno-intro">
+        Laver une façade sans l'abîmer demande de la retenue&nbsp;: trop de pression et l'enduit part
+        avec la mousse. Voici les quatre temps de cette
+        <a href="/prestations/nettoyage-facade/">prestation de nettoyage de façade</a>, telle que je
+        l'ai menée à {ville}.
+      </p>
+      <ol class="reno-etapes">
+        {etapes.map((e, i) => (
+          <li class="reno-etape">
+            <span class="reno-etape__num">{i + 1}</span>
+            <div>
+              <h3>{e.t}</h3>
+              <p>{e.d}</p>
+            </div>
+          </li>
+        ))}
+      </ol>
+    </div>
+  </section>
+
+  <!-- ── Le détail propre à ce chantier : travailler avec des chevaux ── -->
+  <section class="section section--gris">
+    <div class="conteneur">
+      <div class="reno-encart">
+        <div class="reno-encart__txt">
+          <span class="reno-tag reno-tag--clair">La particularité du chantier</span>
+          <h2>Travailler sans déranger les chevaux</h2>
+          <p>
+            Un haras n'est pas une maison vide. Les chevaux de sport sont sensibles au bruit, aux
+            odeurs et aux mouvements inhabituels&nbsp;; les produits, eux, ne doivent atteindre ni les
+            abreuvoirs ni les pâtures. Les zones traitées ont donc été isolées avant chaque phase, le
+            travail organisé façade par façade pour libérer les accès au fur et à mesure, et les
+            abords rincés en fin de journée.
+          </p>
+          <p>
+            C'est le genre de contrainte qui ne se voit pas sur les photos, mais qui décide si un
+            chantier se passe bien ou non — sur une exploitation agricole, un centre équestre comme
+            sur une maison habitée.
+          </p>
+        </div>
+        <ul class="reno-encart__liste">
+          <li>Façades nettoyées dans leur intégralité</li>
+          <li>Mousses, lichens et salissures éliminés</li>
+          <li>Méthode adaptée au support, sans agresser l'enduit</li>
+          <li>Chantier propre, abords protégés et rincés</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Passerelle vers la prestation + l'autre réalisation ──── -->
+  <section class="section">
+    <div class="conteneur">
+      <div class="section__entete">
+        <h2>La même méthode, chez vous</h2>
+      </div>
+      <p class="reno-intro">
+        Ce que ces murs ont retrouvé en une intervention, une façade de maison, un pignon de pavillon
+        ou un bâtiment d'exploitation peut le retrouver aussi. Le principe ne change pas&nbsp;: on
+        lit le support, on traite, on lave sans forcer.
+      </p>
+      <div class="reno-liens">
+        <a class="reno-lien" href="/prestations/nettoyage-facade/">
+          <span class="reno-lien__label">Prestation</span>
+          <strong>Nettoyage de façade en {SITE.departement}</strong>
+          <span class="reno-lien__d">Supports traités, méthode, tarifs et devis gratuit.</span>
+        </a>
+        <a class="reno-lien" href="/realisations/demoussage-toiture-maintenon/">
+          <span class="reno-lien__label">Autre réalisation</span>
+          <strong>Démoussage d'une toiture à Maintenon</strong>
+          <span class="reno-lien__d">Même logique, appliquée cette fois à une couverture en tuiles.</span>
+        </a>
+      </div>
+      <p class="reno-signature">
+        J'interviens auprès des particuliers, des exploitations agricoles et des centres équestres de
+        l'{SITE.departement}&nbsp;({SITE.departementNum}), des Yvelines&nbsp;(78) et de
+        l'Eure&nbsp;(27).
+      </p>
+    </div>
+  </section>
+
+  <!-- ── CTA devis ────────────────────────────────────────────── -->
+  <CtaDevis
+    titre={`Une façade à nettoyer du côté de ${ville} ?`}
+    image="/images/photos/hero-renaud-renov-640.webp"
+    imageAlt={`Renaud Rénov, artisan intervenant sur les façades à ${ville} et en ${SITE.departement}`}
+    imageWidth={640}
+    imageHeight={480}
+  />
+</BaseLayout>
+
+<style>
+  /* ══ Hero marine ══ */
+  .reno-hero {
+    background: linear-gradient(160deg, #244b64 0%, #173445 100%);
+    color: #fff;
+    padding: clamp(2rem, 5vw, 3.4rem) 0 clamp(3.5rem, 7vw, 5rem);
+  }
+  .reno-hero__grille {
+    display: grid;
+    gap: clamp(1.6rem, 4vw, 3rem);
+    align-items: center;
+  }
+  @media (min-width: 900px) {
+    .reno-hero__grille { grid-template-columns: 1.05fr 1fr; }
+  }
+  .reno-tag {
+    display: inline-block;
+    padding: 0.4rem 0.95rem;
+    border-radius: 999px;
+    background: rgba(239, 126, 15, 0.18);
+    border: 1px solid rgba(239, 126, 15, 0.5);
+    color: #ffb060;
+    font-size: 0.82rem;
+    font-weight: 700;
+    letter-spacing: 0.03em;
+    margin-bottom: 1rem;
+  }
+  .reno-tag--clair {
+    background: var(--rouge-pale);
+    border-color: rgba(239, 126, 15, 0.45);
+    color: var(--rouge-fonce);
+  }
+  .reno-hero h1 { color: #fff; margin: 0; }
+  .reno-marque {
+    font-size: clamp(1.4rem, 4.5vw, 2.1rem);
+    font-weight: 800;
+    color: var(--rouge);
+    line-height: 1.05;
+    margin: 0.35rem 0 1.1rem;
+  }
+  .reno-chapo { color: rgba(255, 255, 255, 0.9); margin: 0 0 1.5rem; max-width: 52ch; }
+  .reno-chapo a { color: #ffb060; font-weight: 600; }
+  .reno-chapo a:hover { color: #fff; }
+  .reno-hero__actions { display: flex; flex-wrap: wrap; gap: 0.8rem; }
+
+  .reno-hero__media {
+    position: relative;
+    margin: 0;
+    border-radius: 18px;
+    overflow: hidden;
+    box-shadow: 0 22px 50px rgba(0, 0, 0, 0.35);
+  }
+  .reno-hero__media img { width: 100%; height: 100%; object-fit: cover; display: block; aspect-ratio: 4 / 3; }
+  .reno-etiquette {
+    position: absolute;
+    top: 1rem; left: 1rem;
+    z-index: 1;
+    padding: 0.35rem 0.85rem;
+    border-radius: 999px;
+    background: var(--rouge);
+    color: #fff;
+    font-size: 0.85rem;
+    font-weight: 700;
+  }
+
+  /* ══ Fiche chantier (chevauche le hero) ══ */
+  .reno-fiche-wrap { padding-top: 0; padding-bottom: 0; }
+  .reno-fiche {
+    list-style: none;
+    padding: 0;
+    margin: clamp(-3rem, -5vw, -2.4rem) 0 0;
+    position: relative;
+    z-index: 2;
+    display: grid;
+    gap: 1rem;
+    grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+  }
+  .reno-fiche li {
+    display: flex;
+    align-items: center;
+    gap: 0.9rem;
+    background: #fff;
+    border: 1px solid rgba(36, 75, 100, 0.08);
+    border-radius: 16px;
+    padding: 1.1rem 1.25rem;
+    box-shadow: 0 12px 30px rgba(36, 75, 100, 0.14);
+  }
+  .reno-fiche__icone {
+    flex: 0 0 auto;
+    width: 44px; height: 44px;
+    display: inline-flex; align-items: center; justify-content: center;
+    border-radius: 12px;
+    background: var(--rouge-pale);
+    color: var(--rouge);
+  }
+  .reno-fiche__icone svg { width: 1.4rem; height: 1.4rem; }
+  .reno-fiche__txt { display: flex; flex-direction: column; line-height: 1.3; }
+  .reno-fiche__label { font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.05em; color: var(--gris-500); }
+  .reno-fiche__txt strong { color: var(--bleu); font-size: 1.02rem; }
+
+  /* ══ Intro de section ══ */
+  .reno-intro {
+    max-width: 68ch;
+    margin: 0 auto 1.4rem;
+    text-align: center;
+    text-wrap: balance;
+    color: var(--gris-700);
+  }
+  .reno-intro:last-of-type { margin-bottom: 0; }
+
+  /* ══ Comparateurs avant / après ══ */
+  .reno-compare {
+    display: grid;
+    gap: clamp(1.4rem, 3vw, 2.2rem);
+    margin-top: 2rem;
+  }
+  @media (min-width: 900px) {
+    .reno-compare { grid-template-columns: repeat(2, 1fr); }
+    /* Le premier comparateur occupe toute la largeur : c'est la photo maîtresse. */
+    .reno-compare__item:first-child { grid-column: 1 / -1; }
+  }
+  .reno-compare__item { margin: 0; }
+  .reno-compare figcaption {
+    margin-top: 0.9rem;
+    color: var(--gris-700);
+    font-size: 0.98rem;
+    line-height: 1.55;
+  }
+  .reno-compare figcaption strong {
+    display: block;
+    color: var(--bleu);
+    font-size: 1.05rem;
+    margin-bottom: 0.2rem;
+  }
+
+  /* ══ Déroulé en étapes ══ */
+  .reno-etapes {
+    list-style: none;
+    padding: 0;
+    margin: 2.2rem 0 0;
+    display: grid;
+    gap: 1.2rem;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  }
+  .reno-etape {
+    background: #fff;
+    border-radius: 18px;
+    padding: 1.9rem 1.7rem;
+    box-shadow: 0 10px 28px rgba(36, 75, 100, 0.10);
+    border-top: 3px solid var(--rouge);
+  }
+  .reno-etape__num {
+    display: inline-flex;
+    align-items: center; justify-content: center;
+    width: 42px; height: 42px;
+    border-radius: 50%;
+    background: var(--bleu);
+    color: #fff;
+    font-weight: 800;
+    font-size: 1.15rem;
+    margin-bottom: 1rem;
+  }
+  .reno-etape h3 { margin: 0 0 0.5rem; color: var(--bleu); }
+  .reno-etape p { margin: 0; color: var(--gris-700); }
+
+  /* ══ Encart « particularité du chantier » ══ */
+  .reno-encart {
+    display: grid;
+    gap: clamp(1.5rem, 4vw, 2.6rem);
+    align-items: center;
+    background: #fff;
+    border-radius: 20px;
+    padding: clamp(1.7rem, 4vw, 2.8rem);
+    box-shadow: 0 14px 34px rgba(36, 75, 100, 0.12);
+  }
+  @media (min-width: 900px) {
+    .reno-encart { grid-template-columns: 1.35fr 1fr; }
+  }
+  .reno-encart h2 { margin: 0 0 0.9rem; }
+  .reno-encart p { color: var(--gris-700); margin: 0 0 0.9rem; }
+  .reno-encart p:last-child { margin-bottom: 0; }
+  .reno-encart__liste {
+    list-style: none;
+    margin: 0;
+    padding: clamp(1.2rem, 3vw, 1.6rem);
+    background: var(--bleu-pale);
+    border-radius: 16px;
+    display: grid;
+    gap: 0.85rem;
+  }
+  .reno-encart__liste li {
+    display: flex;
+    gap: 0.6rem;
+    align-items: flex-start;
+    color: var(--bleu);
+    font-weight: 600;
+    line-height: 1.4;
+  }
+  .reno-encart__liste li::before {
+    content: '✓';
+    color: var(--rouge-fonce);
+    font-weight: 800;
+    flex: 0 0 auto;
+  }
+
+  /* ══ Passerelles de maillage ══ */
+  .reno-liens {
+    display: grid;
+    gap: 1.1rem;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    margin-top: 2rem;
+  }
+  .reno-lien {
+    display: block;
+    background: #fff;
+    border: 1px solid var(--gris-200);
+    border-radius: 18px;
+    padding: 1.5rem 1.6rem;
+    text-decoration: none;
+    box-shadow: 0 10px 26px rgba(36, 75, 100, 0.08);
+    transition: transform var(--transition), box-shadow var(--transition), border-color var(--transition);
+  }
+  .reno-lien:hover {
+    transform: translateY(-4px);
+    border-color: transparent;
+    box-shadow: 0 16px 36px rgba(36, 75, 100, 0.16);
+  }
+  .reno-lien__label {
+    display: block;
+    font-size: 0.76rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    font-weight: 700;
+    color: var(--rouge-fonce);
+    margin-bottom: 0.45rem;
+  }
+  .reno-lien strong { display: block; color: var(--bleu); font-size: 1.1rem; margin-bottom: 0.4rem; }
+  .reno-lien__d { display: block; color: var(--gris-700); font-size: 0.95rem; line-height: 1.5; }
+
+  .reno-signature {
+    max-width: 62ch;
+    margin: 2.4rem auto 0;
+    text-align: center;
+    text-wrap: balance;
+    font-size: 1.08rem;
+    font-weight: 600;
+    color: var(--bleu);
+  }
+
+  /* ══ Mobile : mêmes règles de centrage que le reste du site ══ */
+  @media (max-width: 800px) {
+    .reno-hero__texte { text-align: center; }
+    .reno-tag { display: block; width: fit-content; margin-inline: auto; }
+    .reno-marque { text-align: center; }
+    .reno-chapo { text-align: center; margin-inline: auto; }
+    .reno-hero__actions { justify-content: center; }
+    .reno-encart__liste { order: -1; }
+  }
+</style>
