@@ -1,0 +1,550 @@
+---
+// ─────────────────────────────────────────────────────────────────────────
+// PRESTATION — Nettoyage / démoussage de façade et pignon (Eure-et-Loir 28).
+// Design repris de la page d'accueil (hero hx 2 colonnes, carte note Google
+// sur la photo, coches carrées, badges, section duo, galerie avant/après,
+// avis en grille, CTA panneau marine). Contenu rédigé (skill seo-couvreur +
+// règle anti-triplette) à partir du brief client ; balises title/H1/meta
+// différenciées. Structure : fil d'Ariane → hero → intro (duo) → solutions
+// (3 techniques + liste) → galerie avant/après → avis → CTA devis. Pas de FAQ.
+// ─────────────────────────────────────────────────────────────────────────
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { SITE } from '../../data/site.ts';
+import reviews from '../../data/reviews.json';
+import FilAriane from '../../components/FilAriane.astro';
+import LogoGoogle from '../../components/LogoGoogle.astro';
+import FlecheRonde from '../../components/FlecheRonde.astro';
+import AvantApresSlider from '../../components/AvantApresSlider.astro';
+
+// ── Balises différenciées (règle anti-triplette du projet) ──
+// Title → démoussage + zone (variante « dans le 28 ») + marque ; H1 → nettoyage
+// des façades + Eure-et-Loir (28) ; Meta → problème/bénéfice front-load, ni
+// « nettoyage » ni « façade » (pour rester ≤ 2 occurrences), zone reformulée.
+const title = 'Démoussage de façade et pignon dans le 28 | Renaud Rénov';
+const description =
+  'Mousses, lichens ou traînées rouges sur vos murs et pignons ? Renaud Rénov les élimine et protège votre habitation en Eure-et-Loir. Diagnostic gratuit.';
+
+// ── 3 vrais avis Google ciblés façade / pignon (source reviews.json) ──
+const nomsAvis = ['Cécile Hidrio', 'Jean-Michel Hanon', 'Martine Vico'];
+const avisFacade = nomsAvis
+  .map((n) => reviews.avis.find((a) => a.auteur === n))
+  .filter(Boolean);
+---
+<BaseLayout title={title} description={description}>
+  <!-- ── Fil d'Ariane ─────────────────────────────────────────── -->
+  <section class="hx">
+    <div class="conteneur">
+      <FilAriane items={[{ label: 'Accueil', href: '/' }, { label: 'Nettoyage des façades et pignons' }]} />
+    </div>
+
+    <!-- ── Hero (design accueil : titre + photo + coches + badges) ── -->
+    <div class="conteneur hx__grid">
+      <div class="hx__head">
+        <h1 class="hx__title">Nettoyage des façades<br />en Eure-et-Loir&nbsp;(28)</h1>
+        <p class="hx__marque">RENAUD RÉNOV</p>
+      </div>
+
+      <div class="hx__right">
+        <img
+          class="hx__photo"
+          src="/images/photos/facade-pignon-sale-28.webp"
+          sizes="(min-width: 960px) 46vw, calc(100vw - 2rem)"
+          width="900"
+          height="675"
+          alt="Façade et pignon d'une maison encrassés par les mousses avant nettoyage en Eure-et-Loir (28)"
+          fetchpriority="high"
+        />
+        <div class="hx__note">
+          <div class="hx__note-top">
+            <LogoGoogle taille={26} />
+            <span class="hx__note-stars" aria-label={`${reviews.note} étoiles sur 5`}>
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l2.9 6.26 6.9.6-5.2 4.53 1.55 6.75L12 17.77 5.85 20.7 7.4 13.95 2.2 9.42l6.9-.6L12 2z"/></svg>
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l2.9 6.26 6.9.6-5.2 4.53 1.55 6.75L12 17.77 5.85 20.7 7.4 13.95 2.2 9.42l6.9-.6L12 2z"/></svg>
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l2.9 6.26 6.9.6-5.2 4.53 1.55 6.75L12 17.77 5.85 20.7 7.4 13.95 2.2 9.42l6.9-.6L12 2z"/></svg>
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l2.9 6.26 6.9.6-5.2 4.53 1.55 6.75L12 17.77 5.85 20.7 7.4 13.95 2.2 9.42l6.9-.6L12 2z"/></svg>
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l2.9 6.26 6.9.6-5.2 4.53 1.55 6.75L12 17.77 5.85 20.7 7.4 13.95 2.2 9.42l6.9-.6L12 2z"/></svg>
+            </span>
+          </div>
+          <p class="hx__note-txt">Noté <strong>{reviews.note.toLocaleString('fr-FR')}/5</strong> sur Google · {reviews.nombre} avis</p>
+        </div>
+      </div>
+
+      <div class="hx__body">
+        <ul class="hx__points">
+          <li>
+            <span class="hx__check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="4"/><path d="M8 12.5l2.5 2.5 5-6"/></svg></span>
+            Solutions complètes pour le nettoyage de vos façades
+          </li>
+          <li>
+            <span class="hx__check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="4"/><path d="M8 12.5l2.5 2.5 5-6"/></svg></span>
+            15 années d’expérience
+          </li>
+          <li>
+            <span class="hx__check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="4"/><path d="M8 12.5l2.5 2.5 5-6"/></svg></span>
+            Un savoir-faire unique en Eure-et-Loir
+          </li>
+          <li>
+            <span class="hx__check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="4"/><path d="M8 12.5l2.5 2.5 5-6"/></svg></span>
+            Devis et diagnostic gratuit
+          </li>
+        </ul>
+
+        <div class="hx__badges">
+          <img src="/images/labels/applicateur-dalep.webp" alt="Applicateur de solutions DALEP certifié" width="240" height="240" loading="lazy" />
+          <img src="/images/labels/garantie-decennale-10-ans.png" alt="Garantie décennale 10 ans" width="220" height="220" loading="lazy" />
+          <img src="/images/labels/artisan-cma28.png" alt="Artisan — Chambre de Métiers et de l'Artisanat d'Eure-et-Loir" width="320" height="228" loading="lazy" />
+        </div>
+
+        <div class="hx__actions">
+          <a href="/devis-gratuit/" class="btn btn--rouge">Devis gratuit<FlecheRonde /></a>
+          <a href={SITE.telHref} class="btn btn--bleu">
+            <svg class="icone" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6.5 3.5h-2A1.5 1.5 0 0 0 3 5.2C3.4 13 11 20.6 18.8 21a1.5 1.5 0 0 0 1.7-1.5v-2a1.5 1.5 0 0 0-1.3-1.5l-2.5-.35a1.5 1.5 0 0 0-1.4.6l-.7.95a11.5 11.5 0 0 1-4.9-4.9l.95-.7a1.5 1.5 0 0 0 .6-1.4l-.35-2.5a1.5 1.5 0 0 0-1.5-1.3Z"/><path d="M14.5 3.6a5.5 5.5 0 0 1 4.9 4.9"/><path d="M14 7a2.4 2.4 0 0 1 2 2"/></svg>
+            {SITE.tel}
+          </a>
+        </div>
+        <p class="hx__cta-sub">Déplacement et diagnostic gratuits, sans engagement</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Titre + paragraphe + photo à droite (modèle accueil) ───── -->
+  <section class="section section--gris">
+    <div class="conteneur duo">
+      <div>
+        <h2>Démoussage et traitement fongicide et algicide de vos façades</h2>
+        <p>
+          Vos murs et vos pignons se couvrent de mousses, de lichens, de champignons ou de
+          traînées rouges et noires&nbsp;? Renaud Rénov redonne leur aspect d’origine aux
+          <strong>façades</strong> des maisons d’<strong>Eure-et-Loir (28)</strong>. Je pulvérise
+          un traitement fongicide et algicide qui détruit les micro-organismes à la racine, puis
+          je décrasse l’enduit sans l’abîmer et je le protège durablement.
+        </p>
+        <p>
+          Nettoyer une façade demande de reconnaître le revêtement — enduit, crépi, pierre, brique
+          ou bardage — pour adapter le geste et le bon produit. Couvreur façadier installé dans le
+          département, fort de <strong>15 années d’expérience</strong>, j’interviens sur toute la
+          hauteur de vos murs et vous remets un devis et un diagnostic gratuits.
+        </p>
+        <a href="/devis-gratuit/" class="btn btn--bleu">Devis gratuit<FlecheRonde /></a>
+      </div>
+      <img
+        src="/images/photos/nettoyage-facade-pignon-eure-et-loir-28.webp"
+        alt="M. Renaud, façadier, nettoie au jet le pignon encrassé d'une maison en Eure-et-Loir (28)"
+        loading="lazy"
+        width="1200"
+        height="1600"
+      />
+    </div>
+  </section>
+
+  <!-- ── Solutions : les 3 techniques + liste des supports ───────── -->
+  <section class="section">
+    <div class="conteneur">
+      <h2>Solutions pour le nettoyage de vos façades</h2>
+      <p class="intro-section">
+        Pour nettoyer et protéger vos murs, j’utilise trois techniques complémentaires, choisies
+        selon l’état et le revêtement de votre façade&nbsp;:
+      </p>
+
+      <div class="techniques">
+        <article class="technique">
+          <span class="technique__num">1</span>
+          <h3>Pulvérisation de produits biocides</h3>
+          <p>
+            J’applique un <strong>traitement biocide</strong>, curatif ou préventif, qui élimine
+            mousses, lichens, champignons et les traînées rouges ou noires. Le produit agit en
+            profondeur et retarde nettement leur réapparition.
+          </p>
+        </article>
+        <article class="technique">
+          <span class="technique__num">2</span>
+          <h3>Lavage haute ou basse pression</h3>
+          <p>
+            Un nettoyage à l’eau, avec une projection réglable, décolle la saleté superficielle et
+            la poussière incrustée. Je dose la pression selon le revêtement pour décrasser sans
+            attaquer l’enduit.
+          </p>
+        </article>
+        <article class="technique">
+          <span class="technique__num">3</span>
+          <h3>Application d’un hydrofuge de surface</h3>
+          <p>
+            Un <strong>hydrofuge de surface</strong>, incolore ou teinté, rend le matériau
+            imperméable à l’eau de pluie tout en le laissant respirer. Vos murs restent propres
+            plus longtemps et l’humidité ne pénètre plus l’enduit.
+          </p>
+        </article>
+      </div>
+
+      <p class="facade-supports-intro">Je nettoie tous les supports extérieurs de votre habitation&nbsp;:</p>
+      <ul class="facade-supports">
+        <li>Enduits et crépis</li>
+        <li>Façades en pierre ou en brique</li>
+        <li>Pignons et murs de clôture</li>
+        <li>Bardages et soubassements</li>
+      </ul>
+
+      <p class="facade-conclu">
+        Résultat&nbsp;: une maison assainie, des murs nets et un enduit protégé pour longtemps,
+        sans repeindre ni ravaler. Le <strong>démoussage de façade</strong> est réalisé par
+        l’artisan lui-même, du diagnostic à la dernière passe d’hydrofuge. Pour un mur couvert de
+        mousses ou marqué de coulures, appelez Renaud Rénov ou demandez votre devis&nbsp;:
+        déplacement, diagnostic et devis sont gratuits partout en Eure-et-Loir&nbsp;(28).
+      </p>
+    </div>
+  </section>
+
+  <!-- ── Avant / après : curseur interactif (survol souris / glisser au doigt) ── -->
+  <section class="section section--gris">
+    <div class="conteneur">
+      <h2>Nettoyage de façade&nbsp;: le résultat avant / après</h2>
+      <p class="intro-section">
+        Mêmes murs, photographiés avant mon intervention puis une fois le chantier terminé. Passez
+        la souris sur une photo pour révéler le résultat, ou glissez le doigt sur mobile.
+      </p>
+      <div class="aa-slider-wrap">
+        <AvantApresSlider
+          avantSrc="/images/photos/facade-pignon-avant-nettoyage-28.webp"
+          apresSrc="/images/photos/facade-pignon-apres-nettoyage-28.webp"
+          avantAlt="Façade et pignon sales avant nettoyage en Eure-et-Loir (28)"
+          apresAlt="Même façade nettoyée et ravivée après le passage de Renaud Rénov"
+          width={1600}
+          height={1200}
+        />
+      </div>
+
+      <!-- Galerie : 3 autres comparateurs avant / après -->
+      <div class="aa-galerie">
+        <AvantApresSlider
+          avantSrc="/images/photos/facade-avant-apres-1-avant-28.webp"
+          apresSrc="/images/photos/facade-avant-apres-1-apres-28.webp"
+          avantAlt="Pignon d'une maison verdi par les mousses avant nettoyage en Eure-et-Loir"
+          apresAlt="Le même pignon à l'enduit ravivé après démoussage par Renaud Rénov"
+          width={1000}
+          height={1333}
+        />
+        <AvantApresSlider
+          avantSrc="/images/photos/facade-avant-apres-2-avant-28.webp"
+          apresSrc="/images/photos/facade-avant-apres-2-apres-28.webp"
+          avantAlt="Pignon marqué de traînées rouges avant nettoyage de façade dans le 28"
+          apresAlt="Pignon nettoyé et débarrassé des traces rouges par Renaud Rénov"
+          width={1000}
+          height={1333}
+        />
+        <AvantApresSlider
+          avantSrc="/images/photos/facade-avant-apres-3-avant-28.webp"
+          apresSrc="/images/photos/facade-avant-apres-3-apres-28.webp"
+          avantAlt="Grand pignon couvert de coulures rouges avant traitement en Eure-et-Loir"
+          apresAlt="Le même pignon assaini après pulvérisation biocide et lavage"
+          width={1000}
+          height={1333}
+        />
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Avis clients (grille, design accueil) ────────────────── -->
+  <section class="section">
+    <div class="conteneur">
+      <h2>Ils m’ont confié le nettoyage de leur façade</h2>
+      <p class="avis-intro">
+        <LogoGoogle taille={22} />
+        <span class="hx__etoiles" aria-hidden="true">★★★★★</span>
+        <strong>{reviews.note.toLocaleString('fr-FR')}/5</strong> · {reviews.nombre} avis Google ·
+        <a href={reviews.urlFiche} rel="noopener" target="_blank">Voir tous les avis</a>
+      </p>
+
+      <div class="avis-grille">
+        {avisFacade.map((a) => (
+          <article class="carte avis">
+            <div class="avis__entete">
+              <span class="avis__nom">{a.auteur}</span>
+              <span class="avis__date">{a.date}</span>
+            </div>
+            <span class="avis__etoiles" aria-label={`${a.note} étoiles sur 5`}>{'★'.repeat(a.note)}{'☆'.repeat(5 - a.note)}</span>
+            <p>{a.texte}</p>
+          </article>
+        ))}
+      </div>
+
+      <div class="avis-cta">
+        <a href={reviews.urlFiche} target="_blank" rel="noopener" class="btn btn--bleu">
+          Laisser un avis Google<FlecheRonde />
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── CTA devis (panneau marine, façon composant CtaDevis) ──── -->
+  <section class="cta-devis">
+    <div class="conteneur cta-devis__grille">
+      <img
+        class="cta-devis__photo"
+        src="/images/photos/contact-couvreur-eure-et-loir-28.webp"
+        alt="Renaud Rénov, votre façadier en Eure-et-Loir, sur un chantier de nettoyage de murs"
+        loading="lazy"
+        width="1200"
+        height="1600"
+      />
+      <div class="cta-devis__panneau">
+        <h2>Une façade à nettoyer en Eure-et-Loir&nbsp;?</h2>
+        <p class="cta-devis__texte">
+          Mousses, lichens ou traînées rouges sur vos murs&nbsp;? Je me déplace chez vous pour
+          examiner votre façade et vous remettre un devis clair, gratuit et sans engagement.
+        </p>
+        <ul>
+          <li>Démoussage, lavage et hydrofuge par le même artisan.</li>
+          <li>15 années d’expérience, entreprise familiale père &amp; fils.</li>
+          <li>Diagnostic et devis gratuits.</li>
+        </ul>
+        <div class="cta-devis__actions">
+          <a href={SITE.telHref} class="btn btn--rouge">
+            <svg class="icone" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6.5 3.5h-2A1.5 1.5 0 0 0 3 5.2C3.4 13 11 20.6 18.8 21a1.5 1.5 0 0 0 1.7-1.5v-2a1.5 1.5 0 0 0-1.3-1.5l-2.5-.35a1.5 1.5 0 0 0-1.4.6l-.7.95a11.5 11.5 0 0 1-4.9-4.9l.95-.7a1.5 1.5 0 0 0 .6-1.4l-.35-2.5a1.5 1.5 0 0 0-1.5-1.3Z"/><path d="M14.5 3.6a5.5 5.5 0 0 1 4.9 4.9"/><path d="M14 7a2.4 2.4 0 0 1 2 2"/></svg>
+            {SITE.tel}
+          </a>
+          <a href="/devis-gratuit/" class="btn btn--blanc">Devis gratuit<FlecheRonde /></a>
+        </div>
+        <p class="cta-devis__urgence">
+          Une question sur votre chantier&nbsp;?
+          <a href={SITE.telUrgenceHref}>{SITE.telUrgence}</a>
+        </p>
+      </div>
+    </div>
+  </section>
+
+</BaseLayout>
+
+<style>
+  /* ── Hero (styles repris de la page d'accueil) ─────────────── */
+  .hx { padding-block: clamp(1.6rem, 4vw, 3rem); }
+  .hx__grid {
+    display: grid;
+    gap: 1.6rem;
+    grid-template-columns: 1fr;
+    grid-template-areas: "head" "photo" "body";
+  }
+  @media (min-width: 960px) {
+    .hx__grid {
+      grid-template-columns: 1.05fr 1fr;
+      grid-template-areas: "head photo" "body photo";
+      column-gap: 3.5rem;
+      row-gap: 1.1rem;
+      align-items: center;
+    }
+  }
+  .hx__head { grid-area: head; }
+  .hx__right { grid-area: photo; position: relative; }
+  /* Voile sombre en bas de la photo : garantit le contraste sous la carte note */
+  .hx__right::after {
+    content: "";
+    position: absolute;
+    left: 0; right: 0; bottom: 0;
+    height: 42%;
+    border-radius: 0 0 24px 24px;
+    background: linear-gradient(to top, rgba(15, 34, 45, 0.6), rgba(15, 34, 45, 0));
+    pointer-events: none;
+    z-index: 1;
+  }
+  .hx__body { grid-area: body; }
+  .hx__title { margin: 0; color: var(--bleu); font-size: clamp(1.45rem, 2.6vw, 1.85rem); line-height: 1.2; letter-spacing: -0.01em; }
+  .hx__marque { color: var(--rouge); font-weight: 800; font-size: clamp(1.9rem, 4.4vw, 2.9rem); line-height: 1.1; margin: 0.6rem 0 0; }
+  .hx__photo { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; border-radius: 24px; box-shadow: var(--ombre-forte); display: block; }
+  @media (min-width: 960px) { .hx__photo { aspect-ratio: 4 / 5; } }
+
+  .hx__points { list-style: none; padding: 0; margin: 0.4rem 0 1.2rem; display: grid; gap: 0.9rem; }
+  .hx__points li {
+    display: flex; align-items: center; gap: 0.8rem;
+    font-size: 1.08rem; font-weight: 600; color: var(--bleu);
+  }
+  .hx__check { color: var(--rouge); flex-shrink: 0; line-height: 0; }
+  .hx__check svg { width: 30px; height: 30px; }
+
+  /* Carte note Google — posée en bas de la photo (style accueil) */
+  .hx__note {
+    position: absolute;
+    left: 50%;
+    bottom: 1rem;
+    transform: translateX(-50%);
+    width: max-content;
+    max-width: calc(100% - 1.6rem);
+    display: flex; flex-direction: column; align-items: center; gap: 0.3rem;
+    background: var(--blanc);
+    border-radius: 16px;
+    box-shadow: 0 14px 34px rgba(15, 34, 45, 0.42);
+    padding: 0.8rem 1.5rem;
+    z-index: 2;
+  }
+  .hx__note-top { display: flex; align-items: center; gap: 0.6rem; }
+  .hx__note-stars { display: inline-flex; gap: 0.1em; }
+  .hx__note-stars svg { width: 1.35rem; height: 1.35rem; fill: var(--etoile); }
+  .hx__note-txt { margin: 0; color: var(--gris-700); font-size: 1.02rem; }
+  .hx__note-txt strong { color: var(--bleu); }
+  .hx__etoiles { color: var(--etoile); letter-spacing: 0.08em; }
+
+  .hx__badges { display: flex; align-items: center; gap: 1.3rem; flex-wrap: wrap; margin: 0 0 1.6rem; }
+  .hx__badges img { height: 64px; width: auto; }
+
+  .hx__actions { display: flex; flex-wrap: wrap; gap: 0.8rem; }
+  .hx__cta-sub { color: var(--rouge-fonce); font-size: 0.9rem; margin: 0.5rem 0 0; }
+
+  /* Mobile : titre + marque centrés, photo sous le titre, CTA centrés */
+  @media (max-width: 959px) {
+    .hx__title, .hx__marque { text-align: center; }
+    .hx__badges, .hx__actions { justify-content: center; }
+    .hx__cta-sub { text-align: center; }
+    .hx__badges img { height: 56px; }
+  }
+
+  /* ── Intro de section (paragraphe centré sous le H2) ──────────── */
+  .intro-section { max-width: 74ch; margin: 1.2rem auto 2.4rem; color: var(--gris-700); }
+
+  /* ── Section « Solutions » : 3 techniques + liste des supports ──── */
+  .techniques {
+    display: grid;
+    gap: 1.4rem;
+    grid-template-columns: 1fr;
+    margin-bottom: 2.4rem;
+  }
+  @media (min-width: 860px) { .techniques { grid-template-columns: repeat(3, 1fr); } }
+  .technique {
+    position: relative;
+    background: var(--blanc);
+    border: 1px solid rgba(36, 75, 100, 0.08);
+    border-radius: 18px;
+    box-shadow: var(--ombre);
+    padding: 2.2rem 1.7rem 1.8rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.7rem;
+    border-top: 3px solid var(--rouge);
+  }
+  .technique__num {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    background: var(--bleu);
+    color: var(--blanc);
+    font-weight: 800;
+    font-size: 1.15rem;
+  }
+  .technique h3 { margin: 0; color: var(--bleu); font-size: 1.12rem; }
+  .technique p { margin: 0; color: var(--gris-700); }
+
+  .facade-supports-intro { margin: 0 0 0.9rem; color: var(--gris-700); font-weight: 600; }
+  .facade-supports {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 2.2rem;
+    display: grid;
+    gap: 0.6rem 1.6rem;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  }
+  .facade-supports li {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    color: var(--gris-700);
+  }
+  .facade-supports li::before {
+    content: "";
+    flex: 0 0 auto;
+    width: 9px;
+    height: 9px;
+    border-radius: 2px;
+    background: var(--rouge);
+  }
+  .facade-conclu { max-width: 74ch; margin: 0; color: var(--gris-700); }
+
+  /* ── Encart du curseur avant/après ─────────────────────────────── */
+  .aa-slider-wrap { max-width: 900px; margin: 0 auto; }
+
+  /* ── Galerie de 3 comparateurs avant/après ─────────────────────── */
+  .aa-galerie {
+    display: grid;
+    gap: 1.4rem;
+    grid-template-columns: 1fr;
+    max-width: 420px;
+    margin: 1.8rem auto 0;
+  }
+  @media (min-width: 760px) {
+    .aa-galerie {
+      grid-template-columns: repeat(3, 1fr);
+      max-width: 900px;
+    }
+  }
+
+  /* ── Avis clients en grille (design accueil) ──────────────────── */
+  .avis-intro {
+    display: flex; align-items: center; justify-content: center; gap: 0.6rem; flex-wrap: wrap;
+    color: var(--bleu); margin: 1rem auto 2.2rem; font-size: 1.05rem; font-weight: 600;
+  }
+  .avis-intro a { color: var(--bleu-accent); }
+  /* 3 avis : empilés sur mobile, 3 sur une même ligne dès la tablette large,
+     le trio est centré dans la page (pas étiré bord à bord) */
+  .avis-grille {
+    display: grid;
+    gap: 1.4rem;
+    grid-template-columns: 1fr;
+    justify-content: center;
+    max-width: 420px;
+    margin-inline: auto;
+  }
+  @media (min-width: 860px) {
+    .avis-grille {
+      grid-template-columns: repeat(3, minmax(0, 340px));
+      max-width: none;
+    }
+  }
+  .avis-grille .avis:hover { transform: none; }
+  .avis-cta { text-align: center; margin-top: 2.4rem; }
+
+  /* ── CTA devis (styles repris du composant CtaDevis) ──────────── */
+  .cta-devis { padding-block: clamp(2.5rem, 5vw, 4rem); }
+  .cta-devis__grille {
+    display: grid;
+    border-radius: var(--rayon);
+    overflow: hidden;
+    box-shadow: var(--ombre-forte);
+  }
+  .cta-devis__photo { width: 100%; height: 100%; object-fit: cover; }
+  .cta-devis__panneau {
+    background: var(--bleu);
+    color: var(--blanc);
+    padding: clamp(2rem, 5vw, 4rem);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    text-align: left;
+    gap: 1.4rem;
+  }
+  .cta-devis__panneau h2 { color: var(--blanc); }
+  .cta-devis__texte { max-width: 46ch; margin: 0; }
+  .cta-devis__panneau ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    display: grid;
+    gap: 0.4rem;
+    font-size: 1.1rem;
+    text-align: left;
+  }
+  .cta-devis__panneau li::before {
+    content: "•";
+    color: var(--rouge);
+    font-weight: 800;
+    margin-right: 0.6em;
+  }
+  .cta-devis__actions { display: flex; flex-wrap: wrap; justify-content: flex-start; gap: 0.9rem; }
+  .cta-devis__urgence { margin: 0; font-size: 0.95rem; opacity: 0.9; }
+  .cta-devis__urgence a { color: var(--blanc); font-weight: 700; text-decoration: underline; }
+  @media (max-width: 800px) {
+    .cta-devis__actions { justify-content: center; width: 100%; }
+  }
+  @media (min-width: 900px) {
+    .cta-devis__grille { grid-template-columns: 1fr 1fr; }
+  }
+</style>

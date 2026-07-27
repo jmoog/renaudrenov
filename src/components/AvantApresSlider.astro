@@ -1,0 +1,193 @@
+---
+// ─────────────────────────────────────────────────────────────────────────
+// Curseur de comparaison Avant / Après (hover souris + drag tactile).
+// Départ = photo "avant" pleine ; en passant la souris de gauche à droite,
+// la photo "après" se révèle progressivement sous le curseur. Sur mobile
+// (pas de hover), on glisse le doigt. Accessible clavier (flèches) une fois
+// le composant focus (role="slider").
+// Réutilisable : <AvantApresSlider avantSrc=".." apresSrc=".." avantAlt=".." apresAlt=".." width={2000} height={1500} />
+// ─────────────────────────────────────────────────────────────────────────
+export interface Props {
+  avantSrc: string;
+  apresSrc: string;
+  avantAlt: string;
+  apresAlt: string;
+  width?: number;
+  height?: number;
+  labelAvant?: string;
+  labelApres?: string;
+}
+const {
+  avantSrc,
+  apresSrc,
+  avantAlt,
+  apresAlt,
+  width = 1600,
+  height = 1200,
+  labelAvant = 'Avant',
+  labelApres = 'Après',
+} = Astro.props;
+---
+<div
+  class="aa-slider"
+  style={`aspect-ratio: ${width} / ${height};`}
+  role="slider"
+  tabindex="0"
+  aria-label={`Comparer la photo ${labelAvant.toLowerCase()} et la photo ${labelApres.toLowerCase()}`}
+  aria-valuemin="0"
+  aria-valuemax="100"
+  aria-valuenow="0"
+>
+  <img class="aa-slider__img aa-slider__apres" src={apresSrc} alt={apresAlt} loading="lazy" width={width} height={height} />
+  <img class="aa-slider__img aa-slider__avant" src={avantSrc} alt={avantAlt} loading="lazy" width={width} height={height} />
+
+  <span class="aa-slider__badge aa-slider__badge--avant" aria-hidden="true">{labelAvant}</span>
+  <span class="aa-slider__badge aa-slider__badge--apres" aria-hidden="true">{labelApres}</span>
+
+  <div class="aa-slider__handle" aria-hidden="true">
+    <span class="aa-slider__grip">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 7 3 12l5 5M16 7l5 5-5 5" /></svg>
+    </span>
+  </div>
+</div>
+
+<script>
+  function initAvantApresSliders() {
+    document.querySelectorAll('.aa-slider').forEach((el) => {
+      if (el.dataset.aaInit === '1') return;
+      el.dataset.aaInit = '1';
+
+      let dragging = false;
+
+      const posFromX = (clientX) => {
+        const r = el.getBoundingClientRect();
+        const pct = ((clientX - r.left) / r.width) * 100;
+        return Math.min(100, Math.max(0, pct));
+      };
+
+      const setPos = (pct, animate) => {
+        el.style.setProperty('--pos', `${pct}%`);
+        el.setAttribute('aria-valuenow', String(Math.round(pct)));
+        el.classList.toggle('aa-slider--figee', !animate);
+      };
+
+      // Souris : suit le curseur en survol, revient à « avant » en sortant.
+      el.addEventListener('mousemove', (e) => {
+        setPos(posFromX(e.clientX), true);
+      });
+      el.addEventListener('mouseleave', () => {
+        setPos(0, false);
+      });
+
+      // Tactile : on glisse le doigt (pas de hover sur mobile).
+      el.addEventListener(
+        'touchstart',
+        (e) => {
+          dragging = true;
+          setPos(posFromX(e.touches[0].clientX), true);
+        },
+        { passive: true }
+      );
+      el.addEventListener(
+        'touchmove',
+        (e) => {
+          if (!dragging) return;
+          setPos(posFromX(e.touches[0].clientX), true);
+        },
+        { passive: true }
+      );
+      el.addEventListener('touchend', () => {
+        dragging = false;
+      });
+
+      // Clavier : flèches gauche/droite quand le composant est focus.
+      el.addEventListener('keydown', (e) => {
+        const current = parseFloat(el.style.getPropertyValue('--pos')) || 0;
+        if (e.key === 'ArrowLeft') { setPos(Math.max(0, current - 5), true); e.preventDefault(); }
+        if (e.key === 'ArrowRight') { setPos(Math.min(100, current + 5), true); e.preventDefault(); }
+        if (e.key === 'Home') { setPos(0, true); e.preventDefault(); }
+        if (e.key === 'End') { setPos(100, true); e.preventDefault(); }
+      });
+    });
+  }
+  document.addEventListener('DOMContentLoaded', initAvantApresSliders);
+  document.addEventListener('astro:page-load', initAvantApresSliders);
+</script>
+
+<style>
+  .aa-slider {
+    --pos: 0%;
+    position: relative;
+    width: 100%;
+    border-radius: var(--rayon);
+    overflow: hidden;
+    box-shadow: var(--ombre-forte);
+    cursor: ew-resize;
+    touch-action: pan-y;
+    -webkit-user-select: none;
+    user-select: none;
+    outline-offset: 4px;
+  }
+  .aa-slider__img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    pointer-events: none;
+  }
+  .aa-slider__apres { position: relative; }
+  .aa-slider__avant {
+    clip-path: inset(0 0 0 var(--pos));
+    transition: clip-path 0.35s ease;
+  }
+  .aa-slider--figee .aa-slider__avant { transition: none; }
+
+  .aa-slider__handle {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: var(--pos);
+    transform: translateX(-50%);
+    width: 3px;
+    background: var(--blanc);
+    box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.15);
+    pointer-events: none;
+    z-index: 2;
+    transition: left 0.35s ease;
+  }
+  .aa-slider--figee .aa-slider__handle { transition: none; }
+  .aa-slider__grip {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    background: var(--blanc);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--bleu);
+  }
+  .aa-slider__grip svg { width: 22px; height: 22px; }
+
+  .aa-slider__badge {
+    position: absolute;
+    top: 0.85rem;
+    z-index: 3;
+    padding: 0.32rem 0.9rem;
+    border-radius: 999px;
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--blanc);
+    pointer-events: none;
+  }
+  .aa-slider__badge--avant { left: 0.85rem; background: var(--gris-700); }
+  .aa-slider__badge--apres { right: 0.85rem; background: var(--rouge); }
+
+  .aa-slider:focus-visible { outline: 3px solid var(--bleu-accent); }
+</style>
