@@ -87,6 +87,47 @@ const etapes = [
   },
 ];
 
+// ── Balisage des 6 photos du chantier (feature Google « Image metadata ») ──
+// Chaque photo est créditée à l'entreprise, située à Guainville et rattachée
+// aux mentions légales pour les conditions de réutilisation.
+const lieuChantier = {
+  '@type': 'Place',
+  name: `Haras à ${ville}`,
+  address: {
+    '@type': 'PostalAddress',
+    addressLocality: ville,
+    postalCode: cp,
+    addressRegion: SITE.region,
+    addressCountry: 'FR',
+  },
+};
+
+const pageLicence = `${SITE.url}/mentions-legales/`;
+
+const schemaPhoto = (cle: string, etat: string, nom: string, legende: string, principale = false) => ({
+  '@context': 'https://schema.org',
+  '@type': 'ImageObject',
+  '@id': `${pageUrl}#photo-${cle}-${etat}`,
+  contentUrl: `${SITE.url}${img(`${cle}-${etat}`)}`,
+  url: pageUrl,
+  name: nom,
+  caption: legende,
+  encodingFormat: 'image/webp',
+  contentLocation: lieuChantier,
+  creator: { '@id': businessId },
+  copyrightHolder: { '@id': businessId },
+  creditText: SITE.nom,
+  copyrightNotice: `© ${SITE.nomLegal}`,
+  license: pageLicence,
+  acquireLicensePage: pageLicence,
+  ...(principale ? { representativeOfPage: true } : {}),
+});
+
+const schemasPhotos = comparaisons.flatMap((c) => [
+  schemaPhoto(c.cle, 'avant', `${c.titre} avant nettoyage — ${ville} (${cp})`, c.altAvant),
+  schemaPhoto(c.cle, 'apres', `${c.titre} après nettoyage — ${ville} (${cp})`, c.altApres, c.cle === 'entree'),
+]);
+
 const schemaRealisation = {
   '@context': 'https://schema.org',
   '@type': 'Service',
@@ -97,13 +138,10 @@ const schemaRealisation = {
     `Chantier de nettoyage de façades réalisé par Renaud Rénov sur un haras de ${ville} (${cp}), en Eure-et-Loir : diagnostic du support, traitement des mousses, lichens et algues, lavage à pression maîtrisée et reprise des détails.`,
   provider: { '@id': businessId },
   areaServed: { '@type': 'City', name: ville, postalCode: cp },
-  image: comparaisons.flatMap((c) => [
-    `${SITE.url}${img(`${c.cle}-avant`)}`,
-    `${SITE.url}${img(`${c.cle}-apres`)}`,
-  ]),
+  image: schemasPhotos.map((ph) => ({ '@id': ph['@id'] })),
 };
 ---
-<BaseLayout title={title} description={description} extraSchemas={[schemaRealisation]}>
+<BaseLayout title={title} description={description} extraSchemas={[schemaRealisation, ...schemasPhotos]}>
   <!-- ── Fil d'Ariane (BreadcrumbList émis par le composant, une seule fois) ── -->
   <section class="section" style="padding-block: 1.4rem 0;">
     <div class="conteneur">
@@ -168,7 +206,6 @@ const schemaRealisation = {
 
         <div class="hx__badges">
           <img src="/images/labels/applicateur-dalep.webp" alt="Applicateur de solutions DALEP certifié" width="240" height="240" loading="lazy" />
-          <img src="/images/labels/garantie-decennale-10-ans.png" alt="Garantie décennale 10 ans" width="220" height="220" loading="lazy" />
         </div>
 
         <div class="hx__actions">
