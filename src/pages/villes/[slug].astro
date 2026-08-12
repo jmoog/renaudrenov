@@ -149,11 +149,6 @@ const schemaVille = {
       <div class="hero__texte">
         <h1>{h1}</h1>
         <p class="hero__marque">RENAUD RÉNOV</p>
-        <p class="hero__google">
-          <LogoGoogle taille={20} />
-          <span class="hero__etoiles" aria-hidden="true">★★★★★</span>
-          <strong>{reviews.note.toLocaleString('fr-FR')}/5 sur Google · {reviews.nombre} avis</strong>
-        </p>
         <div class="hero__accroche hero__encadre">
           <p set:html={contenu.heroP1} />
           <p set:html={heroP2} />
@@ -168,16 +163,31 @@ const schemaVille = {
       </div>
 
       <div class="hero__media">
-        <img
-          class="hero__photo"
-          src="/images/photos/hero-renaud-renov.webp"
-          srcset="/images/photos/hero-renaud-renov-640.webp 640w, /images/photos/hero-renaud-renov-960.webp 960w, /images/photos/hero-renaud-renov-1280.webp 1280w, /images/photos/hero-renaud-renov.webp 1600w"
-          sizes="(min-width: 980px) 540px, 94vw"
-          alt={`Le véhicule de Renaud Rénov devant une maison et sa toiture en tuiles, couvreur à ${nom}`}
-          fetchpriority="high"
-          width="1600"
-          height="1200"
-        />
+        <div class="hero__foto photo-note">
+          <img
+            class="hero__photo"
+            src="/images/photos/hero-renaud-renov.webp"
+            srcset="/images/photos/hero-renaud-renov-640.webp 640w, /images/photos/hero-renaud-renov-960.webp 960w, /images/photos/hero-renaud-renov-1280.webp 1280w, /images/photos/hero-renaud-renov.webp 1600w"
+            sizes="(min-width: 980px) 540px, 94vw"
+            alt={`Le véhicule de Renaud Rénov devant une maison et sa toiture en tuiles, couvreur à ${nom}`}
+            fetchpriority="high"
+            width="1600"
+            height="1200"
+          />
+          <div class="photo-note__carte">
+            <div class="photo-note__top">
+              <LogoGoogle taille={26} />
+              <span class="photo-note__etoiles" aria-label={`${reviews.note} étoiles sur 5`}>
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l2.9 6.26 6.9.6-5.2 4.53 1.55 6.75L12 17.77 5.85 20.7 7.4 13.95 2.2 9.42l6.9-.6L12 2z"/></svg>
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l2.9 6.26 6.9.6-5.2 4.53 1.55 6.75L12 17.77 5.85 20.7 7.4 13.95 2.2 9.42l6.9-.6L12 2z"/></svg>
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l2.9 6.26 6.9.6-5.2 4.53 1.55 6.75L12 17.77 5.85 20.7 7.4 13.95 2.2 9.42l6.9-.6L12 2z"/></svg>
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l2.9 6.26 6.9.6-5.2 4.53 1.55 6.75L12 17.77 5.85 20.7 7.4 13.95 2.2 9.42l6.9-.6L12 2z"/></svg>
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l2.9 6.26 6.9.6-5.2 4.53 1.55 6.75L12 17.77 5.85 20.7 7.4 13.95 2.2 9.42l6.9-.6L12 2z"/></svg>
+              </span>
+            </div>
+            <p class="photo-note__txt">Noté <strong>{reviews.note.toLocaleString('fr-FR')}/5</strong> sur Google · {reviews.nombre} avis</p>
+          </div>
+        </div>
         <div class="carte hero__garantie">
           <img src="/images/logo/logo-renaud-renov-128.webp" alt="" width="80" height="80" loading="lazy" />
           <p><strong>Garantie décennale</strong><br />Pour tous travaux de couverture</p>
@@ -250,7 +260,6 @@ const schemaVille = {
 <style>
   .hero__encadre {
     background: var(--bleu-pale);
-    border-left: 4px solid var(--rouge);
     border-radius: var(--rayon);
     padding: 1.2rem 1.4rem;
     margin-bottom: 1.4rem;
@@ -260,7 +269,6 @@ const schemaVille = {
 
   .encadre {
     background: var(--bleu-pale);
-    border-left: 4px solid var(--rouge);
     border-radius: var(--rayon);
     padding: clamp(1.3rem, 3vw, 1.8rem);
     margin-top: 1.5rem;

@@ -153,22 +153,11 @@ const description =
     transition: transform var(--transition), box-shadow var(--transition), border-color var(--transition);
     overflow: hidden;
   }
-  .plan-carte::before {
-    content: '';
-    position: absolute;
-    inset: 0 auto 0 0;
-    width: 4px;
-    background: var(--rouge);
-    transform: scaleY(0);
-    transform-origin: top;
-    transition: transform var(--transition);
-  }
   .plan-carte:hover {
     transform: translateY(-4px);
     box-shadow: var(--ombre-forte);
     border-color: transparent;
   }
-  .plan-carte:hover::before { transform: scaleY(1); }
 
   .plan-carte__num {
     display: block;

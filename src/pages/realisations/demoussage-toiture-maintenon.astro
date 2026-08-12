@@ -3,6 +3,8 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import { SITE } from '../../data/site.ts';
 import FilAriane from '../../components/FilAriane.astro';
 import CtaDevis from '../../components/CtaDevis.astro';
+import LogoGoogle from '../../components/LogoGoogle.astro';
+import reviews from '../../data/reviews.json';
 
 const ville = 'Maintenon';
 const cp = '28130';
@@ -92,13 +94,26 @@ const schemaFil = {
           <a href="/devis-gratuit/" class="btn btn--blanc">Devis gratuit →</a>
         </div>
       </div>
-      <figure class="reno-hero__media">
+      <figure class="reno-hero__media photo-note">
         <span class="reno-etiquette">Après</span>
         <img
           src={imgApres}
           alt={`Toiture en tuiles propre et démoussée par Renaud Rénov à ${ville} sous un ciel bleu`}
           fetchpriority="high" width="1200" height="900"
         />
+        <div class="photo-note__carte">
+          <div class="photo-note__top">
+            <LogoGoogle taille={26} />
+            <span class="photo-note__etoiles" aria-label={`${reviews.note} étoiles sur 5`}>
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l2.9 6.26 6.9.6-5.2 4.53 1.55 6.75L12 17.77 5.85 20.7 7.4 13.95 2.2 9.42l6.9-.6L12 2z"/></svg>
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l2.9 6.26 6.9.6-5.2 4.53 1.55 6.75L12 17.77 5.85 20.7 7.4 13.95 2.2 9.42l6.9-.6L12 2z"/></svg>
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l2.9 6.26 6.9.6-5.2 4.53 1.55 6.75L12 17.77 5.85 20.7 7.4 13.95 2.2 9.42l6.9-.6L12 2z"/></svg>
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l2.9 6.26 6.9.6-5.2 4.53 1.55 6.75L12 17.77 5.85 20.7 7.4 13.95 2.2 9.42l6.9-.6L12 2z"/></svg>
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l2.9 6.26 6.9.6-5.2 4.53 1.55 6.75L12 17.77 5.85 20.7 7.4 13.95 2.2 9.42l6.9-.6L12 2z"/></svg>
+            </span>
+          </div>
+          <p class="photo-note__txt">Noté <strong>{reviews.note.toLocaleString('fr-FR')}/5</strong> sur Google · {reviews.nombre} avis</p>
+        </div>
       </figure>
     </div>
   </section>

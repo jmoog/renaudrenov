@@ -5,6 +5,8 @@ import FilAriane from '../../components/FilAriane.astro';
 import AvisCarrousel from '../../components/AvisCarrousel.astro';
 import CtaDevis from '../../components/CtaDevis.astro';
 import PrestationsConnexes from '../../components/PrestationsConnexes.astro';
+import LogoGoogle from '../../components/LogoGoogle.astro';
+import reviews from '../../data/reviews.json';
 
 const title = 'Rénovation de toiture en Eure-et-Loir (28) — Devis gratuit';
 const description =
@@ -36,13 +38,28 @@ const description =
           <a href="/devis-gratuit/" class="btn btn--bleu">Devis gratuit →</a>
         </div>
       </div>
-      <img
-        src="/images/photos/renovation-toiture.webp"
-        alt="Rénovation de toiture avec liteaunage neuf sur charpente en Eure-et-Loir"
-        fetchpriority="high"
-        width="2000"
-        height="1500"
-      />
+      <div class="photo-note">
+        <img
+          src="/images/photos/renovation-toiture.webp"
+          alt="Rénovation de toiture avec liteaunage neuf sur charpente en Eure-et-Loir"
+          fetchpriority="high"
+          width="2000"
+          height="1500"
+        />
+        <div class="photo-note__carte">
+          <div class="photo-note__top">
+            <LogoGoogle taille={26} />
+            <span class="photo-note__etoiles" aria-label={`${reviews.note} étoiles sur 5`}>
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l2.9 6.26 6.9.6-5.2 4.53 1.55 6.75L12 17.77 5.85 20.7 7.4 13.95 2.2 9.42l6.9-.6L12 2z"/></svg>
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l2.9 6.26 6.9.6-5.2 4.53 1.55 6.75L12 17.77 5.85 20.7 7.4 13.95 2.2 9.42l6.9-.6L12 2z"/></svg>
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l2.9 6.26 6.9.6-5.2 4.53 1.55 6.75L12 17.77 5.85 20.7 7.4 13.95 2.2 9.42l6.9-.6L12 2z"/></svg>
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l2.9 6.26 6.9.6-5.2 4.53 1.55 6.75L12 17.77 5.85 20.7 7.4 13.95 2.2 9.42l6.9-.6L12 2z"/></svg>
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l2.9 6.26 6.9.6-5.2 4.53 1.55 6.75L12 17.77 5.85 20.7 7.4 13.95 2.2 9.42l6.9-.6L12 2z"/></svg>
+            </span>
+          </div>
+          <p class="photo-note__txt">Noté <strong>{reviews.note.toLocaleString('fr-FR')}/5</strong> sur Google · {reviews.nombre} avis</p>
+        </div>
+      </div>
     </div>
   </section>
 

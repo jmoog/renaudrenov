@@ -3,6 +3,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import FilAriane from '../components/FilAriane.astro';
 import { SITE } from '../data/site.ts';
 import reviews from '../data/reviews.json';
+import LogoGoogle from '../components/LogoGoogle.astro';
 
 const title = 'À propos de Renaud Rénov — Couvreur en Eure-et-Loir (28)';
 const description = "Renaud Rénov, entreprise familiale de couverture à Villiers-le-Morhier (28) : nettoyage, démoussage, rénovation et zinguerie, transmis de père en fils. ☎ 07 64 40 24 22.";
@@ -41,13 +42,28 @@ const description = "Renaud Rénov, entreprise familiale de couverture à Villie
             <li><strong>Garantie décennale</strong></li>
           </ul>
         </div>
-        <img
-          src="/images/photos/hero-toiture-renaud-renov.webp"
-          alt="Toiture en tuiles rénovée par Renaud Rénov en Eure-et-Loir"
-          width="1500"
-          height="2000"
-          loading="eager"
-        />
+        <div class="photo-note">
+          <img
+            src="/images/photos/hero-toiture-renaud-renov.webp"
+            alt="Toiture en tuiles rénovée par Renaud Rénov en Eure-et-Loir"
+            width="1500"
+            height="2000"
+            loading="eager"
+          />
+          <div class="photo-note__carte">
+            <div class="photo-note__top">
+              <LogoGoogle taille={26} />
+              <span class="photo-note__etoiles" aria-label={`${reviews.note} étoiles sur 5`}>
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l2.9 6.26 6.9.6-5.2 4.53 1.55 6.75L12 17.77 5.85 20.7 7.4 13.95 2.2 9.42l6.9-.6L12 2z"/></svg>
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l2.9 6.26 6.9.6-5.2 4.53 1.55 6.75L12 17.77 5.85 20.7 7.4 13.95 2.2 9.42l6.9-.6L12 2z"/></svg>
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l2.9 6.26 6.9.6-5.2 4.53 1.55 6.75L12 17.77 5.85 20.7 7.4 13.95 2.2 9.42l6.9-.6L12 2z"/></svg>
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l2.9 6.26 6.9.6-5.2 4.53 1.55 6.75L12 17.77 5.85 20.7 7.4 13.95 2.2 9.42l6.9-.6L12 2z"/></svg>
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l2.9 6.26 6.9.6-5.2 4.53 1.55 6.75L12 17.77 5.85 20.7 7.4 13.95 2.2 9.42l6.9-.6L12 2z"/></svg>
+              </span>
+            </div>
+            <p class="photo-note__txt">Noté <strong>{reviews.note.toLocaleString('fr-FR')}/5</strong> sur Google · {reviews.nombre} avis</p>
+          </div>
+        </div>
       </div>
     </div>
   </section>

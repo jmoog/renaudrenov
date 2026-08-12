@@ -159,13 +159,12 @@ h3 { font-size: clamp(1.25rem, 1rem + 1vw, 1.5rem); }
     margin-inline: auto;
   }
 
-  /* Badge et ligne Google du hero centrés */
+  /* Badge du hero centré */
   .hero__badge {
     display: flex;
     width: fit-content;
     margin-inline: auto;
   }
-  .hero__google { justify-content: center; }
 }
 
 /* ── Rythme vertical du texte de contenu ───────────────────────── */
@@ -284,6 +283,47 @@ h3 { font-size: clamp(1.25rem, 1rem + 1vw, 1.5rem); }
 }
 .carte:hover { box-shadow: var(--ombre-forte); transform: translateY(-3px); }
 
+/* ── Carte "note Google" superposée sur une photo (réutilisable) ── */
+.photo-note { position: relative; }
+.photo-note::after {
+  content: "";
+  position: absolute;
+  left: 0; right: 0; bottom: 0;
+  height: 42%;
+  border-radius: 0 0 var(--rayon) var(--rayon);
+  background: linear-gradient(to top, rgba(15, 34, 45, 0.6), rgba(15, 34, 45, 0));
+  pointer-events: none;
+  z-index: 1;
+}
+.photo-note__carte {
+  position: absolute;
+  left: 50%;
+  bottom: 1rem;
+  transform: translateX(-50%);
+  width: max-content;
+  max-width: calc(100% - 1.6rem);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.3rem;
+  background: var(--blanc);
+  border-radius: 16px;
+  box-shadow: 0 14px 34px rgba(15, 34, 45, 0.42);
+  padding: 0.8rem 1.5rem;
+  z-index: 2;
+}
+.photo-note__top { display: flex; align-items: center; gap: 0.6rem; }
+.photo-note__etoiles { display: inline-flex; gap: 0.1em; }
+.photo-note__etoiles svg { width: 1.35rem; height: 1.35rem; fill: var(--etoile); }
+.photo-note__txt { margin: 0; color: var(--gris-700); font-size: 1.02rem; }
+.photo-note__txt strong { color: var(--bleu); }
+@media (max-width: 640px) {
+  .photo-note__carte { padding: 0.65rem 1.2rem; }
+  .photo-note__top { gap: 0.45rem; }
+  .photo-note__etoiles svg { width: 1.15rem; height: 1.15rem; }
+  .photo-note__txt { font-size: 0.9rem; }
+}
+
 /* ── Hero clair, deux colonnes (design LJ) ─────────────────────── */
 .hero { background: var(--blanc); padding-block: clamp(2.5rem, 5vw, 4.5rem); }
 .hero__grille { display: grid; gap: 3rem; align-items: center; }
@@ -318,18 +358,17 @@ h3 { font-size: clamp(1.25rem, 1rem + 1vw, 1.5rem); }
   margin-block: 0.2rem 1rem;
   white-space: nowrap; /* « Lafleur Couvreur » toujours sur une seule ligne */
 }
-.hero__google { display: flex; align-items: center; gap: 0.5em; color: var(--bleu); margin-bottom: 1.4rem; }
-.hero__google img { width: 24px; height: 24px; }
 .hero__accroche { font-size: 1.12rem; margin-bottom: 1rem; }
 .hero__texte p, .hero__texte ul { margin-bottom: 0.9rem; }
 .hero__actions { display: flex; flex-wrap: wrap; gap: 0.8rem; margin-top: 1.6rem; }
-.hero__etoiles { color: var(--etoile); letter-spacing: 0.08em; }
 .hero__media { display: grid; gap: 1.5rem; align-content: start; }
+.hero__foto { position: relative; }
 .hero__photo {
   width: 100%;
   border-radius: var(--rayon);
   box-shadow: var(--ombre-forte);
   object-fit: cover;
+  display: block;
 }
 .hero__garantie {
   display: flex;
@@ -351,8 +390,7 @@ h3 { font-size: clamp(1.25rem, 1rem + 1vw, 1.5rem); }
   .hero__texte > .hero__badge { order: 1; }
   .hero__texte > h1 { order: 2; }
   .hero__texte > .hero__marque { order: 3; }
-  .hero__texte > .hero__google { order: 4; }
-  .hero__media > .hero__photo { order: 5; margin-block: 0.8rem 1.4rem; }
+  .hero__media > .hero__foto { order: 5; margin-block: 0.8rem 1.4rem; }
   .hero__texte > .hero__accroche { order: 6; }
   .hero__texte > p { order: 7; }
   .hero__texte > ul { order: 8; margin-bottom: 1rem; }
@@ -417,7 +455,6 @@ h3 { font-size: clamp(1.25rem, 1rem + 1vw, 1.5rem); }
 .pourquoi .etape p { color: rgba(255, 255, 255, 0.85); }
 .pourquoi .etape {
   background: rgba(255, 255, 255, 0.06);
-  border-left: 3px solid var(--rouge);
   border-radius: var(--rayon);
   padding: 1.6rem 1.5rem;
 }

@@ -100,23 +100,32 @@ const schemaFaq = {
     </div>
     <div class="conteneur duo hero-duo">
       <div class="hero-haut">
-        <a href={reviews.urlFiche} class="note-google-box" rel="noopener" target="_blank" aria-label={`Note Google ${reviews.note} sur 5 sur ${reviews.nombre} avis`}>
-          <LogoGoogle taille={22} />
-          <span class="note-google-box__note"><strong>{reviews.note.toLocaleString('fr-FR')}</strong>/5</span>
-          <span class="note-google-box__etoiles" aria-hidden="true">★★★★★</span>
-          <span class="note-google-box__avis">{reviews.nombre} avis</span>
-        </a>
         <h1 class="hero-titre">Démoussage de toiture dans le 28 (Eure-et-Loir)</h1>
         <p class="marque-orange">RENAUD RÉNOV</p>
       </div>
-      <img
-        class="hero-photo-prestation"
-        src="/images/photos/nettoyage-demoussage-toiture.webp"
-        alt="M. Renaud, artisan couvreur, nettoyant et démoussant une toiture en Eure-et-Loir"
-        fetchpriority="high"
-        width="2000"
-        height="1500"
-      />
+      <div class="hero-photo-wrap photo-note">
+        <img
+          class="hero-photo-prestation"
+          src="/images/photos/nettoyage-demoussage-toiture.webp"
+          alt="M. Renaud, artisan couvreur, nettoyant et démoussant une toiture en Eure-et-Loir"
+          fetchpriority="high"
+          width="2000"
+          height="1500"
+        />
+        <div class="photo-note__carte">
+          <div class="photo-note__top">
+            <LogoGoogle taille={26} />
+            <span class="photo-note__etoiles" aria-label={`${reviews.note} étoiles sur 5`}>
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l2.9 6.26 6.9.6-5.2 4.53 1.55 6.75L12 17.77 5.85 20.7 7.4 13.95 2.2 9.42l6.9-.6L12 2z"/></svg>
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l2.9 6.26 6.9.6-5.2 4.53 1.55 6.75L12 17.77 5.85 20.7 7.4 13.95 2.2 9.42l6.9-.6L12 2z"/></svg>
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l2.9 6.26 6.9.6-5.2 4.53 1.55 6.75L12 17.77 5.85 20.7 7.4 13.95 2.2 9.42l6.9-.6L12 2z"/></svg>
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l2.9 6.26 6.9.6-5.2 4.53 1.55 6.75L12 17.77 5.85 20.7 7.4 13.95 2.2 9.42l6.9-.6L12 2z"/></svg>
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l2.9 6.26 6.9.6-5.2 4.53 1.55 6.75L12 17.77 5.85 20.7 7.4 13.95 2.2 9.42l6.9-.6L12 2z"/></svg>
+            </span>
+          </div>
+          <p class="photo-note__txt">Noté <strong>{reviews.note.toLocaleString('fr-FR')}/5</strong> sur Google · {reviews.nombre} avis</p>
+        </div>
+      </div>
       <div class="hero-bas">
         <p class="hero__accroche">
           Votre toiture est couverte de mousses et de lichens, ou simplement salie et marquée par des
@@ -445,32 +454,6 @@ const schemaFaq = {
 </BaseLayout>
 
 <style>
-  /* Encadré note Google — au-dessus du H1, coins arrondis élégants (pas une pilule) */
-  .note-google-box {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.55rem;
-    padding: 0.5rem 0.9rem;
-    margin-bottom: 1rem;
-    background: #fff;
-    border: 1px solid rgba(36, 75, 100, 0.14);
-    border-radius: 14px;
-    box-shadow: 0 2px 10px rgba(36, 75, 100, 0.08);
-    text-decoration: none;
-    color: var(--bleu, #244B64);
-    font-size: 0.95rem;
-    line-height: 1;
-    transition: box-shadow 0.2s ease, transform 0.2s ease;
-  }
-  .note-google-box:hover {
-    box-shadow: 0 4px 16px rgba(36, 75, 100, 0.14);
-    transform: translateY(-1px);
-  }
-  .note-google-box__note { font-weight: 500; }
-  .note-google-box__note strong { font-size: 1.15rem; font-weight: 800; }
-  .note-google-box__etoiles { color: var(--etoile, #f5a623); letter-spacing: 0.06em; }
-  .note-google-box__avis { color: var(--gris-700, #4b5563); }
-
   /* ── Cartes savoir-faire : contraste blanc / marine, image pleine hauteur ── */
   .savoir { display: grid; gap: 2rem; margin-top: 2.5rem; }
   .savoir-carte {
@@ -643,7 +626,7 @@ const schemaFaq = {
     }
     .hero-haut { grid-area: haut; }
     .hero-bas { grid-area: bas; }
-    .hero-photo-prestation { grid-area: img; align-self: center; }
+    .hero-photo-wrap { grid-area: img; align-self: center; }
   }
 
   /* H1 réduit et volontairement cassé sur deux lignes */
@@ -673,7 +656,6 @@ const schemaFaq = {
 
   .faq { display: grid; gap: 1.4rem; margin-top: 1.6rem; max-width: 75ch; }
   .faq__item {
-    border-left: 3px solid var(--rouge, #EF7E0F);
     padding-left: 1.1rem;
   }
   .faq__item h3 { margin: 0 0 0.4rem; color: var(--bleu, #244B64); font-size: 1.08rem; }
