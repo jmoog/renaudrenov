@@ -1,4 +1,5 @@
 ---
+import FlecheRonde from '../components/FlecheRonde.astro';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import FilAriane from '../components/FilAriane.astro';
 import { SITE } from '../data/site.ts';
@@ -78,7 +79,7 @@ const description = "Renaud Rénov, entreprise familiale de couverture à Villie
         <li>Garantie décennale</li>
       </ul>
       <p class="apropos__cta">
-        <a class="btn btn--rouge" href="/devis-gratuit/">Demander mon devis gratuit</a>
+        <a class="btn btn--rouge" href="/devis-gratuit/">Demander mon devis gratuit<FlecheRonde /></a>
       </p>
     </div>
   </section>
@@ -125,7 +126,7 @@ const description = "Renaud Rénov, entreprise familiale de couverture à Villie
             <a href={`mailto:${SITE.email}`}>{SITE.email}</a>
           </p>
           <p>
-            <a class="btn btn--bleu" href="/devis-gratuit/">Obtenir un devis gratuit</a>
+            <a class="btn btn--bleu" href="/devis-gratuit/">Obtenir un devis gratuit<FlecheRonde /></a>
           </p>
         </div>
         <img

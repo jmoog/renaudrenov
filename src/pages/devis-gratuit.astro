@@ -1,4 +1,5 @@
 ---
+import FlecheRonde from '../components/FlecheRonde.astro';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import FilAriane from '../components/FilAriane.astro';
 import { SITE } from '../data/site.ts';
@@ -125,7 +126,7 @@ const avisDevis = reviews.avis.slice(0, 3);
           )}
 
           <button type="submit" id="devis-submit" class="btn btn--rouge devis__envoyer">
-            Envoyer ma demande de devis
+            Envoyer ma demande de devis<FlecheRonde />
           </button>
           <p id="devis-status" role="status" aria-live="polite"></p>
         </form>

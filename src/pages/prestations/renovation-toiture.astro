@@ -1,4 +1,5 @@
 ---
+import FlecheRonde from '../../components/FlecheRonde.astro';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { SITE } from '../../data/site.ts';
 import FilAriane from '../../components/FilAriane.astro';
@@ -35,7 +36,7 @@ const description =
             <svg class="icone" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6.5 3.5h-2A1.5 1.5 0 0 0 3 5.2C3.4 13 11 20.6 18.8 21a1.5 1.5 0 0 0 1.7-1.5v-2a1.5 1.5 0 0 0-1.3-1.5l-2.5-.35a1.5 1.5 0 0 0-1.4.6l-.7.95a11.5 11.5 0 0 1-4.9-4.9l.95-.7a1.5 1.5 0 0 0 .6-1.4l-.35-2.5a1.5 1.5 0 0 0-1.5-1.3Z"/><path d="M14.5 3.6a5.5 5.5 0 0 1 4.9 4.9"/><path d="M14 7a2.4 2.4 0 0 1 2 2"/></svg>
             {SITE.tel}
           </a>
-          <a href="/devis-gratuit/" class="btn btn--bleu">Devis gratuit →</a>
+          <a href="/devis-gratuit/" class="btn btn--bleu">Devis gratuit<FlecheRonde /></a>
         </div>
       </div>
       <div class="photo-note">
@@ -105,7 +106,7 @@ const description =
           dernière tuile. Nos clients saluent le sérieux et la qualité de nos rénovations sur Google,
           et tous nos travaux sont couverts par la garantie décennale.
         </p>
-        <a href="/devis-gratuit/" class="btn btn--bleu">Rénover ma toiture</a>
+        <a href="/devis-gratuit/" class="btn btn--bleu">Rénover ma toiture<FlecheRonde /></a>
       </div>
       <img
         src="/images/photos/renovation-chantier.webp"

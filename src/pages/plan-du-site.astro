@@ -3,6 +3,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import FilAriane from '../components/FilAriane.astro';
 import services from '../data/services.json';
 import villes from '../data/villes.json';
+import { VILLES_NETTOYAGE } from '../data/villes-nettoyage.ts';
 
 const title = 'Plan du site — Renaud Rénov, couvreur en Eure-et-Loir (28)';
 const description =
@@ -88,6 +89,26 @@ const description =
         <ul class="plan-villes__liste">
           {villes.map((v) => (
             <li><a href={`/villes/${v.slug}/`}>{v.nom}</a></li>
+          ))}
+        </ul>
+      </div>
+
+      <!-- ── Cocon nettoyage : pilier + satellites par commune ──── -->
+      <div class="plan-villes">
+        <div class="plan-villes__tete">
+          <span class="plan-carte__num">07</span>
+          <div>
+            <h2>Nettoyage de toiture par commune</h2>
+            <p>
+              Le démoussage et le lavage des toits, détaillés commune par commune — et la page
+              <a href="/nettoyage-toiture-28/">nettoyage de toiture en Eure-et-Loir</a> pour le
+              protocole complet :
+            </p>
+          </div>
+        </div>
+        <ul class="plan-villes__liste">
+          {VILLES_NETTOYAGE.map((v) => (
+            <li><a href={`/nettoyage-toiture-${v.slug}/`}>{v.nom}</a></li>
           ))}
         </ul>
       </div>

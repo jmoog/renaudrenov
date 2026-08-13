@@ -5,6 +5,8 @@ import FlecheRonde from './FlecheRonde.astro';
 
 export interface Props {
   titre?: string;
+  texte?: string;
+  puces?: string[];
   image?: string;
   imageAlt?: string;
   imageWidth?: number;
@@ -12,6 +14,12 @@ export interface Props {
 }
 const {
   titre = 'Contactez votre artisan couvreur',
+  texte = `Une toiture à nettoyer, des tuiles à remplacer ou un projet de rénovation ? J'interviens à ${SITE.ville} et dans toute l'${SITE.departement} (${SITE.departementNum}), rapidement et même en urgence. Déplacement, conseil et devis détaillé gratuits, sans engagement.`,
+  puces = [
+    'Entreprise familiale, père & fils.',
+    "Un travail d'artisan, mené avec exigence et passion.",
+    'Garantie décennale.',
+  ],
   image = '/images/photos/artisan-sur-toit.webp',
   imageAlt = 'Artisan Renaud Rénov au travail sur une toiture en tuiles en Eure-et-Loir',
   imageWidth = 1500,
@@ -30,15 +38,9 @@ const {
     />
     <div class="cta-devis__panneau">
       <h2>{titre}</h2>
-      <p class="cta-devis__texte">
-        Une toiture à nettoyer, des tuiles à remplacer ou un projet de rénovation ?
-        J'interviens à {SITE.ville} et dans toute l'{SITE.departement} ({SITE.departementNum}),
-        rapidement et même en urgence. Déplacement, conseil et devis détaillé gratuits, sans engagement.
-      </p>
+      <p class="cta-devis__texte">{texte}</p>
       <ul>
-        <li>Entreprise familiale, père &amp; fils.</li>
-        <li>Un travail d'artisan, mené avec exigence et passion.</li>
-        <li>Garantie décennale.</li>
+        {puces.map((p) => <li>{p}</li>)}
       </ul>
       <div class="cta-devis__actions">
         <a href={SITE.telHref} class="btn btn--rouge">

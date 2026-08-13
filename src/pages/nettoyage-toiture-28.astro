@@ -1,0 +1,856 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { SITE } from '../data/site.ts';
+import villes from '../data/villes.json';
+import reviews from '../data/reviews.json';
+import FilAriane from '../components/FilAriane.astro';
+import LogoGoogle from '../components/LogoGoogle.astro';
+import CtaDevis from '../components/CtaDevis.astro';
+import FlecheRonde from '../components/FlecheRonde.astro';
+
+// ── Balises : brief pilier du 12/08/2026 (angles différenciés) ──────────
+// Title → mot-clé + dept + co-requête ; H1 → tête différente du title ;
+// Meta → prestations + matériaux + « Tarifs » (différenciant SERP).
+// Balises dictées par le client le 12/08/2026.
+const title = 'Lavage et démoussage professionnel de toiture dans le 28';
+const description =
+  "Devis gratuit pour le nettoyage de votre toit en Eure-et-Loir. Brossage manuel, démoussage en profondeur et traitements. Renaud Rénov, votre spécialiste.";
+
+// ── Bloc 8 : la porte du cocon — les 14 satellites /nettoyage-toiture-{ville}/.
+// Ancres alignées sur le H1 de chaque satellite (règle du cocon, 13/08/2026).
+const zoneEnrichie = [
+  { slug: 'villiers-le-morhier', ancre: 'le démoussage et lavage de toiture à Villiers-le-Morhier' },
+  { slug: 'maintenon', ancre: 'le nettoyage et démoussage de toiture à Maintenon' },
+  { slug: 'nogent-le-roi', ancre: 'le démoussage de toiture à Nogent-le-Roi' },
+  { slug: 'epernon', ancre: 'faire nettoyer sa toiture à Épernon' },
+  { slug: 'hanches', ancre: 'le lavage et traitement de toiture à Hanches' },
+  { slug: 'gallardon', ancre: 'le démoussage et traitement de toiture à Gallardon' },
+  { slug: 'pierres', ancre: 'le nettoyage de toiture à Pierres' },
+  { slug: 'saint-piat', ancre: 'le démoussage de toit à Saint-Piat' },
+  { slug: 'bouglainval', ancre: 'le nettoyage et traitement de toiture à Bouglainval' },
+  { slug: 'chartres', ancre: 'le démoussage et lavage de toiture à Chartres' },
+  { slug: 'dreux', ancre: 'le nettoyage de toiture à Dreux' },
+  { slug: 'auneau', ancre: 'le démoussage de toiture à Auneau' },
+  { slug: 'rambouillet', ancre: 'le nettoyage et traitement de toiture à Rambouillet' },
+  { slug: 'houdan', ancre: 'le démoussage de toit à Houdan' },
+];
+const villeParSlug = Object.fromEntries(villes.map((v) => [v.slug, v]));
+
+// ── Bloc 3 : deux avis réels ciblés (un démoussage sur tuile, un hydrofuge),
+// signés « Prénom N. (Ville) » — la ville uniquement quand l'avis la cite. ──
+const avisNettoyage = [
+  { auteur: 'Jean-Michel Hanon', signature: 'Jean-Michel H.' },
+  { auteur: 'Dominique Ndiaye', signature: 'Dominique N. (Bouglainval)' },
+]
+  .map((s) => {
+    const a = reviews.avis.find((r) => r.auteur === s.auteur);
+    return a && { ...a, signature: s.signature };
+  })
+  .filter(Boolean);
+
+// ── Bloc 7 : fourchettes de prix (marché — à valider par Jordy) ──────────
+const prix = [
+  { presta: 'Démoussage simple', fourchette: '15 à 25 €/m²' },
+  { presta: 'Démoussage + hydrofuge', fourchette: '25 à 45 €/m²' },
+  { presta: 'Nettoyage de gouttières', fourchette: '5 à 12 €/ml' },
+];
+
+// ── Bloc 6 : le protocole en 4 étapes ────────────────────────────────────
+const protocole = [
+  {
+    titre: 'Le traitement curatif',
+    texte:
+      "Tout commence par l'application d'un biocide à base de sels d'ammoniums quaternaires, en gamme professionnelle (type Sika ou équivalent). Le produit pénètre les végétaux et les dessèche sous 48 à 72 h : mousses, algues et lichens meurent à la racine, y compris sur tuile plate petit moule et sur ardoise naturelle.",
+  },
+  {
+    titre: 'La phase de nettoyage',
+    texte:
+      "Une fois les végétaux desséchés, je lave la couverture en basse pression à 2-3 bars, complétée d'un brossage manuel des zones récalcitrantes : pureaux, arêtiers, noues et coyaux. Le rinçage se fait méthodiquement de haut en bas, dans le sens de l'écoulement, pour ne jamais faire remonter d'eau sous les rangs.",
+  },
+  {
+    titre: 'Le traitement préventif rémanent',
+    texte:
+      "J'applique ensuite un traitement fongicide et algicide rémanent (formulation type Dalep — dont je suis applicateur certifié — ou Algimouss). Sa résistance au lessivage lui permet de rester actif sur la couverture et de retarder de plusieurs années la réinstallation des spores.",
+  },
+  {
+    titre: 'La protection finale',
+    texte:
+      "En option, je termine par un hydrofuge de surface (gamme type Zolpan ou ProtectGuard) : une barrière invisible qui fait perler l'eau tout en maintenant la respirabilité du matériau — indispensable pour la tuile plate petit moule comme pour l'ardoise naturelle.",
+  },
+];
+
+// ── Bloc 9 : FAQ (6 questions du brief) ─────────────────────────────────
+const faq = [
+  {
+    q: 'Pourquoi faire nettoyer ma toiture ?',
+    r: "Parce que les tuiles plates petit moule et les ardoises naturelles sont des matériaux poreux : les mousses y retiennent l'eau en permanence, ce qui accélère leur usure et finit par provoquer des fuites. Une couverture encrassée garde aussi l'humidité au-dessus des combles et dégrade leur isolation. Un nettoyage régulier préserve l'étanchéité et repousse de nombreuses années les grosses réparations.",
+  },
+  {
+    q: 'À quelle fréquence faut-il démousser ?',
+    r: "Tout dépend de l'environnement de votre maison. Dans les communes très arborées comme Maintenon, Saint-Piat, Villiers-le-Morhier ou Nogent-le-Roi, les toits se rechargent vite en mousses : un traitement tous les 5 ans environ est conseillé. Dans les secteurs plus urbains et dégagés de Chartres, de Dreux, d'Épernon ou de Gallardon, un passage tous les 8 à 10 ans suffit généralement.",
+  },
+  {
+    q: 'Le nettoyage haute pression abîme-t-il les tuiles et les ardoises ?',
+    r: "Oui. La haute pression décape la surface des tuiles plates et des ardoises, augmente leur porosité et altère les pureaux importants de nos couvertures. C'est pour cela que je travaille exclusivement en basse pression à 2-3 bars, complétée d'un brossage : le toit est propre, le matériau est intact.",
+  },
+  {
+    q: "Quel est le prix d'un démoussage ?",
+    r: "Comptez de 15 à 25 €/m² pour un démoussage simple et de 25 à 45 €/m² avec traitement hydrofuge, selon la surface, la pente et l'encrassement de la couverture. Le détail figure dans la section tarifs de cette page, et le devis est gratuit, précis et sans engagement.",
+  },
+  {
+    q: 'Quelle est la meilleure période pour nettoyer sa toiture ?',
+    r: "Les produits de traitement ont besoin d'un support sec pour bien pénétrer : j'interviens donc par temps sec, hors gel et hors forte chaleur. En pratique, le printemps, l'été et le début de l'automne offrent les meilleures conditions d'application.",
+  },
+  {
+    q: 'Que faire en cas de lichens tenaces ?',
+    r: "Les lichens incrustés demandent un protocole renforcé : un biocide professionnel surdosé pour l'usage, un brossage manuel adapté au support — tuile plate petit moule ou ardoise naturelle — puis un hydrofuge haute performance qui prive les lichens de l'humidité dont ils ont besoin pour se réinstaller.",
+  },
+];
+
+// ── Schémas : Service rattaché au LocalBusiness + FAQPage ───────────────
+const businessId = `${SITE.url}/#localbusiness`;
+const schemaService = {
+  '@context': 'https://schema.org',
+  '@type': 'Service',
+  '@id': `${SITE.url}/nettoyage-toiture-28/#service`,
+  serviceType: 'Nettoyage et démoussage de toiture',
+  name: 'Nettoyage de toiture en Eure-et-Loir',
+  description:
+    "Démoussage, brossage manuel, traitement hydrofuge et nettoyage de gouttières sur tuiles plates petit moule et ardoises naturelles, par un artisan couvreur du 28.",
+  provider: { '@id': businessId },
+  areaServed: {
+    '@type': 'AdministrativeArea',
+    name: `${SITE.departement} (${SITE.departementNum})`,
+  },
+  offers: { '@type': 'Offer', priceCurrency: 'EUR', availability: 'https://schema.org/InStock' },
+};
+
+const schemaFaq = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faq.map((f) => ({
+    '@type': 'Question',
+    name: f.q,
+    acceptedAnswer: { '@type': 'Answer', text: f.r },
+  })),
+};
+---
+<BaseLayout title={title} description={description} extraSchemas={[schemaService, schemaFaq]}>
+  <!-- ── Bloc 1 · Hero : design de la home (titre / photo / coches) ───── -->
+  <section class="section" style="padding-bottom: 0;">
+    <div class="conteneur">
+      <FilAriane items={[{ label: 'Accueil', href: '/' }, { label: 'Nettoyage de toiture' }]} />
+    </div>
+  </section>
+  <section class="hx">
+    <div class="conteneur hx__grid">
+      <div class="hx__head">
+        <h1 class="hx__title">Nettoyage et démoussage de toiture<br />en Eure-et-Loir&nbsp;(28)</h1>
+        <p class="hx__marque">RENAUD RÉNOV</p>
+      </div>
+
+      <div class="hx__right">
+        <img
+          class="hx__photo"
+          src="/images/photos/nettoyage-demoussage-toiture.webp"
+          alt="M. Renaud, artisan couvreur, nettoyant et démoussant une toiture en Eure-et-Loir"
+          fetchpriority="high"
+          width="2000"
+          height="1500"
+        />
+        <div class="hx__note">
+          <div class="hx__note-top">
+            <LogoGoogle taille={26} />
+            <span class="hx__note-stars" aria-label={`${reviews.note} étoiles sur 5`}>
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l2.9 6.26 6.9.6-5.2 4.53 1.55 6.75L12 17.77 5.85 20.7 7.4 13.95 2.2 9.42l6.9-.6L12 2z"/></svg>
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l2.9 6.26 6.9.6-5.2 4.53 1.55 6.75L12 17.77 5.85 20.7 7.4 13.95 2.2 9.42l6.9-.6L12 2z"/></svg>
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l2.9 6.26 6.9.6-5.2 4.53 1.55 6.75L12 17.77 5.85 20.7 7.4 13.95 2.2 9.42l6.9-.6L12 2z"/></svg>
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l2.9 6.26 6.9.6-5.2 4.53 1.55 6.75L12 17.77 5.85 20.7 7.4 13.95 2.2 9.42l6.9-.6L12 2z"/></svg>
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l2.9 6.26 6.9.6-5.2 4.53 1.55 6.75L12 17.77 5.85 20.7 7.4 13.95 2.2 9.42l6.9-.6L12 2z"/></svg>
+            </span>
+          </div>
+          <p class="hx__note-txt">Noté <strong>{reviews.note.toLocaleString('fr-FR')}/5</strong> sur Google · {reviews.nombre} avis</p>
+        </div>
+      </div>
+
+      <div class="hx__body">
+        <p class="hx__chapo">
+          Votre toiture est envahie par les mousses et les lichens, elle est salie par des traînées
+          noires, des traces de pollution, et vous souhaitez la nettoyer&nbsp;? Vous avez besoin d'un
+          professionnel capable de laver votre toit et de retirer les mousses sans abîmer la
+          toiture ni polluer votre environnement. Je suis M.&nbsp;Renaud et, avec mon entreprise de
+          couverture <strong>Renaud Rénov</strong>, je suis l'expert du
+          <strong>nettoyage et du démoussage de toiture</strong> en <strong>Eure-et-Loir</strong>.
+        </p>
+
+        <ul class="hx__points">
+          <li>
+            <span class="hx__check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="4"/><path d="M8 12.5l2.5 2.5 5-6"/></svg></span>
+            15 années d'expérience en entretien de toitures
+          </li>
+          <li>
+            <span class="hx__check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="4"/><path d="M8 12.5l2.5 2.5 5-6"/></svg></span>
+            Démoussage professionnel des toitures
+          </li>
+          <li>
+            <span class="hx__check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="4"/><path d="M8 12.5l2.5 2.5 5-6"/></svg></span>
+            Applicateur de solutions Dalep pour les toitures et les façades
+          </li>
+          <li>
+            <span class="hx__check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="4"/><path d="M8 12.5l2.5 2.5 5-6"/></svg></span>
+            Devis gratuit et sans engagement
+          </li>
+        </ul>
+
+        <div class="hx__badges">
+          <img src="/images/labels/applicateur-dalep.webp" alt="Applicateur de solutions DALEP certifié" width="240" height="240" loading="lazy" />
+        </div>
+
+        <div class="hx__actions">
+          <a href="/devis-gratuit/" class="btn btn--rouge">Devis gratuit<FlecheRonde /></a>
+          <a href={SITE.telHref} class="btn btn--bleu">
+            <svg class="icone" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6.5 3.5h-2A1.5 1.5 0 0 0 3 5.2C3.4 13 11 20.6 18.8 21a1.5 1.5 0 0 0 1.7-1.5v-2a1.5 1.5 0 0 0-1.3-1.5l-2.5-.35a1.5 1.5 0 0 0-1.4.6l-.7.95a11.5 11.5 0 0 1-4.9-4.9l.95-.7a1.5 1.5 0 0 0 .6-1.4l-.35-2.5a1.5 1.5 0 0 0-1.5-1.3Z"/><path d="M14.5 3.6a5.5 5.5 0 0 1 4.9 4.9"/><path d="M14 7a2.4 2.4 0 0 1 2 2"/></svg>
+            {SITE.tel}
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Bloc 2 · H2 services + 4 H3 techniques ───────────────────────── -->
+  <section class="section section--gris">
+    <div class="conteneur">
+      <div class="section__entete">
+        <h2>Une gamme de services pour un toit propre et sans mousses</h2>
+      </div>
+
+      <div class="savoir">
+        <!-- 1 · Démoussage de toitures -->
+        <article class="savoir-carte">
+          <div class="savoir-carte__media">
+            <img
+              src="/images/photos/demoussage-28.webp"
+              alt="Maison aux volets bleus avec sa toiture en tuiles propre après démoussage par Renaud Rénov en Eure-et-Loir (28)"
+              loading="lazy" width="2000" height="1500"
+            />
+          </div>
+          <div class="savoir-carte__texte">
+            <h3>Nettoyage de toiture</h3>
+            <p>
+              L'objectif est de retrouver une toiture propre, sans présence de végétaux sur la
+              toiture. Il peut s'agir de mousses, de lichens, de tout un ensemble de micro-organismes
+              qui abîment les matériaux de couverture — essentiellement les tuiles et les ardoises.
+              Avec leurs micro-racines, ils pénètrent les matériaux et les rendent poreux, le toit
+              n'est plus étanche et la toiture devient fragile. Je retire les mousses et les lichens
+              en utilisant des techniques adaptées aux matériaux de couverture&nbsp;: un lavage basse
+              pression, l'application d'antimousses professionnels adaptés aux toitures, parfois le
+              lavage haute pression pour des toitures en tuiles béton. L'objectif est de garantir un
+              nettoyage efficace qui n'abîme pas votre toiture.
+            </p>
+          </div>
+        </article>
+
+        <!-- 2 · Traitement hydrofuge (carte marine, image à droite) -->
+        <article class="savoir-carte savoir-carte--inverse savoir-carte--marine">
+          <div class="savoir-carte__media">
+            <img
+              src="/images/photos/toiture-apres-hydrofuge-resine-28.webp"
+              alt="Toiture en tuiles ravivée après application d'une résine hydrofuge colorée par Renaud Rénov en Eure-et-Loir"
+              loading="lazy" width="2000" height="1500"
+            />
+          </div>
+          <div class="savoir-carte__texte">
+            <h3>Application de traitement hydrofuge</h3>
+            <p>
+              Il s'agit de produits adaptés spécifiquement aux toitures, qui permettent d'en
+              renforcer la résistance et l'étanchéité. Ils créent un effet déperlant en maintenant la
+              microporosité&nbsp;: le produit empêche l'humidité de pénétrer, tout en permettant aux
+              tuiles plates et à l'ardoise naturelle de respirer. Ces
+              <a href="/prestations/traitement-hydrofuge/">traitements hydrofuges</a> sont adaptés à
+              des toitures anciennes dont les tuiles sont devenues plus fragiles, mais qui ne sont
+              pas pour autant abîmées. Il s'agit d'un renfort, couplé à un antimousse. Ils empêchent
+              également les végétaux de s'installer sur la toiture.
+            </p>
+          </div>
+        </article>
+
+        <!-- 3 · Brossage manuel tuiles & ardoises : le bloc expertise -->
+        <article class="savoir-carte">
+          <div class="savoir-carte__media">
+            <img
+              src="/images/photos/brossage-manuel-tuiles-anciennes-28.webp"
+              alt="Artisan couvreur Renaud Rénov brossant à la main les mousses d'une toiture ancienne en tuiles plates en Eure-et-Loir"
+              loading="lazy" width="1500" height="2000"
+              style="object-position: center 62%;"
+            />
+          </div>
+          <div class="savoir-carte__texte">
+            <h3>Brossage manuel des toitures</h3>
+            <p>
+              Certaines toitures sont recouvertes de tuiles ou d'ardoises fragiles. Généralement, on
+              parle de tuiles plates petit moule&nbsp;: leurs teintes vont du rouge orangé au brun
+              violacé. Au sud de la Beauce, on va retrouver de l'ardoise naturelle, notamment sur
+              certains édifices. Pour être certain de ne pas abîmer ces matériaux de couverture, on
+              va utiliser le brossage manuel&nbsp;: on aura ainsi la garantie de ne pas abîmer la
+              toiture, et on conserve le calcin des tuiles plates et la surface des ardoises.
+            </p>
+          </div>
+        </article>
+
+        <!-- 4 · Nettoyage de gouttières -->
+        <article class="savoir-carte savoir-carte--inverse">
+          <div class="savoir-carte__media">
+            <img
+              src="/images/photos/gouttiere-descente.webp"
+              alt="Descente de gouttière et zinguerie entretenues par Renaud Rénov sur une maison d'Eure-et-Loir"
+              loading="lazy" width="2000" height="1500"
+            />
+          </div>
+          <div class="savoir-carte__texte">
+            <h3>Nettoyage des gouttières</h3>
+            <p>
+              En général, à l'issue d'un nettoyage de toiture, on procède au nettoyage des
+              gouttières. C'est une prestation simple et efficace pour garantir le bon fonctionnement
+              des systèmes d'évacuation des eaux de pluie. J'interviens sur les chéneaux, les noues
+              et les descentes d'eau de pluie. On évite ainsi les débordements et les infiltrations,
+              pour être certain d'avoir des <a href="/prestations/pose-gouttiere/">gouttières en bon
+              état</a>, avec des toitures qui ne souffrent pas d'accumulation d'eau de pluie.
+            </p>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Bloc 3 · Deux avis clients : photo à gauche, avis à droite ───── -->
+  <section class="section">
+    <div class="conteneur">
+      <div class="temoins">
+        <img
+          class="temoins__photo"
+          src="/images/photos/renaud-renov-couvreur-28.webp"
+          alt="M. Renaud, artisan couvreur Renaud Rénov, devant une toiture nettoyée en Eure-et-Loir"
+          loading="lazy"
+          width="1024"
+          height="768"
+        />
+        <div class="temoins__liste">
+          <div class="temoins__entete">
+            <h2>Ils m'ont confié l'entretien de leur toiture</h2>
+            <p class="avis-note-google">
+              <LogoGoogle taille={20} />
+              <span class="avis-note-google__etoiles" aria-hidden="true">★★★★★</span>
+              Noté <strong>{reviews.note.toLocaleString('fr-FR')}/5</strong> sur Google · {reviews.nombre} avis
+            </p>
+          </div>
+          {avisNettoyage.map((a) => (
+            <article class="temoin">
+              <p class="temoin__note">
+                <span class="temoin__etoiles" aria-hidden="true">★★★★★</span>
+                <span class="visuallyhidden">{a.note} étoiles sur 5</span>
+              </p>
+              <p class="temoin__texte">{a.texte}</p>
+              <p class="temoin__auteur">{a.signature}</p>
+            </article>
+          ))}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Bloc 4 · Pourquoi choisir : 3 atouts nettoyage ───────────────── -->
+  <section class="section section--bleute">
+    <div class="conteneur">
+      <div class="section__entete">
+        <h2>Pourquoi choisir Renaud Rénov pour nettoyer votre toit&nbsp;?</h2>
+      </div>
+
+      <div class="atouts atouts--trois">
+        <article class="atout">
+          <h3>Une véritable expertise en nettoyage de toiture</h3>
+          <p>
+            Implanté en Eure-et-Loir, travailler avec moi, c'est bénéficier d'une solide expérience
+            et du savoir-faire d'un <a href="/">couvreur du 28</a>&nbsp;: je connais les matériaux
+            utilisés ici, dans le département, et leur bonne utilisation.
+          </p>
+        </article>
+
+        <article class="atout">
+          <h3>Des techniques respectueuses</h3>
+          <p>
+            Utilisation de techniques qui protègent votre toit&nbsp;: pas de produits chlorés
+            dangereux pour le calcin des tuiles et pour les ardoises naturelles, pas de haute
+            pression sur des toitures fragiles. Brossage manuel ou jets basse pression pour une
+            toiture propre.
+          </p>
+        </article>
+
+        <article class="atout">
+          <h3>Des tarifs transparents</h3>
+          <p>
+            Avant toute intervention, vous recevez un devis détaillé et gratuit&nbsp;: surface,
+            prestations, produits appliqués, prix ferme. Vous savez exactement ce que vous payez, et
+            pourquoi.
+          </p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Bloc 5 · CTA intermédiaire ───────────────────────────────────── -->
+  <section class="section cta-nettoyage">
+    <div class="conteneur cta-nettoyage__grille">
+      <img
+        class="cta-nettoyage__photo"
+        src="/images/photos/nettoyage-toiture-pavillon-eure-et-loir-28.webp"
+        alt="Toiture en tuiles à moitié nettoyée en Eure-et-Loir, contraste avant/après démoussage"
+        loading="lazy"
+        width="900"
+        height="675"
+      />
+      <div class="cta-nettoyage__panneau">
+        <h2>Devis gratuit en 24&nbsp;h pour nettoyer votre toiture</h2>
+        <p>
+          Décrivez-moi votre besoin, expliquez-moi quel est votre problème, et je peux intervenir
+          chez vous en moins de 24&nbsp;h pour vérifier votre toiture et vous proposer une solution
+          pour une toiture à nouveau propre et sans végétaux.
+        </p>
+        <a href="/devis-gratuit/" class="btn btn--blanc">Contact &amp; devis en ligne<FlecheRonde /></a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Bloc 6 · Le protocole en 4 étapes ────────────────────────────── -->
+  <section class="section">
+    <div class="conteneur">
+      <div class="section__entete">
+        <h2>Ma méthode de nettoyage professionnel</h2>
+      </div>
+      <div class="protocole">
+        {protocole.map((e, i) => (
+          <article class="protocole__etape">
+            <div class="protocole__entete">
+              <span class="protocole__num">{String(i + 1).padStart(2, '0')}</span>
+              <h3>{e.titre}</h3>
+            </div>
+            <p>{e.texte}</p>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Bloc 7 · Prix ────────────────────────────────────────────────── -->
+  <section class="section section--gris">
+    <div class="conteneur">
+      <div class="section__entete">
+        <h2>Combien coûte un nettoyage de toiture dans le 28&nbsp;?</h2>
+      </div>
+      <ul class="prix-cartes">
+        {prix.map((p) => (
+          <li class="prix-carte">
+            <span class="prix-carte__presta">{p.presta}</span>
+            <span class="prix-carte__valeur">{p.fourchette}</span>
+          </li>
+        ))}
+      </ul>
+      <p style="max-width: 70ch; margin-inline: auto;">
+        Trois facteurs font varier le prix&nbsp;: la <strong>surface</strong> de la couverture, la
+        <strong>pente et l'accessibilité</strong> du toit — les pentes de 45-50° fréquentes dans le
+        département demandent plus de sécurisation — et le <strong>niveau d'encrassement</strong>,
+        selon le matériau à traiter, tuile plate petit moule ou ardoise naturelle. Pour connaître le
+        montant exact chez vous, le plus simple reste mon <a href="/devis-gratuit/">devis gratuit,
+        détaillé et sans engagement</a>.
+      </p>
+    </div>
+  </section>
+
+  <!-- ── Bloc 8 · La porte du cocon : les 14 satellites nettoyage + ville ── -->
+  <section class="section zone">
+    <div class="conteneur">
+      <div class="section__entete">
+        <h2>Nettoyage de toiture partout en Eure-et-Loir</h2>
+      </div>
+      <p style="max-width: 64ch; margin-inline: auto; text-align: center; text-wrap: balance;">
+        Installées à Villiers-le-Morhier, nos équipes réalisent le démoussage, le lavage et le
+        traitement des toitures dans tout le département, comme en limite des Yvelines. Une page
+        détaille l'intervention dans chaque commune&nbsp;:
+      </p>
+      <ul class="zone-villes">
+        {zoneEnrichie.map((z) => (
+          villeParSlug[z.slug] && (
+            <li>
+              <a href={`/nettoyage-toiture-${z.slug}/`}>
+                <span class="zone-villes__ville">{villeParSlug[z.slug].nom}</span>
+                <span class="zone-villes__ancre">{z.ancre}</span>
+              </a>
+            </li>
+          )
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <!-- ── Bloc 9 · FAQ ─────────────────────────────────────────────────── -->
+  <section class="section">
+    <div class="conteneur">
+      <div class="section__entete">
+        <h2>Vos questions sur l'entretien de votre couverture</h2>
+      </div>
+      <div class="faq">
+        {faq.map((f) => (
+          <div class="faq__item">
+            <h3>{f.q}</h3>
+            <p>{f.r}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ── CTA devis final : version nettoyage (titre, texte et photo dédiés) ── -->
+  <CtaDevis
+    titre="Vous souhaitez faire démousser votre toiture ?"
+    texte="Confiez votre toiture à un expert de l'entretien. Démoussage, brossage manuel, traitement hydrofuge et nettoyage des gouttières : j'interviens partout en Eure-et-Loir pour rendre à votre couverture sa propreté et son étanchéité. Déplacement, conseil et devis détaillé gratuits, sans engagement."
+    puces={[
+      'Entreprise familiale, père & fils.',
+      "Un travail d'artisan, mené avec exigence et passion.",
+      'Applicateur certifié de solutions Dalep.',
+    ]}
+    image="/images/photos/toiture-mousse-a-nettoyer-28.webp"
+    imageAlt="Toiture envahie par la mousse à nettoyer et démousser en Eure-et-Loir (28)"
+    imageWidth={2000}
+    imageHeight={1500}
+  />
+</BaseLayout>
+
+<style>
+  /* ── Cartes savoir-faire : contraste blanc / marine, image pleine hauteur ── */
+  .savoir { display: grid; gap: 2rem; margin-top: 2.5rem; }
+  .savoir-carte {
+    display: grid;
+    grid-template-columns: 1.05fr 1fr;
+    background: #fff;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 12px 32px rgba(36, 75, 100, 0.12);
+  }
+  /* La photo remplit la cellule SANS imposer sa hauteur : c'est le texte qui
+     dimensionne la carte (sinon une photo portrait rend la carte immense). */
+  .savoir-carte__media { min-height: 100%; }
+  .savoir-carte__media img {
+    width: 100%;
+    height: 100%;
+    min-height: 300px;
+    object-fit: cover;
+    display: block;
+  }
+  @media (min-width: 800px) {
+    .savoir-carte__media { position: relative; min-height: 300px; }
+    .savoir-carte__media img {
+      position: absolute;
+      inset: 0;
+      min-height: 0;
+    }
+  }
+  .savoir-carte__texte {
+    padding: 2.4rem 2.6rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  .savoir-carte__texte h3 { margin: 0 0 0.7rem; color: var(--bleu, #244B64); }
+  .savoir-carte__texte p { margin: 0; color: var(--gris-700, #4b5563); }
+
+  /* Image à droite (l'ordre visuel s'inverse sur desktop) */
+  @media (min-width: 800px) {
+    .savoir-carte--inverse .savoir-carte__media { order: 2; }
+  }
+
+  /* Variante marine : fond bleu, texte clair pour le contraste */
+  .savoir-carte--marine { background: var(--bleu, #244B64); }
+  .savoir-carte--marine .savoir-carte__texte h3 { color: #fff; }
+  .savoir-carte--marine .savoir-carte__texte p { color: rgba(255, 255, 255, 0.9); }
+  .savoir-carte--marine .savoir-carte__texte a { color: #ffb060; }
+
+  @media (max-width: 799px) {
+    .savoir-carte { grid-template-columns: 1fr; }
+    .savoir-carte__media img { min-height: 240px; max-height: 320px; }
+    .savoir-carte__texte { padding: 1.8rem 1.6rem; }
+  }
+
+  /* ── Avis : photo à gauche, avis empilés à droite (modèle client 12/08) ── */
+  .avis-note-google {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    margin-top: 0.6rem;
+    color: var(--gris-700, #4b5563);
+    font-size: 0.95rem;
+  }
+  .avis-note-google strong { color: var(--bleu, #244B64); }
+  .avis-note-google__etoiles { color: var(--etoile, #f5a623); letter-spacing: 0.06em; }
+
+  .temoins {
+    display: grid;
+    gap: 2.2rem;
+    align-items: center;
+  }
+  .temoins__entete h2 { margin: 0 0 0.4rem; color: var(--bleu, #244B64); }
+  .temoins__entete .avis-note-google { margin-top: 0; }
+  @media (min-width: 900px) {
+    .temoins {
+      grid-template-columns: 0.9fr 1.1fr;
+      column-gap: 4rem;
+    }
+  }
+  .temoins__photo {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+    border-radius: 24px;
+    box-shadow: var(--ombre-forte, 0 14px 34px rgba(15, 34, 45, 0.25));
+    display: block;
+  }
+  .temoins__liste { display: grid; gap: 2rem; }
+  .temoin__note {
+    display: flex;
+    align-items: center;
+    gap: 0.2rem;
+    margin: 0 0 0.7rem;
+  }
+  .temoin__etoiles {
+    color: var(--etoile, #f5a623);
+    font-size: 1.5rem;
+    letter-spacing: 0.04em;
+    line-height: 1;
+  }
+  .temoin__texte { margin: 0 0 0.9rem; color: var(--gris-700, #4b5563); line-height: 1.6; }
+  .temoin__auteur { margin: 0; font-weight: 700; color: var(--bleu, #244B64); }
+
+  /* ── Cartes « atouts » ── */
+  .atouts {
+    display: grid;
+    gap: 1.3rem;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    margin-top: 2.4rem;
+  }
+  .atout {
+    background: #fff;
+    border: 1px solid rgba(36, 75, 100, 0.08);
+    border-radius: 18px;
+    padding: 1.9rem 1.7rem;
+    box-shadow: 0 10px 28px rgba(36, 75, 100, 0.09);
+    display: flex;
+    flex-direction: column;
+    gap: 0.85rem;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+  .atout:hover { transform: translateY(-3px); box-shadow: 0 16px 36px rgba(36, 75, 100, 0.14); }
+  .atout h3 { margin: 0; color: var(--bleu, #244B64); font-size: 1.12rem; }
+  .atout p { margin: 0; color: var(--gris-700, #4b5563); }
+
+  /* ── CTA intermédiaire : photo à gauche, panneau marine à droite ── */
+  .cta-nettoyage__grille {
+    display: grid;
+    border-radius: var(--rayon);
+    overflow: hidden;
+    box-shadow: var(--ombre-forte);
+  }
+  .cta-nettoyage__photo { width: 100%; height: 100%; min-height: 260px; object-fit: cover; display: block; }
+  .cta-nettoyage__panneau {
+    background: linear-gradient(160deg, #244B64 0%, #173445 100%);
+    padding: clamp(2rem, 5vw, 3.2rem);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    text-align: left;
+    gap: 1.2rem;
+  }
+  .cta-nettoyage__panneau h2 { color: #fff; margin: 0; }
+  .cta-nettoyage__panneau p { color: rgba(255, 255, 255, 0.88); margin: 0; max-width: 42ch; }
+  @media (max-width: 799px) {
+    .cta-nettoyage__panneau { align-items: center; text-align: center; }
+    .cta-nettoyage__panneau p { text-align: center; }
+  }
+  @media (min-width: 700px) {
+    .cta-nettoyage__grille { grid-template-columns: 1fr 1.15fr; }
+  }
+
+  /* ── Protocole : 4 étapes numérotées, colonne unique verticale ── */
+  .protocole {
+    display: grid;
+    gap: 1.1rem;
+    grid-template-columns: 1fr;
+    max-width: 46rem;
+    margin: 2.4rem auto 0;
+  }
+  .protocole__etape {
+    background: #fff;
+    border: 1px solid rgba(36, 75, 100, 0.08);
+    border-radius: 18px;
+    padding: 1.6rem 1.7rem;
+    box-shadow: 0 10px 28px rgba(36, 75, 100, 0.09);
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.6rem;
+  }
+  .protocole__entete {
+    display: flex;
+    flex-direction: row;
+    align-items: baseline;
+    gap: 0.8rem;
+  }
+  .protocole__num {
+    flex: 0 0 auto;
+    font-size: 1.6rem;
+    font-weight: 800;
+    color: var(--rouge, #EF7E0F);
+    line-height: 1;
+  }
+  .protocole__etape h3 { margin: 0; color: var(--bleu, #244B64); font-size: 1.1rem; }
+  .protocole__etape p { margin: 0; color: var(--gris-700, #4b5563); }
+
+  /* ── Prix : 3 cartes ── */
+  .prix-cartes {
+    list-style: none;
+    padding: 0;
+    margin: 2.2rem auto 1.8rem;
+    display: grid;
+    gap: 1.1rem;
+    grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+    max-width: 56rem;
+  }
+  .prix-carte {
+    background: #fff;
+    border: 1px solid rgba(36, 75, 100, 0.08);
+    border-radius: 16px;
+    padding: 1.5rem 1.6rem;
+    box-shadow: 0 8px 22px rgba(36, 75, 100, 0.08);
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+    text-align: center;
+  }
+  .prix-carte__presta { font-weight: 700; color: var(--bleu, #244B64); }
+  .prix-carte__valeur { font-size: 1.35rem; font-weight: 800; color: var(--rouge, #EF7E0F); }
+
+  /* ══ Hero — design de la page d'accueil (repris de index.astro) ══ */
+  .hx { padding-block: clamp(1.6rem, 4vw, 3rem); }
+  .hx__grid {
+    display: grid;
+    gap: 1.6rem;
+    grid-template-columns: 1fr;
+    grid-template-areas: "head" "photo" "body";
+  }
+  @media (min-width: 960px) {
+    .hx__grid {
+      grid-template-columns: 1.05fr 1fr;
+      grid-template-areas: "head photo" "body photo";
+      column-gap: 3.5rem;
+      row-gap: 1.1rem;
+      align-items: center;
+    }
+  }
+  .hx__head { grid-area: head; }
+  .hx__right { grid-area: photo; position: relative; }
+  .hx__right::after {
+    content: "";
+    position: absolute;
+    left: 0; right: 0; bottom: 0;
+    height: 42%;
+    border-radius: 0 0 24px 24px;
+    background: linear-gradient(to top, rgba(15, 34, 45, 0.6), rgba(15, 34, 45, 0));
+    pointer-events: none;
+    z-index: 1;
+  }
+  .hx__body { grid-area: body; }
+  .hx__title { margin: 0; color: var(--bleu); font-size: clamp(1.45rem, 2.6vw, 1.85rem); line-height: 1.2; letter-spacing: -0.01em; }
+  .hx__marque { color: var(--rouge); font-weight: 800; font-size: clamp(1.9rem, 4.4vw, 2.9rem); line-height: 1.1; margin: 0.6rem 0 0; }
+  .hx__photo { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; border-radius: 24px; box-shadow: var(--ombre-forte); display: block; }
+  @media (min-width: 960px) { .hx__photo { aspect-ratio: 4 / 5; } }
+
+  .hx__chapo { color: var(--gris-700); margin: 0 0 1.2rem; max-width: 56ch; }
+  .hx__chapo strong { color: var(--bleu); }
+
+  .hx__points { list-style: none; padding: 0; margin: 0.4rem 0 1.2rem; display: grid; gap: 0.9rem; }
+  .hx__points li {
+    display: flex; align-items: center; gap: 0.8rem;
+    font-size: 1.08rem; font-weight: 600; color: var(--bleu);
+  }
+  .hx__check { color: var(--rouge); flex-shrink: 0; line-height: 0; }
+  .hx__check svg { width: 30px; height: 30px; }
+
+  .hx__note {
+    position: absolute;
+    left: 50%;
+    bottom: 1rem;
+    transform: translateX(-50%);
+    width: max-content;
+    max-width: calc(100% - 1.6rem);
+    display: flex; flex-direction: column; align-items: center; gap: 0.3rem;
+    background: var(--blanc);
+    border-radius: 16px;
+    box-shadow: 0 14px 34px rgba(15, 34, 45, 0.42);
+    padding: 0.8rem 1.5rem;
+    z-index: 2;
+  }
+  .hx__note-top { display: flex; align-items: center; gap: 0.6rem; }
+  .hx__note-stars { display: inline-flex; gap: 0.1em; }
+  .hx__note-stars svg { width: 1.35rem; height: 1.35rem; fill: var(--etoile); }
+  .hx__note-txt { margin: 0; color: var(--gris-700); font-size: 1.02rem; }
+  .hx__note-txt strong { color: var(--bleu); }
+
+  .hx__badges { display: flex; align-items: center; gap: 1.3rem; flex-wrap: wrap; margin: 0 0 1.6rem; }
+  .hx__badges img { height: 64px; width: auto; }
+
+  .hx__actions { display: flex; flex-wrap: wrap; gap: 0.8rem; }
+  .hx__cta-sub { color: var(--rouge-fonce); font-size: 0.9rem; margin: 0.5rem 0 0; }
+
+  @media (max-width: 959px) {
+    .hx__title, .hx__marque { text-align: center; }
+    .hx__chapo { text-align: center; margin-inline: auto; }
+    .hx__badges, .hx__actions { justify-content: center; }
+    .hx__cta-sub { text-align: center; }
+    .hx__badges img { height: 56px; }
+  }
+
+  .faq { display: grid; gap: 1.4rem; margin-top: 1.6rem; max-width: 75ch; margin-inline: auto; }
+  .faq__item { padding-left: 1.1rem; }
+  .faq__item h3 { margin: 0 0 0.4rem; color: var(--bleu, #244B64); font-size: 1.08rem; }
+  .faq__item p { margin: 0; color: var(--gris-700, #4b5563); line-height: 1.55; }
+
+  /* ── Zone d'intervention : fond marine + cartes communes ── */
+  .zone { background: linear-gradient(160deg, #244B64 0%, #173445 100%); }
+  .zone .section__entete h2 { color: #fff; }
+  .zone > .conteneur > p { color: rgba(255, 255, 255, 0.9); }
+  .zone-villes {
+    list-style: none;
+    padding: 0;
+    margin: 2.2rem 0 0;
+    display: grid;
+    gap: 0.9rem;
+    grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  }
+  .zone-villes a {
+    display: flex;
+    flex-direction: column;
+    gap: 0.15rem;
+    justify-content: center;
+    padding: 0.95rem 1.15rem;
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    border-radius: 13px;
+    text-decoration: none;
+    transition: background 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+  }
+  .zone-villes a:hover {
+    background: rgba(255, 255, 255, 0.12);
+    border-color: var(--rouge, #EF7E0F);
+    transform: translateY(-2px);
+  }
+  .zone-villes__ville { color: #fff; font-weight: 700; font-size: 1.02rem; }
+  .zone-villes__ancre { color: rgba(255, 255, 255, 0.68); font-size: 0.85rem; }
+</style>
