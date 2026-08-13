@@ -69,7 +69,7 @@ const schemaFil = {
 ---
 <BaseLayout title={title} description={description} extraSchemas={[schemaRealisation, schemaFil]}>
   <!-- ── Fil d'Ariane ─────────────────────────────────────────── -->
-  <section class="section" style="padding-block: 1.4rem 0;">
+  <section class="section section--compact">
     <div class="conteneur">
       <FilAriane items={[{ label: 'Accueil', href: '/' }, { label: `Démoussage de toiture à ${ville}` }]} />
     </div>
@@ -224,20 +224,20 @@ const schemaFil = {
     background: rgba(239, 126, 15, 0.18);
     border: 1px solid rgba(239, 126, 15, 0.5);
     color: #ffb060;
-    font-size: 0.82rem;
+    font-size: var(--fs-xs);
     font-weight: 700;
     letter-spacing: 0.03em;
     margin-bottom: 1rem;
   }
   .reno-hero h1 { color: #fff; margin: 0; }
   .reno-marque {
-    font-size: clamp(1.4rem, 4.5vw, 2.1rem);
+    font-size: clamp(1.6rem, 4.4vw, 2.4rem);
     font-weight: 800;
     color: var(--rouge);
     line-height: 1.05;
     margin: 0.35rem 0 1.1rem;
   }
-  .reno-chapo { color: rgba(255, 255, 255, 0.9); margin: 0 0 1.5rem; max-width: 52ch; }
+  .reno-chapo { color: rgba(255, 255, 255, 0.9); margin: 0 0 1.5rem; max-width: var(--mesure-etroite); }
   .reno-chapo a { color: #ffb060; font-weight: 600; }
   .reno-chapo a:hover { color: #fff; }
   .reno-hero__actions { display: flex; flex-wrap: wrap; gap: 0.8rem; }
@@ -258,7 +258,7 @@ const schemaFil = {
     border-radius: 999px;
     background: var(--rouge);
     color: #fff;
-    font-size: 0.85rem;
+    font-size: var(--fs-xs);
     font-weight: 700;
   }
 
@@ -294,8 +294,8 @@ const schemaFil = {
   }
   .reno-fiche__icone svg { width: 1.4rem; height: 1.4rem; }
   .reno-fiche__txt { display: flex; flex-direction: column; line-height: 1.3; }
-  .reno-fiche__label { font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.05em; color: var(--gris-500); }
-  .reno-fiche__txt strong { color: var(--bleu); font-size: 1.02rem; }
+  .reno-fiche__label { font-size: var(--fs-xs); text-transform: uppercase; letter-spacing: 0.05em; color: var(--gris-500); }
+  .reno-fiche__txt strong { color: var(--bleu); font-size: var(--fs-base); }
 
   /* ══ Avant / après ══ */
   .reno-av-ap {
@@ -319,7 +319,7 @@ const schemaFil = {
     z-index: 1;
     padding: 0.32rem 0.9rem;
     border-radius: 999px;
-    font-size: 0.85rem;
+    font-size: var(--fs-xs);
     font-weight: 700;
     color: #fff;
   }
@@ -328,7 +328,7 @@ const schemaFil = {
   .reno-legende { margin-top: 1.1rem; text-align: center; font-style: italic; color: var(--gris-700); }
 
   /* ══ Déroulé en étapes ══ */
-  .reno-intro { max-width: 64ch; margin: 0 auto 2.4rem; text-align: center; text-wrap: balance; color: var(--gris-700); }
+  .reno-intro { max-width: var(--mesure); margin: 0 auto 2.4rem; text-align: left; text-wrap: pretty; color: var(--gris-700); }
   .reno-etapes {
     list-style: none;
     padding: 0;
@@ -351,17 +351,17 @@ const schemaFil = {
     background: var(--bleu);
     color: #fff;
     font-weight: 800;
-    font-size: 1.15rem;
+    font-size: var(--fs-md);
     margin-bottom: 1rem;
   }
   .reno-etape h3 { margin: 0 0 0.5rem; color: var(--bleu); }
   .reno-etape p { margin: 0; color: var(--gris-700); }
   .reno-signature {
-    max-width: 60ch;
+    max-width: var(--mesure-etroite);
     margin: 2.4rem auto 0;
-    text-align: center;
-    text-wrap: balance;
-    font-size: 1.08rem;
+    text-align: left;
+    text-wrap: pretty;
+    font-size: var(--fs-md);
     font-weight: 600;
     color: var(--bleu);
   }
@@ -371,7 +371,7 @@ const schemaFil = {
     .reno-hero__texte { text-align: center; }
     .reno-tag { display: block; width: fit-content; margin-inline: auto; }
     .reno-marque { text-align: center; }
-    .reno-chapo { text-align: center; margin-inline: auto; }
+    .reno-chapo { margin-inline: auto; text-align: left; } /* chapô long : reste en drapeau à gauche */
     .reno-hero__actions { justify-content: center; }
   }
 </style>

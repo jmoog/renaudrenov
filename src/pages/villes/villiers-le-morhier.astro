@@ -110,14 +110,14 @@ const schemaVille = {
 ---
 <BaseLayout title={title} description={description} extraSchemas={[schemaVille]}>
   <!-- ── Fil d'Ariane ─────────────────────────────────────────── -->
-  <section class="section" style="padding-block: 1.5rem 0;">
+  <section class="section section--compact">
     <div class="conteneur">
       <FilAriane items={[{ label: 'Accueil', href: '/' }, { label: `Couvreur à ${ville}` }]} />
     </div>
   </section>
 
   <!-- ── Hero (design repris de la home) ──────────────────────── -->
-  <section class="hero" style="padding-top: 1.5rem;">
+  <section class="hero hero--compact">
     <div class="conteneur hero__grille">
       <div class="hero__texte">
         <h1>Entreprise de couverture à {ville}</h1>
@@ -178,7 +178,7 @@ const schemaVille = {
   </section>
 
   <!-- ── Adresse & horaires (uniquement sur la page du siège) ─── -->
-  <section class="section coord" style="padding-block: 0 clamp(3rem, 7vw, 5rem);">
+  <section class="section section--sans-haut coord">
     <div class="conteneur">
       <div class="carte coord__carte">
         <div class="coord__bloc">
@@ -356,7 +356,7 @@ const schemaVille = {
     margin-bottom: 0.5rem;
   }
   .mairie__icone svg { width: 1.5rem; height: 1.5rem; }
-  .mairie__nom { font-size: 1.15rem; margin: 0; color: var(--bleu); }
+  .mairie__nom { font-size: var(--fs-md); margin: 0; color: var(--bleu); }
   .mairie address { font-style: normal; color: var(--gris-700); margin: 0 0 1rem; }
   .mairie__lien { margin-top: 0.2rem; }
 
@@ -365,8 +365,14 @@ const schemaVille = {
     gap: 2rem;
     padding: clamp(1.5rem, 4vw, 2.5rem);
   }
-  @media (min-width: 800px) {
-    .coord__carte { grid-template-columns: repeat(3, 1fr); gap: 2.5rem; }
+  /* Grille auto-adaptative : une colonne ne descend jamais sous 260px.
+     Avant, 3 colonnes étaient forcées dès 800px, ce qui laissait ~113px de
+     texte utile — « Me contacter en cas d'urgence » et le numéro de
+     téléphone se cassaient sur trois lignes. */
+  @media (min-width: 620px) {
+    .coord__carte { grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 2.5rem; }
+  }
+  @media (min-width: 980px) {
     .coord__bloc + .coord__bloc { border-left: 1px solid var(--gris-200); padding-left: 2.5rem; }
   }
   .coord__carte:hover { transform: none; }
@@ -383,14 +389,20 @@ const schemaVille = {
     justify-content: center;
   }
   .coord__icone svg { width: 1.4rem; height: 1.4rem; }
-  .coord__bloc h2 { font-size: 1.2rem; margin: 0 0 0.5rem; color: var(--bleu); }
+  .coord__bloc h2 { font-size: var(--fs-lg); margin: 0 0 0.5rem; color: var(--bleu); }
   .coord__bloc address { font-style: normal; color: var(--gris-700); line-height: 1.6; }
   .coord__horaires { margin: 0 0 0.6rem; color: var(--gris-700); line-height: 1.6; }
-  .coord__urgence { margin: 0; font-size: 0.92rem; color: var(--gris-500); line-height: 1.55; }
-  .coord__lien { display: inline-block; margin-top: 0.6rem; color: var(--rouge); font-weight: 700; font-size: 0.95rem; }
-  .coord__contact { margin: 0 0 1rem; font-size: 1.25rem; font-weight: 700; color: var(--bleu); line-height: 1.6; }
+  .coord__urgence { margin: 0; font-size: var(--fs-sm); color: var(--gris-500); line-height: 1.6; }
+  .coord__lien { display: inline-block; margin-top: 0.6rem; color: var(--rouge-fonce); font-weight: 700; font-size: var(--fs-sm); }
+  .coord__contact { margin: 0 0 1rem; font-size: var(--fs-lg); font-weight: 700; color: var(--bleu); line-height: 1.4; white-space: nowrap; }
   .coord__contact a { color: var(--bleu); }
   .coord__contact a:hover { color: var(--rouge); }
-  .coord__mob { display: inline-block; font-size: 0.95rem; font-weight: 500; color: var(--gris-500); }
+  .coord__mob { display: inline-block; font-size: var(--fs-sm); font-weight: 500; color: var(--gris-500); }
   .coord__mob a { color: var(--gris-700); text-decoration: underline; }
+
+  /* ── Mesure de lecture ────────────────────────────────────────
+     En dessous du seuil où ce bloc passe en deux colonnes, il occupe
+     toute la largeur du conteneur et la ligne dépassait 90 caractères
+     (le confort de lecture s'arrête vers 75). On borne la colonne. */
+  .encadre p { max-width: var(--mesure); }
 </style>

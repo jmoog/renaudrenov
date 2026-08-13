@@ -1,4 +1,13 @@
 ---
+// ─────────────────────────────────────────────────────────────────────────
+// PILIER SECONDAIRE — Nettoyage de façade en Eure-et-Loir (28).
+// URL : /nettoyage-facade-28/ (remplace /prestations/nettoyage-facade/, 301).
+// Brief client du 13/08/2026 : 9 blocs + section avant/après conservée de
+// l'ancienne page. Design = pilier /nettoyage-toiture-28/ (hero .hx
+// problème → solution + coches, cartes savoir, protocole, zone marine, FAQ).
+// Rôle cocon : pilier secondaire → liens contextuels répétés vers le pilier
+// principal /nettoyage-toiture-28/ et vers /traitement-hydrofuge-28/.
+// ─────────────────────────────────────────────────────────────────────────
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { SITE } from '../data/site.ts';
 import villes from '../data/villes.json';
@@ -7,40 +16,20 @@ import FilAriane from '../components/FilAriane.astro';
 import LogoGoogle from '../components/LogoGoogle.astro';
 import CtaDevis from '../components/CtaDevis.astro';
 import FlecheRonde from '../components/FlecheRonde.astro';
+import AvantApresSlider from '../components/AvantApresSlider.astro';
 
-// ── Balises : brief pilier du 12/08/2026 (angles différenciés) ──────────
-// Title → mot-clé + dept + co-requête ; H1 → tête différente du title ;
-// Meta → prestations + matériaux + « Tarifs » (différenciant SERP).
-// Balises dictées par le client le 12/08/2026.
-const title = 'Lavage et démoussage professionnel de toiture dans le 28';
+// ── Balises : title dicté par le client (brief 13/08/2026) ; H1 et meta
+// différenciés (anti-triplette) et validés le 13/08/2026. ──
+const title = 'Nettoyage de Façade 28 | Démoussage et traitement en Eure-et-Loir';
 const description =
-  "Devis gratuit pour le nettoyage de votre toit en Eure-et-Loir. Brossage manuel, démoussage en profondeur et traitements. Renaud Rénov, votre spécialiste.";
+  'Redonnez un aspect neuf à vos murs : enduits, crépis, pierre ou brique, un artisan du 28 intervient et protège durablement. Devis gratuit en 24 h.';
 
-// ── Bloc 8 : la porte du cocon — les 14 satellites /nettoyage-toiture-{ville}/.
-// Ancres alignées sur le H1 de chaque satellite (règle du cocon, 13/08/2026).
-const zoneEnrichie = [
-  { slug: 'villiers-le-morhier', ancre: 'le démoussage et lavage de toiture à Villiers-le-Morhier' },
-  { slug: 'maintenon', ancre: 'le nettoyage et démoussage de toiture à Maintenon' },
-  { slug: 'nogent-le-roi', ancre: 'le démoussage de toiture à Nogent-le-Roi' },
-  { slug: 'epernon', ancre: 'faire nettoyer sa toiture à Épernon' },
-  { slug: 'hanches', ancre: 'le lavage et traitement de toiture à Hanches' },
-  { slug: 'gallardon', ancre: 'le démoussage et traitement de toiture à Gallardon' },
-  { slug: 'pierres', ancre: 'le nettoyage de toiture à Pierres' },
-  { slug: 'saint-piat', ancre: 'le démoussage de toit à Saint-Piat' },
-  { slug: 'bouglainval', ancre: 'le nettoyage et traitement de toiture à Bouglainval' },
-  { slug: 'chartres', ancre: 'le démoussage et lavage de toiture à Chartres' },
-  { slug: 'dreux', ancre: 'le nettoyage de toiture à Dreux' },
-  { slug: 'auneau', ancre: 'le démoussage de toiture à Auneau' },
-  { slug: 'rambouillet', ancre: 'le nettoyage et traitement de toiture à Rambouillet' },
-  { slug: 'houdan', ancre: 'le démoussage de toit à Houdan' },
-];
-const villeParSlug = Object.fromEntries(villes.map((v) => [v.slug, v]));
-
-// ── Bloc 3 : deux avis réels ciblés (un démoussage sur tuile, un hydrofuge),
-// signés « Prénom N. (Ville) » — la ville uniquement quand l'avis la cite. ──
-const avisNettoyage = [
-  { auteur: 'Jean-Michel Hanon', signature: 'Jean-Michel H.' },
-  { auteur: 'Dominique Ndiaye', signature: 'Dominique N. (Bouglainval)' },
+// ── Bloc 3 : deux avis réels ciblés façade / pignon (source reviews.json).
+// Jean-Michel Hanon est déjà utilisé sur le pilier toiture → on prend les
+// deux autres avis façade. Ville en signature uniquement si l'avis la cite. ──
+const avisFacade = [
+  { auteur: 'Cécile Hidrio', signature: 'Cécile H.' },
+  { auteur: 'Martine Vico', signature: 'Martine V.' },
 ]
   .map((s) => {
     const a = reviews.avis.find((r) => r.auteur === s.auteur);
@@ -50,73 +39,93 @@ const avisNettoyage = [
 
 // ── Bloc 7 : fourchettes de prix (marché — à valider par Jordy) ──────────
 const prix = [
-  { presta: 'Démoussage simple', fourchette: '15 à 25 €/m²' },
-  { presta: 'Démoussage + hydrofuge', fourchette: '25 à 45 €/m²' },
-  { presta: 'Nettoyage de gouttières', fourchette: '5 à 12 €/ml' },
+  { presta: 'Démoussage + traitement biocide', fourchette: '10 à 20 €/m²' },
+  { presta: 'Nettoyage + hydrofuge incolore', fourchette: '20 à 35 €/m²' },
+  { presta: 'Nettoyage + hydrofuge teinté', fourchette: '30 à 45 €/m²' },
 ];
 
 // ── Bloc 6 : le protocole en 4 étapes ────────────────────────────────────
 const protocole = [
   {
-    titre: 'Le traitement curatif',
+    titre: 'Le diagnostic du revêtement',
     texte:
-      "Tout commence par l'application d'un biocide à base de sels d'ammoniums quaternaires, en gamme professionnelle (type Sika ou équivalent). Le produit pénètre les végétaux et les dessèche sous 48 à 72 h : mousses, algues et lichens meurent à la racine, y compris sur tuile plate petit moule et sur ardoise naturelle.",
+      "Enduit, crépi, pierre, brique ou bardage : chaque support a sa fragilité. J'examine l'état du mur, la nature de l'encrassement — mousses, lichens, algues rouges, pollution — et les éventuelles microfissures. C'est ce diagnostic qui détermine le produit, la pression de lavage et la protection à appliquer.",
   },
   {
-    titre: 'La phase de nettoyage',
+    titre: 'Le traitement biocide curatif',
     texte:
-      "Une fois les végétaux desséchés, je lave la couverture en basse pression à 2-3 bars, complétée d'un brossage manuel des zones récalcitrantes : pureaux, arêtiers, noues et coyaux. Le rinçage se fait méthodiquement de haut en bas, dans le sens de l'écoulement, pour ne jamais faire remonter d'eau sous les rangs.",
+      "Je pulvérise un biocide professionnel (gamme Dalep, dont je suis applicateur certifié, ou équivalent) sur l'ensemble des surfaces atteintes. Le produit pénètre le revêtement et agit en profondeur pendant 48 à 72 heures : mousses, lichens et champignons sont détruits à la racine, pas seulement en surface.",
   },
   {
-    titre: 'Le traitement préventif rémanent',
+    titre: 'Le lavage et le brossage adaptés',
     texte:
-      "J'applique ensuite un traitement fongicide et algicide rémanent (formulation type Dalep — dont je suis applicateur certifié — ou Algimouss). Sa résistance au lessivage lui permet de rester actif sur la couverture et de retarder de plusieurs années la réinstallation des spores.",
+      "Une fois les organismes morts, je lave le mur du haut vers le bas, en basse pression ou en pression réglée selon le support, et je termine au brossage manuel sur les zones tenaces : soubassements, appuis de fenêtres, sous-faces de rives. Le revêtement est décrassé sans être attaqué.",
   },
   {
-    titre: 'La protection finale',
+    titre: 'La protection hydrofuge',
     texte:
-      "En option, je termine par un hydrofuge de surface (gamme type Zolpan ou ProtectGuard) : une barrière invisible qui fait perler l'eau tout en maintenant la respirabilité du matériau — indispensable pour la tuile plate petit moule comme pour l'ardoise naturelle.",
+      "Sur un mur propre et parfaitement sec, j'applique en option un hydrofuge de surface, incolore ou teinté. L'eau de pluie perle et ruisselle au lieu de pénétrer, le support continue de respirer, et la façade reste propre nettement plus longtemps.",
   },
 ];
 
 // ── Bloc 9 : FAQ (6 questions du brief) ─────────────────────────────────
 const faq = [
   {
-    q: 'Pourquoi faire nettoyer ma toiture ?',
-    r: "Parce que les tuiles plates petit moule et les ardoises naturelles sont des matériaux poreux : les mousses y retiennent l'eau en permanence, ce qui accélère leur usure et finit par provoquer des fuites. Une couverture encrassée garde aussi l'humidité au-dessus des combles et dégrade leur isolation. Un nettoyage régulier préserve l'étanchéité et repousse de nombreuses années les grosses réparations.",
+    q: 'Pourquoi nettoyer sa façade ?',
+    r: "Ce n'est pas qu'une question d'apparence. Mousses, lichens et algues retiennent l'humidité en permanence contre le mur : l'enduit devient poreux, se fissure au gel, et l'humidité finit par migrer vers l'intérieur. Un nettoyage régulier assainit le mur, protège le revêtement et repousse de plusieurs années un ravalement complet, bien plus coûteux.",
   },
   {
-    q: 'À quelle fréquence faut-il démousser ?',
-    r: "Tout dépend de l'environnement de votre maison. Dans les communes très arborées comme Maintenon, Saint-Piat, Villiers-le-Morhier ou Nogent-le-Roi, les toits se rechargent vite en mousses : un traitement tous les 5 ans environ est conseillé. Dans les secteurs plus urbains et dégagés de Chartres, de Dreux, d'Épernon ou de Gallardon, un passage tous les 8 à 10 ans suffit généralement.",
+    q: 'À quelle fréquence faut-il nettoyer ses murs ?',
+    r: "Tout dépend de l'exposition : un pignon au nord ou à l'ouest verdit bien plus vite qu'une façade au sud. Dans les communes arborées comme Maintenon, Saint-Piat, Villiers-le-Morhier, Hanches ou Nogent-le-Roi, comptez un entretien tous les 5 à 7 ans. Dans les secteurs plus urbains et dégagés de Chartres, de Dreux ou d'Épernon, un passage tous les 8 à 10 ans suffit généralement.",
   },
   {
-    q: 'Le nettoyage haute pression abîme-t-il les tuiles et les ardoises ?',
-    r: "Oui. La haute pression décape la surface des tuiles plates et des ardoises, augmente leur porosité et altère les pureaux importants de nos couvertures. C'est pour cela que je travaille exclusivement en basse pression à 2-3 bars, complétée d'un brossage : le toit est propre, le matériau est intact.",
+    q: 'Peut-on passer une façade enduite au nettoyeur haute pression ?',
+    r: "C'est déconseillé. La haute pression creuse les enduits et les crépis, ouvre des microfissures et fait entrer l'eau dans le mur — le problème revient alors aggravé. Je travaille en basse pression ou en pression finement réglée, associée à un traitement biocide et à un brossage manuel : le résultat est aussi net, sans abîmer le support.",
   },
   {
-    q: "Quel est le prix d'un démoussage ?",
-    r: "Comptez de 15 à 25 €/m² pour un démoussage simple et de 25 à 45 €/m² avec traitement hydrofuge, selon la surface, la pente et l'encrassement de la couverture. Le détail figure dans la section tarifs de cette page, et le devis est gratuit, précis et sans engagement.",
+    q: "Quel est le prix d'un nettoyage de façade ?",
+    r: "Comptez de 10 à 20 €/m² pour un démoussage avec traitement biocide, et de 20 à 45 €/m² avec une protection hydrofuge, selon la hauteur des murs, leur accessibilité et le niveau d'encrassement. Le devis est gratuit, détaillé et sans engagement.",
   },
   {
-    q: 'Quelle est la meilleure période pour nettoyer sa toiture ?',
-    r: "Les produits de traitement ont besoin d'un support sec pour bien pénétrer : j'interviens donc par temps sec, hors gel et hors forte chaleur. En pratique, le printemps, l'été et le début de l'automne offrent les meilleures conditions d'application.",
+    q: 'Peut-on combiner nettoyage de façade et nettoyage de toiture ?',
+    r: "Oui, et c'est même la formule la plus demandée : les mêmes micro-organismes colonisent le toit et les murs, et un seul déplacement suffit pour traiter l'ensemble. Consultez ma page dédiée au nettoyage et démoussage de toiture pour le détail de cette prestation.",
   },
   {
-    q: 'Que faire en cas de lichens tenaces ?',
-    r: "Les lichens incrustés demandent un protocole renforcé : un biocide professionnel surdosé pour l'usage, un brossage manuel adapté au support — tuile plate petit moule ou ardoise naturelle — puis un hydrofuge haute performance qui prive les lichens de l'humidité dont ils ont besoin pour se réinstaller.",
+    q: 'Hydrofuge incolore ou teinté : que choisir ?',
+    r: "L'incolore protège le mur sans rien changer à son aspect : c'est le bon choix quand l'enduit a gardé sa teinte. Le teinté ajoute des pigments qui ravivent et uniformisent un crépi passé ou marqué par d'anciennes coulures. Dans les deux cas, le produit reste microporeux : le mur respire.",
   },
 ];
+
+// ── Bloc 8 : les 14 communes — ancres enrichies « façade » sur les
+// principales, plus légères ailleurs (pas encore de satellites façade). ──
+const zoneEnrichie = [
+  { slug: 'villiers-le-morhier', ancre: 'le nettoyage de façade à Villiers-le-Morhier, notre commune' },
+  { slug: 'maintenon', ancre: 'le démoussage de façade à Maintenon' },
+  { slug: 'nogent-le-roi', ancre: 'le nettoyage de crépi à Nogent-le-Roi' },
+  { slug: 'epernon', ancre: 'faire nettoyer sa façade à Épernon' },
+  { slug: 'hanches', ancre: 'le lavage de façade à Hanches' },
+  { slug: 'gallardon', ancre: 'le traitement des murs à Gallardon' },
+  { slug: 'pierres', ancre: 'votre artisan à Pierres' },
+  { slug: 'saint-piat', ancre: 'le nettoyage de pignon à Saint-Piat' },
+  { slug: 'bouglainval', ancre: 'intervention sur vos murs à Bouglainval' },
+  { slug: 'chartres', ancre: 'le nettoyage de façade à Chartres' },
+  { slug: 'dreux', ancre: 'le démoussage de façade à Dreux' },
+  { slug: 'auneau', ancre: 'le nettoyage de crépi à Auneau' },
+  { slug: 'rambouillet', ancre: 'le lavage de façade à Rambouillet' },
+  { slug: 'houdan', ancre: 'votre façadier à Houdan' },
+];
+const villeParSlug = Object.fromEntries(villes.map((v) => [v.slug, v]));
 
 // ── Schémas : Service rattaché au LocalBusiness + FAQPage ───────────────
 const businessId = `${SITE.url}/#localbusiness`;
 const schemaService = {
   '@context': 'https://schema.org',
   '@type': 'Service',
-  '@id': `${SITE.url}/nettoyage-toiture-28/#service`,
-  serviceType: 'Nettoyage et démoussage de toiture',
-  name: 'Nettoyage de toiture en Eure-et-Loir',
+  '@id': `${SITE.url}/nettoyage-facade-28/#service`,
+  serviceType: 'Nettoyage et démoussage de façade',
+  name: 'Nettoyage de façade en Eure-et-Loir',
   description:
-    "Démoussage, brossage manuel, traitement hydrofuge et nettoyage de gouttières sur tuiles plates petit moule et ardoises naturelles, par un artisan couvreur du 28.",
+    "Démoussage, traitement biocide, lavage adapté au revêtement et hydrofuge de façade (enduits, crépis, pierre, brique) par un artisan d'Eure-et-Loir.",
   provider: { '@id': businessId },
   areaServed: {
     '@type': 'AdministrativeArea',
@@ -139,24 +148,24 @@ const schemaFaq = {
   <!-- ── Bloc 1 · Hero : design de la home (titre / photo / coches) ───── -->
   <section class="section section--sans-bas">
     <div class="conteneur">
-      <FilAriane items={[{ label: 'Accueil', href: '/' }, { label: 'Nettoyage de toiture' }]} />
+      <FilAriane items={[{ label: 'Accueil', href: '/' }, { label: 'Nettoyage de façade' }]} />
     </div>
   </section>
   <section class="hx">
     <div class="conteneur hx__grid">
       <div class="hx__head">
-        <h1 class="hx__title">Nettoyage et démoussage de toiture en Eure-et-Loir&nbsp;(28)</h1>
+        <h1 class="hx__title">Démoussage, lavage et protection de vos façades dans le&nbsp;28</h1>
         <p class="hx__marque">RENAUD RÉNOV</p>
       </div>
 
       <div class="hx__right">
         <img
           class="hx__photo"
-          src="/images/photos/nettoyage-demoussage-toiture.webp"
-          alt="M. Renaud, artisan couvreur, nettoyant et démoussant une toiture en Eure-et-Loir"
+          src="/images/photos/facade-pignon-sale-28.webp"
+          alt="Façade et pignon d'une maison encrassés par les mousses avant nettoyage en Eure-et-Loir (28)"
           fetchpriority="high"
-          width="2000"
-          height="1500"
+          width="900"
+          height="675"
         />
         <div class="hx__note">
           <div class="hx__note-top">
@@ -175,26 +184,25 @@ const schemaFaq = {
 
       <div class="hx__body">
         <p class="hx__chapo">
-          Votre toiture est envahie par les mousses et les lichens, elle est salie par des traînées
-          noires, des traces de pollution, et vous souhaitez la nettoyer&nbsp;? Vous avez besoin d'un
-          professionnel capable de laver votre toit et de retirer les mousses sans abîmer la
-          toiture ni polluer votre environnement. Je suis M.&nbsp;Renaud et, avec mon entreprise de
-          couverture <strong>Renaud Rénov</strong>, je suis l'expert du
-          <strong>nettoyage et du démoussage de toiture</strong> en <strong>Eure-et-Loir</strong>.
+          Vos murs verdissent, des mousses et des lichens s'incrustent dans le crépi, des traînées
+          rouges ou noires coulent le long de vos pignons&nbsp;? Vous cherchez un professionnel
+          capable de nettoyer votre façade sans agresser son revêtement. Je suis M.&nbsp;Renaud et,
+          avec mon entreprise de couverture <strong>Renaud Rénov</strong>, je suis le spécialiste du
+          <strong>nettoyage et du démoussage de façade</strong> en <strong>Eure-et-Loir</strong>.
         </p>
 
         <ul class="hx__points">
           <li>
             <span class="hx__check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="4"/><path d="M8 12.5l2.5 2.5 5-6"/></svg></span>
-            15 années d'expérience en entretien de toitures
+            Une expérience de plus de 15 ans
           </li>
           <li>
             <span class="hx__check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="4"/><path d="M8 12.5l2.5 2.5 5-6"/></svg></span>
-            Démoussage professionnel des toitures
+            Spécialiste du nettoyage des façades et des pignons
           </li>
           <li>
             <span class="hx__check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="4"/><path d="M8 12.5l2.5 2.5 5-6"/></svg></span>
-            Applicateur de solutions Dalep pour les toitures et les façades
+            Applicateur de solutions Dalep pour les façades et les toitures
           </li>
           <li>
             <span class="hx__check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="4"/><path d="M8 12.5l2.5 2.5 5-6"/></svg></span>
@@ -213,6 +221,10 @@ const schemaFaq = {
             {SITE.tel}
           </a>
         </div>
+        <p class="hx__cta-sub">
+          J'assure aussi le <a href="/nettoyage-toiture-28/">nettoyage et démoussage de toiture</a>
+          partout dans le département.
+        </p>
       </div>
     </div>
   </section>
@@ -221,100 +233,98 @@ const schemaFaq = {
   <section class="section section--gris">
     <div class="conteneur">
       <div class="section__entete">
-        <h2>Une gamme de services pour un toit propre et sans mousses</h2>
+        <h2>Artisan spécialisé dans le nettoyage des façades en Eure-et-Loir</h2>
       </div>
 
       <div class="savoir">
-        <!-- 1 · Démoussage de toitures -->
+        <!-- 1 · Démoussage et traitement biocide -->
         <article class="savoir-carte">
           <div class="savoir-carte__media">
             <img
-              src="/images/photos/demoussage-28.webp"
-              alt="Maison aux volets bleus avec sa toiture en tuiles propre après démoussage par Renaud Rénov en Eure-et-Loir (28)"
-              loading="lazy" width="2000" height="1500"
+              src="/images/photos/nettoyage-facade-haras-guainville-pignon-avant.webp"
+              alt="Pignon encrassé de mousses et de coulures avant traitement biocide en Eure-et-Loir"
+              loading="lazy" width="1600" height="1200"
             />
           </div>
           <div class="savoir-carte__texte">
-            <h3>Nettoyage de toiture</h3>
+            <h3>Démoussage et traitement biocide des façades</h3>
             <p>
-              L'objectif est de retrouver une toiture propre, sans présence de végétaux sur la
-              toiture. Il peut s'agir de mousses, de lichens, de tout un ensemble de micro-organismes
-              qui abîment les matériaux de couverture — essentiellement les tuiles et les ardoises.
-              Avec leurs micro-racines, ils pénètrent les matériaux et les rendent poreux, le toit
-              n'est plus étanche et la toiture devient fragile. Je retire les mousses et les lichens
-              en utilisant des techniques adaptées aux matériaux de couverture&nbsp;: un lavage basse
-              pression, l'application d'antimousses professionnels adaptés aux toitures, parfois le
-              lavage haute pression pour des toitures en tuiles béton. L'objectif est de garantir un
-              nettoyage efficace qui n'abîme pas votre toiture.
+              Mousses sur les soubassements, lichens incrustés dans l'enduit, traînées rouges ou
+              noires qui coulent sous les rives&nbsp;: ces micro-organismes retiennent l'humidité
+              contre vos murs et dégradent peu à peu le revêtement. J'inspecte d'abord le support,
+              puis j'applique un <strong>biocide curatif</strong> de gamme professionnelle — Dalep,
+              dont je suis applicateur certifié, ou équivalent. Le produit agit en profondeur
+              pendant 48 à 72&nbsp;heures et détruit les végétaux à la racine, exactement comme lors
+              d'un <a href="/nettoyage-toiture-28/">démoussage de toiture</a>.
             </p>
           </div>
         </article>
 
-        <!-- 2 · Traitement hydrofuge (carte marine, image à droite) -->
+        <!-- 2 · Lavage adapté au revêtement (carte marine, image à droite) -->
         <article class="savoir-carte savoir-carte--inverse savoir-carte--marine">
           <div class="savoir-carte__media">
             <img
-              src="/images/photos/toiture-apres-hydrofuge-resine-28.webp"
-              alt="Toiture en tuiles ravivée après application d'une résine hydrofuge colorée par Renaud Rénov en Eure-et-Loir"
-              loading="lazy" width="2000" height="1500"
+              src="/images/photos/nettoyage-facade-pignon-eure-et-loir-28.webp"
+              alt="M. Renaud lavant au jet basse pression le pignon d'une maison en Eure-et-Loir (28)"
+              loading="lazy" width="1200" height="1600"
             />
           </div>
           <div class="savoir-carte__texte">
-            <h3>Application de traitement hydrofuge</h3>
+            <h3>Un lavage adapté à chaque revêtement</h3>
             <p>
-              Il s'agit de produits adaptés spécifiquement aux toitures, qui permettent d'en
-              renforcer la résistance et l'étanchéité. Ils créent un effet déperlant en maintenant la
-              microporosité&nbsp;: le produit empêche l'humidité de pénétrer, tout en permettant aux
-              tuiles plates et à l'ardoise naturelle de respirer. Ces
-              <a href="/traitement-hydrofuge-28/">traitements hydrofuges</a> sont adaptés à
-              des toitures anciennes dont les tuiles sont devenues plus fragiles, mais qui ne sont
-              pas pour autant abîmées. Il s'agit d'un renfort, couplé à un antimousse. Ils empêchent
-              également les végétaux de s'installer sur la toiture.
+              Enduit, crépi, pierre, brique ou bardage&nbsp;: chaque façade demande son réglage. Je
+              travaille en <strong>basse pression</strong> ou en pression finement dosée selon la
+              fragilité du support, et je termine par un brossage manuel des zones tenaces. La haute
+              pression, elle, creuse les enduits, ouvre des microfissures et fait entrer l'eau dans
+              le mur&nbsp;: je la réserve aux rares supports qui la tolèrent. C'est la même exigence
+              que j'applique au <a href="/nettoyage-toiture-28/">lavage des toitures</a> du
+              département.
             </p>
           </div>
         </article>
 
-        <!-- 3 · Brossage manuel tuiles & ardoises : le bloc expertise -->
+        <!-- 3 · Hydrofuge de façade -->
         <article class="savoir-carte">
           <div class="savoir-carte__media">
             <img
-              src="/images/photos/brossage-manuel-tuiles-anciennes-28.webp"
-              alt="Artisan couvreur Renaud Rénov brossant à la main les mousses d'une toiture ancienne en tuiles plates en Eure-et-Loir"
-              loading="lazy" width="1500" height="2000"
-              style="object-position: center 62%;"
+              src="/images/photos/nettoyage-facade-haras-guainville-parc-apres.webp"
+              alt="Mur d'enduit clair redevenu net après nettoyage et protection hydrofuge dans le 28"
+              loading="lazy" width="1600" height="1200"
             />
           </div>
           <div class="savoir-carte__texte">
-            <h3>Brossage manuel des toitures</h3>
+            <h3>Application d'hydrofuge de façade, incolore ou teinté</h3>
             <p>
-              Certaines toitures sont recouvertes de tuiles ou d'ardoises fragiles. Généralement, on
-              parle de tuiles plates petit moule&nbsp;: leurs teintes vont du rouge orangé au brun
-              violacé. Au sud de la Beauce, on va retrouver de l'ardoise naturelle, notamment sur
-              certains édifices. Pour être certain de ne pas abîmer ces matériaux de couverture, on
-              va utiliser le brossage manuel&nbsp;: on aura ainsi la garantie de ne pas abîmer la
-              toiture, et on conserve le calcin des tuiles plates et la surface des ardoises.
+              Une fois le mur propre et parfaitement sec, je pulvérise un
+              <strong>hydrofuge de surface</strong> respirant&nbsp;: l'eau de pluie perle et
+              ruisselle au lieu de pénétrer, et l'encrassement revient beaucoup plus lentement.
+              Incolore, il préserve la teinte d'origine&nbsp;; teinté, il ravive la couleur d'un
+              enduit passé. Comptez 5 à 8&nbsp;ans de protection selon l'exposition. J'utilise les
+              mêmes gammes professionnelles que pour le
+              <a href="/traitement-hydrofuge-28/">traitement hydrofuge des toitures</a>.
             </p>
           </div>
         </article>
 
-        <!-- 4 · Nettoyage de gouttières -->
+        <!-- 4 · Pignons, soubassements, murs de clôture -->
         <article class="savoir-carte savoir-carte--inverse">
           <div class="savoir-carte__media">
             <img
-              src="/images/photos/gouttiere-descente.webp"
-              alt="Descente de gouttière et zinguerie entretenues par Renaud Rénov sur une maison d'Eure-et-Loir"
-              loading="lazy" width="2000" height="1500"
+              src="/images/photos/nettoyage-facade-haras-guainville-entree-apres.webp"
+              alt="Murs d'enceinte et piliers d'entrée nettoyés par Renaud Rénov en Eure-et-Loir"
+              loading="lazy" width="1600" height="1200"
             />
           </div>
           <div class="savoir-carte__texte">
-            <h3>Nettoyage des gouttières</h3>
+            <h3>Pignons, soubassements et murs de clôture</h3>
             <p>
-              En général, à l'issue d'un nettoyage de toiture, on procède au nettoyage des
-              gouttières. C'est une prestation simple et efficace pour garantir le bon fonctionnement
-              des systèmes d'évacuation des eaux de pluie. J'interviens sur les chéneaux, les noues
-              et les descentes d'eau de pluie. On évite ainsi les débordements et les infiltrations,
-              pour être certain d'avoir des <a href="/prestations/pose-gouttiere/">gouttières en bon
-              état</a>, avec des toitures qui ne souffrent pas d'accumulation d'eau de pluie.
+              Le pignon exposé au nord ou à l'ouest est presque toujours le mur le plus atteint de
+              la maison&nbsp;: peu de soleil, la pluie qui fouette, la mousse s'installe. J'y ajoute
+              les soubassements, qui reçoivent les rejaillissements du sol, et les murs de clôture,
+              en parpaing enduit ou en pierre. Beaucoup de clients profitent d'ailleurs de mon
+              passage pour combiner le lavage de leurs murs avec un
+              <a href="/nettoyage-toiture-28/">nettoyage de toiture</a>&nbsp;: une seule
+              installation, une maison saine du faîtage aux fondations.
             </p>
           </div>
         </article>
@@ -328,22 +338,22 @@ const schemaFaq = {
       <div class="temoins">
         <img
           class="temoins__photo"
-          src="/images/photos/renaud-renov-couvreur-28.webp"
-          alt="M. Renaud, artisan couvreur Renaud Rénov, devant une toiture nettoyée en Eure-et-Loir"
+          src="/images/photos/nettoyage-facade-haras-guainville-pignon-apres.webp"
+          alt="La camionnette Renaud Rénov devant une façade fraîchement nettoyée en Eure-et-Loir"
           loading="lazy"
-          width="1024"
-          height="768"
+          width="1600"
+          height="1200"
         />
         <div class="temoins__liste">
           <div class="temoins__entete">
-            <h2>Ils m'ont confié l'entretien de leur toiture</h2>
+            <h2>Ils m'ont confié le nettoyage de leur façade</h2>
             <p class="avis-note-google">
               <LogoGoogle taille={20} />
               <span class="avis-note-google__etoiles" aria-hidden="true">★★★★★</span>
               Noté <strong>{reviews.note.toLocaleString('fr-FR')}/5</strong> sur Google · {reviews.nombre} avis
             </p>
           </div>
-          {avisNettoyage.map((a) => (
+          {avisFacade.map((a) => (
             <article class="temoin">
               <p class="temoin__note">
                 <span class="temoin__etoiles" aria-hidden="true">★★★★★</span>
@@ -358,39 +368,38 @@ const schemaFaq = {
     </div>
   </section>
 
-  <!-- ── Bloc 4 · Pourquoi choisir : 3 atouts nettoyage ───────────────── -->
+  <!-- ── Bloc 4 · Pourquoi choisir : 3 atouts façade ──────────────────── -->
   <section class="section section--bleute">
     <div class="conteneur">
       <div class="section__entete">
-        <h2>Pourquoi choisir Renaud Rénov pour nettoyer votre toit&nbsp;?</h2>
+        <h2>Pourquoi choisir Renaud Rénov pour vos façades&nbsp;?</h2>
       </div>
 
       <div class="atouts atouts--trois">
         <article class="atout">
-          <h3>Une véritable expertise en nettoyage de toiture</h3>
+          <h3>Un artisan local, implanté à Villiers-le-Morhier</h3>
           <p>
-            Implanté en Eure-et-Loir, travailler avec moi, c'est bénéficier d'une solide expérience
-            et du savoir-faire d'un <a href="/">couvreur du 28</a>&nbsp;: je connais les matériaux
-            utilisés ici, dans le département, et leur bonne utilisation.
+            Entreprise familiale installée au cœur du département, avec plus de 15&nbsp;ans
+            d'expérience dans l'entretien des maisons&nbsp;: je connais les enduits, les pierres et
+            les briques de nos communes, et je me déplace vite, en voisin.
           </p>
         </article>
 
         <article class="atout">
-          <h3>Des techniques respectueuses</h3>
+          <h3>Des techniques qui respectent les enduits</h3>
           <p>
-            Utilisation de techniques qui protègent votre toit&nbsp;: pas de produits chlorés
-            dangereux pour le calcin des tuiles et pour les ardoises naturelles, pas de haute
-            pression sur des toitures fragiles. Brossage manuel ou jets basse pression pour une
-            toiture propre.
+            Pas de haute pression systématique, pas de produits chlorés qui brûlent les
+            revêtements&nbsp;: un diagnostic, un biocide professionnel adapté, une pression dosée et
+            un brossage manuel quand il le faut. Le mur est propre, le support est intact.
           </p>
         </article>
 
         <article class="atout">
-          <h3>Des tarifs transparents</h3>
+          <h3>Un devis gratuit et transparent</h3>
           <p>
-            Avant toute intervention, vous recevez un devis détaillé et gratuit&nbsp;: surface,
-            prestations, produits appliqués, prix ferme. Vous savez exactement ce que vous payez, et
-            pourquoi.
+            Avant toute intervention, vous recevez un devis détaillé et gratuit&nbsp;: surface des
+            murs, prestations, produits appliqués, prix ferme. Vous savez exactement ce que vous
+            payez, et pourquoi.
           </p>
         </article>
       </div>
@@ -402,18 +411,18 @@ const schemaFaq = {
     <div class="conteneur cta-nettoyage__grille">
       <img
         class="cta-nettoyage__photo"
-        src="/images/photos/nettoyage-toiture-pavillon-eure-et-loir-28.webp"
-        alt="Toiture en tuiles à moitié nettoyée en Eure-et-Loir, contraste avant/après démoussage"
+        src="/images/photos/nettoyage-facade-haras-guainville-parc-avant.webp"
+        alt="Mur de façade verdi et encrassé avant nettoyage en Eure-et-Loir"
         loading="lazy"
-        width="900"
-        height="675"
+        width="1600"
+        height="1200"
       />
       <div class="cta-nettoyage__panneau">
-        <h2>Devis gratuit en 24&nbsp;h pour nettoyer votre toiture</h2>
+        <h2>Devis gratuit en 24&nbsp;h pour nettoyer votre façade</h2>
         <p>
-          Décrivez-moi votre besoin, expliquez-moi quel est votre problème, et je peux intervenir
-          chez vous en moins de 24&nbsp;h pour vérifier votre toiture et vous proposer une solution
-          pour une toiture à nouveau propre et sans végétaux.
+          Décrivez-moi l'état de vos murs — mousses, coulures, crépi noirci — et je me déplace chez
+          vous pour les examiner et vous proposer la solution adaptée à votre revêtement, avec un
+          chiffrage clair et sans engagement.
         </p>
         <a href="/devis-gratuit/" class="btn btn--blanc">Contact &amp; devis en ligne<FlecheRonde /></a>
       </div>
@@ -424,7 +433,7 @@ const schemaFaq = {
   <section class="section">
     <div class="conteneur">
       <div class="section__entete">
-        <h2>Ma méthode de nettoyage professionnel</h2>
+        <h2>Le protocole d'un nettoyage de façade professionnel</h2>
       </div>
       <div class="protocole">
         {protocole.map((e, i) => (
@@ -440,11 +449,68 @@ const schemaFaq = {
     </div>
   </section>
 
-  <!-- ── Bloc 7 · Prix ────────────────────────────────────────────────── -->
+  <!-- ── Avant / après : comparateurs conservés de l'ancienne page ────── -->
   <section class="section section--gris">
     <div class="conteneur">
       <div class="section__entete">
-        <h2>Combien coûte un nettoyage de toiture dans le 28&nbsp;?</h2>
+        <h2>Quelques chantiers de lavage de façade réalisés en Eure-et-Loir</h2>
+      </div>
+      <p class="intro-section">
+        Mêmes murs, photographiés avant mon intervention puis une fois le chantier terminé. Passez
+        la souris sur une photo pour révéler le résultat, ou glissez le doigt sur mobile.
+      </p>
+      <div class="aa-slider-wrap">
+        <AvantApresSlider
+          avantSrc="/images/photos/facade-pignon-avant-nettoyage-28.webp"
+          apresSrc="/images/photos/facade-pignon-apres-nettoyage-28.webp"
+          avantAlt="Façade et pignon sales avant nettoyage en Eure-et-Loir (28)"
+          apresAlt="Même façade nettoyée et ravivée après le passage de Renaud Rénov"
+          width={1600}
+          height={1200}
+        />
+      </div>
+
+      <div class="aa-galerie">
+        <AvantApresSlider
+          avantSrc="/images/photos/facade-avant-apres-1-avant-28.webp"
+          apresSrc="/images/photos/facade-avant-apres-1-apres-28.webp"
+          avantAlt="Pignon d'une maison verdi par les mousses avant nettoyage en Eure-et-Loir"
+          apresAlt="Le même pignon à l'enduit ravivé après démoussage par Renaud Rénov"
+          width={1000}
+          height={1333}
+        />
+        <AvantApresSlider
+          avantSrc="/images/photos/facade-avant-apres-2-avant-28.webp"
+          apresSrc="/images/photos/facade-avant-apres-2-apres-28.webp"
+          avantAlt="Pignon marqué de traînées rouges avant nettoyage de façade dans le 28"
+          apresAlt="Pignon nettoyé et débarrassé des traces rouges par Renaud Rénov"
+          width={1000}
+          height={1333}
+        />
+        <AvantApresSlider
+          avantSrc="/images/photos/facade-avant-apres-3-avant-28.webp"
+          apresSrc="/images/photos/facade-avant-apres-3-apres-28.webp"
+          avantAlt="Grand pignon couvert de coulures rouges avant traitement en Eure-et-Loir"
+          apresAlt="Le même pignon assaini après pulvérisation biocide et lavage"
+          width={1000}
+          height={1333}
+        />
+      </div>
+
+      <p class="facade-preuve">
+        Envie de voir un chantier en entier&nbsp;? J'ai documenté le
+        <a href="/realisations/nettoyage-facade-haras-guainville/">nettoyage des façades d'un haras
+        à Guainville</a>&nbsp;: l'état de départ, le déroulé de l'intervention et les trois murs
+        photographiés avant puis après.
+      </p>
+    </div>
+  </section>
+
+  <!-- ── Bloc 7 · Prix ────────────────────────────────────────────────── -->
+  <section class="section">
+    <div class="conteneur">
+      <div class="section__entete">
+        <h2>Combien coûte un nettoyage de façade dans le 28&nbsp;?</h2>
       </div>
       <ul class="prix-cartes">
         {prix.map((p) => (
@@ -455,32 +521,32 @@ const schemaFaq = {
         ))}
       </ul>
       <p>
-        Trois facteurs font varier le prix&nbsp;: la <strong>surface</strong> de la couverture, la
-        <strong>pente et l'accessibilité</strong> du toit — les pentes de 45-50° fréquentes dans le
-        département demandent plus de sécurisation — et le <strong>niveau d'encrassement</strong>,
-        selon le matériau à traiter, tuile plate petit moule ou ardoise naturelle. Pour connaître le
-        montant exact chez vous, le plus simple reste mon <a href="/devis-gratuit/">devis gratuit,
-        détaillé et sans engagement</a>.
+        Quatre facteurs font varier le prix&nbsp;: la <strong>hauteur</strong> des murs — un pignon
+        à deux étages demande plus de moyens d'accès qu'un mur de clôture —,
+        l'<strong>accessibilité</strong> du chantier, le <strong>type de revêtement</strong> et le
+        niveau d'encrassement. Pour connaître le montant exact chez vous, le plus simple reste mon
+        <a href="/devis-gratuit/">devis gratuit, détaillé et sans engagement</a>.
       </p>
     </div>
   </section>
 
-  <!-- ── Bloc 8 · La porte du cocon : les 14 satellites nettoyage + ville ── -->
+  <!-- ── Bloc 8 · Zone d'intervention : les 14 communes ───────────────── -->
   <section class="section zone">
     <div class="conteneur">
       <div class="section__entete">
-        <h2>Nettoyage de toiture partout en Eure-et-Loir</h2>
+        <h2>Nettoyage de façade partout en Eure-et-Loir</h2>
       </div>
       <p>
-        Installées à Villiers-le-Morhier, nos équipes réalisent le démoussage, le lavage et le
-        traitement des toitures dans tout le département, comme en limite des Yvelines. Une page
-        détaille l'intervention dans chaque commune&nbsp;:
+        Installées à Villiers-le-Morhier, nos équipes lavent et traitent les façades dans tout le
+        département, comme en limite des Yvelines. Beaucoup de chantiers se font d'ailleurs dans la
+        foulée d'un <a href="/nettoyage-toiture-28/">nettoyage et démoussage de toiture en
+        Eure-et-Loir</a>&nbsp;— même encrassement, même déplacement. Retrouvez votre commune&nbsp;:
       </p>
       <ul class="zone-villes">
         {zoneEnrichie.map((z) => (
           villeParSlug[z.slug] && (
             <li>
-              <a href={`/nettoyage-toiture-${z.slug}/`}>
+              <a href={`/villes/${z.slug}/`}>
                 <span class="zone-villes__ville">{villeParSlug[z.slug].nom}</span>
                 <span class="zone-villes__ancre">{z.ancre}</span>
               </a>
@@ -495,32 +561,42 @@ const schemaFaq = {
   <section class="section">
     <div class="conteneur">
       <div class="section__entete">
-        <h2>Vos questions sur l'entretien de votre couverture</h2>
+        <h2>Vos questions sur l'entretien de vos murs</h2>
       </div>
       <div class="faq">
         {faq.map((f) => (
           <div class="faq__item">
             <h3>{f.q}</h3>
-            <p>{f.r}</p>
+            {f.q.includes('combiner') ? (
+              <p>
+                Oui, et c'est même la formule la plus demandée&nbsp;: les mêmes micro-organismes
+                colonisent le toit et les murs, et un seul déplacement suffit pour traiter
+                l'ensemble. Consultez ma page dédiée au
+                <a href="/nettoyage-toiture-28/">nettoyage et démoussage de toiture</a> pour le
+                détail de cette prestation.
+              </p>
+            ) : (
+              <p>{f.r}</p>
+            )}
           </div>
         ))}
       </div>
     </div>
   </section>
 
-  <!-- ── CTA devis final : version nettoyage (titre, texte et photo dédiés) ── -->
+  <!-- ── CTA devis final : version façade ─────────────────────────────── -->
   <CtaDevis
-    titre="Vous souhaitez faire démousser votre toiture ?"
-    texte="Confiez votre toiture à un expert de l'entretien. Démoussage, brossage manuel, traitement hydrofuge et nettoyage des gouttières : j'interviens partout en Eure-et-Loir pour rendre à votre couverture sa propreté et son étanchéité. Déplacement, conseil et devis détaillé gratuits, sans engagement."
+    titre="Une façade à nettoyer en Eure-et-Loir ?"
+    texte="Mousses, lichens, coulures rouges ou crépi noirci : j'interviens partout dans le département pour laver, traiter et protéger vos murs, du soubassement au pignon. Déplacement, conseil et devis détaillé gratuits, sans engagement."
     puces={[
       'Entreprise familiale, père & fils.',
       "Un travail d'artisan, mené avec exigence et passion.",
       'Applicateur certifié de solutions Dalep.',
     ]}
-    image="/images/photos/toiture-mousse-a-nettoyer-28.webp"
-    imageAlt="Toiture envahie par la mousse à nettoyer et démousser en Eure-et-Loir (28)"
-    imageWidth={2000}
-    imageHeight={1500}
+    image="/images/photos/facade-pignon-apres-nettoyage-28.webp"
+    imageAlt="Pignon et façade rendus propres par Renaud Rénov sur un pavillon d'Eure-et-Loir"
+    imageWidth={1600}
+    imageHeight={1200}
   />
 </BaseLayout>
 
@@ -713,6 +789,32 @@ const schemaFaq = {
   .protocole__etape h3 { margin: 0; color: var(--bleu, #244B64); font-size: var(--fs-lg); }
   .protocole__etape p { margin: 0; color: var(--gris-700, #4b5563); }
 
+  /* ── Avant / après : comparateur vedette + galerie de 3 ── */
+  .intro-section { max-width: var(--mesure); margin: 1.2rem auto 2.4rem; color: var(--gris-700); }
+  .aa-slider-wrap { max-width: 900px; margin: 0 auto; }
+  .aa-galerie {
+    display: grid;
+    gap: 1.4rem;
+    grid-template-columns: 1fr;
+    max-width: 420px;
+    margin: 1.8rem auto 0;
+  }
+  @media (min-width: 900px) {
+    .aa-galerie {
+      grid-template-columns: repeat(3, 1fr);
+      max-width: 900px;
+    }
+  }
+  /* Passerelle vers la réalisation documentée (maillage interne) */
+  .facade-preuve {
+    max-width: var(--mesure);
+    margin: 2rem auto 0;
+    text-align: left;
+    text-wrap: pretty;
+    color: var(--gris-700);
+  }
+  .facade-preuve a { color: var(--rouge-fonce); font-weight: 600; }
+
   /* ── Prix : 3 cartes ── */
   .prix-cartes {
     list-style: none;
@@ -807,7 +909,8 @@ const schemaFaq = {
   .hx__badges img { height: 64px; width: auto; }
 
   .hx__actions { display: flex; flex-wrap: wrap; gap: 0.8rem; }
-  .hx__cta-sub { color: var(--rouge-fonce); font-size: var(--fs-sm); margin: 0.5rem 0 0; }
+  .hx__cta-sub { color: var(--gris-700); font-size: var(--fs-sm); margin: 0.7rem 0 0; }
+  .hx__cta-sub a { color: var(--rouge-fonce); font-weight: 600; }
 
   @media (max-width: 979px) {
     .hx__title, .hx__marque { text-align: center; }
@@ -821,11 +924,13 @@ const schemaFaq = {
   .faq__item { padding-left: 1.1rem; }
   .faq__item h3 { margin: 0 0 0.4rem; color: var(--bleu, #244B64); font-size: var(--fs-lg); }
   .faq__item p { margin: 0; color: var(--gris-700, #4b5563); line-height: 1.55; }
+  .faq__item a { color: var(--rouge-fonce); font-weight: 600; }
 
   /* ── Zone d'intervention : fond marine + cartes communes ── */
   .zone { background: linear-gradient(160deg, #244B64 0%, #173445 100%); }
   .zone .section__entete h2 { color: #fff; }
-  .zone > .conteneur > p { color: rgba(255, 255, 255, 0.9); }
+  .zone > .conteneur > p { color: rgba(255, 255, 255, 0.9); max-width: var(--mesure); }
+  .zone > .conteneur > p a { color: #ffb060; font-weight: 600; }
   .zone-villes {
     list-style: none;
     padding: 0;
@@ -854,10 +959,7 @@ const schemaFaq = {
   .zone-villes__ville { color: #fff; font-weight: 700; font-size: var(--fs-base); }
   .zone-villes__ancre { color: rgba(255, 255, 255, 0.68); font-size: var(--fs-xs); }
 
-  /* ── Mesure de lecture ────────────────────────────────────────
-     En dessous du seuil où ce bloc passe en deux colonnes, il occupe
-     toute la largeur du conteneur et la ligne dépassait 90 caractères
-     (le confort de lecture s'arrête vers 75). On borne la colonne. */
+  /* ── Mesure de lecture ── */
   .savoir-carte__texte p,
   .temoin__texte { max-width: var(--mesure); }
 </style>

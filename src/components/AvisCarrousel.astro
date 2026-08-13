@@ -90,7 +90,7 @@ const avisTries = tag
     gap: 0.7rem;
   }
   .carrousel__item:hover { transform: none; }
-  .carrousel__item p { font-size: 0.95rem; color: var(--gris-700); }
+  .carrousel__item p { font-size: var(--fs-sm); color: var(--gris-700); }
 
   .carrousel__piste::-webkit-scrollbar { height: 6px; }
   .carrousel__piste::-webkit-scrollbar-thumb { background: var(--gris-200); border-radius: 3px; }
@@ -115,7 +115,9 @@ const avisTries = tag
   .carrousel__fleche:hover { background: var(--rouge); color: var(--blanc); border-color: var(--rouge); }
   .carrousel__fleche .icone { width: 1.3rem; height: 1.3rem; }
 
-  @media (max-width: 700px) {
+  /* Les flèches disparaissent sur mobile : le défilement tactile prend le
+     relais. On les conserve sur tablette (écran pas toujours tactile). */
+  @media (max-width: 800px) {
     .carrousel__fleche { display: none; }
   }
 </style>

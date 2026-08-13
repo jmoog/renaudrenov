@@ -168,7 +168,7 @@ export const VILLES_NETTOYAGE: VilleNettoyage[] = [
     sectionA: {
       h2: 'Le traitement hydrofuge, la vraie protection de votre toit',
       paragraphes: [
-        "Nettoyer une toiture sans la protéger ensuite, c'est accepter de recommencer dans deux ans. À Maintenon, je termine donc la plupart des chantiers par un <a href=\"/prestations/traitement-hydrofuge/\">traitement hydrofuge</a> : une résine pulvérisée à saturation qui imprègne le matériau sur quelques millimètres. L'eau de pluie perle et ruisselle au lieu de s'infiltrer — et sans eau stagnante, les mousses n'ont plus de quoi s'installer.",
+        "Nettoyer une toiture sans la protéger ensuite, c'est accepter de recommencer dans deux ans. À Maintenon, je termine donc la plupart des chantiers par un <a href=\"/traitement-hydrofuge-28/\">traitement hydrofuge</a> : une résine pulvérisée à saturation qui imprègne le matériau sur quelques millimètres. L'eau de pluie perle et ruisselle au lieu de s'infiltrer — et sans eau stagnante, les mousses n'ont plus de quoi s'installer.",
         "J'attends toujours que le support soit parfaitement sec avant d'appliquer : un hydrofuge posé sur un matériau gorgé d'eau ne pénètre pas. Et j'adapte la formulation au support — le produit qui convient à une tuile plate petit moule n'est pas celui d'une ardoise naturelle. La microporosité doit rester ouverte pour que le toit continue de respirer.",
         "Le résultat se vérifie à l'œil nu dès la première pluie : l'eau forme des gouttes rondes qui filent vers les gouttières au lieu de s'étaler en auréoles sombres. C'est le test que je vous invite à faire quelques jours après mon passage.",
       ],
@@ -263,7 +263,7 @@ export const VILLES_NETTOYAGE: VilleNettoyage[] = [
     sectionB: {
       h2: 'Après le nettoyage, la protection hydrofuge',
       paragraphes: [
-        "Un toit nettoyé mais laissé nu se recharge en mousses en deux ou trois saisons. C'est pourquoi je propose presque toujours de terminer par un <a href=\"/prestations/traitement-hydrofuge/\">hydrofuge de toiture</a> : appliqué sur support sec, il imprègne la tuile ou l'ardoise et fait ruisseler l'eau au lieu de la laisser s'infiltrer.",
+        "Un toit nettoyé mais laissé nu se recharge en mousses en deux ou trois saisons. C'est pourquoi je propose presque toujours de terminer par un <a href=\"/traitement-hydrofuge-28/\">hydrofuge de toiture</a> : appliqué sur support sec, il imprègne la tuile ou l'ardoise et fait ruisseler l'eau au lieu de la laisser s'infiltrer.",
         "Privées d'humidité, les spores ne s'installent plus : la protection tient de longues années, et votre couverture vieillit mieux. Sur les tuiles anciennes de Nogent-le-Roi, souvent poreuses, c'est l'investissement le plus utile après le démoussage lui-même.",
       ],
       photo: {
@@ -364,7 +364,7 @@ export const VILLES_NETTOYAGE: VilleNettoyage[] = [
       h2: "L'avantage de confier ce travail à un couvreur",
       paragraphes: [
         "Une société de nettoyage lave ; un couvreur lit le toit. Pendant le lavage, je repère la tuile fêlée, le crochet déchaussé, le solin qui se décolle — et je peux les reprendre dans la foulée, parce que la couverture est mon métier. Vous évitez le scénario classique du toit propre… mais toujours fuyard.",
-        "C'est le sens de ma présence à Épernon comme <a href=\"/villes/epernon/\">couvreur</a> : un seul artisan pour l'entretien, la réparation et le conseil. Et si votre couverture mérite une protection durable, je vous oriente vers le bon <a href=\"/prestations/traitement-hydrofuge/\">traitement hydrofuge</a> plutôt que vers une prestation inutile.",
+        "C'est le sens de ma présence à Épernon comme <a href=\"/villes/epernon/\">couvreur</a> : un seul artisan pour l'entretien, la réparation et le conseil. Et si votre couverture mérite une protection durable, je vous oriente vers le bon <a href=\"/traitement-hydrofuge-28/\">traitement hydrofuge</a> plutôt que vers une prestation inutile.",
       ],
     },
     etapesH2: 'Quatre étapes pour un toit propre',
@@ -450,7 +450,7 @@ export const VILLES_NETTOYAGE: VilleNettoyage[] = [
     sectionC: {
       h2: 'Et pour finir, la protection qui change tout',
       paragraphes: [
-        "Un toit nettoyé est un toit vulnérable si on le laisse nu : les spores reviennent avec le vent, et l'humidité leur offre un terrain neuf. J'applique donc systématiquement un traitement rémanent anti-repousse, et je propose en option un <a href=\"/prestations/traitement-hydrofuge/\">hydrofuge</a> qui imperméabilise le matériau tout en le laissant respirer.",
+        "Un toit nettoyé est un toit vulnérable si on le laisse nu : les spores reviennent avec le vent, et l'humidité leur offre un terrain neuf. J'applique donc systématiquement un traitement rémanent anti-repousse, et je propose en option un <a href=\"/traitement-hydrofuge-28/\">hydrofuge</a> qui imperméabilise le matériau tout en le laissant respirer.",
         "Votre <a href=\"/villes/hanches/\">couvreur à Hanches</a> vous détaille les deux protections dans le devis, avec leur durée d'efficacité respective : vous choisissez en connaissance de cause, sans option imposée.",
       ],
     },
@@ -523,7 +523,7 @@ export const VILLES_NETTOYAGE: VilleNettoyage[] = [
     sectionB: {
       h2: "L'hydrofuge, pour que le résultat dure",
       paragraphes: [
-        "Après le nettoyage, je recommande souvent un <a href=\"/prestations/traitement-hydrofuge/\">traitement hydrofuge de toiture</a> : pulvérisée sur support sec, la résine imprègne la tuile sur quelques millimètres et fait perler l'eau de pluie. Sans humidité stagnante, mousses et lichens perdent leur terrain d'accroche.",
+        "Après le nettoyage, je recommande souvent un <a href=\"/traitement-hydrofuge-28/\">traitement hydrofuge de toiture</a> : pulvérisée sur support sec, la résine imprègne la tuile sur quelques millimètres et fait perler l'eau de pluie. Sans humidité stagnante, mousses et lichens perdent leur terrain d'accroche.",
         "J'utilise des formulations qui préservent la microporosité du matériau — le toit continue de respirer, condition indispensable sur les couvertures anciennes. La protection se mesure en années, pas en saisons, et elle est chiffrée à part dans le devis : vous voyez précisément ce qu'elle coûte et ce qu'elle apporte.",
       ],
       photo: {
@@ -623,7 +623,7 @@ export const VILLES_NETTOYAGE: VilleNettoyage[] = [
     sectionC: {
       h2: 'Espacez les entretiens grâce à la protection',
       paragraphes: [
-        "Un démoussage nu se refait tous les trois ou quatre ans ; un démoussage suivi d'un traitement rémanent et d'un <a href=\"/prestations/traitement-hydrofuge/\">hydrofuge</a> tient bien davantage. Le rémanent prive les spores de leur point d'accroche, l'hydrofuge chasse l'humidité dont elles ont besoin : ensemble, ils espacent durablement les interventions.",
+        "Un démoussage nu se refait tous les trois ou quatre ans ; un démoussage suivi d'un traitement rémanent et d'un <a href=\"/traitement-hydrofuge-28/\">hydrofuge</a> tient bien davantage. Le rémanent prive les spores de leur point d'accroche, l'hydrofuge chasse l'humidité dont elles ont besoin : ensemble, ils espacent durablement les interventions.",
         "À Pierres, où beaucoup de pavillons sont entourés de jardins arborés, cette protection fait une différence nette : les toits traités que j'entretiens restent propres là où leurs voisins reverdissent. Sur la durée, c'est le traitement le plus économique qui soit.",
       ],
     },
@@ -710,7 +710,7 @@ export const VILLES_NETTOYAGE: VilleNettoyage[] = [
     sectionC: {
       h2: 'Protéger après avoir nettoyé : le bon réflexe',
       paragraphes: [
-        "Le nettoyage rend la propreté ; la protection la conserve. Je termine mes chantiers de Saint-Piat par un traitement rémanent qui retarde la réinstallation des spores, et je propose en option un <a href=\"/prestations/traitement-hydrofuge/\">traitement hydrofuge</a> : l'eau perle et ruisselle au lieu de s'imprégner, et le matériau, gardé au sec, cesse d'offrir un terrain aux mousses.",
+        "Le nettoyage rend la propreté ; la protection la conserve. Je termine mes chantiers de Saint-Piat par un traitement rémanent qui retarde la réinstallation des spores, et je propose en option un <a href=\"/traitement-hydrofuge-28/\">traitement hydrofuge</a> : l'eau perle et ruisselle au lieu de s'imprégner, et le matériau, gardé au sec, cesse d'offrir un terrain aux mousses.",
         "Votre <a href=\"/villes/saint-piat/\">couvreur à Saint-Piat</a> vous détaille les deux options dans le devis, avec leur durée d'efficacité : à vous de choisir, en connaissance de cause.",
       ],
     },
@@ -871,7 +871,7 @@ export const VILLES_NETTOYAGE: VilleNettoyage[] = [
     sectionB: {
       h2: 'Nettoyer, puis protéger : le duo gagnant',
       paragraphes: [
-        "Un toit chartrain nettoyé sans protection se recharge vite — pollution et spores ne prennent pas de vacances. Je termine donc mes chantiers par un traitement rémanent, et je conseille souvent un <a href=\"/prestations/traitement-hydrofuge/\">hydrofuge de toiture</a> : la pluie perle, les dépôts n'accrochent plus, et la couverture garde son aspect des années.",
+        "Un toit chartrain nettoyé sans protection se recharge vite — pollution et spores ne prennent pas de vacances. Je termine donc mes chantiers par un traitement rémanent, et je conseille souvent un <a href=\"/traitement-hydrofuge-28/\">hydrofuge de toiture</a> : la pluie perle, les dépôts n'accrochent plus, et la couverture garde son aspect des années.",
         "L'hydrofuge que j'applique préserve la microporosité du matériau : le toit respire, condition essentielle sur les couvertures anciennes. Et il est chiffré à part — vous choisissez librement, sur la base du devis.",
       ],
       photo: {
@@ -970,7 +970,7 @@ export const VILLES_NETTOYAGE: VilleNettoyage[] = [
     sectionC: {
       h2: 'La protection qui rentabilise le nettoyage',
       paragraphes: [
-        "Nettoyer sans protéger, c'est louer la propreté au lieu de l'acheter. Après le lavage, j'applique un traitement rémanent qui retarde la réinstallation des spores ; et pour les couvertures poreuses, je conseille le <a href=\"/prestations/traitement-hydrofuge/\">traitement hydrofuge</a>, qui fait perler l'eau et garde le matériau au sec — le terrain des mousses disparaît.",
+        "Nettoyer sans protéger, c'est louer la propreté au lieu de l'acheter. Après le lavage, j'applique un traitement rémanent qui retarde la réinstallation des spores ; et pour les couvertures poreuses, je conseille le <a href=\"/traitement-hydrofuge-28/\">traitement hydrofuge</a>, qui fait perler l'eau et garde le matériau au sec — le terrain des mousses disparaît.",
         "Votre <a href=\"/villes/dreux/\">couvreur à Dreux</a> chiffre chaque protection à part dans le devis : vous voyez ce que chacune coûte, ce qu'elle apporte, et vous décidez librement.",
       ],
     },
@@ -1123,7 +1123,7 @@ export const VILLES_NETTOYAGE: VilleNettoyage[] = [
     sectionA: {
       h2: 'L’hydrofuge, indispensable sous les arbres',
       paragraphes: [
-        "Un environnement boisé est une bénédiction pour la maison et une épreuve pour son toit : ombre portée qui ralentit le séchage, feuilles qui nourrissent les mousses, spores en abondance. À Rambouillet, un toit nettoyé mais non protégé peut reverdir en deux saisons — c'est pourquoi je conseille presque systématiquement de finir par un <a href=\"/prestations/traitement-hydrofuge/\">traitement hydrofuge</a>.",
+        "Un environnement boisé est une bénédiction pour la maison et une épreuve pour son toit : ombre portée qui ralentit le séchage, feuilles qui nourrissent les mousses, spores en abondance. À Rambouillet, un toit nettoyé mais non protégé peut reverdir en deux saisons — c'est pourquoi je conseille presque systématiquement de finir par un <a href=\"/traitement-hydrofuge-28/\">traitement hydrofuge</a>.",
         "Appliqué sur support sec, l'hydrofuge imprègne la tuile sur quelques millimètres : l'eau perle et file vers les gouttières au lieu de stagner, et les végétaux perdent l'humidité dont ils vivent. La microporosité du matériau reste ouverte — le toit respire, condition essentielle sur les couvertures anciennes.",
         "Le duo rémanent + hydrofuge, c'est la différence entre un entretien à refaire tous les trois ans et une couverture tranquille pour longtemps.",
       ],
@@ -1218,7 +1218,7 @@ export const VILLES_NETTOYAGE: VilleNettoyage[] = [
     sectionB: {
       h2: 'Après le lavage, je verrouille le résultat',
       paragraphes: [
-        "Le nettoyage rend le toit propre ; le traitement le garde propre. J'applique d'abord un rémanent anti-repousse qui reste actif sur la couverture et retarde la réinstallation des spores. Puis, en option, un <a href=\"/prestations/traitement-hydrofuge/\">hydrofuge de toiture</a> : l'eau perle, le matériau reste sec, et les mousses perdent leur terrain.",
+        "Le nettoyage rend le toit propre ; le traitement le garde propre. J'applique d'abord un rémanent anti-repousse qui reste actif sur la couverture et retarde la réinstallation des spores. Puis, en option, un <a href=\"/traitement-hydrofuge-28/\">hydrofuge de toiture</a> : l'eau perle, le matériau reste sec, et les mousses perdent leur terrain.",
         "Chaque protection est chiffrée séparément dans le devis, avec sa durée d'efficacité : vous décidez, en connaissance de cause, sans option imposée.",
       ],
       photo: {

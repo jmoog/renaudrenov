@@ -78,14 +78,14 @@ const {
     gap: 1.4rem;
   }
   .cta-devis__panneau h2 { color: var(--blanc); }
-  .cta-devis__texte { max-width: 46ch; margin: 0; }
+  .cta-devis__texte { max-width: var(--mesure-etroite); margin: 0; }
   .cta-devis__panneau ul {
     margin: 0;
     padding: 0;
     list-style: none;
     display: grid;
     gap: 0.4rem;
-    font-size: 1.1rem;
+    font-size: var(--fs-md);
     text-align: left;
   }
   .cta-devis__panneau li::before {
@@ -95,7 +95,7 @@ const {
     margin-right: 0.6em;
   }
   .cta-devis__actions { display: flex; flex-wrap: wrap; justify-content: flex-start; gap: 0.9rem; }
-  .cta-devis__urgence { margin: 0; font-size: 0.95rem; opacity: 0.9; }
+  .cta-devis__urgence { margin: 0; font-size: var(--fs-sm); opacity: 0.9; }
   .cta-devis__urgence a { color: var(--blanc); font-weight: 700; text-decoration: underline; }
   @media (max-width: 800px) {
     .cta-devis__actions { justify-content: center; width: 100%; }

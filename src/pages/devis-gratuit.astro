@@ -198,7 +198,7 @@ const avisDevis = reviews.avis.slice(0, 3);
   @media (min-width: 980px) {
     .devis__grille { grid-template-columns: 1fr 1fr; gap: 4rem; }
   }
-  .devis__sous-titre { font-size: 1.1rem; color: var(--gris-700); font-weight: 600; margin-block: 0.8rem 1rem; }
+  .devis__sous-titre { font-size: var(--fs-lg); color: var(--gris-700); font-weight: 600; margin-block: 0.8rem 1rem; }
   .devis__points { list-style: none; padding: 0; margin-block: 1.2rem; display: grid; gap: 0.5rem; }
   .devis__points li { padding-left: 1.6em; position: relative; }
   .devis__points li::before {
@@ -221,13 +221,13 @@ const avisDevis = reviews.avis.slice(0, 3);
 
   .devis__formulaire { padding: 2rem; }
   .devis__formulaire:hover { transform: none; }
-  .devis__formulaire h2 { font-size: 1.3rem; }
-  .devis__formulaire-intro { color: var(--gris-500); font-size: 0.92rem; margin-block: 0.3rem 1.5rem; }
+  .devis__formulaire h2 { font-size: var(--fs-lg); }
+  .devis__formulaire-intro { color: var(--gris-500); font-size: var(--fs-sm); margin-block: 0.3rem 1.5rem; }
   .hp { position: absolute; left: -9999px; }
   .champ { margin-bottom: 1.1rem; }
   .champ--duo { display: grid; gap: 1.1rem; }
   @media (min-width: 560px) { .champ--duo { grid-template-columns: 1fr 1fr; } }
-  .champ label { display: block; font-weight: 600; font-size: 0.92rem; margin-bottom: 0.35rem; color: var(--gris-700); }
+  .champ label { display: block; font-weight: 600; font-size: var(--fs-sm); margin-bottom: 0.35rem; color: var(--gris-700); }
   .champ input,
   .champ select,
   .champ textarea {
@@ -236,7 +236,7 @@ const avisDevis = reviews.avis.slice(0, 3);
     border: 1px solid var(--gris-200);
     border-radius: var(--rayon);
     font: inherit;
-    font-size: 0.97rem;
+    font-size: var(--fs-base); /* jamais < 16px : Safari iOS zoome sinon */
     color: var(--noir);
     background: var(--blanc);
     transition: border-color var(--transition), box-shadow var(--transition);
@@ -248,11 +248,17 @@ const avisDevis = reviews.avis.slice(0, 3);
     border-color: var(--bleu-clair);
     box-shadow: 0 0 0 3px rgba(36, 75, 100, 0.15);
   }
-  .champ textarea { resize: vertical; min-height: 110px; }
+  .champ textarea { resize: vertical; min-height: 7em; }
   .cf-turnstile { margin-bottom: 1.1rem; }
   .devis__envoyer { width: 100%; }
   .devis__envoyer:disabled { opacity: 0.5; cursor: not-allowed; }
-  #devis-status { font-size: 0.92rem; margin-top: 0.8rem; }
+  #devis-status { font-size: var(--fs-sm); margin-top: 0.8rem; }
+
+  /* ── Mesure de lecture ────────────────────────────────────────
+     En dessous du seuil où ce bloc passe en deux colonnes, il occupe
+     toute la largeur du conteneur et la ligne dépassait 90 caractères
+     (le confort de lecture s'arrête vers 75). On borne la colonne. */
+  .devis__texte p { max-width: var(--mesure); }
 </style>
 
 <script is:inline>

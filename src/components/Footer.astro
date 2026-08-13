@@ -1,6 +1,6 @@
 ---
 // Footer (design modèle artisan) : 4 blocs — marque + labels officiels,
-// navigation, zones d'intervention (toutes les pages villes), contact avec
+// services, zones d'intervention (toutes les pages villes), contact avec
 // boutons — et mention légale. À la place des badges SVG du modèle : les
 // deux logos officiels (Artisan CMA 28 lié à cma28.fr + Garantie décennale).
 import { SITE } from '../data/site.ts';
@@ -12,6 +12,9 @@ import FlecheRonde from './FlecheRonde.astro';
 
 // Villes dont la page dédiée existe : elles s'affichent en lien cliquable.
 const villesPubliees = villes.map((v) => v.slug);
+// Les horaires cassaient en fin de ligne au milieu de « 20 h 00 » : on rend
+// insécables les espaces internes des heures.
+const horairesInsecables = SITE.horaires.replace(/(\d+)\s*h\s*(\d+)/g, '$1\u00a0h\u00a0$2');
 ---
 <footer class="pied">
   <div class="conteneur pied__grille">
@@ -30,6 +33,9 @@ const villesPubliees = villes.map((v) => v.slug);
         <LogoGoogle taille={18} />
         <span class="pied__etoiles" aria-hidden="true">★★★★★</span> {reviews.note.toLocaleString('fr-FR')}/5 · {reviews.nombre} avis Google
       </p>
+      <p class="pied__note-lien">
+        <a href={SITE.googleAvis} rel="noopener" target="_blank">Lire les avis Google</a>
+      </p>
 
       <ul class="pied__badges">
         <li class="pied__badge">
@@ -43,17 +49,12 @@ const villesPubliees = villes.map((v) => v.slug);
       </ul>
     </div>
 
-    <nav class="pied__bloc" aria-label="Navigation">
-      <h2>Navigation</h2>
+    <nav class="pied__bloc" aria-label="Services">
+      <h2>Services</h2>
       <ul>
-        <li><a href="/">Accueil</a></li>
         {services.map((s) => (
           <li><a href={s.href}>{s.labelNav}</a></li>
         ))}
-        <li><a href="/a-propos/">À propos</a></li>
-        <li><a href="/devis-gratuit/">Devis gratuit et contact</a></li>
-        <li><a href="/plan-du-site/">Plan du site</a></li>
-        <li><a href="/mentions-legales/">Mentions légales</a></li>
       </ul>
     </nav>
 
@@ -70,13 +71,21 @@ const villesPubliees = villes.map((v) => v.slug);
       </ul>
     </nav>
 
-    <nav class="pied__bloc" aria-label="Contact">
+    <nav class="pied__bloc pied__contact" aria-label="Contact">
       <h2>Contact</h2>
-      <ul>
-        <li>{SITE.horaires}</li>
-        <li><a href={`mailto:${SITE.email}`}>{SITE.email}</a></li>
-        <li><a href={SITE.facebook} rel="noopener" target="_blank">Facebook</a></li>
-        <li><a href={SITE.googleAvis} rel="noopener" target="_blank">Avis Google</a></li>
+      <ul class="pied__coords">
+        <li>
+          <svg class="icone" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
+          <span>{horairesInsecables}</span>
+        </li>
+        <li>
+          <svg class="icone" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3.5 7 8.5 6 8.5-6"/></svg>
+          <a class="pied__mail" href={`mailto:${SITE.email}`}>{SITE.email.split('@')[0]}<wbr />@{SITE.email.split('@')[1]}</a>
+        </li>
+        <li>
+          <svg class="icone" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M14 9h3l.4-3H14V4.3c0-.9.3-1.3 1.3-1.3H17.5V0.2C17.1.1 16 0 14.8 0 12.2 0 10.6 1.5 10.6 4v2H8v3h2.6v11H14V9Z"/></svg>
+          <a href={SITE.facebook} rel="noopener" target="_blank">Facebook</a>
+        </li>
       </ul>
       <div class="pied__actions">
         <a href="/devis-gratuit/" class="btn btn--rouge pied__btn-intervention">Demander une intervention<FlecheRonde /></a>
@@ -90,6 +99,10 @@ const villesPubliees = villes.map((v) => v.slug);
 
   <div class="pied__legal">
     <p><span>{SITE.nomLegal} — {SITE.slogan}.</span> <span>Garantie décennale.</span></p>
+    <ul class="pied__legal-liens">
+      <li><a href="/plan-du-site/">Plan du site</a></li>
+      <li><a href="/mentions-legales/">Mentions légales</a></li>
+    </ul>
   </div>
 </footer>
 
@@ -98,7 +111,7 @@ const villesPubliees = villes.map((v) => v.slug);
     background: var(--bleu-fonce);
     color: rgba(255, 255, 255, 0.85);
     margin-top: auto;
-    font-size: 0.93rem;
+    font-size: var(--fs-sm);
     border-top: 3px solid var(--rouge);
   }
 
@@ -118,7 +131,7 @@ const villesPubliees = villes.map((v) => v.slug);
   }
   .pied__bloc h2 {
     color: var(--blanc);
-    font-size: 1rem;
+    font-size: var(--fs-lg);
     text-transform: uppercase;
     letter-spacing: 0.06em;
     margin-bottom: 1rem;
@@ -129,6 +142,8 @@ const villesPubliees = villes.map((v) => v.slug);
   .pied__marque p { margin-block: 0.5rem; }
   .pied__etoiles { color: var(--etoile); letter-spacing: 0.1em; }
   .pied__note { font-weight: 600; color: var(--blanc); }
+  .pied__note-lien { margin-top: 0.25rem !important; }
+  .pied__note-lien a { text-decoration: underline !important; }
 
   /* Labels officiels (à la place des badges SVG du modèle) :
      chaque logo sur sa pastille blanche */
@@ -136,7 +151,7 @@ const villesPubliees = villes.map((v) => v.slug);
     list-style: none;
     padding: 0;
     margin-top: 1.2rem;
-    display: flex !important;
+    display: flex;
     flex-wrap: wrap;
     align-items: center;
     gap: 0.9rem;
@@ -153,26 +168,58 @@ const villesPubliees = villes.map((v) => v.slug);
   }
   .pied__badge-img--artisan { height: 60px; }
 
-  /* Boutons de contact */
-  .pied__actions {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 0.7rem;
-    margin-top: 1.1rem;
+  /* Colonne contact : chaque coordonnée sur une ligne icône + texte,
+     interlignage resserré (le rythme par défaut aérait trop la colonne). */
+  .pied__coords { gap: 0.7rem !important; }
+  .pied__coords li {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    align-items: start;
+    gap: 0.6rem;
+    line-height: 1.4;
   }
-  .pied__actions .btn { white-space: nowrap; }
-  .pied__btn-intervention { font-size: 0.9rem; }
+  .pied__coords .icone {
+    width: 1.05em;
+    height: 1.05em;
+    margin-top: 0.15em;
+    color: var(--rouge);
+  }
+  .pied__mail { overflow-wrap: anywhere; }
+
+  /* Boutons de contact : même largeur, alignés sur la colonne */
+  .pied__actions {
+    display: grid;
+    gap: 0.6rem;
+    margin-top: 1.3rem;
+    max-width: 320px;
+  }
+  .pied__actions .btn {
+    width: 100%;
+    justify-content: space-between;
+    text-align: left;
+    text-wrap: balance;
+  }
+  .pied__actions .btn--blanc { justify-content: center; }
+  .pied__btn-intervention { font-size: var(--fs-sm); }
 
   .pied__legal {
     border-top: 1px solid rgba(255, 255, 255, 0.12);
     text-align: center;
     padding: 1.2rem 1rem;
-    font-size: 0.85rem;
-    color: rgba(255, 255, 255, 0.6);
+    font-size: var(--fs-xs);
+    color: rgba(255, 255, 255, 0.78);
   }
   .pied__legal p { margin: 0; text-align: center; }
   .pied__legal span { display: inline-block; }
+  .pied__legal-liens {
+    list-style: none;
+    padding: 0;
+    margin: 0.5rem 0 0;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.4rem 1.2rem;
+  }
 
   @media (max-width: 800px) {
     .pied__grille { text-align: center; }
@@ -181,6 +228,7 @@ const villesPubliees = villes.map((v) => v.slug);
     .pied__bloc ul { justify-items: center; }
     .pied__logo { margin-inline: auto; }
     .pied__badges { justify-content: center; }
-    .pied__actions { align-items: center; width: 100%; }
+    .pied__actions { justify-items: center; width: 100%; margin-inline: auto; }
+    .pied__coords li { justify-content: center; text-align: left; }
   }
 </style>

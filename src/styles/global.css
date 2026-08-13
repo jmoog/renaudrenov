@@ -55,6 +55,36 @@
   /* Typo */
   --font: var(--font-base), system-ui, -apple-system, "Segoe UI", sans-serif;
 
+  /* ── ÉCHELLE TYPOGRAPHIQUE FLUIDE ──────────────────────────────
+     Une seule échelle pour tout le site. Chaque palier interpole
+     entre une valeur mobile (360px) et une valeur desktop (1440px)
+     via clamp() : plus aucun texte n'a la même taille sur un
+     téléphone et sur un écran 27 pouces.
+     Plancher absolu de lisibilité : 14px (--fs-xs).
+     N'AJOUTEZ PAS de font-size en dur dans les pages : utilisez ces
+     tokens, sinon l'échelle se délite (c'était le cas avant cette
+     passe : plus de 20 valeurs ad-hoc coexistaient). */
+  --fs-xs:   clamp(0.875rem, 0.85rem + 0.10vw, 0.925rem); /* 14 → 14.8px — mentions, dates, légal */
+  --fs-sm:   clamp(0.925rem, 0.90rem + 0.12vw, 0.975rem); /* 14.8 → 15.6px — texte secondaire, cartes */
+  --fs-base: clamp(1rem,     0.98rem + 0.10vw, 1.05rem);  /* 16 → 16.8px — corps de texte */
+  --fs-md:   clamp(1.05rem,  1.01rem + 0.18vw, 1.15rem);  /* 16.8 → 18.4px — accroches, chapôs, puces */
+  --fs-lg:   clamp(1.15rem,  1.09rem + 0.28vw, 1.3rem);   /* 18.4 → 20.8px — sous-titres, gros libellés */
+  --fs-xl:   clamp(1.3rem,   1.18rem + 0.50vw, 1.6rem);   /* 20.8 → 25.6px — chiffres, gros repères */
+
+  /* Longueur de ligne (« mesure »). La typographie fixe le confort de
+     lecture entre 45 et 75 caractères par ligne ; au-delà, l'œil perd
+     le début de la ligne suivante. Sans ces bornes, un paragraphe dans
+     un conteneur de 1200px atteint ~145 caractères.
+     Exprimées en rem et non en ch : l'unité `ch` se calcule sur la police
+     de L'ÉLÉMENT, si bien qu'un H3 à 24px recevait une mesure 60 % plus
+     large que le paragraphe voisin et ne s'alignait plus avec lui. En rem,
+     la mesure est la même pour tous les niveaux.
+     Valeurs calibrées en mesurant le rendu réel (Inter, texte français) :
+     à 16px, 1 caractère occupe ~8,6px, donc 40rem ≈ 74 caractères. */
+  --mesure: 40rem;         /* ~74 car. — texte courant, valeur par défaut */
+  --mesure-etroite: 32rem; /* ~59 car. — colonnes, panneaux, encarts */
+  --mesure-large: 44rem;   /* ~81 car. — FAQ, mentions légales, référence */
+
   /* Espacements & divers */
   --conteneur: 1200px;
   --rayon: 10px;
@@ -75,6 +105,15 @@ body {
      Les champs de formulaire ne doivent jamais descendre sous cette valeur. */
   font-size: 16px;
   line-height: 1.65;
+  /* Alignement par défaut du site : à gauche, drapeau à droite.
+     Posé ICI et non sur `p, li` : une valeur DÉCLARÉE bat toujours une
+     valeur HÉRITÉE, donc `p { text-align: left }` empêchait les blocs
+     volontairement centrés (page merci, page 404, carte CTA finale)
+     de centrer leurs propres paragraphes — le titre était centré et le
+     texte restait collé à gauche. En posant la règle sur `body`, chaque
+     paragraphe hérite de son conteneur : gauche par défaut, centré
+     seulement là où le conteneur le demande explicitement. */
+  text-align: left;
   -webkit-font-smoothing: antialiased;
   min-height: 100vh;
   display: flex;
@@ -88,22 +127,33 @@ ul, ol { padding-left: 1.2em; }
 
 /* ── Typographie ───────────────────────────────────────────────── */
 h1, h2, h3, h4 { line-height: 1.2; color: var(--bleu); text-wrap: balance; font-weight: 700; }
-/* Texte courant : toujours aligné à gauche, et « pretty » évite les
-   retours à la ligne sur un seul mot (orphelins) en fin de paragraphe. */
-p, li { text-wrap: pretty; text-align: left; }
+/* « pretty » évite les retours à la ligne sur un seul mot (orphelins)
+   en fin de paragraphe. L'alignement, lui, est hérité (cf. body). */
+p, li { text-wrap: pretty; }
 h1 { font-size: clamp(1.9rem, 4.5vw, 3rem); font-weight: 800; }
 h2 { font-size: clamp(1.5rem, 3vw, 2.1rem); }
 /* H3 réactif : ~20px sur mobile, ~24px sur desktop (min lisible = 20px) */
 h3 { font-size: clamp(1.25rem, 1rem + 1vw, 1.5rem); }
+h4 { font-size: var(--fs-lg); }
+/* Interlignage des grands titres : un titre de 48px avec l'interligne
+   1.2 d'un texte de 16px paraît trop aéré. On resserre progressivement. */
+h1 { line-height: 1.12; }
+h2 { line-height: 1.18; }
 
 /* Titres de sections centrés (les titres dans les blocs deux-colonnes
-   et le hero restent alignés à gauche) */
-.section > .conteneur > h2 {
+   et le hero restent alignés à gauche).
+   `.section__entete > h2` est inclus : ce wrapper est utilisé sur la
+   moitié des pages et privait ces titres du trait orange, si bien que
+   le motif identitaire apparaissait sur certaines sections et pas sur
+   d'autres, au sein d'une même page. */
+.section > .conteneur > h2,
+.section > .conteneur > .section__entete > h2 {
   text-align: center;
 }
 /* Rappel du trait orange du logo : petit soulignement sous les titres de
    section (motif identitaire discret, décliné dans tout le site). */
-.section > .conteneur > h2::after {
+.section > .conteneur > h2::after,
+.section > .conteneur > .section__entete > h2::after {
   content: "";
   display: block;
   width: 52px;
@@ -114,21 +164,69 @@ h3 { font-size: clamp(1.25rem, 1rem + 1vw, 1.5rem); }
 }
 
 /* En-tête de section au-dessus d'un bloc deux-colonnes :
-   centré sur mobile, aligné à gauche sur desktop */
+   centré sur mobile, aligné à gauche sur desktop.
+   Seuil aligné sur celui de `.duo` (900px) pour éviter la bande
+   801-899px où le H2 était encore centré alors que le H3 voisin,
+   hors de l'en-tête, était déjà repassé à gauche. */
 .section__entete { text-align: center; margin-bottom: 2rem; }
 @media (min-width: 900px) {
-  .section__entete--gauche { text-align: left; }
+  .section__entete--gauche,
+  .section__entete--gauche > h2 { text-align: left; }
+  .section__entete--gauche > h2::after { margin-inline: 0; }
 }
 
-/* Mobile : titres, boutons et éléments d'accroche centrés —
-   les textes courants restent alignés à gauche
-   (la règle `p, li { text-align: left }` ci-dessus garde la main) */
+/* ── Mesure : longueur de ligne maximale du texte courant ───────
+   Appliquée automatiquement au texte éditorial placé directement dans
+   un `.conteneur` de section, et aux colonnes de texte des blocs
+   deux-colonnes. C'est la correction la plus structurante de la passe :
+   sans elle, un paragraphe s'étirait sur toute la largeur du conteneur
+   (1168px ≈ 145 caractères par ligne) sur toutes les pages prestations
+   et villes. */
+.section > .conteneur > p:not(.note-google),
+.section > .conteneur > ul:not(.nuage-villes):not(.grille-avis):not(.fournisseurs__grille),
+.section > .conteneur > ol,
+.section > .conteneur > .section__entete > p {
+  max-width: var(--mesure);
+}
+/* Quand le titre de section est centré, le bloc de texte qui le suit
+   est centré lui aussi — le texte reste en drapeau à gauche, mais la
+   colonne s'aligne optiquement sous son titre. */
+.section > .conteneur > p:not(.note-google),
+.section > .conteneur > ul:not(.nuage-villes):not(.grille-avis):not(.fournisseurs__grille),
+.section > .conteneur > ol,
+.section > .conteneur > .section__entete > p {
+  margin-inline: auto;
+}
+/* Dans un bloc deux-colonnes, la colonne borne déjà la ligne : on
+   ne recentre pas, on plafonne seulement pour les très larges écrans. */
+.duo > div > p,
+.duo > div > ul,
+.duo > div > ol { max-width: var(--mesure); }
+
+/* Utilitaires de mesure, à poser sur un conteneur de texte. */
+.mesure          { max-width: var(--mesure);         margin-inline: auto; }
+.mesure--etroite { max-width: var(--mesure-etroite); margin-inline: auto; }
+.mesure--large   { max-width: var(--mesure-large);   margin-inline: auto; }
+/* Centrage typographique assumé : réservé aux textes de 1 à 3 lignes
+   (accroche, légende, mention). Au-delà, un texte centré force l'œil à
+   chercher le début de chaque ligne — on garde le drapeau à gauche. */
+.texte-centre { text-align: center; }
+
+/* Mobile : seuls les TITRES DE SECTION et les éléments d'accroche sont
+   centrés. Les titres de cartes (`.carte h3`, FAQ, étapes…) restent
+   alignés à gauche : les centrer au-dessus d'un paragraphe aligné à
+   gauche produisait un décalage visible sur une quarantaine de cartes. */
 @media (max-width: 800px) {
-  h1, h2, h3, .hero__marque { text-align: center; }
+  .section > .conteneur > h1,
+  .section > .conteneur > h2,
+  .section > .conteneur > h3,
+  .section > .conteneur > .section__entete > h2,
+  .hero > .conteneur h1,
+  .hero__marque { text-align: center; }
 
   /* Badge du hero : compact, ne coupe pas en plein milieu */
   .hero__badge {
-    font-size: 0.85rem;
+    font-size: var(--fs-xs);
     padding: 0.55em 1em;
     white-space: nowrap; /* tous les badges font ≤ 33 caractères : une seule ligne */
   }
@@ -184,6 +282,13 @@ h3 { font-size: clamp(1.25rem, 1rem + 1vw, 1.5rem); }
 .duo > div > h3 {
   margin-block: 1.8rem 0.5rem;
 }
+/* Les H3 de contenu partagent la mesure des paragraphes qu'ils
+   introduisent : sans ça, le titre démarrait au bord du conteneur et
+   le texte 250px plus à droite — deux axes de lecture concurrents. */
+.section > .conteneur > h3 {
+  max-width: var(--mesure);
+  margin-inline: auto;
+}
 .section > .conteneur > *:first-child,
 .duo > div > *:first-child {
   margin-top: 0;
@@ -207,6 +312,31 @@ h3 { font-size: clamp(1.25rem, 1rem + 1vw, 1.5rem); }
 .section--bleu { background: var(--bleu-fonce); }
 .section--bleu h2, .section--bleu h3, .section--bleu p { color: var(--blanc); }
 
+/* Section compacte (sous un fil d'Ariane, haut de page).
+   Remplace les `style="padding-block: 1.5rem 0"` posés en dur dans une
+   dizaine de pages : ceux-ci substituaient une valeur FIXE au rythme
+   fluide de `.section`, si bien que le haut de page ne respirait plus
+   sur grand écran. */
+.section--compact { padding-block: clamp(1.2rem, 3vw, 2rem) 0; }
+.section--sans-bas { padding-bottom: 0; }
+.section--sans-haut { padding-top: 0; }
+.hero--compact { padding-top: clamp(1rem, 2.5vw, 1.6rem); }
+
+/* Bloc de texte éditorial imbriqué (wrapper intercalé entre .conteneur et
+   les paragraphes). Le reset `* { margin: 0 }` leur retire toute marge, et
+   les règles de rythme vertical ne visent que les enfants DIRECTS de
+   .conteneur : sans cette classe, les paragraphes d'un tel bloc
+   s'affichaient collés les uns aux autres. */
+.bloc-texte > p,
+.bloc-texte > ul,
+.bloc-texte > ol { margin-block: 1.05rem; }
+.bloc-texte > h3 { margin-block: 1.8rem 0.5rem; }
+.bloc-texte > *:first-child { margin-top: 0; }
+@media (max-width: 800px) {
+  .bloc-texte > p { margin-block: 1.15rem; }
+  .bloc-texte > h3 { margin-block: 2rem 0.5rem; }
+}
+
 /* Grille deux colonnes image + texte (s'empile en mobile) */
 .duo { display: grid; gap: 2.5rem; align-items: center; }
 @media (min-width: 900px) {
@@ -225,7 +355,7 @@ h3 { font-size: clamp(1.25rem, 1rem + 1vw, 1.5rem); }
   min-height: 48px; /* cible tactile confortable (recommandation mobile) */
   border-radius: var(--rayon); /* 10px — pas de pills */
   font-weight: 700;
-  font-size: 1rem;
+  font-size: var(--fs-base);
   text-decoration: none;
   border: 2px solid transparent;
   cursor: pointer;
@@ -235,7 +365,7 @@ h3 { font-size: clamp(1.25rem, 1rem + 1vw, 1.5rem); }
 /* Mobile : boutons plus compacts (cible tactile ≥ 44px conservée) */
 @media (max-width: 800px) {
   .btn {
-    font-size: 0.95rem;
+    font-size: var(--fs-sm);
     padding: 0.65em 1.2em;
     min-height: 44px;
   }
@@ -315,13 +445,13 @@ h3 { font-size: clamp(1.25rem, 1rem + 1vw, 1.5rem); }
 .photo-note__top { display: flex; align-items: center; gap: 0.6rem; }
 .photo-note__etoiles { display: inline-flex; gap: 0.1em; }
 .photo-note__etoiles svg { width: 1.35rem; height: 1.35rem; fill: var(--etoile); }
-.photo-note__txt { margin: 0; color: var(--gris-700); font-size: 1.02rem; }
+.photo-note__txt { margin: 0; color: var(--gris-700); font-size: var(--fs-base); }
 .photo-note__txt strong { color: var(--bleu); }
 @media (max-width: 640px) {
   .photo-note__carte { padding: 0.65rem 1.2rem; }
   .photo-note__top { gap: 0.45rem; }
   .photo-note__etoiles svg { width: 1.15rem; height: 1.15rem; }
-  .photo-note__txt { font-size: 0.9rem; }
+  .photo-note__txt { font-size: var(--fs-xs); }
 }
 
 /* ── Hero clair, deux colonnes (design LJ) ─────────────────────── */
@@ -349,17 +479,22 @@ h3 { font-size: clamp(1.25rem, 1rem + 1vw, 1.5rem); }
   background: var(--rouge);
   flex-shrink: 0;
 }
-.hero h1 { font-size: clamp(1.5rem, 3vw, 2.1rem); font-weight: 700; }
+/* H1 du hero : volontairement plus mesuré que le H1 des pages de contenu
+   (le bloc de marque juste en dessous porte l'impact visuel), mais il doit
+   rester AU-DESSUS de l'échelle H2 — sinon le titre de la page est plus
+   petit que chacun de ses titres de section. C'était le cas avant : les
+   deux plafonnaient à 2.1rem. */
+.hero h1 { font-size: clamp(1.6rem, 3.2vw, 2.35rem); font-weight: 700; line-height: 1.16; }
 .hero__marque {
   font-size: clamp(1.75rem, 5.8vw, 3.4rem);
   font-weight: 800;
   color: var(--bleu);
   line-height: 1.05;
   margin-block: 0.2rem 1rem;
-  white-space: nowrap; /* « Lafleur Couvreur » toujours sur une seule ligne */
+  white-space: nowrap; /* « Renaud Rénov » toujours sur une seule ligne */
 }
-.hero__accroche { font-size: 1.12rem; margin-bottom: 1rem; }
-.hero__texte p, .hero__texte ul { margin-bottom: 0.9rem; }
+.hero__accroche { font-size: var(--fs-md); margin-bottom: 1rem; }
+.hero__texte p, .hero__texte ul { margin-bottom: 0.9rem; max-width: var(--mesure-etroite); }
 .hero__actions { display: flex; flex-wrap: wrap; gap: 0.8rem; margin-top: 1.6rem; }
 .hero__media { display: grid; gap: 1.5rem; align-content: start; }
 .hero__foto { position: relative; }
@@ -378,8 +513,8 @@ h3 { font-size: clamp(1.25rem, 1rem + 1vw, 1.5rem); }
 }
 .hero__garantie:hover { transform: none; }
 .hero__garantie img { width: 80px; height: auto; flex-shrink: 0; }
-.hero__garantie strong { color: var(--rouge); font-size: 1.25rem; }
-.hero__garantie p { margin: 0; font-size: 1.05rem; color: var(--gris-700); }
+.hero__garantie strong { color: var(--rouge); font-size: var(--fs-lg); }
+.hero__garantie p { margin: 0; font-size: var(--fs-base); color: var(--gris-700); max-width: none; }
 
 /* Mobile / colonne unique : la photo remonte juste sous la notation Google.
    Les deux colonnes sont aplaties (display: contents) et chaque élément
@@ -414,8 +549,8 @@ h3 { font-size: clamp(1.25rem, 1rem + 1vw, 1.5rem); }
 .carte-service img { aspect-ratio: 16 / 10; object-fit: cover; width: 100%; }
 .carte-service__corps { padding: 1.3rem; display: flex; flex-direction: column; gap: 0.5rem; flex: 1; }
 .carte-service h3 { color: var(--bleu); }
-.carte-service p { font-size: 0.95rem; color: var(--gris-700); flex: 1; }
-.carte-service__lien { color: var(--rouge-fonce); font-weight: 700; font-size: 0.95rem; }
+.carte-service p { font-size: var(--fs-sm); color: var(--gris-700); flex: 1; }
+.carte-service__lien { color: var(--rouge-fonce); font-weight: 700; font-size: var(--fs-sm); }
 .carte-service:hover .carte-service__lien { text-decoration: underline; }
 
 /* ── Avis clients ──────────────────────────────────────────────── */
@@ -423,9 +558,9 @@ h3 { font-size: clamp(1.25rem, 1rem + 1vw, 1.5rem); }
 .avis { padding: 1.5rem; display: flex; flex-direction: column; gap: 0.7rem; }
 .avis__entete { display: flex; justify-content: space-between; align-items: baseline; gap: 1rem; }
 .avis__nom { font-weight: 700; color: var(--bleu); }
-.avis__date { color: var(--gris-500); font-size: 0.85rem; }
+.avis__date { color: var(--gris-500); font-size: var(--fs-xs); }
 .avis__etoiles { color: var(--etoile); letter-spacing: 0.12em; }
-.avis p { font-size: 0.95rem; color: var(--gris-700); }
+.avis p { font-size: var(--fs-sm); color: var(--gris-700); }
 .note-google { display: flex; align-items: center; justify-content: center; gap: 0.7rem; flex-wrap: wrap; margin-top: 1rem; font-weight: 600; }
 
 /* ── Nuage de villes ───────────────────────────────────────────── */
@@ -439,7 +574,7 @@ h3 { font-size: clamp(1.25rem, 1rem + 1vw, 1.5rem); }
   border-radius: var(--rayon);
   text-decoration: none;
   color: var(--gris-700);
-  font-size: 0.92rem;
+  font-size: var(--fs-sm);
   font-weight: 500;
   transition: border-color var(--transition), color var(--transition), background var(--transition);
 }
@@ -447,9 +582,9 @@ h3 { font-size: clamp(1.25rem, 1rem + 1vw, 1.5rem); }
 
 /* ── Étapes numérotées (pourquoi nous choisir) ─────────────────── */
 .etapes { display: grid; gap: 2rem; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); margin-top: 2.5rem; }
-.etape__numero { font-size: 2.2rem; font-weight: 800; color: var(--rouge); line-height: 1; }
+.etape__numero { font-size: clamp(1.9rem, 1.6rem + 1.2vw, 2.2rem); font-weight: 800; color: var(--rouge); line-height: 1; }
 .etape h3 { margin-block: 0.6rem 0.4rem; }
-.etape p { color: var(--gris-700); font-size: 0.97rem; }
+.etape p { color: var(--gris-700); font-size: var(--fs-sm); }
 
 /* Variante sur fond bleu foncé (section "pourquoi") */
 .pourquoi .etape p { color: rgba(255, 255, 255, 0.85); }
@@ -474,14 +609,36 @@ h3 { font-size: clamp(1.25rem, 1rem + 1vw, 1.5rem); }
   box-shadow: 0 18px 40px rgba(36, 75, 100, 0.22);
 }
 .cta-final h2 { color: var(--blanc); margin-top: 0.2rem; }
-.cta-final__texte { max-width: 55ch; margin: 1rem auto 0; color: rgba(255, 255, 255, 0.95); }
+.cta-final__texte { max-width: 55ch; margin: 1rem auto 0; color: rgba(255, 255, 255, 0.95); font-size: var(--fs-md); }
 .cta-final__actions { display: flex; flex-wrap: wrap; justify-content: center; gap: 1rem; margin-top: 2rem; }
 /* Sur la carte orange : le bouton blanc affiche le marine, le bouton marine reste lisible */
 .cta-final__carte .btn--bleu { background: var(--bleu-fonce); }
 .cta-final__carte .btn--bleu:hover { background: var(--bleu); }
 
 /* ── Prose (contenu éditorial des pages services / villes) ─────── */
-.prose { max-width: 70ch; }
+.prose { max-width: var(--mesure-large); }
+/* Dans un document éditorial (mentions légales, à-propos), les H2 sont des
+   titres de chapitre : ils s'alignent sur le texte et ne portent pas le
+   trait orange décoratif réservé aux titres de section marketing.
+   Sélecteur volontairement aussi spécifique que `.section > .conteneur > h2`,
+   sinon la règle de centrage l'emporte et « 1. Informations légales de
+   l'éditeur » se retrouve centré avec un soulignement au milieu d'un
+   document juridique. */
+.section > .conteneur.prose > h2,
+.prose > h2 { text-align: left; }
+.section > .conteneur.prose > h2::after,
+.prose > h2::after { display: none; }
+/* Dans une colonne de prose déjà bornée, le texte reste au fer à gauche
+   de la colonne : pas de second centrage qui décalerait les paragraphes
+   par rapport à leurs titres. */
+.section > .conteneur.prose > p,
+.section > .conteneur.prose > ul,
+.section > .conteneur.prose > ol,
+.section > .conteneur.prose > h3 { max-width: none; margin-inline: 0; }
+@media (max-width: 800px) {
+  .section > .conteneur.prose > h2,
+  .section > .conteneur.prose > h3 { text-align: left; }
+}
 .prose h2 { margin-block: 2.2rem 0.8rem; }
 .prose h3 { margin-block: 1.6rem 0.6rem; }
 .prose p { margin-block: 0.9rem; }
@@ -529,7 +686,7 @@ h3 { font-size: clamp(1.25rem, 1rem + 1vw, 1.5rem); }
 }
 .fournisseurs__carte span {
   font-weight: 600;
-  font-size: 0.92rem;
+  font-size: var(--fs-sm);
   color: var(--gris-700);
   transition: color var(--transition);
 }
@@ -538,7 +695,7 @@ h3 { font-size: clamp(1.25rem, 1rem + 1vw, 1.5rem); }
 
 /* ── Fil d'Ariane ──────────────────────────────────────────────── */
 .fil-ariane {
-  font-size: 0.88rem;
+  font-size: var(--fs-xs);
   color: var(--gris-500);
   margin-bottom: 1rem;
   display: flex;
@@ -549,6 +706,26 @@ h3 { font-size: clamp(1.25rem, 1rem + 1vw, 1.5rem); }
 .fil-ariane a { color: var(--gris-500); text-decoration: none; }
 .fil-ariane a:hover { color: var(--rouge); }
 .fil-ariane [aria-current] { color: var(--gris-700); font-weight: 600; }
+
+/* ── Champs de formulaire ──────────────────────────────────────── */
+/* Garde-fou anti-zoom iOS : Safari mobile zoome automatiquement sur tout
+   champ dont la police est inférieure à 16px, ce qui décadre la page au
+   moindre toucher. Le formulaire de devis était à 15,5px.
+   Cette règle est un plancher : elle vaut pour tous les champs du site. */
+input, select, textarea, button {
+  font-family: inherit;
+  font-size: max(16px, 1rem);
+  line-height: 1.5;
+}
+textarea { line-height: 1.6; }
+
+/* ── Titre dans un bloc deux-colonnes ──────────────────────────── */
+/* Un H1 dimensionné en `vw` mais posé dans une demi-colonne devient
+   disproportionné en zone tablette (40px de titre dans 400px de large,
+   soit ~20 caractères par ligne). On le borne à la colonne. */
+.duo > div > h1 { font-size: clamp(1.7rem, 2.6vw, 2.5rem); }
+.duo > div > h1,
+.duo > div > h2 { max-width: 20ch; }
 
 /* ── Accessibilité ─────────────────────────────────────────────── */
 :focus-visible { outline: 3px solid var(--rouge); outline-offset: 2px; }

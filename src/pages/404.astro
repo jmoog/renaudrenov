@@ -14,13 +14,13 @@ const description = "La page que vous cherchez n'existe pas ou a été déplacé
         <a href="/" class="btn btn--rouge">Retour à l'accueil</a>
         <a href="/devis-gratuit/" class="btn btn--bleu">Demander un devis<FlecheRonde /></a>
       </div>
-      <p style="margin-top:1.5rem;">Besoin d'un couvreur ? Appelez-nous au <a href={SITE.telHref}><strong>{SITE.tel}</strong></a>.</p>
+      <p class="merci__tel">Besoin d'un couvreur ? Appelez-nous au <a href={SITE.telHref}><strong>{SITE.tel}</strong></a>.</p>
     </div>
   </section>
 </BaseLayout>
 
 <style>
   .merci { text-align: center; }
-  .merci__bloc { max-width: 60ch; margin-inline: auto; }
+  .merci__bloc { max-width: var(--mesure-etroite); margin-inline: auto; }
   .merci__actions { display: flex; flex-wrap: wrap; justify-content: center; gap: 1rem; margin-top: 1.8rem; }
 </style>

@@ -11,7 +11,7 @@
 //   ni « nettoyage + département » (propriété du pilier).
 // - Maillage : chaque satellite lie le pilier (ancre variée), la page
 //   /villes/{slug}/ de la même commune, 3 satellites voisins, et selon le
-//   thème /prestations/traitement-hydrofuge/ ou /prestations/pose-gouttiere/.
+//   thème /traitement-hydrofuge-28/ ou /prestations/pose-gouttiere/.
 // - Hero .hx problème → solution + liste à coches (modèle home) ; badge
 //   Dalep seul (jamais de décennale sur une page nettoyage).
 // ─────────────────────────────────────────────────────────────────────────
@@ -55,7 +55,7 @@ const schemaService = {
 ---
 <BaseLayout title={v.title} description={v.metaDesc} extraSchemas={[schemaService]}>
   <!-- ── Fil d'Ariane : rattaché au pilier (3 niveaux) ─────────────────── -->
-  <section class="section" style="padding-bottom: 0;">
+  <section class="section section--sans-bas">
     <div class="conteneur">
       <FilAriane
         items={[
@@ -249,7 +249,7 @@ const schemaService = {
     grid-template-columns: 1fr;
     grid-template-areas: "head" "photo" "body";
   }
-  @media (min-width: 960px) {
+  @media (min-width: 980px) {
     .hx__grid {
       grid-template-columns: 1.05fr 1fr;
       grid-template-areas: "head photo" "body photo";
@@ -271,18 +271,18 @@ const schemaService = {
     z-index: 1;
   }
   .hx__body { grid-area: body; }
-  .hx__title { margin: 0; color: var(--bleu); font-size: clamp(1.45rem, 2.6vw, 1.85rem); line-height: 1.2; letter-spacing: -0.01em; }
+  .hx__title { margin: 0; color: var(--bleu); font-size: clamp(1.6rem, 3.2vw, 2.35rem); line-height: 1.2; letter-spacing: -0.01em; }
   .hx__marque { color: var(--rouge); font-weight: 800; font-size: clamp(1.9rem, 4.4vw, 2.9rem); line-height: 1.1; margin: 0.6rem 0 0; }
   .hx__photo { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; border-radius: 24px; box-shadow: var(--ombre-forte); display: block; }
-  @media (min-width: 960px) { .hx__photo { aspect-ratio: 4 / 5; } }
+  @media (min-width: 980px) { .hx__photo { aspect-ratio: 4 / 5; } }
 
-  .hx__chapo { color: var(--gris-700); margin: 0 0 1.2rem; max-width: 56ch; }
+  .hx__chapo { color: var(--gris-700); margin: 0 0 1.2rem; max-width: var(--mesure-etroite); }
   .hx__chapo :global(strong) { color: var(--bleu); }
 
   .hx__points { list-style: none; padding: 0; margin: 0.4rem 0 1.2rem; display: grid; gap: 0.9rem; }
   .hx__points li {
     display: flex; align-items: center; gap: 0.8rem;
-    font-size: 1.08rem; font-weight: 600; color: var(--bleu);
+    font-size: var(--fs-md); font-weight: 600; color: var(--bleu);
   }
   .hx__check { color: var(--rouge); flex-shrink: 0; line-height: 0; }
   .hx__check svg { width: 30px; height: 30px; }
@@ -304,7 +304,7 @@ const schemaService = {
   .hx__note-top { display: flex; align-items: center; gap: 0.6rem; }
   .hx__note-stars { display: inline-flex; gap: 0.1em; }
   .hx__note-stars svg { width: 1.35rem; height: 1.35rem; fill: var(--etoile); }
-  .hx__note-txt { margin: 0; color: var(--gris-700); font-size: 1.02rem; }
+  .hx__note-txt { margin: 0; color: var(--gris-700); font-size: var(--fs-base); }
   .hx__note-txt strong { color: var(--bleu); }
 
   .hx__badges { display: flex; align-items: center; gap: 1.3rem; flex-wrap: wrap; margin: 0 0 1.6rem; }
@@ -312,15 +312,15 @@ const schemaService = {
 
   .hx__actions { display: flex; flex-wrap: wrap; gap: 0.8rem; }
 
-  @media (max-width: 959px) {
+  @media (max-width: 979px) {
     .hx__title, .hx__marque { text-align: center; }
-    .hx__chapo { text-align: center; margin-inline: auto; }
+    .hx__chapo { margin-inline: auto; } /* chapô long : reste en drapeau à gauche */
     .hx__badges, .hx__actions { justify-content: center; }
     .hx__badges img { height: 56px; }
   }
 
   /* ── Sections de fond : colonne de lecture confortable ── */
-  .texte-long { max-width: 75ch; margin: 1.8rem auto 0; display: grid; gap: 1.1rem; }
+  .texte-long { max-width: var(--mesure-large); margin: 1.8rem auto 0; display: grid; gap: 1.1rem; }
   .texte-long p { margin: 0; color: var(--gris-700); line-height: 1.65; }
 
   /* ── Encart Dalep : badge à gauche, texte à droite, panneau marine ── */
@@ -333,7 +333,7 @@ const schemaService = {
     box-shadow: var(--ombre-forte);
     padding: clamp(1.8rem, 4.5vw, 2.8rem);
   }
-  @media (min-width: 760px) {
+  @media (min-width: 900px) {
     .dalep { grid-template-columns: auto 1fr; column-gap: 2.6rem; }
   }
   .dalep__badge {
@@ -348,9 +348,9 @@ const schemaService = {
   }
   .dalep__badge img { width: 130px; height: 130px; display: block; }
   .dalep__texte h2 { color: #fff; margin: 0 0 0.7rem; }
-  .dalep__texte p { color: rgba(255, 255, 255, 0.88); margin: 0; max-width: 62ch; }
-  @media (max-width: 759px) {
-    .dalep__texte { text-align: center; }
+  .dalep__texte p { color: rgba(255, 255, 255, 0.88); margin: 0; max-width: var(--mesure-etroite); }
+  @media (max-width: 899px) {
+    .dalep__texte h2 { text-align: center; }
   }
 
   /* ── Duo photo + texte ── */
@@ -359,7 +359,7 @@ const schemaService = {
     gap: 2rem;
     align-items: center;
   }
-  @media (min-width: 860px) {
+  @media (min-width: 900px) {
     .duo-media { grid-template-columns: 1.15fr 0.85fr; column-gap: 3.2rem; }
   }
   .duo-media__texte h2 { color: var(--bleu); margin: 0 0 1rem; }
@@ -379,7 +379,7 @@ const schemaService = {
     display: grid;
     gap: 1.1rem;
     grid-template-columns: 1fr;
-    max-width: 46rem;
+    max-width: var(--mesure);
     margin: 2.4rem auto 0;
   }
   .protocole__etape {
@@ -401,22 +401,22 @@ const schemaService = {
   }
   .protocole__num {
     flex: 0 0 auto;
-    font-size: 1.6rem;
+    font-size: var(--fs-xl);
     font-weight: 800;
     color: var(--rouge, #EF7E0F);
     line-height: 1;
   }
-  .protocole__etape h3 { margin: 0; color: var(--bleu, #244B64); font-size: 1.1rem; }
+  .protocole__etape h3 { margin: 0; color: var(--bleu, #244B64); font-size: var(--fs-lg); }
   .protocole__etape p { margin: 0; color: var(--gris-700, #4b5563); }
 
   /* ── Le cocon : fond marine + cartes liens (modèle pilier) ── */
   .zone { background: linear-gradient(160deg, #244B64 0%, #173445 100%); }
   .zone .section__entete h2 { color: #fff; }
   .zone__intro {
-    max-width: 64ch;
+    max-width: var(--mesure);
     margin: 0 auto;
-    text-align: center;
-    text-wrap: balance;
+    text-align: left;
+    text-wrap: pretty;
     color: rgba(255, 255, 255, 0.9);
   }
   .zone__intro :global(a) { color: #ffb060; }
@@ -431,8 +431,8 @@ const schemaService = {
   .zone-villes a {
     display: flex;
     align-items: center;
-    justify-content: center;
-    text-align: center;
+    justify-content: flex-start;
+    text-align: left;
     padding: 1.05rem 1.15rem;
     background: rgba(255, 255, 255, 0.06);
     border: 1px solid rgba(255, 255, 255, 0.14);
@@ -447,4 +447,10 @@ const schemaService = {
     border-color: var(--rouge, #EF7E0F);
     transform: translateY(-2px);
   }
+
+  /* ── Mesure de lecture ────────────────────────────────────────
+     En dessous du seuil où ce bloc passe en deux colonnes, il occupe
+     toute la largeur du conteneur et la ligne dépassait 90 caractères
+     (le confort de lecture s'arrête vers 75). On borne la colonne. */
+  .duo-media__texte p { max-width: var(--mesure); }
 </style>

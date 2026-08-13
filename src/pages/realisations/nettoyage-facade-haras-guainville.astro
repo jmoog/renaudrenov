@@ -143,7 +143,7 @@ const schemaRealisation = {
 ---
 <BaseLayout title={title} description={description} extraSchemas={[schemaRealisation, ...schemasPhotos]}>
   <!-- ── Fil d'Ariane (BreadcrumbList émis par le composant, une seule fois) ── -->
-  <section class="section" style="padding-block: 1.4rem 0;">
+  <section class="section section--compact">
     <div class="conteneur">
       <FilAriane
         items={[
@@ -304,7 +304,7 @@ const schemaRealisation = {
       <p class="reno-intro">
         Laver une façade sans l'abîmer demande de la retenue&nbsp;: trop de pression et l'enduit part
         avec la mousse. Voici les quatre temps de cette
-        <a href="/prestations/nettoyage-facade/">prestation de nettoyage de façade</a>, telle que je
+        <a href="/nettoyage-facade-28/">prestation de nettoyage de façade</a>, telle que je
         l'ai menée à {ville}.
       </p>
       <ol class="reno-etapes">
@@ -362,7 +362,7 @@ const schemaRealisation = {
         lit le support, on traite, on lave sans forcer.
       </p>
       <div class="reno-liens">
-        <a class="reno-lien" href="/prestations/nettoyage-facade/">
+        <a class="reno-lien" href="/nettoyage-facade-28/">
           <strong>Nettoyage de façade en {SITE.departement}</strong>
           <span class="reno-lien__d">Supports traités, méthode, tarifs et devis gratuit.</span>
         </a>
@@ -398,7 +398,7 @@ const schemaRealisation = {
     grid-template-columns: 1fr;
     grid-template-areas: "head" "photo" "body";
   }
-  @media (min-width: 960px) {
+  @media (min-width: 980px) {
     .hx__grid {
       grid-template-columns: 1.05fr 1fr;
       grid-template-areas: "head photo" "body photo";
@@ -420,10 +420,10 @@ const schemaRealisation = {
     z-index: 1;
   }
   .hx__body { grid-area: body; }
-  .hx__title { margin: 0; color: var(--bleu); font-size: clamp(1.45rem, 2.6vw, 1.85rem); line-height: 1.2; letter-spacing: -0.01em; }
+  .hx__title { margin: 0; color: var(--bleu); font-size: clamp(1.6rem, 3.2vw, 2.35rem); line-height: 1.2; letter-spacing: -0.01em; }
   .hx__marque { color: var(--rouge); font-weight: 800; font-size: clamp(1.9rem, 4.4vw, 2.9rem); line-height: 1.1; margin: 0.6rem 0 0; }
   .hx__photo { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; border-radius: 24px; box-shadow: var(--ombre-forte); display: block; }
-  @media (min-width: 960px) { .hx__photo { aspect-ratio: 4 / 5; } }
+  @media (min-width: 980px) { .hx__photo { aspect-ratio: 4 / 5; } }
 
   /* Étiquette « Après » sur la photo du hero */
   .hx__etiquette {
@@ -434,17 +434,17 @@ const schemaRealisation = {
     border-radius: 999px;
     background: var(--rouge);
     color: var(--blanc);
-    font-size: 0.85rem;
+    font-size: var(--fs-xs);
     font-weight: 700;
   }
 
-  .hx__chapo { color: var(--gris-700); margin: 0 0 1.2rem; max-width: 56ch; }
+  .hx__chapo { color: var(--gris-700); margin: 0 0 1.2rem; max-width: var(--mesure-etroite); }
   .hx__chapo a { color: var(--rouge-fonce); font-weight: 600; }
 
   .hx__points { list-style: none; padding: 0; margin: 0.4rem 0 1.2rem; display: grid; gap: 0.9rem; }
   .hx__points li {
     display: flex; align-items: center; gap: 0.8rem;
-    font-size: 1.08rem; font-weight: 600; color: var(--bleu);
+    font-size: var(--fs-md); font-weight: 600; color: var(--bleu);
   }
   .hx__check { color: var(--rouge); flex-shrink: 0; line-height: 0; }
   .hx__check svg { width: 30px; height: 30px; }
@@ -466,18 +466,18 @@ const schemaRealisation = {
   .hx__note-top { display: flex; align-items: center; gap: 0.6rem; }
   .hx__note-stars { display: inline-flex; gap: 0.1em; }
   .hx__note-stars svg { width: 1.35rem; height: 1.35rem; fill: var(--etoile); }
-  .hx__note-txt { margin: 0; color: var(--gris-700); font-size: 1.02rem; }
+  .hx__note-txt { margin: 0; color: var(--gris-700); font-size: var(--fs-base); }
   .hx__note-txt strong { color: var(--bleu); }
 
   .hx__badges { display: flex; align-items: center; gap: 1.3rem; flex-wrap: wrap; margin: 0 0 1.6rem; }
   .hx__badges img { height: 64px; width: auto; }
 
   .hx__actions { display: flex; flex-wrap: wrap; gap: 0.8rem; }
-  .hx__cta-sub { color: var(--rouge-fonce); font-size: 0.9rem; margin: 0.5rem 0 0; }
+  .hx__cta-sub { color: var(--rouge-fonce); font-size: var(--fs-sm); margin: 0.5rem 0 0; }
 
-  @media (max-width: 959px) {
+  @media (max-width: 979px) {
     .hx__title, .hx__marque { text-align: center; }
-    .hx__chapo { text-align: center; margin-inline: auto; }
+    .hx__chapo { margin-inline: auto; } /* chapô long : reste en drapeau à gauche */
     .hx__badges, .hx__actions { justify-content: center; }
     .hx__cta-sub { text-align: center; }
     .hx__badges img { height: 56px; }
@@ -516,15 +516,17 @@ const schemaRealisation = {
   }
   .reno-fiche__icone svg { width: 1.4rem; height: 1.4rem; }
   .reno-fiche__txt { display: flex; flex-direction: column; line-height: 1.3; }
-  .reno-fiche__label { font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.05em; color: var(--gris-500); }
-  .reno-fiche__txt strong { color: var(--bleu); font-size: 1.02rem; }
+  .reno-fiche__label { font-size: var(--fs-xs); text-transform: uppercase; letter-spacing: 0.05em; color: var(--gris-500); }
+  .reno-fiche__txt strong { color: var(--bleu); font-size: var(--fs-base); }
 
   /* ══ Intro de section ══ */
   .reno-intro {
-    max-width: 68ch;
+    max-width: var(--mesure);
     margin: 0 auto 1.4rem;
-    text-align: center;
-    text-wrap: balance;
+    /* drapeau à gauche : au-delà de 2 lignes, un texte centré oblige
+       l'œil à rechercher le début de chaque ligne */
+    text-align: left;
+    text-wrap: pretty;
     color: var(--gris-700);
   }
   .reno-intro:last-of-type { margin-bottom: 0; }
@@ -544,13 +546,13 @@ const schemaRealisation = {
   .reno-compare figcaption {
     margin-top: 0.9rem;
     color: var(--gris-700);
-    font-size: 0.98rem;
+    font-size: var(--fs-sm);
     line-height: 1.55;
   }
   .reno-compare figcaption strong {
     display: block;
     color: var(--bleu);
-    font-size: 1.05rem;
+    font-size: var(--fs-base);
     margin-bottom: 0.2rem;
   }
 
@@ -577,7 +579,7 @@ const schemaRealisation = {
     background: var(--bleu);
     color: #fff;
     font-weight: 800;
-    font-size: 1.15rem;
+    font-size: var(--fs-md);
     margin-bottom: 1rem;
   }
   .reno-etape h3 { margin: 0 0 0.5rem; color: var(--bleu); }
@@ -645,15 +647,15 @@ const schemaRealisation = {
     border-color: transparent;
     box-shadow: 0 16px 36px rgba(36, 75, 100, 0.16);
   }
-  .reno-lien strong { display: block; color: var(--bleu); font-size: 1.1rem; margin-bottom: 0.4rem; }
-  .reno-lien__d { display: block; color: var(--gris-700); font-size: 0.95rem; line-height: 1.5; }
+  .reno-lien strong { display: block; color: var(--bleu); font-size: var(--fs-md); margin-bottom: 0.4rem; }
+  .reno-lien__d { display: block; color: var(--gris-700); font-size: var(--fs-sm); line-height: 1.5; }
 
   .reno-signature {
-    max-width: 62ch;
+    max-width: var(--mesure-etroite);
     margin: 2.4rem auto 0;
-    text-align: center;
-    text-wrap: balance;
-    font-size: 1.08rem;
+    text-align: left;
+    text-wrap: pretty;
+    font-size: var(--fs-md);
     font-weight: 600;
     color: var(--bleu);
   }
@@ -662,4 +664,10 @@ const schemaRealisation = {
   @media (max-width: 800px) {
     .reno-encart__liste { order: -1; }
   }
+
+  /* ── Mesure de lecture ────────────────────────────────────────
+     En dessous du seuil où ce bloc passe en deux colonnes, il occupe
+     toute la largeur du conteneur et la ligne dépassait 90 caractères
+     (le confort de lecture s'arrête vers 75). On borne la colonne. */
+  .reno-encart__txt p { max-width: var(--mesure); }
 </style>

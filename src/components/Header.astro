@@ -113,7 +113,7 @@ const menuServices = services.filter((s) =>
     padding: 0.35rem 0.95rem;
     color: var(--bleu);
     font-weight: 500;
-    font-size: 0.97rem;
+    font-size: var(--fs-sm);
     text-decoration: none;
     white-space: nowrap;
     transition: color var(--transition);
@@ -132,7 +132,7 @@ const menuServices = services.filter((s) =>
     gap: 0.5em;
     color: var(--bleu);
     font-weight: 600;
-    font-size: 1rem;
+    font-size: var(--fs-base);
     text-decoration: none;
     white-space: nowrap;
   }
@@ -143,7 +143,7 @@ const menuServices = services.filter((s) =>
 
   /* Resserrement intermédiaire */
   @media (max-width: 1300px) and (min-width: 1101px) {
-    .entete__liens a { padding-inline: 0.7rem; font-size: 0.92rem; }
+    .entete__liens a { padding-inline: 0.7rem; font-size: var(--fs-sm); }
     .entete__int { gap: 1rem; }
     .entete__actions { gap: 0.8rem; }
   }
@@ -172,13 +172,13 @@ const menuServices = services.filter((s) =>
     padding: 0.95em 0.2em;
     color: var(--bleu);
     font-weight: 600;
-    font-size: 1.05rem;
+    font-size: var(--fs-base);
     text-decoration: none;
     border-bottom: 1px solid var(--gris-100);
   }
   .entete__drawer-tel { display: flex; align-items: center; gap: 0.5em; }
   .entete__drawer-tel .icone { color: var(--rouge); width: 1.15rem; height: 1.15rem; }
-  .entete__drawer-urgence { font-size: 0.95rem !important; color: var(--gris-700) !important; }
+  .entete__drawer a.entete__drawer-urgence { font-size: var(--fs-base); color: var(--gris-700); }
   .entete__drawer .btn { margin-top: 1rem; width: auto; align-self: center; padding-inline: 2em; }
 
   /* Bascule desktop / mobile */

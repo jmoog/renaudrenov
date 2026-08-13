@@ -145,14 +145,14 @@ const schemaVille = {
 ---
 <BaseLayout title={title} description={description} extraSchemas={[schemaVille]}>
   <!-- ── Fil d'Ariane ─────────────────────────────────────────── -->
-  <section class="section" style="padding-block: 1.5rem 0;">
+  <section class="section section--compact">
     <div class="conteneur">
       <FilAriane items={[{ label: 'Accueil', href: '/' }, { label: `Couvreur à ${nom}` }]} />
     </div>
   </section>
 
   <!-- ── Hero ─────────────────────────────────────────────────── -->
-  <section class="hero" style="padding-top: 1.5rem;">
+  <section class="hero hero--compact">
     <div class="conteneur hero__grille">
       <div class="hero__texte">
         <h1>{h1}</h1>
@@ -305,7 +305,13 @@ const schemaVille = {
     margin-bottom: 0.5rem;
   }
   .mairie__icone svg { width: 1.5rem; height: 1.5rem; }
-  .mairie__nom { font-size: 1.15rem; margin: 0; color: var(--bleu); }
+  .mairie__nom { font-size: var(--fs-md); margin: 0; color: var(--bleu); }
   .mairie address { font-style: normal; color: var(--gris-700); margin: 0 0 1rem; }
   .mairie__lien { margin-top: 0.2rem; }
+
+  /* ── Mesure de lecture ────────────────────────────────────────
+     En dessous du seuil où ce bloc passe en deux colonnes, il occupe
+     toute la largeur du conteneur et la ligne dépassait 90 caractères
+     (le confort de lecture s'arrête vers 75). On borne la colonne. */
+  .encadre p { max-width: var(--mesure); }
 </style>

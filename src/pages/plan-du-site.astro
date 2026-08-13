@@ -1,123 +1,213 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import FilAriane from '../components/FilAriane.astro';
+import CtaDevis from '../components/CtaDevis.astro';
+import FlecheRonde from '../components/FlecheRonde.astro';
+import { SITE } from '../data/site.ts';
 import services from '../data/services.json';
 import villes from '../data/villes.json';
 import { VILLES_NETTOYAGE } from '../data/villes-nettoyage.ts';
 
-const title = 'Plan du site — Renaud Rénov, couvreur en Eure-et-Loir (28)';
+// ── Balises différenciées (règle anti-triplette du projet) ──────────────
+// Title → l'intitulé attendu + la marque ; H1 → la promesse de lecture ;
+// Meta → l'inventaire concret de ce qu'on trouve sur la page.
+const title = 'Plan du site : toutes les pages — Renaud Rénov, couvreur 28';
 const description =
-  "Toutes les pages du site Renaud Rénov : prestations de couverture, zone d'intervention en Eure-et-Loir, réalisations, devis et informations pratiques.";
+  "Prestations de toiture, communes couvertes, chantiers photographiés, devis et mentions légales : chaque page publiée par Renaud Rénov, classée par rubrique.";
+
+// ── Le nettoyage de façade n'est pas dans services.json (pilier à plat) :
+// on l'ajoute en fin de liste pour que la rubrique soit complète. ──────
+const prestations = [
+  ...services.map((s) => ({ label: s.label, accroche: s.accroche, href: s.href })),
+  {
+    label: 'Nettoyage de façade',
+    accroche:
+      "Enduits, crépis, pierre ou brique : élimination des mousses, des lichens et des coulures de ruissellement, puis protection des murs.",
+    href: '/nettoyage-facade-28/',
+  },
+];
+
+// ── Les chantiers documentés (miroir de /realisations/) ────────────────
+const realisations = [
+  {
+    href: '/realisations/nettoyage-facade-haras-guainville/',
+    titre: "Nettoyage de façade d'un haras à Guainville",
+    resume: "Trois façades d'un centre équestre débarrassées des mousses et des coulures, sans toucher à l'enduit.",
+  },
+  {
+    href: '/realisations/demoussage-toiture-maintenon/',
+    titre: "Démoussage d'une toiture à Maintenon",
+    resume: 'Une couverture en tuiles gagnée par le vert, redevenue nette en une seule intervention.',
+  },
+];
+
+// ── Sommaire d'ancres de l'en-tête ─────────────────────────────────────
+const sommaire = [
+  { href: '#prestations', label: 'Prestations' },
+  { href: '#nettoyage-communes', label: 'Nettoyage par commune' },
+  { href: '#zone', label: "Zone d'intervention" },
+  { href: '#realisations', label: 'Réalisations' },
+  { href: '#pratique', label: 'Infos pratiques' },
+];
 ---
 <BaseLayout title={title} description={description}>
   <!-- ── En-tête ─────────────────────────────────────────────── -->
   <section class="plan-entete">
     <div class="conteneur">
       <FilAriane items={[{ label: 'Accueil', href: '/' }, { label: 'Plan du site' }]} />
-      <p class="plan-entete__sur">Renaud Rénov — Couvreur en Eure-et-Loir</p>
-      <h1>Plan du site</h1>
+      <p class="plan-entete__sur">Renaud Rénov — Couvreur en {SITE.departement}</p>
+      <h1>Toutes les pages du site, rubrique par rubrique</h1>
       <p class="plan-entete__intro">
-        Toutes les pages du site, organisées par thème : nos prestations de couverture, notre zone
-        d'intervention, nos réalisations et les informations pratiques.
+        Vous cherchez une prestation précise, la page de votre commune ou un chantier déjà réalisé&nbsp;?
+        Tout est rassemblé ici&nbsp;: sept prestations détaillées, quatorze communes suivies, mes
+        réalisations en photos et les pages pour me joindre.
       </p>
+      <nav class="plan-sommaire" aria-label="Sommaire de la page">
+        {sommaire.map((s) => (
+          <a href={s.href}>{s.label}</a>
+        ))}
+      </nav>
     </div>
   </section>
 
-  <!-- ── Blocs ───────────────────────────────────────────────── -->
-  <section class="section" style="padding-top: clamp(2rem, 5vw, 3.5rem);">
+  <!-- ── 1. Prestations ──────────────────────────────────────── -->
+  <section class="section" id="prestations">
     <div class="conteneur">
-      <div class="plan-grille">
-        <article class="plan-carte">
-          <span class="plan-carte__num">01</span>
-          <h2>Présentation</h2>
-          <ul>
-            <li><a href="/">Accueil</a></li>
-            <li><a href="/a-propos/">À propos de Renaud Rénov</a></li>
-          </ul>
-        </article>
+      <h2>Ce que je fais sur un toit et sur une façade</h2>
+      <p>
+        Six prestations de couverture et le nettoyage de façade. Chaque page décrit le déroulé de
+        l'intervention, les situations qui la déclenchent et les matériaux employés.
+      </p>
 
-        <article class="plan-carte plan-carte--vedette">
-          <span class="plan-carte__num">02</span>
-          <h2>Nos prestations</h2>
-          <ul>
-            {services.map((s) => (
-              <li><a href={s.href}>{s.label}</a></li>
-            ))}
-          </ul>
-        </article>
-
-        <article class="plan-carte">
-          <span class="plan-carte__num">03</span>
-          <h2>Réalisations</h2>
-          <ul>
-            <li><a href="/realisations/">Toutes les réalisations</a></li>
-            <li><a href="/realisations/nettoyage-facade-haras-guainville/">Nettoyage de façade à Guainville</a></li>
-            <li><a href="/realisations/demoussage-toiture-maintenon/">Nettoyage de toiture à Maintenon</a></li>
-          </ul>
-        </article>
-
-        <article class="plan-carte">
-          <span class="plan-carte__num">04</span>
-          <h2>Devis &amp; contact</h2>
-          <ul>
-            <li><a href="/devis-gratuit/">Demander un devis gratuit</a></li>
-          </ul>
-        </article>
-
-        <article class="plan-carte">
-          <span class="plan-carte__num">05</span>
-          <h2>Informations</h2>
-          <ul>
-            <li><a href="/mentions-legales/">Mentions légales</a></li>
-            <li><span aria-current="page">Plan du site</span></li>
-          </ul>
-        </article>
-      </div>
-
-      <!-- ── Zone d'intervention ───────────────────────────────── -->
-      <div class="plan-villes">
-        <div class="plan-villes__tete">
-          <span class="plan-carte__num">06</span>
-          <div>
-            <h2>Zone d'intervention</h2>
-            <p>
-              J'interviens à Villiers-le-Morhier et dans tout l'Eure-et-Loir. Une page dédiée existe
-              pour chaque commune :
-            </p>
-          </div>
-        </div>
-        <ul class="plan-villes__liste">
-          {villes.map((v) => (
-            <li><a href={`/villes/${v.slug}/`}>{v.nom}</a></li>
-          ))}
-        </ul>
-      </div>
-
-      <!-- ── Cocon nettoyage : pilier + satellites par commune ──── -->
-      <div class="plan-villes">
-        <div class="plan-villes__tete">
-          <span class="plan-carte__num">07</span>
-          <div>
-            <h2>Nettoyage de toiture par commune</h2>
-            <p>
-              Le démoussage et le lavage des toits, détaillés commune par commune — et la page
-              <a href="/nettoyage-toiture-28/">nettoyage de toiture en Eure-et-Loir</a> pour le
-              protocole complet :
-            </p>
-          </div>
-        </div>
-        <ul class="plan-villes__liste">
-          {VILLES_NETTOYAGE.map((v) => (
-            <li><a href={`/nettoyage-toiture-${v.slug}/`}>{v.nom}</a></li>
-          ))}
-        </ul>
+      <div class="plan-cartes">
+        {prestations.map((p) => (
+          <a class="plan-carte" href={p.href}>
+            <span class="plan-carte__titre">{p.label}</span>
+            <span class="plan-carte__texte">{p.accroche}</span>
+          </a>
+        ))}
       </div>
     </div>
   </section>
+
+  <!-- ── 2. Cocon nettoyage de toiture ───────────────────────── -->
+  <section class="section section--gris" id="nettoyage-communes">
+    <div class="conteneur">
+      <h2>Le nettoyage de toiture, commune par commune</h2>
+      <p>
+        La page d'ensemble décrit le protocole complet, du brossage manuel au traitement. Les pages
+        communales reprennent le même travail, avec les couvertures et les contraintes que l'on
+        rencontre sur place.
+      </p>
+
+      <a class="plan-pilier" href="/nettoyage-toiture-28/">
+        <span class="plan-pilier__etiquette">Page de référence</span>
+        <span class="plan-pilier__titre">Nettoyage et démoussage de toiture en {SITE.departement}</span>
+        <span class="plan-pilier__texte">
+          Le protocole détaillé&nbsp;: diagnostic, brossage, basse pression, produits, fréquence et
+          tarifs indicatifs.
+        </span>
+      </a>
+
+      <p class="plan-soustitre">Les {VILLES_NETTOYAGE.length} pages communales&nbsp;:</p>
+      <ul class="nuage-villes">
+        {VILLES_NETTOYAGE.map((v) => (
+          <li><a href={`/nettoyage-toiture-${v.slug}/`}>{v.nom}</a></li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <!-- ── 3. Zone d'intervention ──────────────────────────────── -->
+  <section class="section" id="zone">
+    <div class="conteneur">
+      <h2>Les communes dans lesquelles j'interviens</h2>
+      <p>
+        {SITE.ville} est mon point de départ. Je me déplace dans le nord-est de l'{SITE.departement}
+        et jusqu'aux communes voisines des Yvelines. Chaque page présente l'entreprise sur place et
+        les règles d'urbanisme de la mairie concernée.
+      </p>
+
+      <ul class="plan-villes">
+        {villes.map((v) => (
+          <li>
+            <a href={`/villes/${v.slug}/`}>
+              <span class="plan-villes__nom">{v.nom}</span>
+              <span class="plan-villes__cp">{v.cp}</span>
+            </a>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <!-- ── 4. Réalisations ─────────────────────────────────────── -->
+  <section class="section section--gris" id="realisations">
+    <div class="conteneur">
+      <h2>Les chantiers documentés</h2>
+      <p>
+        Photos avant et après prises au même endroit, avec le détail de ce qui a été fait sur place.
+      </p>
+
+      <div class="plan-cartes plan-cartes--deux">
+        <a class="plan-carte plan-carte--index" href="/realisations/">
+          <span class="plan-carte__titre">Toutes les réalisations</span>
+          <span class="plan-carte__texte">
+            L'ensemble des chantiers publiés, du démoussage de toiture au nettoyage de façade.
+          </span>
+        </a>
+        {realisations.map((r) => (
+          <a class="plan-carte" href={r.href}>
+            <span class="plan-carte__titre">{r.titre}</span>
+            <span class="plan-carte__texte">{r.resume}</span>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ── 5. Informations pratiques ───────────────────────────── -->
+  <section class="section" id="pratique">
+    <div class="conteneur">
+      <h2>L'entreprise et les pages pratiques</h2>
+
+      <div class="plan-pratique">
+        <div class="plan-pratique__liens">
+          <h3>Les pages</h3>
+          <ul>
+            <li><a href="/">Accueil</a> <span>— l'entreprise, les services et les avis en un coup d'œil</span></li>
+            <li><a href="/a-propos/">À propos</a> <span>— qui je suis, comment je travaille</span></li>
+            <li><a href="/devis-gratuit/">Devis gratuit</a> <span>— le formulaire pour décrire votre chantier</span></li>
+            <li><a href="/mentions-legales/">Mentions légales</a> <span>— identité de l'entreprise, hébergement, données</span></li>
+            <li><span aria-current="page">Plan du site</span> <span>— vous y êtes</span></li>
+          </ul>
+          <a href="/devis-gratuit/" class="btn btn--rouge">Demander un devis gratuit<FlecheRonde /></a>
+        </div>
+
+        <aside class="plan-pratique__nap" aria-label="Coordonnées">
+          <h3>Me joindre</h3>
+          <dl>
+            <dt>Téléphone</dt>
+            <dd><a href={SITE.telHref}>{SITE.tel}</a></dd>
+            <dt>Urgence (fuite, sinistre, bâchage)</dt>
+            <dd><a href={SITE.telUrgenceHref}>{SITE.telUrgence}</a></dd>
+            <dt>E-mail</dt>
+            <dd><a href={`mailto:${SITE.email}`}>{SITE.email}</a></dd>
+            <dt>Adresse</dt>
+            <dd>{SITE.rue}, {SITE.cp} {SITE.ville}</dd>
+            <dt>Horaires</dt>
+            <dd>{SITE.horaires}</dd>
+          </dl>
+        </aside>
+      </div>
+    </div>
+  </section>
+
+  <CtaDevis titre="Vous n'avez pas trouvé ce que vous cherchiez&nbsp;?" />
 </BaseLayout>
 
 <style>
-  /* ── En-tête dégradé marine ──────────────────────────────── */
+  /* ── En-tête dégradé marine (même trame que /realisations/) ── */
   .plan-entete {
     background: linear-gradient(135deg, var(--bleu) 0%, var(--bleu-fonce) 100%);
     color: var(--blanc);
@@ -136,6 +226,7 @@ const description =
     background: radial-gradient(circle, rgba(239, 126, 15, 0.22) 0%, transparent 70%);
     pointer-events: none;
   }
+  .plan-entete > .conteneur { position: relative; z-index: 1; }
   .plan-entete :global(.fil-ariane),
   .plan-entete :global(.fil-ariane a),
   .plan-entete :global(.fil-ariane [aria-current]) {
@@ -145,142 +236,228 @@ const description =
   .plan-entete__sur {
     text-transform: uppercase;
     letter-spacing: 0.14em;
-    font-size: 0.8rem;
+    font-size: var(--fs-xs);
     font-weight: 700;
     color: var(--rouge);
     margin-bottom: 0.6rem;
   }
   .plan-entete h1 { color: var(--blanc); margin: 0; }
   .plan-entete__intro {
-    max-width: 60ch;
+    max-width: var(--mesure);
     color: rgba(255, 255, 255, 0.85);
     margin-top: 1rem;
-    font-size: 1.08rem;
+    font-size: var(--fs-md);
   }
 
-  /* ── Grille de cartes ────────────────────────────────────── */
-  .plan-grille {
-    display: grid;
-    gap: 1.5rem;
-    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-  }
-  .plan-carte {
-    position: relative;
-    background: var(--blanc);
-    border: 1px solid var(--gris-200);
-    border-radius: var(--rayon);
-    padding: 1.9rem 1.7rem 1.7rem;
-    box-shadow: var(--ombre);
-    transition: transform var(--transition), box-shadow var(--transition), border-color var(--transition);
-    overflow: hidden;
-  }
-  .plan-carte:hover {
-    transform: translateY(-4px);
-    box-shadow: var(--ombre-forte);
-    border-color: transparent;
-  }
-
-  .plan-carte__num {
-    display: block;
-    font-size: 1.6rem;
-    font-weight: 800;
-    color: var(--rouge-pale);
-    line-height: 1;
-    margin-bottom: 0.4rem;
-    -webkit-text-stroke: 1px var(--rouge);
-  }
-  .plan-carte h2 {
-    font-size: 1.15rem;
-    color: var(--bleu);
-    margin-bottom: 1.1rem;
-  }
-  .plan-carte ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    display: grid;
-    gap: 0.7rem;
-  }
-  .plan-carte li {
-    border-top: 1px solid var(--gris-100);
-    padding-top: 0.7rem;
-  }
-  .plan-carte li:first-child { border-top: 0; padding-top: 0; }
-  .plan-carte a {
-    color: var(--gris-700);
-    text-decoration: none;
-    font-weight: 500;
-    display: inline-flex;
-    align-items: center;
-    gap: 0.4em;
-    transition: color var(--transition), gap var(--transition);
-  }
-  .plan-carte a::after {
-    content: '→';
-    color: var(--rouge);
-    opacity: 0;
-    transform: translateX(-4px);
-    transition: opacity var(--transition), transform var(--transition);
-  }
-  .plan-carte a:hover { color: var(--rouge-fonce); }
-  .plan-carte a:hover::after { opacity: 1; transform: translateX(0); }
-  .plan-carte [aria-current] { color: var(--gris-500); font-style: italic; }
-
-  /* Carte vedette (prestations) : fond bleu pâle */
-  .plan-carte--vedette {
-    background: var(--bleu-pale);
-    border-color: transparent;
-  }
-
-  /* ── Zone d'intervention ─────────────────────────────────── */
-  .plan-villes {
-    margin-top: 2.5rem;
-    background: var(--bleu-fonce);
-    border-radius: var(--rayon);
-    padding: clamp(1.8rem, 4vw, 2.5rem);
-    color: rgba(255, 255, 255, 0.9);
-  }
-  .plan-villes__tete {
-    display: flex;
-    align-items: flex-start;
-    gap: 1rem;
-    margin-bottom: 1.6rem;
-  }
-  .plan-villes__tete .plan-carte__num {
-    color: transparent;
-    -webkit-text-stroke: 1px rgba(239, 126, 15, 0.8);
-    margin-bottom: 0;
-    flex-shrink: 0;
-  }
-  .plan-villes h2 { color: var(--blanc); margin: 0 0 0.4rem; }
-  .plan-villes p { color: rgba(255, 255, 255, 0.8); margin: 0; max-width: 60ch; }
-  .plan-villes__liste {
-    list-style: none;
-    padding: 0;
-    margin: 0;
+  /* Sommaire d'ancres */
+  .plan-sommaire {
     display: flex;
     flex-wrap: wrap;
-    gap: 0.6rem;
+    gap: 0.5rem;
+    margin-top: 1.6rem;
   }
-  .plan-villes__liste a {
-    display: inline-block;
-    padding: 0.5em 1.1em;
-    background: rgba(255, 255, 255, 0.08);
-    border: 1px solid rgba(255, 255, 255, 0.16);
+  .plan-sommaire a {
+    padding: 0.42em 1em;
+    border: 1px solid rgba(255, 255, 255, 0.24);
     border-radius: var(--rayon);
+    background: rgba(255, 255, 255, 0.07);
     color: rgba(255, 255, 255, 0.92);
     text-decoration: none;
-    font-size: 0.92rem;
-    font-weight: 500;
+    font-size: var(--fs-sm);
+    font-weight: 600;
     transition: background var(--transition), border-color var(--transition), color var(--transition);
   }
-  .plan-villes__liste a:hover {
-    background: var(--rouge);
-    border-color: var(--rouge);
+  .plan-sommaire a:hover {
+    background: var(--rouge-fonce);
+    border-color: var(--rouge-fonce);
     color: var(--blanc);
   }
 
-  @media (max-width: 640px) {
-    .plan-villes__tete { flex-direction: column; gap: 0.5rem; }
+  /* ── Cartes de rubrique ──────────────────────────────────── */
+  .plan-cartes {
+    display: grid;
+    gap: 1.3rem;
+    grid-template-columns: 1fr;
+    align-items: start; /* les cartes prennent la hauteur de leur texte */
+    margin-top: 2.2rem;
+  }
+  /* Colonnes explicites (pas d'auto-fit) : on maîtrise le nombre de colonnes,
+     donc on sait quand la dernière carte se retrouve seule sur sa ligne. Elle
+     prend alors toute la largeur — plus de trou blanc en fin de grille. */
+  @media (min-width: 640px) {
+    .plan-cartes { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .plan-cartes > :last-child:nth-child(odd) { grid-column: 1 / -1; }
+  }
+  @media (min-width: 1000px) {
+    .plan-cartes { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    .plan-cartes > :last-child:nth-child(odd) { grid-column: auto; }
+    .plan-cartes > :last-child:nth-child(3n + 1) { grid-column: 1 / -1; }
+  }
+
+  /* Pas de barre colorée sur les cartes (ni border-left, ni border-top, ni
+     liseré ::before au survol) : le survol se joue sur l'ombre et le titre. */
+  .plan-carte {
+    display: flex;
+    flex-direction: column;
+    gap: 0.55rem;
+    background: var(--blanc);
+    border: 1px solid var(--gris-200);
+    border-radius: var(--rayon);
+    padding: 1.4rem 1.5rem 1.5rem;
+    text-decoration: none;
+    box-shadow: var(--ombre);
+    transition: transform var(--transition), box-shadow var(--transition), border-color var(--transition);
+  }
+  .plan-carte:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--ombre-forte);
+    border-color: var(--bleu-accent);
+  }
+  .plan-carte__titre {
+    font-size: var(--fs-lg);
+    font-weight: 700;
+    color: var(--bleu);
+    line-height: 1.3;
+    transition: color var(--transition);
+  }
+  .plan-carte:hover .plan-carte__titre { color: var(--bleu-accent); text-decoration: underline; }
+  .plan-carte__texte {
+    font-size: var(--fs-sm);
+    color: var(--gris-700);
+    line-height: 1.55;
+  }
+  .plan-carte--index { background: var(--bleu-pale); border-color: #cfdce4; }
+
+  /* ── Page pilier mise en avant ───────────────────────────── */
+  .plan-pilier {
+    position: relative;
+    display: grid;
+    gap: 0.5rem;
+    margin-top: 2.2rem;
+    padding: 1.6rem 1.7rem 1.7rem;
+    background: var(--bleu);
+    border-radius: var(--rayon);
+    color: var(--blanc);
+    text-decoration: none;
+    box-shadow: var(--ombre);
+    transition: background var(--transition), transform var(--transition);
+  }
+  .plan-pilier:hover { background: var(--bleu-fonce); transform: translateY(-3px); color: var(--blanc); }
+  .plan-pilier__etiquette {
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    font-size: var(--fs-xs);
+    font-weight: 700;
+    color: var(--rouge);
+  }
+  .plan-pilier__titre { font-size: var(--fs-lg); font-weight: 700; line-height: 1.3; }
+  .plan-pilier__texte {
+    font-size: var(--fs-sm);
+    color: rgba(255, 255, 255, 0.85);
+    max-width: var(--mesure);
+  }
+  .plan-pilier:hover .plan-pilier__titre { text-decoration: underline; }
+
+  .plan-soustitre {
+    max-width: none !important;
+    margin: 2rem 0 0.9rem !important;
+    font-weight: 700;
+    color: var(--bleu);
+  }
+
+  /* Les puces des communes réutilisent le composant global `.nuage-villes`
+     (même rendu que sur les pages prestations et villes) — rien à redéfinir
+     ici, on annule seulement la marge haute par défaut. */
+  :global(.nuage-villes) { margin-top: 0 !important; }
+
+  /* ── Liste des communes (pages villes) ───────────────────── */
+  .plan-villes {
+    list-style: none;
+    padding: 0;
+    margin: 2.2rem 0 0 !important;
+    max-width: none !important;
+    display: grid;
+    gap: 0.6rem;
+    grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+  }
+  .plan-villes a {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 0.6rem;
+    padding: 0.75rem 1rem;
+    border: 1px solid var(--gris-200);
+    border-radius: var(--rayon);
+    background: var(--blanc);
+    text-decoration: none;
+    transition: border-color var(--transition), background var(--transition), transform var(--transition);
+  }
+  .plan-villes a:hover {
+    border-color: var(--bleu-accent);
+    background: var(--bleu-pale);
+    transform: translateY(-2px);
+  }
+  .plan-villes__nom { font-weight: 600; color: var(--bleu); font-size: var(--fs-sm); }
+  .plan-villes__cp { font-size: var(--fs-xs); color: var(--gris-500); font-variant-numeric: tabular-nums; }
+
+  /* ── Informations pratiques ──────────────────────────────── */
+  .plan-pratique {
+    display: grid;
+    gap: 1.8rem;
+    grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr);
+    align-items: start;
+    margin-top: 2.2rem;
+  }
+  .plan-pratique h3 {
+    font-size: var(--fs-lg);
+    color: var(--bleu);
+    margin: 0 0 1rem;
+  }
+  .plan-pratique__liens ul {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 1.6rem;
+    display: grid;
+    gap: 0.75rem;
+  }
+  .plan-pratique__liens li {
+    border-top: 1px solid var(--gris-100);
+    padding-top: 0.75rem;
+    font-size: var(--fs-sm);
+    line-height: 1.5;
+  }
+  .plan-pratique__liens li:first-child { border-top: 0; padding-top: 0; }
+  .plan-pratique__liens li a { font-weight: 700; color: var(--bleu); text-decoration: none; }
+  .plan-pratique__liens li a:hover { color: var(--rouge-fonce); text-decoration: underline; }
+  .plan-pratique__liens li span { color: var(--gris-500); }
+  .plan-pratique__liens li [aria-current] { font-weight: 700; color: var(--gris-500); font-style: italic; }
+
+  .plan-pratique__nap {
+    background: var(--bleu-pale);
+    border-radius: var(--rayon);
+    padding: 1.5rem 1.6rem;
+  }
+  .plan-pratique__nap dl { margin: 0; }
+  .plan-pratique__nap dt {
+    font-size: var(--fs-xs);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    font-weight: 700;
+    color: var(--gris-500);
+    margin-top: 1rem;
+  }
+  .plan-pratique__nap dt:first-of-type { margin-top: 0; }
+  .plan-pratique__nap dd {
+    margin: 0.15rem 0 0;
+    font-size: var(--fs-sm);
+    color: var(--gris-700);
+    font-weight: 600;
+  }
+  .plan-pratique__nap dd a { color: var(--bleu); text-decoration: none; }
+  .plan-pratique__nap dd a:hover { color: var(--rouge-fonce); text-decoration: underline; }
+
+  @media (max-width: 800px) {
+    .plan-pratique { grid-template-columns: 1fr; }
+    .plan-pilier { padding: 1.4rem 1.4rem 1.5rem; }
   }
 </style>
