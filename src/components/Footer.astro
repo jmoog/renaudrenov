@@ -55,6 +55,10 @@ const horairesInsecables = SITE.horaires.replace(/(\d+)\s*h\s*(\d+)/g, '$1\u00a0
         {services.map((s) => (
           <li><a href={s.href}>{s.labelNav}</a></li>
         ))}
+        {/* Le nettoyage de façade ne figure pas dans services.json (liste des
+            6 prestations arrêtée avec le client), mais la page existe : on
+            l'ajoute ici pour que le footer couvre bien tous les services. */}
+        <li><a href="/nettoyage-facade-28/">Nettoyage de façade</a></li>
       </ul>
     </nav>
 
