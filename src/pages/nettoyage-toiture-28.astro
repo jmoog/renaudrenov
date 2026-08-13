@@ -7,6 +7,7 @@ import FilAriane from '../components/FilAriane.astro';
 import LogoGoogle from '../components/LogoGoogle.astro';
 import CtaDevis from '../components/CtaDevis.astro';
 import FlecheRonde from '../components/FlecheRonde.astro';
+import PrestationsConnexes from '../components/PrestationsConnexes.astro';
 
 // ── Balises : brief pilier du 12/08/2026 (angles différenciés) ──────────
 // Title → mot-clé + dept + co-requête ; H1 → tête différente du title ;
@@ -508,6 +509,25 @@ const schemaFaq = {
     </div>
   </section>
 
+  <!-- ── Maillage prestations : lien de RETOUR vers le pilier façade et
+       vers l'hydrofuge. Les deux manquaient — la façade n'étant pas dans
+       services.json, elle est passée en carte explicite. ────────────── -->
+  <PrestationsConnexes
+    titre="Nos autres prestations de nettoyage et de protection"
+    slugs={[
+      {
+      label: 'Nettoyage de façade et de pignon',
+      accroche:
+        "Redonnez un aspect neuf à vos murs : enduits, crépis, pierre ou brique, un artisan du 28 intervient et protège durablement.",
+      image: '/images/photos/facade-pignon-apres-nettoyage-28.webp',
+      alt: "Façade et pignon d'une maison après nettoyage par Renaud Rénov en Eure-et-Loir (28)",
+      href: '/nettoyage-facade-28/',
+    },
+      'traitement-hydrofuge',
+      'reparation-toiture',
+    ]}
+  />
+
   <!-- ── CTA devis final : version nettoyage (titre, texte et photo dédiés) ── -->
   <CtaDevis
     titre="Vous souhaitez faire démousser votre toiture ?"
@@ -767,7 +787,7 @@ const schemaFaq = {
     z-index: 1;
   }
   .hx__body { grid-area: body; }
-  .hx__title { margin: 0; color: var(--bleu); font-size: clamp(1.6rem, 3.2vw, 2.35rem); line-height: 1.2; letter-spacing: -0.01em; }
+  .hx__title { margin: 0; color: var(--bleu); font-size: var(--fs-h1-hero); line-height: 1.2; letter-spacing: -0.01em; }
   .hx__marque { color: var(--rouge); font-weight: 800; font-size: clamp(1.9rem, 4.4vw, 2.9rem); line-height: 1.1; margin: 0.6rem 0 0; }
   .hx__photo { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; border-radius: 24px; box-shadow: var(--ombre-forte); display: block; }
   @media (min-width: 980px) { .hx__photo { aspect-ratio: 4 / 5; } }

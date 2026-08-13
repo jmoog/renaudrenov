@@ -505,7 +505,20 @@ const schemaFaq = {
   </section>
 
   <!-- ── Maillage prestations ─────────────────────────────────── -->
-  <PrestationsConnexes slugs={["nettoyage-demoussage-toiture", "renovation-toiture", "reparation-toiture"]} />
+  <PrestationsConnexes
+    slugs={[
+      'nettoyage-demoussage-toiture',
+      {
+      label: 'Nettoyage de façade et de pignon',
+      accroche:
+        "Redonnez un aspect neuf à vos murs : enduits, crépis, pierre ou brique, un artisan du 28 intervient et protège durablement.",
+      image: '/images/photos/facade-pignon-apres-nettoyage-28.webp',
+      alt: "Façade et pignon d'une maison après nettoyage par Renaud Rénov en Eure-et-Loir (28)",
+      href: '/nettoyage-facade-28/',
+    },
+      'renovation-toiture',
+    ]}
+  />
 
   <!-- ── CTA devis (adapté au traitement hydrofuge) ───────────── -->
   <CtaDevis
@@ -732,9 +745,9 @@ const schemaFaq = {
   }
 
   .hero-titre {
-    font-size: clamp(1.6rem, 3.2vw, 2.35rem);
+    font-size: var(--fs-h1-hero);
     line-height: 1.2;
-    max-width: 30ch;
+    max-width: var(--mesure-etroite); /* rem, jamais ch (cf. note --mesure) */
     margin-bottom: 0.2rem;
   }
   @media (max-width: 899px) {

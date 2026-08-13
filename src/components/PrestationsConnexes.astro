@@ -1,16 +1,34 @@
 ---
 // Bloc de maillage interne : cartes vers les prestations connexes.
+//
+// `slugs` accepte DEUX formes, mélangeables dans le même tableau :
+//   - une chaîne = un `slug` de services.json (cas normal) ;
+//   - un objet carte complet { label, accroche, image, alt, href }.
+// La seconde forme existe pour les pages qui ne figurent PAS dans
+// services.json — c'est le cas du pilier /nettoyage-facade-28/ (choix
+// client du 13/08/2026 : ne pas l'ajouter au fichier de services, donc
+// pas au menu du header). Sans elle, aucune page ne pouvait pointer
+// automatiquement vers la façade : c'est l'origine du maillage à sens
+// unique signalé par le client.
 import services from '../data/services.json';
 
+export interface CarteConnexe {
+  label: string;
+  accroche: string;
+  image: string;
+  alt: string;
+  href: string;
+}
+
 export interface Props {
-  slugs: string[];
+  slugs: (string | CarteConnexe)[];
   titre?: string;
 }
 const { slugs, titre = 'Nos autres prestations de couverture' } = Astro.props;
 
 const connexes = slugs
-  .map((slug) => services.find((s) => s.slug === slug))
-  .filter((s): s is (typeof services)[number] => Boolean(s));
+  .map((s) => (typeof s === 'string' ? services.find((x) => x.slug === s) : s))
+  .filter(Boolean) as CarteConnexe[];
 ---
 <section class="section section--gris">
   <div class="conteneur">
@@ -22,7 +40,6 @@ const connexes = slugs
           <span class="carte-service__corps">
             <h3>{s.label}</h3>
             <p>{s.accroche}</p>
-            <span class="carte-service__lien">{s.lien} →</span>
           </span>
         </a>
       ))}

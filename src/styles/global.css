@@ -71,6 +71,21 @@
   --fs-lg:   clamp(1.15rem,  1.09rem + 0.28vw, 1.3rem);   /* 18.4 → 20.8px — sous-titres, gros libellés */
   --fs-xl:   clamp(1.3rem,   1.18rem + 0.50vw, 1.6rem);   /* 20.8 → 25.6px — chiffres, gros repères */
 
+  /* ── PALIERS DE TITRES ─────────────────────────────────────────
+     Mêmes bornes (360 → 1440px) que l'échelle ci-dessus. Les titres
+     étaient auparavant écrits en clamp() ad-hoc dont le MINIMUM était
+     atteint dès ~600px : sur un téléphone ils ne descendaient plus,
+     et un H1 de 55 caractères tombait sur 3 lignes.
+     Règle de dimensionnement mobile (360px) : le H1 doit tenir en
+     DEUX lignes maximum pour un titre de 60 caractères, soit
+     ≈ 20-21px. Toute la hiérarchie se compresse en conséquence
+     (h1 > h2 > h3 > corps reste vrai à toutes les largeurs).
+     N'ÉCRIVEZ PAS de font-size de titre en dur : utilisez ces tokens. */
+  --fs-h1:      clamp(1.3rem,  0.75rem  + 2.50vw, 3rem);    /* 21 → 48px — H1 des pages sans hero */
+  --fs-h1-hero: clamp(1.25rem, 0.883rem + 1.63vw, 2.35rem); /* 20 → 37.6px — H1 de hero et de bloc deux-colonnes */
+  --fs-h2:      clamp(1.15rem, 0.845rem + 1.40vw, 2.1rem);  /* 18.9 → 33.6px — titres de section */
+  --fs-h3:      clamp(1.05rem, 0.925rem + 0.65vw, 1.5rem);  /* 17.3 → 24px — titres de cartes */
+
   /* Longueur de ligne (« mesure »). La typographie fixe le confort de
      lecture entre 45 et 75 caractères par ligne ; au-delà, l'œil perd
      le début de la ligne suivante. Sans ces bornes, un paragraphe dans
@@ -130,10 +145,9 @@ h1, h2, h3, h4 { line-height: 1.2; color: var(--bleu); text-wrap: balance; font-
 /* « pretty » évite les retours à la ligne sur un seul mot (orphelins)
    en fin de paragraphe. L'alignement, lui, est hérité (cf. body). */
 p, li { text-wrap: pretty; }
-h1 { font-size: clamp(1.9rem, 4.5vw, 3rem); font-weight: 800; }
-h2 { font-size: clamp(1.5rem, 3vw, 2.1rem); }
-/* H3 réactif : ~20px sur mobile, ~24px sur desktop (min lisible = 20px) */
-h3 { font-size: clamp(1.25rem, 1rem + 1vw, 1.5rem); }
+h1 { font-size: var(--fs-h1); font-weight: 800; }
+h2 { font-size: var(--fs-h2); }
+h3 { font-size: var(--fs-h3); }
 h4 { font-size: var(--fs-lg); }
 /* Interlignage des grands titres : un titre de 48px avec l'interligne
    1.2 d'un texte de 16px paraît trop aéré. On resserre progressivement. */
@@ -362,12 +376,20 @@ h2 { line-height: 1.18; }
   transition: background var(--transition), color var(--transition), border-color var(--transition), transform var(--transition);
 }
 .btn:active { transform: scale(0.97); }
-/* Mobile : boutons plus compacts (cible tactile ≥ 44px conservée) */
+/* Mobile : boutons plus compacts (cible tactile ≥ 44px conservée).
+   GARDE-FOU DE LARGEUR — règle client, sans exception : AUCUN bouton ne
+   doit s'étendre d'un bord à l'autre de l'écran. On plafonne donc tout
+   `.btn` à 18rem (288px, soit ~74 % d'un écran de 390px) ; un libellé plus
+   long passe sur deux lignes à l'intérieur du bouton au lieu de l'étirer.
+   Ne JAMAIS remettre `width: 100%` sur un `.btn`, où que ce soit. */
 @media (max-width: 800px) {
   .btn {
     font-size: var(--fs-sm);
     padding: 0.65em 1.2em;
     min-height: 44px;
+    width: auto;
+    max-width: min(100%, 18rem);
+    text-wrap: balance;
   }
 }
 .btn--rouge { background: var(--rouge-fonce); color: var(--blanc); }
@@ -484,7 +506,7 @@ h2 { line-height: 1.18; }
    rester AU-DESSUS de l'échelle H2 — sinon le titre de la page est plus
    petit que chacun de ses titres de section. C'était le cas avant : les
    deux plafonnaient à 2.1rem. */
-.hero h1 { font-size: clamp(1.6rem, 3.2vw, 2.35rem); font-weight: 700; line-height: 1.16; }
+.hero h1 { font-size: var(--fs-h1-hero); font-weight: 700; line-height: 1.16; }
 .hero__marque {
   font-size: clamp(1.75rem, 5.8vw, 3.4rem);
   font-weight: 800;
@@ -550,8 +572,6 @@ h2 { line-height: 1.18; }
 .carte-service__corps { padding: 1.3rem; display: flex; flex-direction: column; gap: 0.5rem; flex: 1; }
 .carte-service h3 { color: var(--bleu); }
 .carte-service p { font-size: var(--fs-sm); color: var(--gris-700); flex: 1; }
-.carte-service__lien { color: var(--rouge-fonce); font-weight: 700; font-size: var(--fs-sm); }
-.carte-service:hover .carte-service__lien { text-decoration: underline; }
 
 /* ── Avis clients ──────────────────────────────────────────────── */
 .grille-avis { display: grid; gap: 1.5rem; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); margin-top: 2.5rem; }
@@ -723,9 +743,16 @@ textarea { line-height: 1.6; }
 /* Un H1 dimensionné en `vw` mais posé dans une demi-colonne devient
    disproportionné en zone tablette (40px de titre dans 400px de large,
    soit ~20 caractères par ligne). On le borne à la colonne. */
-.duo > div > h1 { font-size: clamp(1.7rem, 2.6vw, 2.5rem); }
-.duo > div > h1,
-.duo > div > h2 { max-width: 20ch; }
+.duo > div > h1 { font-size: var(--fs-h1-hero); }
+/* La bride de largeur n'a de sens QU'À PARTIR du moment où la grille est
+   réellement sur deux colonnes (≥900px). En dessous, le bloc occupe toute
+   la largeur : la brider à 20ch forçait un H1 de 57 caractères sur 3 lignes
+   alors qu'il restait 60px de blanc à droite. En rem (jamais en ch : l'unité
+   ch se calcule sur la police de l'élément, cf. note sur --mesure). */
+@media (min-width: 900px) {
+  .duo > div > h1,
+  .duo > div > h2 { max-width: 32rem; }
+}
 
 /* ── Accessibilité ─────────────────────────────────────────────── */
 :focus-visible { outline: 3px solid var(--rouge); outline-offset: 2px; }

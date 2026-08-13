@@ -190,20 +190,23 @@ const horairesInsecables = SITE.horaires.replace(/(\d+)\s*h\s*(\d+)/g, '$1\u00a0
   }
   .pied__mail { overflow-wrap: anywhere; }
 
-  /* Boutons de contact : même largeur, alignés sur la colonne */
+  /* Boutons de contact : LARGEUR NATURELLE, jamais étirés.
+     Règle client absolue — aucun bouton du site ne prend toute la largeur.
+     `justify-items` (et non `width: 100%`) commande l'alignement : les
+     boutons se dimensionnent sur leur libellé et se centrent sur mobile. */
   .pied__actions {
     display: grid;
+    justify-items: start;
     gap: 0.6rem;
     margin-top: 1.3rem;
-    max-width: 320px;
+    max-width: 18rem;
   }
   .pied__actions .btn {
-    width: 100%;
-    justify-content: space-between;
-    text-align: left;
+    width: auto;
+    justify-content: center;
+    text-align: center;
     text-wrap: balance;
   }
-  .pied__actions .btn--blanc { justify-content: center; }
   .pied__btn-intervention { font-size: var(--fs-sm); }
 
   .pied__legal {
@@ -232,7 +235,7 @@ const horairesInsecables = SITE.horaires.replace(/(\d+)\s*h\s*(\d+)/g, '$1\u00a0
     .pied__bloc ul { justify-items: center; }
     .pied__logo { margin-inline: auto; }
     .pied__badges { justify-content: center; }
-    .pied__actions { justify-items: center; width: 100%; margin-inline: auto; }
+    .pied__actions { justify-items: center; max-width: 100%; margin-inline: auto; }
     .pied__coords li { justify-content: center; text-align: left; }
   }
 </style>
