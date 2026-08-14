@@ -102,7 +102,7 @@ export const VILLES_NETTOYAGE: VilleNettoyage[] = [
     sectionC: {
       h2: 'Les gouttières, nettoyées dans la même intervention',
       paragraphes: [
-        "Un nettoyage de versants se termine toujours par celui des évacuations. Gouttières, naissances et descentes sont débarrassées des feuilles, des mousses tombées pendant le lavage et des dépôts accumulés. Je vérifie au passage les fixations et la pente d'écoulement, et je vous signale ce qui mériterait une reprise — une <a href=\"/prestations/pose-gouttiere/\">gouttière en bon état</a>, c'est une façade et des fondations protégées.",
+        "Un nettoyage de versants se termine toujours par celui des évacuations. Gouttières, naissances et descentes sont débarrassées des feuilles, des mousses tombées pendant le lavage et des dépôts accumulés. Je vérifie au passage les fixations et la pente d'écoulement, et je vous signale ce qui mériterait une reprise — une <a href=\"/pose-gouttiere-28/\">gouttière en bon état</a>, c'est une façade et des fondations protégées.",
         "Ce passage en rive me permet aussi de contrôler les points singuliers : solins, bandes de rive, abords de cheminée. En tant que <a href=\"/villes/villiers-le-morhier/\">couvreur à Villiers-le-Morhier</a>, je repère et je peux reprendre immédiatement ce qu'une société de nettoyage se contenterait de photographier.",
       ],
     },
@@ -256,7 +256,7 @@ export const VILLES_NETTOYAGE: VilleNettoyage[] = [
       h2: "Les signes qui montrent qu'il est temps d'agir",
       paragraphes: [
         "Des plaques vertes sur le versant le moins ensoleillé, des traînées sombres sous les rives, des touffes de mousse logées dans les noues, des débris de terre cuite dans les gouttières : votre toiture vous parle. À Nogent-le-Roi, ces signes annoncent un encrassement qui, laissé à lui-même, finit par attaquer le matériau — les mousses soulèvent les rangs et ouvrent le chemin de l'eau.",
-        "Le bon réflexe n'est pas d'attendre la fuite : au moindre doute, je monte, je regarde, et je vous dis franchement si un nettoyage s'impose ou si votre couverture peut patienter. Ce diagnostic ne vous engage à rien — dix minutes de vérification valent mieux qu'une infiltration découverte au premier gros orage.",
+        "Le bon réflexe n'est pas d'attendre la fuite : au moindre doute, je contrôle la toiture et je vous dis franchement si un nettoyage s'impose ou si votre couverture peut patienter. Ce diagnostic ne vous engage à rien — dix minutes de vérification valent mieux qu'une infiltration découverte au premier gros orage.",
         "Et si le toit est encore sain, tant mieux : je vous indique simplement à quelle échéance prévoir l'entretien, et ce que vous pouvez surveiller vous-même depuis le sol, sans prendre de risque.",
       ],
     },
@@ -277,7 +277,7 @@ export const VILLES_NETTOYAGE: VilleNettoyage[] = [
       h2: 'Gouttières et évacuations, contrôlées à chaque passage',
       paragraphes: [
         "Le lavage d'un toit fait forcément tomber des débris : je termine donc chaque chantier à Nogent-le-Roi par le curage complet des gouttières, naissances et descentes. Feuilles, mousses et dépôts sont évacués, les fixations vérifiées, la pente d'écoulement contrôlée.",
-        "C'est aussi l'occasion d'un coup d'œil aux solins et aux bandes de rive, par lesquels commencent bien des infiltrations discrètes. Si une <a href=\"/prestations/pose-gouttiere/\">gouttière est à remplacer</a> ou un point de zinguerie à reprendre, votre <a href=\"/villes/nogent-le-roi/\">couvreur à Nogent-le-Roi</a> vous le chiffre dans le même devis — pas de deuxième entreprise à faire venir.",
+        "C'est aussi l'occasion d'un coup d'œil aux solins et aux bandes de rive, par lesquels commencent bien des infiltrations discrètes. Si une <a href=\"/pose-gouttiere-28/\">gouttière est à remplacer</a> ou un point de zinguerie à reprendre, votre <a href=\"/villes/nogent-le-roi/\">couvreur à Nogent-le-Roi</a> vous le chiffre dans le même devis — pas de deuxième entreprise à faire venir.",
       ],
     },
     etapesH2: 'Le déroulé du chantier chez vous',
@@ -459,7 +459,7 @@ export const VILLES_NETTOYAGE: VilleNettoyage[] = [
       {
         titre: 'Visite et diagnostic',
         texte:
-          "Je monte examiner la couverture : matériau, encrassement, tuiles à remplacer. Vous savez exactement ce qui sera fait, et pourquoi.",
+          "J'inspecte la couverture : matériau, encrassement, tuiles à remplacer. Vous savez exactement ce qui sera fait, et pourquoi.",
       },
       {
         titre: 'Biocide professionnel',
@@ -537,7 +537,7 @@ export const VILLES_NETTOYAGE: VilleNettoyage[] = [
       h2: 'Quand faut-il s’inquiéter pour sa couverture ?',
       paragraphes: [
         "Trois signaux doivent vous alerter à Gallardon : des plaques vertes qui s'étendent sur le versant nord, des granulats ou éclats de tuile dans les gouttières, et des traces d'humidité qui persistent sur les rampants après la pluie. Chacun raconte la même histoire — l'eau séjourne là où elle ne devrait que passer.",
-        "Au moindre doute, demandez un contrôle à votre <a href=\"/villes/gallardon/\">couvreur à Gallardon</a> : je monte, je photographie, et je vous dis ce qui relève d'un simple nettoyage, d'un traitement, ou d'une petite réparation à faire dans la foulée. Le diagnostic est gratuit et sans engagement.",
+        "Au moindre doute, demandez un contrôle à votre <a href=\"/villes/gallardon/\">couvreur à Gallardon</a> : je contrôle la toiture, je photographie, et je vous dis ce qui relève d'un simple nettoyage, d'un traitement, ou d'une petite réparation à faire dans la foulée. Le diagnostic est gratuit et sans engagement.",
       ],
     },
     etapesH2: 'Mon intervention, dans l’ordre',
@@ -797,7 +797,7 @@ export const VILLES_NETTOYAGE: VilleNettoyage[] = [
     sectionC: {
       h2: 'Gouttières et rives : la finition qui protège la maison',
       paragraphes: [
-        "Chaque chantier se termine par le curage des gouttières et des descentes : les débris du lavage sont évacués, les fixations contrôlées, l'écoulement vérifié. Une <a href=\"/prestations/pose-gouttiere/\">gouttière saine</a>, c'est une façade sans coulures et des fondations au sec — le complément logique d'un toit propre.",
+        "Chaque chantier se termine par le curage des gouttières et des descentes : les débris du lavage sont évacués, les fixations contrôlées, l'écoulement vérifié. Une <a href=\"/pose-gouttiere-28/\">gouttière saine</a>, c'est une façade sans coulures et des fondations au sec — le complément logique d'un toit propre.",
         "J'en profite pour examiner solins et bandes de rive : ces ouvrages discrets sont la porte d'entrée favorite des infiltrations. En tant que <a href=\"/villes/bouglainval/\">couvreur à Bouglainval</a>, je peux reprendre immédiatement ce qui le mérite — un avantage qu'aucune société de nettoyage ne vous offrira.",
       ],
     },
@@ -1057,7 +1057,7 @@ export const VILLES_NETTOYAGE: VilleNettoyage[] = [
     sectionC: {
       h2: 'Gouttières comprises, toujours',
       paragraphes: [
-        "Un nettoyage de toit qui laisse les gouttières pleines est un travail à moitié fait : les débris du lavage s'y accumulent, l'eau déborde, et les façades trinquent. Je cure donc systématiquement gouttières, naissances et descentes en fin de chantier, et je vérifie fixations et pentes d'écoulement — une <a href=\"/prestations/pose-gouttiere/\">gouttière en bon état</a> protège murs et fondations.",
+        "Un nettoyage de toit qui laisse les gouttières pleines est un travail à moitié fait : les débris du lavage s'y accumulent, l'eau déborde, et les façades trinquent. Je cure donc systématiquement gouttières, naissances et descentes en fin de chantier, et je vérifie fixations et pentes d'écoulement — une <a href=\"/pose-gouttiere-28/\">gouttière en bon état</a> protège murs et fondations.",
         "Et comme je suis <a href=\"/villes/auneau/\">couvreur à Auneau</a> avant d'être laveur de toits, je profite du passage pour contrôler solins et rives : ce qui mérite une reprise vous est signalé, chiffré, et peut être fait dans la foulée.",
       ],
     },

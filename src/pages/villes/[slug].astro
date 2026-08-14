@@ -1,4 +1,19 @@
 ---
+// ─────────────────────────────────────────────────────────────────────────
+// Pages villes /villes/{slug}/ — réécriture 14/08/2026 (brief client).
+//
+// Structure : hero .hx (modèle home : H1 + marque orange + chapo
+// problème → solution + 3 coches + badges + note Google) → 6 cards de
+// services (ordre tournant par commune, la carte démoussage pointe vers le
+// satellite /nettoyage-toiture-{ville}/, la carte façade vers le pilier
+// /nettoyage-facade-28/) → avis → CTA photo (H2 localisé) → section longue
+// « Faites appel à… » (4 §, se termine toujours par PLU / déclaration
+// préalable) + encart mairie (adresse bien visible + lien site) → marques.
+//
+// Règles : H1 sans prestation ni département, balises title/H1/meta
+// différenciées (anti-triplette), jamais de barre colorée sur une carte,
+// jamais de bouton pleine largeur, tokens typo uniquement.
+// ─────────────────────────────────────────────────────────────────────────
 import FlecheRonde from '../../components/FlecheRonde.astro';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { SITE } from '../../data/site.ts';
@@ -21,85 +36,40 @@ export function getStaticPaths() {
 
 const { nom, cp, contenu } = Astro.props;
 const { slug } = Astro.params;
-const deptNum = cp.slice(0, 2);
 
-// ── Cocon nettoyage : la carte « Nettoyage et démoussage à {ville} » pointe
-// vers le satellite /nettoyage-toiture-{ville}/ de la commune (ancre↔cible
-// cohérente), les autres cartes gardent leur page prestation. ──
-const hrefService = (s: { slug: string; href: string }) =>
-  s.slug === 'nettoyage-demoussage-toiture' ? `/nettoyage-toiture-${slug}/` : s.href;
-
-// ── Balises différenciées (anti-triplette sur la page) ──
-const title = `Couvreur à ${nom} (${deptNum}) — Renaud Rénov`;
-const description = contenu.metaDesc;
-
-// H1 : toujours « Entreprise de couverture à [ville] », focalisé sur la
-// commune (jamais « et alentours / environs »), différent du title.
-const h1 = `Entreprise de couverture à ${nom}`;
-
-// 2e phrase de l'accroche : focalisée sur la ville du client, sans jamais
-// mentionner une autre commune (le siège). Mots-clés en gras.
-// Ancre tournante vers l'accueil (page « couvreur 28 ») — variée pour le maillage.
-const ancreAccueil = [
-  'couvreur en Eure-et-Loir',
-  'couvreur dans le 28',
-  'artisan couvreur du 28',
-][contenu.cardSet % 3];
-const heroP2 = `Je suis M. Renaud, <strong>couvreur à ${nom}</strong> : j'interviens rapidement chez vous, mes <strong>devis</strong> sont <strong>gratuits</strong> et sans engagement. Découvrez tous mes services de <a href="/">${ancreAccueil}</a>.`;
-
-const servicesP2 = [
-  "Tuile plate de pays, tuile mécanique, ardoise, bac acier ou fibrociment : je maîtrise <strong>tous les matériaux de couverture</strong>, et je réalise la <strong>zinguerie</strong> (noues, solins, chéneaux, gouttières) comme la reprise de <strong>charpente</strong>.",
-  "Je travaille la <strong>tuile</strong>, l'<strong>ardoise</strong>, le zinc et le bac acier, et je m'occupe aussi de la <strong>zinguerie</strong> et, quand il le faut, de la reprise de <strong>charpente</strong>.",
-  "Des tuiles de pays aux ardoises en passant par le zinc, j'interviens sur toutes les <strong>couvertures</strong>, gouttières et points de <strong>zinguerie</strong>, charpente comprise si nécessaire.",
-][contenu.servicesP2i];
-
-const servicesP3 = [
-  "Avant tout chantier, je me déplace pour évaluer votre toit et vous remettre un <strong>devis gratuit</strong>. Tous mes travaux sont <strong>garantis décennale</strong>.",
-  "Je viens sur place examiner votre toiture, puis je vous propose une solution claire avec un <strong>devis gratuit</strong>. L'ensemble de mes travaux est couvert par la <strong>garantie décennale</strong>.",
-][contenu.servicesP3i];
-
-// Paragraphe d'urbanisme (générique) : 3 variantes, avec mise en gras.
-const regVariantsHtml = [
-  `À ${nom}, l'entretien courant ou une réparation à l'identique ne demande généralement aucune formalité. Mais dès que l'aspect du toit change — nouvelles tuiles, autre teinte, fenêtre de toit — une <strong>déclaration préalable de travaux</strong> s'impose le plus souvent, et un <strong>permis de construire</strong> pour une extension ou une surélévation.`,
-  `Avant d'engager des travaux à ${nom}, un point sur l'urbanisme s'impose : réparer à l'identique reste libre, mais modifier l'aspect de la toiture (matériau, couleur, ouverture de toit) suppose en général une <strong>déclaration préalable de travaux</strong>, et un <strong>permis de construire</strong> dès que l'on crée de la surface.`,
-  `Tous les travaux de toiture à ${nom} ne se valent pas côté démarches : un simple entretien ne demande rien, tandis qu'un changement d'aspect du toit relève le plus souvent d'une <strong>déclaration préalable</strong>, et une surélévation ou extension d'un <strong>permis de construire</strong>.`,
-][contenu.regVariant];
-
-// ── Cards : titre (ville sur les 2 phares) + description en jeux tournants ──
-const cardSets: Record<string, string>[] = [
-  {
-    'nettoyage-demoussage-toiture': "Je débarrasse votre couverture des mousses, lichens et dépôts noirs pour lui rendre propreté et étanchéité.",
-    'traitement-hydrofuge': "Résine et hydrofuge appliqués après nettoyage, pour protéger vos tuiles et ralentir le retour des mousses.",
-    'reparation-toiture': "Tuile fêlée, ardoise glissée, faîtage ou solin défaillant : je remets vite votre toit à l'abri des infiltrations.",
-    'renovation-toiture': "Couverture fatiguée ou vétuste : reprise partielle ou toit entièrement refait, pour repartir sur une base saine.",
-    zinguerie: "Travail du zinc pour vos noues, solins de cheminée et chéneaux, garant d'une étanchéité qui dure.",
-    'pose-gouttiere': "Gouttières et descentes posées ou remplacées pour évacuer les eaux de pluie loin de vos murs et fondations.",
+// ── Les 6 cards de services : visuel + lien par type. L'ordre et les
+// textes viennent des données de la commune (villes-contenu.ts). ──
+const CARTES_BASE: Record<string, { image: string; alt: string; href: string }> = {
+  demoussage: {
+    image: '/images/photos/nettoyage-demoussage-toiture.webp',
+    alt: 'Artisan Renaud Rénov nettoyant une toiture au jet en Eure-et-Loir',
+    href: `/nettoyage-toiture-${slug}/`,
   },
-  {
-    'nettoyage-demoussage-toiture': "J'élimine mousses, lichens et traînées noires pour rendre à votre toit son étanchéité et son aspect d'origine.",
-    'traitement-hydrofuge': "J'applique résine et hydrofuge pour protéger durablement vos tuiles et freiner la repousse des mousses.",
-    'reparation-toiture': "Tuile cassée, ardoise déplacée, faîtage abîmé ou fuite : j'interviens vite pour remettre votre toit hors d'eau.",
-    'renovation-toiture': "Reprise partielle ou toit entièrement refait : liteaunage, écran sous-toiture et couverture neuve, saine et durable.",
-    zinguerie: "Noues, solins de cheminée, chéneaux et abergements en zinc pour une étanchéité parfaite face aux intempéries.",
-    'pose-gouttiere': "Pose et remplacement de gouttières et descentes pour évacuer les eaux de pluie et protéger vos façades.",
+  renovation: {
+    image: '/images/photos/renovation-toiture.webp',
+    alt: 'Rénovation de toiture avec liteaunage neuf sur charpente en Eure-et-Loir',
+    href: '/renovation-toiture-28/',
   },
-  {
-    'nettoyage-demoussage-toiture': "Démoussage et nettoyage adaptés à votre couverture, pour un toit sain, propre et durablement protégé.",
-    'traitement-hydrofuge': "Un traitement hydrofuge qui fait perler l'eau, limite les mousses et prolonge la vie de vos tuiles.",
-    'reparation-toiture': "Fuite, tuile ou ardoise à remplacer, faîtage descellé : intervention rapide pour sécuriser votre toiture.",
-    'renovation-toiture': "De la reprise ponctuelle à la réfection totale, je redonne étanchéité et solidité à votre toit pour longtemps.",
-    zinguerie: "Noues, chéneaux, solins et abergements réalisés en zinc, là où l'étanchéité de votre toit se joue vraiment.",
-    'pose-gouttiere': "Installation et remplacement de gouttières et descentes pour maîtriser l'évacuation des eaux de pluie.",
+  facade: {
+    image: '/images/photos/facade-pignon-sale-28.webp',
+    alt: "Façade et pignon avant nettoyage dans le 28 — coulures et traces d'humidité",
+    href: '/nettoyage-facade-28/',
   },
-][contenu.cardSet];
-
-const cardTitre: Record<string, string> = {
-  'nettoyage-demoussage-toiture': `Nettoyage et démoussage de toiture à ${nom}`,
-  'traitement-hydrofuge': 'Traitement hydrofuge de toiture',
-  'reparation-toiture': `Réparation de toiture à ${nom}`,
-  'renovation-toiture': 'Rénovation et réfection de toiture',
-  zinguerie: 'Zinguerie : noues, chéneaux, cheminées',
-  'pose-gouttiere': 'Pose de gouttière',
+  reparation: {
+    image: '/images/photos/reparation-toiture.webp',
+    alt: "Réparation du faîtage d'une toiture en tuiles en Eure-et-Loir",
+    href: '/reparation-toiture-28/',
+  },
+  zinguerie: {
+    image: '/images/photos/zinguerie-epi.webp',
+    alt: 'Épi de faîtage en zinc réalisé par Renaud Rénov, artisan couvreur-zingueur en Eure-et-Loir',
+    href: '/zinguerie-28/',
+  },
+  gouttiere: {
+    image: '/images/photos/gouttiere-descente.webp',
+    alt: "Descente de gouttière posée le long d'un pignon par Renaud Rénov en Eure-et-Loir",
+    href: '/pose-gouttiere-28/',
+  },
 };
 
 // ── Marques : jeu spécifique à la commune si défini, sinon 4 fabricants ──
@@ -128,6 +98,7 @@ const schemaVille = {
     'Traitement hydrofuge',
     'Réparation de toiture',
     'Rénovation de toiture',
+    'Nettoyage de façade',
     'Zinguerie',
     'Pose de gouttière',
     'Couverture tuile et ardoise',
@@ -143,63 +114,93 @@ const schemaVille = {
   },
 };
 ---
-<BaseLayout title={title} description={description} extraSchemas={[schemaVille]}>
+<BaseLayout title={contenu.title} description={contenu.metaDesc} extraSchemas={[schemaVille]}>
   <!-- ── Fil d'Ariane ─────────────────────────────────────────── -->
-  <section class="section section--compact">
+  <section class="section section--sans-bas">
     <div class="conteneur">
       <FilAriane items={[{ label: 'Accueil', href: '/' }, { label: `Couvreur à ${nom}` }]} />
     </div>
   </section>
 
-  <!-- ── Hero ─────────────────────────────────────────────────── -->
-  <section class="hero hero--compact">
-    <div class="conteneur hero__grille">
-      <div class="hero__texte">
-        <h1>{h1}</h1>
-        <p class="hero__marque">RENAUD RÉNOV</p>
-        <div class="hero__accroche hero__encadre">
-          <p set:html={contenu.heroP1} />
-          <p set:html={heroP2} />
-        </div>
-        <div class="hero__actions">
-          <a href={SITE.telHref} class="btn btn--rouge">
-            <svg class="icone" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6.5 3.5h-2A1.5 1.5 0 0 0 3 5.2C3.4 13 11 20.6 18.8 21a1.5 1.5 0 0 0 1.7-1.5v-2a1.5 1.5 0 0 0-1.3-1.5l-2.5-.35a1.5 1.5 0 0 0-1.4.6l-.7.95a11.5 11.5 0 0 1-4.9-4.9l.95-.7a1.5 1.5 0 0 0 .6-1.4l-.35-2.5a1.5 1.5 0 0 0-1.5-1.3Z"/><path d="M14.5 3.6a5.5 5.5 0 0 1 4.9 4.9"/><path d="M14 7a2.4 2.4 0 0 1 2 2"/></svg>
-            {SITE.tel}
-          </a>
-          <a href="/devis-gratuit/" class="btn btn--bleu">Devis gratuit<FlecheRonde /></a>
+  <!-- ── Hero (modèle home : titre / photo / coches) ──────────── -->
+  <section class="hx">
+    <div class="conteneur hx__grid">
+      <div class="hx__head">
+        <h1 class="hx__title">{contenu.h1}</h1>
+        <p class="hx__marque">RENAUD RÉNOV</p>
+      </div>
+
+      <div class="hx__right">
+        <img
+          class="hx__photo"
+          src="/images/photos/hero-renaud-renov.webp"
+          srcset="/images/photos/hero-renaud-renov-640.webp 640w, /images/photos/hero-renaud-renov-960.webp 960w, /images/photos/hero-renaud-renov-1280.webp 1280w, /images/photos/hero-renaud-renov.webp 1600w"
+          sizes="(min-width: 980px) 46vw, calc(100vw - 2rem)"
+          alt={`Le véhicule de Renaud Rénov devant une maison et sa toiture en tuiles, couvreur à ${nom}`}
+          fetchpriority="high"
+          width="1600"
+          height="1200"
+        />
+        <div class="hx__note">
+          <div class="hx__note-top">
+            <LogoGoogle taille={26} />
+            <span class="hx__note-stars" aria-label={`${reviews.note} étoiles sur 5`}>
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l2.9 6.26 6.9.6-5.2 4.53 1.55 6.75L12 17.77 5.85 20.7 7.4 13.95 2.2 9.42l6.9-.6L12 2z"/></svg>
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l2.9 6.26 6.9.6-5.2 4.53 1.55 6.75L12 17.77 5.85 20.7 7.4 13.95 2.2 9.42l6.9-.6L12 2z"/></svg>
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l2.9 6.26 6.9.6-5.2 4.53 1.55 6.75L12 17.77 5.85 20.7 7.4 13.95 2.2 9.42l6.9-.6L12 2z"/></svg>
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l2.9 6.26 6.9.6-5.2 4.53 1.55 6.75L12 17.77 5.85 20.7 7.4 13.95 2.2 9.42l6.9-.6L12 2z"/></svg>
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l2.9 6.26 6.9.6-5.2 4.53 1.55 6.75L12 17.77 5.85 20.7 7.4 13.95 2.2 9.42l6.9-.6L12 2z"/></svg>
+            </span>
+          </div>
+          <p class="hx__note-txt">Noté <strong>{reviews.note.toLocaleString('fr-FR')}/5</strong> sur Google · {reviews.nombre} avis</p>
         </div>
       </div>
 
-      <div class="hero__media">
-        <div class="hero__foto photo-note">
-          <img
-            class="hero__photo"
-            src="/images/photos/hero-renaud-renov.webp"
-            srcset="/images/photos/hero-renaud-renov-640.webp 640w, /images/photos/hero-renaud-renov-960.webp 960w, /images/photos/hero-renaud-renov-1280.webp 1280w, /images/photos/hero-renaud-renov.webp 1600w"
-            sizes="(min-width: 980px) 540px, 94vw"
-            alt={`Le véhicule de Renaud Rénov devant une maison et sa toiture en tuiles, couvreur à ${nom}`}
-            fetchpriority="high"
-            width="1600"
-            height="1200"
-          />
-          <div class="photo-note__carte">
-            <div class="photo-note__top">
-              <LogoGoogle taille={26} />
-              <span class="photo-note__etoiles" aria-label={`${reviews.note} étoiles sur 5`}>
-                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l2.9 6.26 6.9.6-5.2 4.53 1.55 6.75L12 17.77 5.85 20.7 7.4 13.95 2.2 9.42l6.9-.6L12 2z"/></svg>
-                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l2.9 6.26 6.9.6-5.2 4.53 1.55 6.75L12 17.77 5.85 20.7 7.4 13.95 2.2 9.42l6.9-.6L12 2z"/></svg>
-                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l2.9 6.26 6.9.6-5.2 4.53 1.55 6.75L12 17.77 5.85 20.7 7.4 13.95 2.2 9.42l6.9-.6L12 2z"/></svg>
-                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l2.9 6.26 6.9.6-5.2 4.53 1.55 6.75L12 17.77 5.85 20.7 7.4 13.95 2.2 9.42l6.9-.6L12 2z"/></svg>
-                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l2.9 6.26 6.9.6-5.2 4.53 1.55 6.75L12 17.77 5.85 20.7 7.4 13.95 2.2 9.42l6.9-.6L12 2z"/></svg>
+      <div class="hx__body">
+        <p class="hx__chapo" set:html={contenu.chapo} />
+
+        <ul class="hx__points">
+          {contenu.coches.map((c) => (
+            <li>
+              <span class="hx__check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="4"/><path d="M8 12.5l2.5 2.5 5-6"/></svg></span>
+              {c}
+            </li>
+          ))}
+        </ul>
+
+        <div class="hx__badges">
+          <img src="/images/labels/applicateur-dalep.webp" alt="Applicateur de solutions DALEP certifié" width="240" height="240" loading="lazy" />
+          <img src="/images/labels/garantie-decennale-10-ans.png" alt="Garantie décennale 10 ans" width="220" height="220" loading="lazy" />
+        </div>
+
+        <div class="hx__actions">
+          <a href="/devis-gratuit/" class="btn btn--rouge">Devis gratuit<FlecheRonde /></a>
+          <a href={SITE.telHref} class="btn btn--bleu">
+            <svg class="icone" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6.5 3.5h-2A1.5 1.5 0 0 0 3 5.2C3.4 13 11 20.6 18.8 21a1.5 1.5 0 0 0 1.7-1.5v-2a1.5 1.5 0 0 0-1.3-1.5l-2.5-.35a1.5 1.5 0 0 0-1.4.6l-.7.95a11.5 11.5 0 0 1-4.9-4.9l.95-.7a1.5 1.5 0 0 0 .6-1.4l-.35-2.5a1.5 1.5 0 0 0-1.5-1.3Z"/><path d="M14.5 3.6a5.5 5.5 0 0 1 4.9 4.9"/><path d="M14 7a2.4 2.4 0 0 1 2 2"/></svg>
+            {SITE.tel}
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Services : 6 cards (ordre propre à la commune) ───────── -->
+  <section class="section section--gris">
+    <div class="conteneur">
+      <h2>{contenu.servicesH2}</h2>
+      <div class="grille-cards-4">
+        {contenu.cartes.map((c) => {
+          const base = CARTES_BASE[c.type];
+          return (
+            <a href={base.href} class="carte carte-service">
+              <img src={base.image} alt={base.alt} loading="lazy" width="400" height="250" />
+              <span class="carte-service__corps">
+                <h3>{c.titre}</h3>
+                <p>{c.texte}</p>
               </span>
-            </div>
-            <p class="photo-note__txt">Noté <strong>{reviews.note.toLocaleString('fr-FR')}/5</strong> sur Google · {reviews.nombre} avis</p>
-          </div>
-        </div>
-        <div class="carte hero__garantie">
-          <img src="/images/logo/logo-renaud-renov-128.webp" alt="" width="80" height="80" loading="lazy" />
-          <p><strong>Garantie décennale</strong><br />Pour tous travaux de couverture</p>
-        </div>
+            </a>
+          );
+        })}
       </div>
     </div>
   </section>
@@ -207,46 +208,31 @@ const schemaVille = {
   <!-- ── Avis clients ─────────────────────────────────────────── -->
   <AvisCarrousel lieu={`à ${nom}`} ordre={contenu.avisOrdre} titre={`Ce que pensent mes clients à ${nom}`} />
 
-  <!-- ── Services (cards) ─────────────────────────────────────── -->
-  <section class="section section--gris">
-    <div class="conteneur">
-      <h2>Mes services de couvreur à {nom}</h2>
-      <div class="encadre">
-        <p set:html={contenu.servicesP1} />
-        <p set:html={servicesP2} />
-        <p set:html={servicesP3} />
-      </div>
-      <div class="grille-services">
-        {services.map((s) => (
-          <a href={hrefService(s)} class="carte carte-service">
-            <img src={s.image} alt={s.alt} loading="lazy" width="400" height="250" />
-            <span class="carte-service__corps">
-              <h3>{cardTitre[s.slug] ?? s.label}</h3>
-              <p>{cardSets[s.slug] ?? s.accroche}</p>
-            </span>
-          </a>
-        ))}
-      </div>
-    </div>
-  </section>
+  <!-- ── CTA photo ────────────────────────────────────────────── -->
+  <CtaDevis titre={contenu.ctaTitre} texte={contenu.ctaTexte} />
 
-  <!-- ── Autorisations en mairie ──────────────────────────────── -->
+  <!-- ── Section longue : savoir-faire + urbanisme + mairie ───── -->
   <section class="section">
     <div class="conteneur">
-      <h2>Toiture et règles d'urbanisme à {nom}</h2>
-      <div class="duo mairie-duo">
-        <div>
-          <p set:html={regVariantsHtml} />
-          <p>{contenu.urbanismeNote}</p>
-        </div>
-        <div class="carte mairie">
-          <span class="mairie__icone" aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18"/><path d="M5 21V10l7-5 7 5v11"/><path d="M9 21v-6h6v6"/></svg>
-          </span>
-          <p class="mairie__nom"><strong>Mairie de {nom}</strong></p>
-          <address>{contenu.mairieAdresse}, {cp} {nom}</address>
-          <a href={contenu.mairieSite} rel="noopener nofollow" target="_blank" class="btn btn--bleu mairie__lien">
-            Site de la mairie →
+      <div class="section__entete">
+        <h2>{contenu.finalH2}</h2>
+      </div>
+      <div class="texte-long">
+        {contenu.finalParas.map((p) => <p set:html={p} />)}
+      </div>
+
+      <div class="carte mairie-encart">
+        <span class="mairie-encart__icone" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18"/><path d="M5 21V10l7-5 7 5v11"/><path d="M9 21v-6h6v6"/></svg>
+        </span>
+        <div class="mairie-encart__corps">
+          <p class="mairie-encart__invite">
+            Avant d'engager des travaux qui modifient l'aspect de votre toiture, renseignez-vous
+            auprès du service urbanisme de la <strong>mairie de {nom}</strong> :
+          </p>
+          <address class="mairie-encart__adresse">{contenu.mairieAdresse}, {cp} {nom}</address>
+          <a href={contenu.mairieSite} rel="noopener nofollow" target="_blank" class="btn btn--bleu">
+            Site de la mairie de {nom}
           </a>
         </div>
       </div>
@@ -259,58 +245,137 @@ const schemaVille = {
     titre={`Des matériaux de qualité pour vos toitures à ${nom}`}
     intro={`Pour vos travaux de toiture à ${nom}, je sélectionne des matériaux de fabricants reconnus, gage d'une couverture durable.`}
   />
-
-  <!-- ── CTA devis ────────────────────────────────────────────── -->
-  <CtaDevis titre={`Contactez-moi pour votre toit à ${nom}`} />
 </BaseLayout>
 
 <style>
-  .hero__encadre {
-    background: var(--bleu-pale);
-    border-radius: var(--rayon);
-    padding: 1.2rem 1.4rem;
-    margin-bottom: 1.4rem;
+  /* ══ Hero — design de la page d'accueil (repris de index.astro) ══ */
+  .hx { padding-block: clamp(1.6rem, 4vw, 3rem); }
+  .hx__grid {
+    display: grid;
+    gap: 1.6rem;
+    grid-template-columns: 1fr;
+    grid-template-areas: "head" "photo" "body";
   }
-  .hero__encadre p { margin: 0; color: var(--gris-700); }
-  .hero__encadre p + p { margin-top: 0.8rem; }
-
-  .encadre {
-    background: var(--bleu-pale);
-    border-radius: var(--rayon);
-    padding: clamp(1.3rem, 3vw, 1.8rem);
-    margin-top: 1.5rem;
+  @media (min-width: 980px) {
+    .hx__grid {
+      grid-template-columns: 1.05fr 1fr;
+      grid-template-areas: "head photo" "body photo";
+      column-gap: 3.5rem;
+      row-gap: 1.1rem;
+      align-items: center;
+    }
   }
-  .encadre p { margin: 0; color: var(--gris-700); }
-  .encadre p + p { margin-top: 0.9rem; }
+  .hx__head { grid-area: head; }
+  .hx__right { grid-area: photo; position: relative; }
+  .hx__right::after {
+    content: "";
+    position: absolute;
+    left: 0; right: 0; bottom: 0;
+    height: 42%;
+    border-radius: 0 0 24px 24px;
+    background: linear-gradient(to top, rgba(15, 34, 45, 0.6), rgba(15, 34, 45, 0));
+    pointer-events: none;
+    z-index: 1;
+  }
+  .hx__body { grid-area: body; }
+  .hx__title { margin: 0; color: var(--bleu); font-size: var(--fs-h1-hero); line-height: 1.2; letter-spacing: -0.01em; }
+  .hx__marque { color: var(--rouge); font-weight: 800; font-size: clamp(1.9rem, 4.4vw, 2.9rem); line-height: 1.1; margin: 0.6rem 0 0; }
+  .hx__photo { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; border-radius: 24px; box-shadow: var(--ombre-forte); display: block; }
+  @media (min-width: 980px) { .hx__photo { aspect-ratio: 4 / 5; } }
 
-  .mairie-duo { margin-top: 1.5rem; }
-  .mairie {
-    padding: clamp(1.5rem, 4vw, 2rem);
+  .hx__chapo { color: var(--gris-700); margin: 0 0 1.2rem; max-width: var(--mesure-etroite); }
+  .hx__chapo :global(strong) { color: var(--bleu); }
+
+  .hx__points { list-style: none; padding: 0; margin: 0.4rem 0 1.2rem; display: grid; gap: 0.9rem; }
+  .hx__points li {
+    display: flex; align-items: center; gap: 0.8rem;
+    font-size: var(--fs-md); font-weight: 600; color: var(--bleu);
+  }
+  .hx__check { color: var(--rouge); flex-shrink: 0; line-height: 0; }
+  .hx__check svg { width: 30px; height: 30px; }
+
+  .hx__note {
+    position: absolute;
+    left: 50%;
+    bottom: 1rem;
+    transform: translateX(-50%);
+    width: max-content;
+    max-width: calc(100% - 1.6rem);
+    display: flex; flex-direction: column; align-items: center; gap: 0.3rem;
+    background: var(--blanc);
+    border-radius: 16px;
+    box-shadow: 0 14px 34px rgba(15, 34, 45, 0.42);
+    padding: 0.8rem 1.5rem;
+    z-index: 2;
+  }
+  .hx__note-top { display: flex; align-items: center; gap: 0.6rem; }
+  .hx__note-stars { display: inline-flex; gap: 0.1em; }
+  .hx__note-stars svg { width: 1.35rem; height: 1.35rem; fill: var(--etoile); }
+  .hx__note-txt { margin: 0; color: var(--gris-700); font-size: var(--fs-base); }
+  .hx__note-txt strong { color: var(--bleu); }
+
+  .hx__badges { display: flex; align-items: center; gap: 1.3rem; flex-wrap: wrap; margin: 0 0 1.6rem; }
+  .hx__badges img { height: 64px; width: auto; }
+
+  .hx__actions { display: flex; flex-wrap: wrap; gap: 0.8rem; }
+
+  @media (max-width: 979px) {
+    .hx__title, .hx__marque { text-align: center; }
+    .hx__chapo { margin-inline: auto; }
+    .hx__badges, .hx__actions { justify-content: center; }
+    .hx__badges img { height: 56px; }
+  }
+
+  /* ── Grille des 6 cards de services : 2 colonnes dès 700px, 3 × 2 en desktop ── */
+  .grille-cards-4 {
+    display: grid;
+    gap: 1.5rem;
+    grid-template-columns: 1fr;
+    margin-top: 2rem;
+  }
+  @media (min-width: 700px) {
+    .grille-cards-4 { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (min-width: 1024px) {
+    .grille-cards-4 { grid-template-columns: repeat(3, 1fr); }
+  }
+
+  /* ── Section longue : colonne de lecture confortable ── */
+  .texte-long { max-width: var(--mesure-large); margin: 1.8rem auto 0; display: grid; gap: 1.1rem; }
+  .texte-long p { margin: 0; color: var(--gris-700); line-height: 1.65; }
+
+  /* ── Encart mairie : adresse mise en évidence + lien vers le site ── */
+  .mairie-encart {
+    max-width: var(--mesure-large);
+    margin: 2.2rem auto 0;
+    padding: clamp(1.5rem, 4vw, 2.2rem);
     display: flex;
-    flex-direction: column;
+    gap: 1.4rem;
     align-items: flex-start;
-    gap: 0.4rem;
   }
-  .mairie:hover { transform: none; }
-  .mairie__icone {
-    width: 48px;
-    height: 48px;
+  .mairie-encart:hover { transform: none; }
+  .mairie-encart__icone {
+    flex-shrink: 0;
+    width: 52px;
+    height: 52px;
     border-radius: 50%;
     background: var(--bleu-pale);
     color: var(--bleu);
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    margin-bottom: 0.5rem;
   }
-  .mairie__icone svg { width: 1.5rem; height: 1.5rem; }
-  .mairie__nom { font-size: var(--fs-md); margin: 0; color: var(--bleu); }
-  .mairie address { font-style: normal; color: var(--gris-700); margin: 0 0 1rem; }
-  .mairie__lien { margin-top: 0.2rem; }
-
-  /* ── Mesure de lecture ────────────────────────────────────────
-     En dessous du seuil où ce bloc passe en deux colonnes, il occupe
-     toute la largeur du conteneur et la ligne dépassait 90 caractères
-     (le confort de lecture s'arrête vers 75). On borne la colonne. */
-  .encadre p { max-width: var(--mesure); }
+  .mairie-encart__icone svg { width: 1.6rem; height: 1.6rem; }
+  .mairie-encart__invite { margin: 0 0 0.7rem; color: var(--gris-700); max-width: var(--mesure); }
+  .mairie-encart__adresse {
+    font-style: normal;
+    font-weight: 700;
+    font-size: var(--fs-lg);
+    color: var(--bleu);
+    margin: 0 0 1.1rem;
+  }
+  @media (max-width: 620px) {
+    .mairie-encart { flex-direction: column; align-items: center; text-align: center; }
+    .mairie-encart__invite { text-align: center; }
+  }
 </style>

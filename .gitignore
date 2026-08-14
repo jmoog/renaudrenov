@@ -24,3 +24,7 @@ photos-web/
 logo-*.jpg
 logo-*.png
 logo*-renaud-renov.jpg
+
+# archives de travail des sessions Cowork
+_to_delete/
+/*.tgz

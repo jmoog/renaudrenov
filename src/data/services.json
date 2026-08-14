@@ -31,7 +31,7 @@
     "image": "/images/photos/reparation-toiture.webp",
     "alt": "Réparation du faîtage d'une toiture en tuiles en Eure-et-Loir",
     "lien": "Réparer ma toiture",
-    "href": "/prestations/reparation-toiture/",
+    "href": "/reparation-toiture-28/",
     "avisTag": "reparation",
     "connexes": ["renovation-toiture", "zinguerie", "nettoyage-demoussage-toiture"]
   },
@@ -43,7 +43,7 @@
     "image": "/images/photos/renovation-toiture.webp",
     "alt": "Rénovation de toiture avec liteaunage neuf sur charpente en Eure-et-Loir",
     "lien": "Rénover ma toiture",
-    "href": "/prestations/renovation-toiture/",
+    "href": "/renovation-toiture-28/",
     "avisTag": "renovation",
     "connexes": ["reparation-toiture", "zinguerie", "traitement-hydrofuge"]
   },
@@ -55,7 +55,7 @@
     "image": "/images/photos/zinguerie-epi.webp",
     "alt": "Épi de faîtage en zinc réalisé par Renaud Rénov, artisan couvreur-zingueur en Eure-et-Loir",
     "lien": "Mes travaux de zinguerie",
-    "href": "/prestations/zinguerie/",
+    "href": "/zinguerie-28/",
     "avisTag": null,
     "connexes": ["pose-gouttiere", "reparation-toiture", "renovation-toiture"]
   },
@@ -67,7 +67,7 @@
     "image": "/images/photos/gouttiere-descente.webp",
     "alt": "Descente de gouttière posée le long d'un pignon par Renaud Rénov en Eure-et-Loir",
     "lien": "Poser ou remplacer mes gouttières",
-    "href": "/prestations/pose-gouttiere/",
+    "href": "/pose-gouttiere-28/",
     "avisTag": null,
     "connexes": ["zinguerie", "reparation-toiture", "renovation-toiture"]
   }

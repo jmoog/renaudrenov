@@ -1,0 +1,938 @@
+---
+// ─────────────────────────────────────────────────────────────────────────
+// PILIER — Réparation de toiture en Eure-et-Loir (28).
+// URL : /reparation-toiture-28/ (remplace /prestations/reparation-toiture/,
+// redirection 301 réelle).
+// Brief client du 14/08/2026 : 9 blocs, 1400-1700 mots.
+// Cocon COUVERTURE (réparation / rénovation / zinguerie / gouttière) —
+// indépendant du cocon nettoyage-démoussage : les liens vers
+// /nettoyage-toiture-28/ restent légers et contextuels.
+// Design = piliers /nettoyage-toiture-28/ et /nettoyage-facade-28/
+// (hero .hx problème → solution + coches, cartes savoir, protocole, prix,
+// zone marine, FAQ).
+// ─────────────────────────────────────────────────────────────────────────
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { SITE } from '../data/site.ts';
+import villes from '../data/villes.json';
+import reviews from '../data/reviews.json';
+import FilAriane from '../components/FilAriane.astro';
+import LogoGoogle from '../components/LogoGoogle.astro';
+import CtaDevis from '../components/CtaDevis.astro';
+import FlecheRonde from '../components/FlecheRonde.astro';
+import PrestationsConnexes from '../components/PrestationsConnexes.astro';
+
+// ── Balises — arbitrage validé par Joseph le 14/08/2026 : le brief formait
+// une triplette (« réparation de toiture » dans les 3 balises) et son title
+// faisait 62 caractères (tronqué en SERP, comme la façade). Title raccourci
+// à 53 car., H1 reformulé côté symptôme client, meta sans l'expression. ──
+const title = 'Réparation de Toiture en Eure-et-Loir | Urgence fuite';
+const description =
+  "Tuile cassée, ardoise déplacée, infiltration après la tempête ? Un couvreur du 28 intervient vite pour remettre votre toit hors d'eau. Devis gratuit.";
+
+// ── Bloc 3 : deux avis réels ciblés réparation (source reviews.json).
+// Daisy C. = remplacement de tuiles · Philippe T. = ardoise déplacée et
+// réactivité. Aucun des deux ne cite sa commune → signature sans ville. ──
+const avisReparation = [
+  { auteur: 'Daisy Chevalier', signature: 'Daisy C.' },
+  { auteur: 'Philippe Treff', signature: 'Philippe T.' },
+]
+  .map((s) => {
+    const a = reviews.avis.find((r) => r.auteur === s.auteur);
+    return a && { ...a, signature: s.signature };
+  })
+  .filter(Boolean);
+
+// ── Bloc 7 : fourchettes indicatives (prix du marché couvreur en 28,
+// À VALIDER PAR JORDY avant publication — cf. mémoire projet). ──
+const prix = [
+  { presta: "Remplacement de tuiles ou d'ardoises à l'unité", fourchette: '150 à 350 €' },
+  { presta: "Recherche et réparation d'une fuite localisée", fourchette: '300 à 800 €' },
+  { presta: 'Reprise de faîtage, arêtier ou rive', fourchette: '60 à 120 €/ml' },
+  { presta: "Intervention d'urgence et bâchage", fourchette: '250 à 600 €' },
+];
+
+// ── Bloc 6 : le protocole en 4 étapes ────────────────────────────────────
+const protocole = [
+  {
+    titre: 'Le diagnostic complet',
+    texte:
+      "J'inspecte la toiture dans le détail pour établir l'état réel de la couverture : tuiles ou ardoises cassées, glissées, gélives, fixations rompues, faîtage descellé, solins ouverts, zinguerie percée. Je contrôle aussi la charpente et l'écran sous-toiture depuis les combles lorsqu'ils sont accessibles : c'est souvent là que se lit le vrai trajet de l'eau, plusieurs mètres en amont de l'auréole au plafond.",
+  },
+  {
+    titre: 'La sécurisation et la préparation',
+    texte:
+      "Quand la fuite est active, la première urgence est de mettre le logement hors d'eau : bâchage provisoire de la zone, calfeutrement d'un point singulier, dépose des éléments qui menacent de tomber. Je protège ensuite les abords — gouttières, terrasse, plantations, véhicules — et j'installe les moyens d'accès adaptés à la pente : échelle de couvreur, plateforme, ligne de vie ou échafaudage sur les rampants raides.",
+  },
+  {
+    titre: 'La réparation ciblée',
+    texte:
+      "Je remplace les éléments endommagés par des matériaux de même format et de même teinte, je reprends le pureau et les fixations, je referme les points singuliers : embarrure de faîtage, solin, noquet, bande de rive, abergement de cheminée. Chaque reprise est faite pour durer, pas pour tenir jusqu'à la prochaine averse — pas de mastic étalé sur une tuile fendue en guise de réparation.",
+  },
+  {
+    titre: 'Le contrôle final et les conseils de suivi',
+    texte:
+      "Avant de replier le chantier, je vérifie l'écoulement de l'eau sur la zone reprise, je contrôle le reste de la couverture et je nettoie les abords. Je vous montre en photo ce qui a été fait et je vous indique les points à surveiller : une gouttière qui déborde, une mousse qui s'installe au nord, un solin qui commence à se lever. Vous savez ce qui est réparé, et ce qui devra l'être un jour.",
+  },
+];
+
+// ── Bloc 9 : FAQ (6 questions du brief) ─────────────────────────────────
+const faq = [
+  {
+    q: 'Quand faut-il faire réparer sa toiture ?',
+    r: "Dès les premiers signes, sans attendre l'auréole au plafond. Une tuile glissée repérée depuis le jardin, une ardoise retrouvée au pied du mur après un coup de vent, un faîtage dont le mortier s'effrite, une trace d'humidité sur une panne dans les combles : ce sont autant de portes d'entrée pour l'eau. Une intervention menée à ce stade coûte quelques centaines d'euros ; la même fuite laissée deux hivers attaque l'écran sous-toiture, l'isolant puis la charpente, et le chantier change d'échelle.",
+  },
+  {
+    q: 'Peut-on réparer uniquement une zone ou faut-il tout refaire ?',
+    r: "Dans la grande majorité des cas, une reprise localisée suffit : tant que la couverture est saine dans son ensemble et que la charpente n'a pas souffert, remplacer les éléments cassés et refermer les points singuliers remet le toit hors d'eau pour des années. La réfection complète ne s'impose que lorsque le matériau est arrivé en fin de vie sur tout le versant : tuiles gélives et feuilletées partout, ardoises qui se délitent, liteaunage pourri. Je vous dis franchement dans quel cas vous êtes, quitte à vous annoncer que la réparation ne serait qu'un sursis.",
+  },
+  {
+    q: 'Quelle différence entre réparation et rénovation complète ?',
+    r: "La réparation traite un désordre identifié sur une zone délimitée : quelques tuiles, un faîtage, une noue, un solin. Elle se règle en une demi-journée à deux jours et n'exige pas de déposer la couverture. La rénovation, elle, consiste à déposer tout ou partie du toit pour reprendre le liteaunage, poser un écran sous-toiture et remettre une couverture neuve. Le budget et la durée n'ont rien à voir. Si votre toit relève plutôt du second cas, je vous oriente vers la rénovation de toiture.",
+  },
+  {
+    q: 'Intervenez-vous en urgence (fuite, sinistre, bâchage) ?',
+    r: `Oui. Fuite active, tuiles arrachées par une tempête, branche tombée sur le toit : appelez le ${SITE.telUrgence}, la ligne réservée aux urgences. La priorité est de mettre le logement hors d'eau le plus vite possible — bâchage de la zone, dépose des éléments instables — avant de programmer la réparation définitive au calme. Je vous fournis aussi les photos et le descriptif dont votre assurance a besoin pour le dossier de sinistre.`,
+  },
+  {
+    q: 'Quel est le prix moyen d’une réparation de toiture dans le 28 ?',
+    r: "Comptez de 150 à 350 € pour le remplacement de quelques tuiles ou ardoises, de 300 à 800 € pour la reprise d'une fuite localisée, de 60 à 120 € du mètre linéaire pour un faîtage ou une rive, et de 250 à 600 € pour une intervention d'urgence avec bâchage. Ces fourchettes restent indicatives : l'accessibilité, la pente, le matériau et l'étendue réelle des dégâts font varier le montant. Le diagnostic sur place et le devis sont gratuits.",
+  },
+  {
+    q: 'Combien de temps dure une intervention de réparation ?',
+    r: "Une reprise ponctuelle — quelques tuiles, une ardoise, un solin — se traite en une demi-journée. Un faîtage complet, une noue ou un chantier avec échafaudage demande un à trois jours. Pour une urgence, le bâchage est posé dans la journée de l'appel quand la météo le permet, et la réparation définitive est planifiée dans la foulée. Je vous donne un délai ferme au moment du devis, et je m'y tiens.",
+  },
+];
+
+// ── Bloc 8 : les 14 communes couvertes — ancres enrichies « réparation »
+// sur les principales, plus variées ensuite (pas de satellites réparation). ──
+const zoneEnrichie = [
+  { slug: 'villiers-le-morhier', ancre: 'la réparation de toiture à Villiers-le-Morhier, notre commune' },
+  { slug: 'maintenon', ancre: 'réparer sa toiture à Maintenon' },
+  { slug: 'nogent-le-roi', ancre: 'la réparation de fuite de toiture à Nogent-le-Roi' },
+  { slug: 'epernon', ancre: 'le remplacement de tuiles à Épernon' },
+  { slug: 'hanches', ancre: 'la réparation de faîtage à Hanches' },
+  { slug: 'gallardon', ancre: 'votre couvreur réparateur à Gallardon' },
+  { slug: 'pierres', ancre: 'la reprise de tuiles cassées à Pierres' },
+  { slug: 'saint-piat', ancre: 'la réparation de toiture à Saint-Piat' },
+  { slug: 'bouglainval', ancre: 'dépannage de toiture à Bouglainval' },
+  { slug: 'chartres', ancre: 'urgence toiture à Chartres' },
+  { slug: 'dreux', ancre: 'la réparation de toiture à Dreux' },
+  { slug: 'auneau', ancre: 'le remplacement d’ardoises à Auneau' },
+  { slug: 'rambouillet', ancre: 'votre couvreur à Rambouillet' },
+  { slug: 'houdan', ancre: 'dépannage de couverture à Houdan' },
+];
+const villeParSlug = Object.fromEntries(villes.map((v) => [v.slug, v]));
+
+// ── Schémas : Service rattaché au LocalBusiness + FAQPage ───────────────
+const businessId = `${SITE.url}/#localbusiness`;
+const schemaService = {
+  '@context': 'https://schema.org',
+  '@type': 'Service',
+  '@id': `${SITE.url}/reparation-toiture-28/#service`,
+  serviceType: 'Réparation de toiture',
+  name: 'Réparation de toiture en Eure-et-Loir',
+  description:
+    "Réparation de tuiles et d'ardoises, recherche et reprise de fuites, faîtages, arêtiers, rives et zinguerie, par un artisan couvreur d'Eure-et-Loir. Intervention rapide, y compris en urgence.",
+  provider: { '@id': businessId },
+  areaServed: {
+    '@type': 'AdministrativeArea',
+    name: `${SITE.departement} (${SITE.departementNum})`,
+  },
+  offers: { '@type': 'Offer', priceCurrency: 'EUR', availability: 'https://schema.org/InStock' },
+};
+
+const schemaFaq = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faq.map((f) => ({
+    '@type': 'Question',
+    name: f.q,
+    acceptedAnswer: { '@type': 'Answer', text: f.r },
+  })),
+};
+---
+<BaseLayout title={title} description={description} extraSchemas={[schemaService, schemaFaq]}>
+  <!-- ── Bloc 1 · Hero : design de la home (titre / photo / coches) ───── -->
+  <section class="section section--sans-bas">
+    <div class="conteneur">
+      <FilAriane items={[{ label: 'Accueil', href: '/' }, { label: 'Réparation de toiture' }]} />
+    </div>
+  </section>
+  <section class="hx">
+    <div class="conteneur hx__grid">
+      <div class="hx__head">
+        <h1 class="hx__title">Fuite, tuile cassée&nbsp;: je répare votre toiture dans le&nbsp;28</h1>
+        <p class="hx__marque">RENAUD RÉNOV</p>
+      </div>
+
+      <div class="hx__right">
+        <img
+          class="hx__photo"
+          src="/images/photos/reparation-toiture-urgence-28.webp"
+          alt="La camionnette Renaud Rénov arrivée sur une intervention de réparation de toiture en Eure-et-Loir (28)"
+          fetchpriority="high"
+          width="900"
+          height="675"
+        />
+        <div class="hx__note">
+          <div class="hx__note-top">
+            <LogoGoogle taille={26} />
+            <span class="hx__note-stars" aria-label={`${reviews.note} étoiles sur 5`}>
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l2.9 6.26 6.9.6-5.2 4.53 1.55 6.75L12 17.77 5.85 20.7 7.4 13.95 2.2 9.42l6.9-.6L12 2z"/></svg>
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l2.9 6.26 6.9.6-5.2 4.53 1.55 6.75L12 17.77 5.85 20.7 7.4 13.95 2.2 9.42l6.9-.6L12 2z"/></svg>
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l2.9 6.26 6.9.6-5.2 4.53 1.55 6.75L12 17.77 5.85 20.7 7.4 13.95 2.2 9.42l6.9-.6L12 2z"/></svg>
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l2.9 6.26 6.9.6-5.2 4.53 1.55 6.75L12 17.77 5.85 20.7 7.4 13.95 2.2 9.42l6.9-.6L12 2z"/></svg>
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l2.9 6.26 6.9.6-5.2 4.53 1.55 6.75L12 17.77 5.85 20.7 7.4 13.95 2.2 9.42l6.9-.6L12 2z"/></svg>
+            </span>
+          </div>
+          <p class="hx__note-txt">Noté <strong>{reviews.note.toLocaleString('fr-FR')}/5</strong> sur Google · {reviews.nombre} avis</p>
+        </div>
+      </div>
+
+      <div class="hx__body">
+        <p class="hx__chapo">
+          Une tuile s'est cassée, une ardoise a glissé après le coup de vent, et à chaque grosse
+          pluie la tache s'agrandit au plafond&nbsp;? Vous cherchez un couvreur capable de venir
+          vite, de trouver l'origine exacte de l'infiltration et de la traiter — pas de vous vendre
+          un toit neuf. Je suis M.&nbsp;Renaud et, avec mon entreprise <strong>Renaud Rénov</strong>,
+          je <strong>répare les toitures</strong> de l'<strong>Eure-et-Loir&nbsp;(28)</strong>&nbsp;:
+          tuiles, ardoises, faîtages, fuites et zinguerie.
+        </p>
+
+        <ul class="hx__points">
+          <li>
+            <span class="hx__check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="4"/><path d="M8 12.5l2.5 2.5 5-6"/></svg></span>
+            Une expérience de plus de 15 ans
+          </li>
+          <li>
+            <span class="hx__check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="4"/><path d="M8 12.5l2.5 2.5 5-6"/></svg></span>
+            Intervention rapide, y compris en urgence
+          </li>
+          <li>
+            <span class="hx__check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="4"/><path d="M8 12.5l2.5 2.5 5-6"/></svg></span>
+            Spécialiste de la tuile plate petit moule et de l'ardoise
+          </li>
+          <li>
+            <span class="hx__check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="4"/><path d="M8 12.5l2.5 2.5 5-6"/></svg></span>
+            Diagnostic et devis gratuits
+          </li>
+        </ul>
+
+        <div class="hx__badges">
+          <img src="/images/labels/garantie-decennale-10-ans.png" alt="Garantie décennale 10 ans" width="220" height="220" loading="lazy" />
+          <img src="/images/labels/artisan-cma28.png" alt="Artisan — Chambre de Métiers et de l'Artisanat d'Eure-et-Loir" width="320" height="228" loading="lazy" />
+        </div>
+
+        <div class="hx__actions">
+          <a href="/devis-gratuit/" class="btn btn--rouge">Devis gratuit<FlecheRonde /></a>
+          <a href={SITE.telHref} class="btn btn--bleu">
+            <svg class="icone" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6.5 3.5h-2A1.5 1.5 0 0 0 3 5.2C3.4 13 11 20.6 18.8 21a1.5 1.5 0 0 0 1.7-1.5v-2a1.5 1.5 0 0 0-1.3-1.5l-2.5-.35a1.5 1.5 0 0 0-1.4.6l-.7.95a11.5 11.5 0 0 1-4.9-4.9l.95-.7a1.5 1.5 0 0 0 .6-1.4l-.35-2.5a1.5 1.5 0 0 0-1.5-1.3Z"/><path d="M14.5 3.6a5.5 5.5 0 0 1 4.9 4.9"/><path d="M14 7a2.4 2.4 0 0 1 2 2"/></svg>
+            {SITE.tel}
+          </a>
+        </div>
+        <p class="hx__urgence">
+          <strong>Fuite en cours&nbsp;?</strong> Ligne urgence&nbsp;:
+          <a href={SITE.telUrgenceHref}>{SITE.telUrgence}</a>
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Bloc 2 · H2 services + 4 H3 techniques ───────────────────────── -->
+  <section class="section section--gris">
+    <div class="conteneur">
+      <div class="section__entete">
+        <h2>Couvreur du 28 spécialisé dans la réparation de toitures</h2>
+      </div>
+
+      <div class="savoir">
+        <!-- 1 · Tuiles et ardoises -->
+        <article class="savoir-carte">
+          <div class="savoir-carte__media">
+            <img
+              src="/images/photos/couverture-tuile.webp"
+              alt="Couvreur de Renaud Rénov sur le faîtage d'une toiture en tuiles en Eure-et-Loir"
+              loading="lazy" width="1200" height="1600"
+            />
+          </div>
+          <div class="savoir-carte__texte">
+            <h3>Réparation de tuiles et d'ardoises</h3>
+            <p>
+              La <strong>tuile plate petit moule</strong> du Perche et du nord de la Beauce et
+              l'<strong>ardoise naturelle</strong> demandent l'une comme l'autre un remplacement à
+              l'unité, jamais une rustine. Je dépose l'élément cassé, gélif ou glissé, je contrôle le
+              liteau et la fixation qui le portaient — clou, crochet, ergot — puis je repose une
+              tuile ou une ardoise de même format, en respectant le <strong>pureau</strong> d'origine
+              pour ne pas créer de point d'entrée d'eau à la jonction. Je cherche systématiquement la
+              teinte la plus proche&nbsp;: sur une couverture ancienne, une reprise réussie ne doit
+              pas se voir depuis la rue. Quand l'inspection montre que les éléments cassent partout
+              et non plus par endroits, je vous le dis, et l'on parle alors de
+              <a href="/renovation-toiture-28/">rénovation de toiture</a>.
+            </p>
+          </div>
+        </article>
+
+        <!-- 2 · Fuites (carte marine, image à droite) -->
+        <article class="savoir-carte savoir-carte--inverse savoir-carte--marine">
+          <div class="savoir-carte__media">
+            <img
+              src="/images/photos/zinguerie-aretier.webp"
+              alt="Chéneau en zinc le long d'un acrotère, point singulier d'où partent beaucoup d'infiltrations"
+              loading="lazy" width="1200" height="1600"
+            />
+          </div>
+          <div class="savoir-carte__texte">
+            <h3>Recherche et réparation de fuites</h3>
+            <p>
+              L'auréole au plafond se trouve presque toujours à distance du vrai défaut&nbsp;: l'eau
+              circule sur l'écran sous-toiture ou le long d'un chevron avant de tomber. Je remonte
+              donc le trajet, en commençant par les <strong>points singuliers</strong> — noues,
+              solins de cheminée, faîtage, abergements, pénétrations de conduits, sorties de
+              ventilation — puis par les fixations et les recouvrements. Une fois le point d'entrée
+              identifié, je reprends l'étanchéité durablement&nbsp;: remplacement des éléments
+              percés, pose ou reprise de <strong>solins et de noquets</strong>, calfeutrement des
+              raccords maçonnés. Quand la fuite vient d'une noue ou d'un abergement, la reprise
+              relève de la <a href="/zinguerie-28/">zinguerie</a>, que j'exécute moi-même.
+            </p>
+          </div>
+        </article>
+
+        <!-- 3 · Faîtage, arêtiers, rives -->
+        <article class="savoir-carte">
+          <div class="savoir-carte__media">
+            <img
+              src="/images/photos/reparation-toiture.webp"
+              alt="Reprise du faîtage d'une toiture en tuiles par Renaud Rénov en Eure-et-Loir"
+              loading="lazy" width="1200" height="1600"
+            />
+          </div>
+          <div class="savoir-carte__texte">
+            <h3>Réparation de faîtage, d'arêtiers et de rives</h3>
+            <p>
+              Le faîtage est la ligne la plus exposée du toit, et la première à lâcher&nbsp;: le
+              mortier d'<strong>embarrure</strong> se fissure, les faîtières se descellent, le vent
+              s'engouffre. Selon l'état de la couverture, je repose les faîtières au mortier ou je
+              passe en pose sèche ventilée avec <strong>closoir</strong>, plus durable et qui laisse
+              respirer la charpente. Même logique sur les arêtiers et sur les bandes de rive, qui
+              protègent les extrémités de versant. Les pentes fortes de 45 à 50°, courantes sur les
+              toitures du département, imposent ici un point d'attention supplémentaire sur les
+              fixations et les moyens d'accès. Si le faîtage lâche parce que toute la couverture est
+              en fin de vie, la <a href="/renovation-toiture-28/">réfection du toit</a>
+              devient la solution la plus économique.
+            </p>
+          </div>
+        </article>
+
+        <!-- 4 · Zinguerie et évacuations -->
+        <article class="savoir-carte savoir-carte--inverse">
+          <div class="savoir-carte__media">
+            <img
+              src="/images/photos/gouttiere-zinc.webp"
+              alt="Gouttière en zinc reprise le long d'une toiture en Eure-et-Loir"
+              loading="lazy" width="1200" height="1600"
+            />
+          </div>
+          <div class="savoir-carte__texte">
+            <h3>Réparation de zinguerie et d'évacuations</h3>
+            <p>
+              Une toiture parfaitement couverte peut fuir par ses évacuations. Je répare et remplace
+              partiellement <strong>gouttières, chéneaux, noues, dauphins, solins, bavettes et bandes
+              de rive</strong>&nbsp;: soudure d'une fissure, remplacement d'un tronçon percé, reprise
+              d'un about, réfection d'un raccord. Je vérifie surtout ce que l'on oublie presque
+              toujours de contrôler&nbsp;: la <strong>pente</strong> de la gouttière et l'état de ses
+              fixations — une eau qui stagne finit par déborder derrière la bande de rive et par
+              détremper la sablière. Pour un remplacement complet du réseau, voyez ma page
+              <a href="/pose-gouttiere-28/">pose de gouttière</a>.
+            </p>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Bloc 3 · Deux avis clients : photo à gauche, avis à droite ───── -->
+  <section class="section">
+    <div class="conteneur">
+      <div class="temoins">
+        <img
+          class="temoins__photo"
+          src="/images/photos/artisan-sur-toit.webp"
+          alt="M. Renaud, artisan couvreur, au travail sur une toiture d'Eure-et-Loir"
+          loading="lazy"
+          width="1200"
+          height="1600"
+        />
+        <div class="temoins__liste">
+          <div class="temoins__entete">
+            <h2>Ils m'ont confié la réparation de leur toit</h2>
+            <p class="avis-note-google">
+              <LogoGoogle taille={20} />
+              <span class="avis-note-google__etoiles" aria-hidden="true">★★★★★</span>
+              Noté <strong>{reviews.note.toLocaleString('fr-FR')}/5</strong> sur Google · {reviews.nombre} avis
+            </p>
+          </div>
+          {avisReparation.map((a) => (
+            <article class="temoin">
+              <p class="temoin__note">
+                <span class="temoin__etoiles" aria-hidden="true">★★★★★</span>
+                <span class="visuallyhidden">{a.note} étoiles sur 5</span>
+              </p>
+              <p class="temoin__texte">{a.texte}</p>
+              <p class="temoin__auteur">{a.signature}</p>
+            </article>
+          ))}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Bloc 4 · Pourquoi choisir : 3 atouts réparation ──────────────── -->
+  <section class="section section--bleute">
+    <div class="conteneur">
+      <div class="section__entete">
+        <h2>Pourquoi me confier la réparation de votre toiture&nbsp;?</h2>
+      </div>
+
+      <div class="atouts atouts--trois">
+        <article class="atout">
+          <h3>Un couvreur du département, pas une plateforme</h3>
+          <p>
+            Entreprise familiale père et fils installée à {SITE.ville}, dirigée par
+            {' '}{SITE.dirigeant}, avec plus de 15&nbsp;ans de toitures derrière nous. C'est moi qui
+            inspecte votre toiture, qui établis le devis et qui reviens si quelque chose ne va pas.
+            Cette proximité change tout quand il faut se déplacer le jour même.
+          </p>
+        </article>
+
+        <article class="atout">
+          <h3>Les matériaux du 28, au quotidien</h3>
+          <p>
+            Tuile plate petit moule, ardoise naturelle, tuile mécanique&nbsp;: ce sont les
+            couvertures que je répare toute l'année, sur des pentes souvent raides. Je sais où
+            trouver un modèle qui s'accorde à l'existant et comment reprendre une zone sans créer
+            de faiblesse à la jonction avec l'ancien.
+          </p>
+        </article>
+
+        <article class="atout">
+          <h3>Réactivité, franchise et travaux garantis</h3>
+          <p>
+            Diagnostic gratuit, devis clair et détaillé, délai annoncé et tenu, intervention
+            d'urgence quand la fuite est active. Je vous dis aussi quand une réparation ne suffira
+            pas. Les travaux de couverture que je réalise sont couverts par ma garantie décennale.
+          </p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Bloc 5 · CTA intermédiaire ───────────────────────────────────── -->
+  <section class="section cta-reparation">
+    <div class="conteneur cta-reparation__grille">
+      <div class="cta-reparation__panneau">
+        <h2>Devis gratuit ou intervention urgente&nbsp;?</h2>
+        <p>
+          Décrivez-moi ce que vous constatez — tuile tombée, tache au plafond, gouttière qui déborde
+          — et je me déplace pour diagnostiquer l'origine du problème et vous chiffrer la réparation,
+          sans engagement. Si l'eau entre déjà chez vous, appelez directement la ligne urgence au
+          <a href={SITE.telUrgenceHref}>{SITE.telUrgence}</a>&nbsp;: la priorité est de vous remettre
+          hors d'eau.
+        </p>
+        <a href="/devis-gratuit/" class="btn btn--blanc">Contact &amp; devis en ligne<FlecheRonde /></a>
+      </div>
+      <img
+        class="cta-reparation__photo"
+        src="/images/photos/maison-toiture-eure-et-loir.webp"
+        alt="Longère en pierre d'Eure-et-Loir et sa couverture en tuiles"
+        loading="lazy"
+        width="1600"
+        height="1200"
+      />
+    </div>
+  </section>
+
+  <!-- ── Bloc 6 · Le protocole en 4 étapes ────────────────────────────── -->
+  <section class="section">
+    <div class="conteneur">
+      <div class="section__entete">
+        <h2>Le protocole d'une réparation de toiture professionnelle</h2>
+      </div>
+      <div class="protocole">
+        {protocole.map((e, i) => (
+          <article class="protocole__etape">
+            <div class="protocole__entete">
+              <span class="protocole__num">{String(i + 1).padStart(2, '0')}</span>
+              <h3>{e.titre}</h3>
+            </div>
+            <p>{e.texte}</p>
+          </article>
+        ))}
+      </div>
+      <p class="protocole__apres">
+        Une fois le toit remis en état, c'est l'entretien qui décide de la suite&nbsp;: une
+        couverture débarrassée de ses mousses vieillit bien plus lentement et laisse voir les
+        désordres avant qu'ils ne coûtent cher. C'est l'objet de mon
+        <a href="/nettoyage-toiture-28/">nettoyage et démoussage de toiture</a>.
+      </p>
+    </div>
+  </section>
+
+  <!-- ── Bloc 7 · Prix ────────────────────────────────────────────────── -->
+  <section class="section section--gris">
+    <div class="conteneur">
+      <div class="section__entete">
+        <h2>Combien coûte une réparation de toiture dans le 28&nbsp;?</h2>
+      </div>
+      <ul class="prix-cartes">
+        {prix.map((p) => (
+          <li class="prix-carte">
+            <span class="prix-carte__presta">{p.presta}</span>
+            <span class="prix-carte__valeur">{p.fourchette}</span>
+          </li>
+        ))}
+      </ul>
+      <p class="prix-note">
+        Quatre facteurs font varier ces montants&nbsp;: l'<strong>accessibilité</strong> du chantier
+        — un toit desservi par une cour étroite impose un échafaudage —, la <strong>pente</strong>,
+        le <strong>type de matériau</strong> et surtout l'<strong>étendue réelle des dégâts</strong>,
+        qui n'apparaît souvent qu'une fois la toiture inspectée de près. C'est pourquoi je ne chiffre jamais une
+        réparation par téléphone&nbsp;: je viens voir, puis je vous remets un
+        <a href="/devis-gratuit/">devis gratuit, détaillé et sans engagement</a>.
+      </p>
+    </div>
+  </section>
+
+  <!-- ── Bloc 8 · Zone d'intervention : les 14 communes ───────────────── -->
+  <section class="section zone">
+    <div class="conteneur">
+      <div class="section__entete">
+        <h2>Réparation de toiture partout en Eure-et-Loir</h2>
+      </div>
+      <p>
+        Basé à {SITE.ville}, j'interviens dans tout le département et jusqu'en limite des Yvelines,
+        pour une tuile à remplacer comme pour une fuite à traiter en urgence. Retrouvez votre
+        commune&nbsp;:
+      </p>
+      <ul class="zone-villes">
+        {zoneEnrichie.map((z) => (
+          villeParSlug[z.slug] && (
+            <li>
+              <a href={`/villes/${z.slug}/`}>
+                <span class="zone-villes__ville">{villeParSlug[z.slug].nom}</span>
+                <span class="zone-villes__ancre">{z.ancre}</span>
+              </a>
+            </li>
+          )
+        ))}
+      </ul>
+      <p class="zone-urgence">
+        Votre commune n'apparaît pas&nbsp;? J'interviens au-delà de cette liste&nbsp;: appelez-moi au
+        <a href={SITE.telHref}>{SITE.tel}</a>, ou au <a href={SITE.telUrgenceHref}>{SITE.telUrgence}</a>
+        en cas d'urgence.
+      </p>
+    </div>
+  </section>
+
+  <!-- ── Bloc 9 · FAQ ─────────────────────────────────────────────────── -->
+  <section class="section">
+    <div class="conteneur">
+      <div class="section__entete">
+        <h2>Vos questions sur la réparation d'un toit</h2>
+      </div>
+      <div class="faq">
+        {faq.map((f) => (
+          <div class="faq__item">
+            <h3>{f.q}</h3>
+            {f.q.includes('rénovation complète') ? (
+              <p>
+                La réparation traite un désordre identifié sur une zone délimitée&nbsp;: quelques
+                tuiles, un faîtage, une noue, un solin. Elle se règle en une demi-journée à deux
+                jours et n'exige pas de déposer la couverture. La rénovation, elle, consiste à
+                déposer tout ou partie du toit pour reprendre le liteaunage, poser un écran
+                sous-toiture et remettre une couverture neuve. Le budget et la durée n'ont rien à
+                voir. Si votre toit relève plutôt du second cas, je vous oriente vers la
+                <a href="/renovation-toiture-28/">rénovation de toiture</a>.
+              </p>
+            ) : (
+              <p>{f.r}</p>
+            )}
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Maillage cocon couverture ────────────────────────────────────── -->
+  <PrestationsConnexes
+    slugs={['renovation-toiture', 'zinguerie', 'pose-gouttiere']}
+    titre="Mes autres travaux de couverture"
+  />
+
+  <!-- ── CTA devis final : version réparation ─────────────────────────── -->
+  <CtaDevis
+    titre="Un toit à remettre hors d'eau ?"
+    texte="Tuile cassée, ardoise déplacée, faîtage descellé, infiltration après la tempête : j'interviens partout en Eure-et-Loir pour diagnostiquer l'origine du problème et le réparer, rapidement et même en urgence. Déplacement, diagnostic et devis détaillé gratuits, sans engagement."
+    puces={[
+      'Entreprise familiale, père & fils.',
+      'Intervention rapide, urgence et bâchage.',
+      'Travaux de couverture couverts par la garantie décennale.',
+    ]}
+    image="/images/photos/renovation-toiture-28-renaud-renov.webp"
+    imageAlt="Toiture d'Eure-et-Loir remise en état par l'entreprise Renaud Rénov"
+    imageWidth={900}
+    imageHeight={675}
+  />
+</BaseLayout>
+
+<style>
+  /* ── Cartes savoir-faire : contraste blanc / marine, image pleine hauteur ── */
+  .savoir { display: grid; gap: 2rem; margin-top: 2.5rem; }
+  .savoir-carte {
+    display: grid;
+    grid-template-columns: 1.05fr 1fr;
+    background: #fff;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 12px 32px rgba(36, 75, 100, 0.12);
+  }
+  /* La photo remplit la cellule SANS imposer sa hauteur : c'est le texte qui
+     dimensionne la carte (sinon une photo portrait rend la carte immense). */
+  .savoir-carte__media { min-height: 100%; }
+  .savoir-carte__media img {
+    width: 100%;
+    height: 100%;
+    min-height: 300px;
+    object-fit: cover;
+    display: block;
+  }
+  @media (min-width: 800px) {
+    .savoir-carte__media { position: relative; min-height: 300px; }
+    .savoir-carte__media img {
+      position: absolute;
+      inset: 0;
+      min-height: 0;
+    }
+  }
+  .savoir-carte__texte {
+    padding: 2.4rem 2.6rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  .savoir-carte__texte h3 { margin: 0 0 0.7rem; color: var(--bleu, #244B64); }
+  .savoir-carte__texte p { margin: 0; color: var(--gris-700, #4b5563); }
+
+  /* Image à droite (l'ordre visuel s'inverse sur desktop) */
+  @media (min-width: 800px) {
+    .savoir-carte--inverse .savoir-carte__media { order: 2; }
+  }
+
+  /* Variante marine : fond bleu, texte clair pour le contraste */
+  .savoir-carte--marine { background: var(--bleu, #244B64); }
+  .savoir-carte--marine .savoir-carte__texte h3 { color: #fff; }
+  .savoir-carte--marine .savoir-carte__texte p { color: rgba(255, 255, 255, 0.9); }
+  .savoir-carte--marine .savoir-carte__texte a { color: #ffb060; }
+
+  @media (max-width: 899px) {
+    .savoir-carte { grid-template-columns: 1fr; }
+    .savoir-carte__media img { min-height: 240px; max-height: 320px; }
+    .savoir-carte__texte { padding: 1.8rem 1.6rem; }
+  }
+
+  /* ── Avis : photo à gauche, avis empilés à droite ── */
+  .avis-note-google {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    margin-top: 0.6rem;
+    color: var(--gris-700, #4b5563);
+    font-size: var(--fs-sm);
+  }
+  .avis-note-google strong { color: var(--bleu, #244B64); }
+  .avis-note-google__etoiles { color: var(--etoile, #f5a623); letter-spacing: 0.06em; }
+
+  .temoins {
+    display: grid;
+    gap: 2.2rem;
+    align-items: center;
+  }
+  .temoins__entete h2 { margin: 0 0 0.4rem; color: var(--bleu, #244B64); }
+  .temoins__entete .avis-note-google { margin-top: 0; }
+  @media (min-width: 900px) {
+    .temoins {
+      grid-template-columns: 0.9fr 1.1fr;
+      column-gap: 4rem;
+    }
+  }
+  .temoins__photo {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+    border-radius: 24px;
+    box-shadow: var(--ombre-forte, 0 14px 34px rgba(15, 34, 45, 0.25));
+    display: block;
+  }
+  .temoins__liste { display: grid; gap: 2rem; }
+  .temoin__note {
+    display: flex;
+    align-items: center;
+    gap: 0.2rem;
+    margin: 0 0 0.7rem;
+  }
+  .temoin__etoiles {
+    color: var(--etoile, #f5a623);
+    font-size: var(--fs-xl);
+    letter-spacing: 0.04em;
+    line-height: 1;
+  }
+  .temoin__texte { margin: 0 0 0.9rem; color: var(--gris-700, #4b5563); line-height: 1.6; }
+  .temoin__auteur { margin: 0; font-weight: 700; color: var(--bleu, #244B64); }
+
+  /* ── Cartes « atouts » ── */
+  .atouts {
+    display: grid;
+    gap: 1.3rem;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    margin-top: 2.4rem;
+  }
+  .atout {
+    background: #fff;
+    border: 1px solid rgba(36, 75, 100, 0.08);
+    border-radius: 18px;
+    padding: 1.9rem 1.7rem;
+    box-shadow: 0 10px 28px rgba(36, 75, 100, 0.09);
+    display: flex;
+    flex-direction: column;
+    gap: 0.85rem;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+  .atout:hover { transform: translateY(-3px); box-shadow: 0 16px 36px rgba(36, 75, 100, 0.14); }
+  .atout h3 { margin: 0; color: var(--bleu, #244B64); font-size: var(--fs-lg); }
+  .atout p { margin: 0; color: var(--gris-700, #4b5563); }
+
+  /* ── CTA intermédiaire : panneau marine à gauche, photo à droite ──
+     Ordre DOM panneau → photo : sur mobile le texte s'intercale entre les
+     photos des blocs voisins (règle mobile, cf. page hydrofuge). ── */
+  .cta-reparation__grille {
+    display: grid;
+    border-radius: var(--rayon);
+    overflow: hidden;
+    box-shadow: var(--ombre-forte);
+  }
+  .cta-reparation__photo { width: 100%; height: 100%; min-height: 260px; object-fit: cover; display: block; }
+  .cta-reparation__panneau {
+    background: linear-gradient(160deg, #244B64 0%, #173445 100%);
+    padding: clamp(2rem, 5vw, 3.2rem);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    text-align: left;
+    gap: 1.2rem;
+  }
+  .cta-reparation__panneau h2 { color: #fff; margin: 0; }
+  .cta-reparation__panneau p { color: rgba(255, 255, 255, 0.88); margin: 0; max-width: var(--mesure-etroite); }
+  .cta-reparation__panneau p a { color: #ffb060; font-weight: 700; white-space: nowrap; }
+  @media (max-width: 899px) {
+    .cta-reparation__panneau { align-items: center; text-align: center; }
+    .cta-reparation__panneau p { text-align: left; }
+  }
+  @media (min-width: 900px) {
+    .cta-reparation__grille { grid-template-columns: 1.15fr 1fr; }
+  }
+
+  /* ── Protocole : 4 étapes numérotées, colonne unique verticale ── */
+  .protocole {
+    display: grid;
+    gap: 1.1rem;
+    grid-template-columns: 1fr;
+    max-width: var(--mesure);
+    margin: 2.4rem auto 0;
+  }
+  .protocole__etape {
+    background: #fff;
+    border: 1px solid rgba(36, 75, 100, 0.08);
+    border-radius: 18px;
+    padding: 1.6rem 1.7rem;
+    box-shadow: 0 10px 28px rgba(36, 75, 100, 0.09);
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.6rem;
+  }
+  .protocole__entete {
+    display: flex;
+    flex-direction: row;
+    align-items: baseline;
+    gap: 0.8rem;
+  }
+  .protocole__num {
+    flex: 0 0 auto;
+    font-size: var(--fs-xl);
+    font-weight: 800;
+    color: var(--rouge, #EF7E0F);
+    line-height: 1;
+  }
+  .protocole__etape h3 { margin: 0; color: var(--bleu, #244B64); font-size: var(--fs-lg); text-align: left; }
+  .protocole__etape p { margin: 0; color: var(--gris-700, #4b5563); }
+  .protocole__apres {
+    max-width: var(--mesure);
+    margin: 2rem auto 0;
+    color: var(--gris-700);
+    text-wrap: pretty;
+  }
+  .protocole__apres a { color: var(--rouge-fonce); font-weight: 600; }
+
+  /* ── Prix : 4 cartes ── */
+  .prix-cartes {
+    list-style: none;
+    padding: 0;
+    margin: 2.2rem auto 1.8rem;
+    display: grid;
+    gap: 1.1rem;
+    grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+    max-width: var(--mesure-large);
+  }
+  .prix-carte {
+    background: #fff;
+    border: 1px solid rgba(36, 75, 100, 0.08);
+    border-radius: 16px;
+    padding: 1.5rem 1.6rem;
+    box-shadow: 0 8px 22px rgba(36, 75, 100, 0.08);
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+    text-align: center;
+    justify-content: space-between;
+  }
+  .prix-carte__presta { font-weight: 700; color: var(--bleu, #244B64); }
+  .prix-carte__valeur { font-size: var(--fs-xl); font-weight: 800; color: var(--rouge, #EF7E0F); }
+  .prix-note { max-width: var(--mesure); margin-inline: auto; }
+  .prix-note a { color: var(--rouge-fonce); font-weight: 600; }
+
+  /* ══ Hero — design de la page d'accueil (repris de index.astro) ══ */
+  .hx { padding-block: clamp(1.6rem, 4vw, 3rem); }
+  .hx__grid {
+    display: grid;
+    gap: 1.6rem;
+    grid-template-columns: 1fr;
+    grid-template-areas: "head" "photo" "body";
+  }
+  @media (min-width: 980px) {
+    .hx__grid {
+      grid-template-columns: 1.05fr 1fr;
+      grid-template-areas: "head photo" "body photo";
+      column-gap: 3.5rem;
+      row-gap: 1.1rem;
+      align-items: center;
+    }
+  }
+  .hx__head { grid-area: head; }
+  .hx__right { grid-area: photo; position: relative; }
+  .hx__right::after {
+    content: "";
+    position: absolute;
+    left: 0; right: 0; bottom: 0;
+    height: 42%;
+    border-radius: 0 0 24px 24px;
+    background: linear-gradient(to top, rgba(15, 34, 45, 0.6), rgba(15, 34, 45, 0));
+    pointer-events: none;
+    z-index: 1;
+  }
+  .hx__body { grid-area: body; }
+  .hx__title { margin: 0; color: var(--bleu); font-size: var(--fs-h1-hero); line-height: 1.2; letter-spacing: -0.01em; }
+  .hx__marque { color: var(--rouge); font-weight: 800; font-size: clamp(1.9rem, 4.4vw, 2.9rem); line-height: 1.1; margin: 0.6rem 0 0; }
+  .hx__photo { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; border-radius: 24px; box-shadow: var(--ombre-forte); display: block; }
+  @media (min-width: 980px) { .hx__photo { aspect-ratio: 4 / 5; } }
+
+  .hx__chapo { color: var(--gris-700); margin: 0 0 1.2rem; max-width: var(--mesure-etroite); }
+  .hx__chapo strong { color: var(--bleu); }
+
+  .hx__points { list-style: none; padding: 0; margin: 0.4rem 0 1.2rem; display: grid; gap: 0.9rem; }
+  .hx__points li {
+    display: flex; align-items: center; gap: 0.8rem;
+    font-size: var(--fs-md); font-weight: 600; color: var(--bleu);
+  }
+  .hx__check { color: var(--rouge); flex-shrink: 0; line-height: 0; }
+  .hx__check svg { width: 30px; height: 30px; }
+
+  .hx__note {
+    position: absolute;
+    left: 50%;
+    bottom: 1rem;
+    transform: translateX(-50%);
+    width: max-content;
+    max-width: calc(100% - 1.6rem);
+    display: flex; flex-direction: column; align-items: center; gap: 0.3rem;
+    background: var(--blanc);
+    border-radius: 16px;
+    box-shadow: 0 14px 34px rgba(15, 34, 45, 0.42);
+    padding: 0.8rem 1.5rem;
+    z-index: 2;
+  }
+  .hx__note-top { display: flex; align-items: center; gap: 0.6rem; }
+  .hx__note-stars { display: inline-flex; gap: 0.1em; }
+  .hx__note-stars svg { width: 1.35rem; height: 1.35rem; fill: var(--etoile); }
+  .hx__note-txt { margin: 0; color: var(--gris-700); font-size: var(--fs-base); }
+  .hx__note-txt strong { color: var(--bleu); }
+
+  .hx__badges { display: flex; align-items: center; gap: 1.3rem; flex-wrap: wrap; margin: 0 0 1.6rem; }
+  .hx__badges img { height: 64px; width: auto; }
+
+  .hx__actions { display: flex; flex-wrap: wrap; gap: 0.8rem; }
+  .hx__urgence { color: var(--gris-700); font-size: var(--fs-sm); margin: 0.8rem 0 0; }
+  .hx__urgence strong { color: var(--bleu); }
+  .hx__urgence a { color: var(--rouge-fonce); font-weight: 700; white-space: nowrap; }
+
+  @media (max-width: 979px) {
+    .hx__title, .hx__marque { text-align: center; }
+    .hx__chapo { margin-inline: auto; }
+    .hx__badges, .hx__actions { justify-content: center; }
+    .hx__urgence { text-align: center; }
+    .hx__badges img { height: 56px; }
+  }
+
+  .faq { display: grid; gap: 1.4rem; margin-top: 1.6rem; max-width: var(--mesure-large); margin-inline: auto; }
+  .faq__item { padding-left: 1.1rem; }
+  .faq__item h3 { margin: 0 0 0.4rem; color: var(--bleu, #244B64); font-size: var(--fs-lg); text-align: left; }
+  .faq__item p { margin: 0; color: var(--gris-700, #4b5563); line-height: 1.55; }
+  .faq__item a { color: var(--rouge-fonce); font-weight: 600; }
+
+  /* ── Zone d'intervention : fond marine + cartes communes ── */
+  .zone { background: linear-gradient(160deg, #244B64 0%, #173445 100%); }
+  .zone .section__entete h2 { color: #fff; }
+  .zone > .conteneur > p { color: rgba(255, 255, 255, 0.9); max-width: var(--mesure); }
+  .zone > .conteneur > p a { color: #ffb060; font-weight: 600; white-space: nowrap; }
+  .zone-urgence { margin-top: 2rem; font-size: var(--fs-sm); }
+  .zone-villes {
+    list-style: none;
+    padding: 0;
+    margin: 2.2rem 0 0;
+    display: grid;
+    gap: 0.9rem;
+    grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  }
+  .zone-villes a {
+    display: flex;
+    flex-direction: column;
+    gap: 0.15rem;
+    justify-content: center;
+    padding: 0.95rem 1.15rem;
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    border-radius: 13px;
+    text-decoration: none;
+    transition: background 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+  }
+  .zone-villes a:hover {
+    background: rgba(255, 255, 255, 0.12);
+    border-color: var(--rouge, #EF7E0F);
+    transform: translateY(-2px);
+  }
+  .zone-villes__ville { color: #fff; font-weight: 700; font-size: var(--fs-base); }
+  .zone-villes__ancre { color: rgba(255, 255, 255, 0.68); font-size: var(--fs-xs); }
+
+  /* ── Mesure de lecture ── */
+  .savoir-carte__texte p,
+  .temoin__texte { max-width: var(--mesure); }
+</style>

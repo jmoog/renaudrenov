@@ -1,4 +1,10 @@
 ---
+// ─────────────────────────────────────────────────────────────────────────
+// Page ville MAINTENON — fichier dédié (réécriture 14/08/2026, brief client).
+// Même structure que le gabarit villes/[slug].astro, avec les spécificités
+// de la commune : lien vers la réalisation démoussage de juin 2026 (dans la
+// section longue), négoce local Gedimat Maintenon en tête des marques.
+// ─────────────────────────────────────────────────────────────────────────
 import FlecheRonde from '../../components/FlecheRonde.astro';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { SITE } from '../../data/site.ts';
@@ -13,46 +19,62 @@ import reviews from '../../data/reviews.json';
 const ville = 'Maintenon';
 const cp = '28130';
 
-// ── SEO : title / H1 / meta différenciés (anti-triplette, même page) ──
-const title = 'Couvreur à Maintenon (28) — Renaud Rénov';
+// ── Balises différenciées (anti-triplette) ──
+const title = 'Couvreur à Maintenon — Devis gratuit — Renaud Rénov';
 const description =
-  "Entretien, démoussage, réparation et réfection de toiture, zinguerie et gouttières à Maintenon et alentours. Artisan familial, intervention rapide, devis gratuit.";
+  "M. Renaud prend soin de vos toits à Maintenon : nettoyage, réparation, tuiles et ardoises. ✓ 02 34 40 17 61 — déplacement et devis gratuits.";
 
-// ── Cards : contenu propre à Maintenon (évite la duplication avec les
-// autres pages villes). Nom de la commune uniquement sur les 2 services
-// phares locaux (nettoyage/démoussage et réparation). ──
-const cartesVille: Record<string, { titre: string; texte: string }> = {
-  'nettoyage-demoussage-toiture': {
+// ── Les 6 cards de services (ordre propre à la commune) ──
+const cartes = [
+  {
     titre: `Démoussage de toiture à ${ville}`,
     texte:
-      "Je débarrasse votre couverture des mousses, lichens et dépôts noirs pour lui rendre propreté et étanchéité.",
+      "Nettoyer un toit sans l'abîmer : tout est là. Je choisis la technique selon la couverture et j'applique des produits professionnels bien dosés — le nettoyage de toiture à Maintenon, fait avec méthode.",
+    image: '/images/photos/nettoyage-demoussage-toiture.webp',
+    alt: 'Artisan Renaud Rénov nettoyant une toiture au jet en Eure-et-Loir',
+    href: '/nettoyage-toiture-maintenon/',
   },
-  'traitement-hydrofuge': {
-    titre: 'Traitement hydrofuge de toiture',
+  {
+    titre: 'Rénovation et remplacement de toiture',
     texte:
-      "Résine et hydrofuge appliqués après nettoyage, pour protéger vos tuiles et ralentir le retour des mousses.",
+      "M. Renaud maîtrise tous les matériaux de couverture présents à Maintenon : tuile de pays, tuile plate, ardoise, et le zinc lorsque le bâtiment s'y prête. Une toiture refaite dans les règles de l'art.",
+    image: '/images/photos/renovation-toiture.webp',
+    alt: 'Rénovation de toiture avec liteaunage neuf sur charpente en Eure-et-Loir',
+    href: '/renovation-toiture-28/',
   },
-  'reparation-toiture': {
-    titre: `Réparation de toiture à ${ville}`,
+  {
+    titre: 'Zinguerie : solins, noues, chéneaux',
     texte:
-      "Tuile fêlée, ardoise glissée, faîtage ou solin défaillant : je remets vite votre toit à l'abri des infiltrations.",
+      "Le zinc fait l'étanchéité des points singuliers du toit. Je façonne et pose solins de cheminée, noues et chéneaux à Maintenon, avec la précision d'un couvreur zingueur de métier.",
+    image: '/images/photos/zinguerie-epi.webp',
+    alt: 'Épi de faîtage en zinc réalisé par Renaud Rénov, artisan couvreur-zingueur en Eure-et-Loir',
+    href: '/zinguerie-28/',
   },
-  'renovation-toiture': {
-    titre: 'Rénovation et réfection de toiture',
+  {
+    titre: 'Réparation de toiture',
     texte:
-      "Couverture fatiguée ou vétuste : reprise partielle ou toit entièrement refait, pour repartir sur une base saine.",
+      "Fuite, tuile déplacée, infiltration : j'interviens rapidement, je peux poser une bâche en urgence, et je recherche l'origine du problème pour remettre votre toiture en bon état durablement.",
+    image: '/images/photos/reparation-toiture.webp',
+    alt: "Réparation du faîtage d'une toiture en tuiles en Eure-et-Loir",
+    href: '/reparation-toiture-28/',
   },
-  zinguerie: {
-    titre: 'Zinguerie : noues, chéneaux, cheminées',
+  {
+    titre: 'Nettoyage de façade',
     texte:
-      "Travail du zinc pour vos noues, solins de cheminée et chéneaux, garant d'une étanchéité qui dure.",
+      "Renaud Rénov est le spécialiste de l'entretien des façades en Eure-et-Loir : lavage des murs et traitements adaptés à chaque revêtement, avec le soin et le professionnalisme d'un artisan.",
+    image: '/images/photos/facade-pignon-sale-28.webp',
+    alt: "Façade et pignon avant nettoyage dans le 28 — coulures et traces d'humidité",
+    href: '/nettoyage-facade-28/',
   },
-  'pose-gouttiere': {
-    titre: 'Pose de gouttière',
+  {
+    titre: 'Pose et remplacement de gouttières',
     texte:
-      "Gouttières et descentes posées ou remplacées pour évacuer les eaux de pluie loin de vos murs et fondations.",
+      "Je pose, remplace et raccorde gouttières et descentes en zinc, en aluminium ou en PVC : l'eau de pluie est évacuée loin des murs, la façade et les fondations restent saines.",
+    image: '/images/photos/gouttiere-descente.webp',
+    alt: "Descente de gouttière posée le long d'un pignon par Renaud Rénov en Eure-et-Loir",
+    href: '/pose-gouttiere-28/',
   },
-};
+];
 
 // ── Marques : on met en avant le négoce local (Gedimat Maintenon) ──
 const marquesVille = [
@@ -62,9 +84,7 @@ const marquesVille = [
   { nom: 'Knauf', url: 'https://www.knaufinsulation.fr/', logo: '/images/marques/logo-knauf.webp', alt: 'Knauf – isolation thermique' },
 ];
 
-// ── Schema : on réutilise le MÊME @id que la fiche LocalBusiness globale
-// (Google fusionne les nœuds), on ajoute la ville en areaServed + le
-// catalogue de prestations + knowsAbout. Une seule entité, conforme Google. ──
+// ── Schema : même @id que la fiche globale (fusion) + areaServed ville ──
 const businessId = `${SITE.url}/#localbusiness`;
 const schemaVille = {
   '@context': 'https://schema.org',
@@ -83,6 +103,7 @@ const schemaVille = {
     'Réparation de toiture',
     'Traitement hydrofuge',
     'Rénovation de toiture',
+    'Nettoyage de façade',
     'Zinguerie',
     'Pose de gouttière',
     'Couverture tuile et ardoise',
@@ -93,83 +114,106 @@ const schemaVille = {
     itemListElement: services.map((s, i) => ({
       '@type': 'Offer',
       position: i + 1,
-      itemOffered: {
-        '@type': 'Service',
-        name: s.label,
-        url: `${SITE.url}${s.href}`,
-        provider: { '@id': businessId },
-      },
+      itemOffered: { '@type': 'Service', name: s.label, url: `${SITE.url}${s.href}`, provider: { '@id': businessId } },
     })),
   },
 };
 ---
 <BaseLayout title={title} description={description} extraSchemas={[schemaVille]}>
   <!-- ── Fil d'Ariane ─────────────────────────────────────────── -->
-  <section class="section section--compact">
+  <section class="section section--sans-bas">
     <div class="conteneur">
       <FilAriane items={[{ label: 'Accueil', href: '/' }, { label: `Couvreur à ${ville}` }]} />
     </div>
   </section>
 
-  <!-- ── Hero (design repris de la home) ──────────────────────── -->
-  <section class="hero hero--compact">
-    <div class="conteneur hero__grille">
-      <div class="hero__texte">
-        <h1>Entreprise de couverture à {ville}</h1>
-        <p class="hero__marque">RENAUD RÉNOV</p>
-        <div class="hero__accroche hero__encadre">
-          <p>
-            Vous cherchez un <strong>artisan couvreur</strong> à {ville} pour un
-            <strong>démoussage de toiture</strong>, une <strong>recherche de fuite</strong> ou des
-            <strong>réparations de toiture</strong> ? Des maisons anciennes en pierre du centre, à
-            deux pas du château, aux pavillons des quartiers plus récents, je connais bien les toits
-            de la commune.
-          </p>
-          <p>
-            Je suis M. Renaud, <a href="/">couvreur dans le 28</a> installé tout près, à
-            Villiers-le-Morhier : j'interviens rapidement à {ville} et je réalise des
-            <strong>devis gratuits</strong>, sans engagement.
-          </p>
-        </div>
-        <div class="hero__actions">
-          <a href={SITE.telHref} class="btn btn--rouge">
-            <svg class="icone" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6.5 3.5h-2A1.5 1.5 0 0 0 3 5.2C3.4 13 11 20.6 18.8 21a1.5 1.5 0 0 0 1.7-1.5v-2a1.5 1.5 0 0 0-1.3-1.5l-2.5-.35a1.5 1.5 0 0 0-1.4.6l-.7.95a11.5 11.5 0 0 1-4.9-4.9l.95-.7a1.5 1.5 0 0 0 .6-1.4l-.35-2.5a1.5 1.5 0 0 0-1.5-1.3Z"/><path d="M14.5 3.6a5.5 5.5 0 0 1 4.9 4.9"/><path d="M14 7a2.4 2.4 0 0 1 2 2"/></svg>
-            {SITE.tel}
-          </a>
-          <a href="/devis-gratuit/" class="btn btn--bleu">Devis gratuit<FlecheRonde /></a>
+  <!-- ── Hero (modèle home : titre / photo / coches) ──────────── -->
+  <section class="hx">
+    <div class="conteneur hx__grid">
+      <div class="hx__head">
+        <h1 class="hx__title">Entreprise de couverture à {ville}</h1>
+        <p class="hx__marque">RENAUD RÉNOV</p>
+      </div>
+
+      <div class="hx__right">
+        <img
+          class="hx__photo"
+          src="/images/photos/hero-renaud-renov.webp"
+          srcset="/images/photos/hero-renaud-renov-640.webp 640w, /images/photos/hero-renaud-renov-960.webp 960w, /images/photos/hero-renaud-renov-1280.webp 1280w, /images/photos/hero-renaud-renov.webp 1600w"
+          sizes="(min-width: 980px) 46vw, calc(100vw - 2rem)"
+          alt={`Le véhicule de Renaud Rénov devant une maison et sa toiture en tuiles, couvreur à ${ville}`}
+          fetchpriority="high"
+          width="1600"
+          height="1200"
+        />
+        <div class="hx__note">
+          <div class="hx__note-top">
+            <LogoGoogle taille={26} />
+            <span class="hx__note-stars" aria-label={`${reviews.note} étoiles sur 5`}>
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l2.9 6.26 6.9.6-5.2 4.53 1.55 6.75L12 17.77 5.85 20.7 7.4 13.95 2.2 9.42l6.9-.6L12 2z"/></svg>
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l2.9 6.26 6.9.6-5.2 4.53 1.55 6.75L12 17.77 5.85 20.7 7.4 13.95 2.2 9.42l6.9-.6L12 2z"/></svg>
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l2.9 6.26 6.9.6-5.2 4.53 1.55 6.75L12 17.77 5.85 20.7 7.4 13.95 2.2 9.42l6.9-.6L12 2z"/></svg>
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l2.9 6.26 6.9.6-5.2 4.53 1.55 6.75L12 17.77 5.85 20.7 7.4 13.95 2.2 9.42l6.9-.6L12 2z"/></svg>
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l2.9 6.26 6.9.6-5.2 4.53 1.55 6.75L12 17.77 5.85 20.7 7.4 13.95 2.2 9.42l6.9-.6L12 2z"/></svg>
+            </span>
+          </div>
+          <p class="hx__note-txt">Noté <strong>{reviews.note.toLocaleString('fr-FR')}/5</strong> sur Google · {reviews.nombre} avis</p>
         </div>
       </div>
 
-      <div class="hero__media">
-        <div class="hero__foto photo-note">
-          <img
-            class="hero__photo"
-            src="/images/photos/hero-renaud-renov.webp"
-            srcset="/images/photos/hero-renaud-renov-640.webp 640w, /images/photos/hero-renaud-renov-960.webp 960w, /images/photos/hero-renaud-renov-1280.webp 1280w, /images/photos/hero-renaud-renov.webp 1600w"
-            sizes="(min-width: 980px) 540px, 94vw"
-            alt={`Le véhicule de Renaud Rénov devant une maison et sa toiture en tuiles, couvreur à ${ville}`}
-            fetchpriority="high"
-            width="1600"
-            height="1200"
-          />
-          <div class="photo-note__carte">
-            <div class="photo-note__top">
-              <LogoGoogle taille={26} />
-              <span class="photo-note__etoiles" aria-label={`${reviews.note} étoiles sur 5`}>
-                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l2.9 6.26 6.9.6-5.2 4.53 1.55 6.75L12 17.77 5.85 20.7 7.4 13.95 2.2 9.42l6.9-.6L12 2z"/></svg>
-                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l2.9 6.26 6.9.6-5.2 4.53 1.55 6.75L12 17.77 5.85 20.7 7.4 13.95 2.2 9.42l6.9-.6L12 2z"/></svg>
-                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l2.9 6.26 6.9.6-5.2 4.53 1.55 6.75L12 17.77 5.85 20.7 7.4 13.95 2.2 9.42l6.9-.6L12 2z"/></svg>
-                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l2.9 6.26 6.9.6-5.2 4.53 1.55 6.75L12 17.77 5.85 20.7 7.4 13.95 2.2 9.42l6.9-.6L12 2z"/></svg>
-                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l2.9 6.26 6.9.6-5.2 4.53 1.55 6.75L12 17.77 5.85 20.7 7.4 13.95 2.2 9.42l6.9-.6L12 2z"/></svg>
-              </span>
-            </div>
-            <p class="photo-note__txt">Noté <strong>{reviews.note.toLocaleString('fr-FR')}/5</strong> sur Google · {reviews.nombre} avis</p>
-          </div>
+      <div class="hx__body">
+        <p class="hx__chapo">
+          Vous avez besoin d'un spécialiste de la toiture à {ville} ?
+          <strong>Renaud Rénov</strong>, <a href="/">couvreur zingueur en Eure-et-Loir</a>, est votre professionnel : entretien avec le démoussage et
+          le nettoyage de la toiture, application de traitements hydrofuges, réparation de toiture
+          ou remplacement d'une couverture ancienne.
+        </p>
+
+        <ul class="hx__points">
+          <li>
+            <span class="hx__check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="4"/><path d="M8 12.5l2.5 2.5 5-6"/></svg></span>
+            Plus de 15 années d'expérience
+          </li>
+          <li>
+            <span class="hx__check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="4"/><path d="M8 12.5l2.5 2.5 5-6"/></svg></span>
+            Applicateur de solutions Dalep certifié
+          </li>
+          <li>
+            <span class="hx__check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="4"/><path d="M8 12.5l2.5 2.5 5-6"/></svg></span>
+            Garantie décennale
+          </li>
+        </ul>
+
+        <div class="hx__badges">
+          <img src="/images/labels/applicateur-dalep.webp" alt="Applicateur de solutions DALEP certifié" width="240" height="240" loading="lazy" />
+          <img src="/images/labels/garantie-decennale-10-ans.png" alt="Garantie décennale 10 ans" width="220" height="220" loading="lazy" />
         </div>
-        <div class="carte hero__garantie">
-          <img src="/images/logo/logo-renaud-renov-128.webp" alt="" width="80" height="80" loading="lazy" />
-          <p><strong>Garantie décennale</strong><br />Pour tous travaux de couverture</p>
+
+        <div class="hx__actions">
+          <a href="/devis-gratuit/" class="btn btn--rouge">Devis gratuit<FlecheRonde /></a>
+          <a href={SITE.telHref} class="btn btn--bleu">
+            <svg class="icone" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6.5 3.5h-2A1.5 1.5 0 0 0 3 5.2C3.4 13 11 20.6 18.8 21a1.5 1.5 0 0 0 1.7-1.5v-2a1.5 1.5 0 0 0-1.3-1.5l-2.5-.35a1.5 1.5 0 0 0-1.4.6l-.7.95a11.5 11.5 0 0 1-4.9-4.9l.95-.7a1.5 1.5 0 0 0 .6-1.4l-.35-2.5a1.5 1.5 0 0 0-1.5-1.3Z"/><path d="M14.5 3.6a5.5 5.5 0 0 1 4.9 4.9"/><path d="M14 7a2.4 2.4 0 0 1 2 2"/></svg>
+            {SITE.tel}
+          </a>
         </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Services : 6 cards ───────────────────────────────────── -->
+  <section class="section section--gris">
+    <div class="conteneur">
+      <h2>Mes services de couvreur à {ville}</h2>
+      <div class="grille-cards-4">
+        {cartes.map((c) => (
+          <a href={c.href} class="carte carte-service">
+            <img src={c.image} alt={c.alt} loading="lazy" width="400" height="250" />
+            <span class="carte-service__corps">
+              <h3>{c.titre}</h3>
+              <p>{c.texte}</p>
+            </span>
+          </a>
+        ))}
       </div>
     </div>
   </section>
@@ -177,82 +221,69 @@ const schemaVille = {
   <!-- ── Avis clients ─────────────────────────────────────────── -->
   <AvisCarrousel lieu={`à ${ville}`} ordre={4} titre={`Ce que pensent mes clients à ${ville}`} />
 
-  <!-- ── Services (cards) ─────────────────────────────────────── -->
-  <section class="section section--gris">
-    <div class="conteneur">
-      <h2>Mes services de couvreur à {ville}</h2>
-      <div class="encadre">
-        <p>
-          À {ville}, je prends en charge l'ensemble des travaux de toiture : entretien, réparation,
-          rénovation et couverture neuve. Chaque toit est différent — j'adapte mon intervention à son
-          état et à ses matériaux.
-        </p>
-        <p>
-          Je travaille aussi bien la <strong>tuile plate de pays</strong> et la tuile mécanique que
-          l'<strong>ardoise</strong>, le bac acier ou le fibrociment, et je réalise la
-          <strong>zinguerie</strong> (noues, solins, chéneaux, gouttières) comme la reprise de
-          <strong>charpente</strong> quand elle s'impose.
-        </p>
-        <p>
-          Avant chaque chantier, je me déplace pour examiner votre toiture, en vérifier l'état et vous
-          proposer la solution la plus adaptée, avec un <strong>devis gratuit</strong> et sans
-          engagement. L'ensemble de mes travaux est garanti décennale.
-        </p>
-        <p>
-          Envie de voir le résultat ? Découvrez un
-          <a href="/realisations/demoussage-toiture-maintenon/">démoussage de toiture réalisé à {ville} en juin 2026</a>,
-          avec les photos avant / après.
-        </p>
-      </div>
-      <div class="grille-services">
-        {services.map((s) => {
-          const c = cartesVille[s.slug] ?? { titre: s.label, texte: s.accroche };
-          // Cocon nettoyage : la carte démoussage pointe vers le satellite de la commune.
-          const href = s.slug === 'nettoyage-demoussage-toiture' ? '/nettoyage-toiture-maintenon/' : s.href;
-          return (
-            <a href={href} class="carte carte-service">
-              <img src={s.image} alt={s.alt} loading="lazy" width="400" height="250" />
-              <span class="carte-service__corps">
-                <h3>{c.titre}</h3>
-                <p>{c.texte}</p>
-              </span>
-            </a>
-          );
-        })}
-      </div>
-    </div>
-  </section>
+  <!-- ── CTA photo ────────────────────────────────────────────── -->
+  <CtaDevis
+    titre={`Votre couvreur zingueur à ${ville} se déplace chez vous`}
+    texte="Un appel, et M. Renaud vient examiner votre toiture à Maintenon : état de la couverture, zinguerie, points à surveiller. Quinze années d'expérience des travaux de couverture, un savoir-faire d'artisan et un avis nuancé — puis un devis gratuit, clair et détaillé."
+    image="/images/photos/traitement-hydrofuge-28.webp"
+    imageAlt={`Toiture en tuiles traitée et protégée par Renaud Rénov, couvreur à ${ville} en Eure-et-Loir`}
+    imageWidth={2000}
+    imageHeight={1500}
+  />
 
-  <!-- ── Autorisations en mairie (angle local : château) ──────── -->
+  <!-- ── Section longue : savoir-faire + urbanisme + mairie ───── -->
   <section class="section">
     <div class="conteneur">
-      <h2>Toiture et règles d'urbanisme à {ville}</h2>
-      <div class="duo mairie-duo">
-        <div>
-          <p>
-            À {ville}, l'entretien courant ou une réparation à l'identique ne demande généralement
-            aucune formalité. Mais dès que l'aspect du toit change — nouvelles tuiles, autre teinte,
-            fenêtre de toit — une <strong>déclaration préalable de travaux</strong> s'impose le plus
-            souvent, et un <strong>permis de construire</strong> pour une extension ou une
-            surélévation.
+      <div class="section__entete">
+        <h2>Faites appel à un artisan couvreur pour l'entretien et la réfection de votre toiture</h2>
+      </div>
+      <div class="texte-long">
+        <p>
+          Entretenir et refaire des toitures, c'est le quotidien de Renaud Rénov depuis plus de
+          quinze années — un métier appris sur les chantiers et transmis de père en fils. Cette
+          expérience se voit dans les petites choses : un diagnostic posé calmement, un devis qui
+          détaille chaque poste, un chantier préparé pour ne pas réserver de surprise. À Maintenon,
+          elle se voit aussi sur les toits : les clients qui nous confient leur couverture la
+          retrouvent propre, étanche et durable.
+        </p>
+        <p>
+          Le savoir-faire d'entretien est le premier pilier. Démoussage mené avec la technique
+          adaptée au matériau, <a href="/traitement-hydrofuge-28/">traitement hydrofuge</a> appliqué au bon dosage par un applicateur certifié,
+          gouttières et solins contrôlés à chaque passage : un toit suivi vieillit lentement. Pour
+          voir concrètement ce que cela donne, découvrez
+          <a href="/realisations/demoussage-toiture-maintenon/">un démoussage de toiture réalisé à {ville} en juin 2026</a>,
+          photos avant / après à l'appui.
+        </p>
+        <p>
+          Le second pilier, ce sont les travaux : réparation après un coup de vent, reprise d'un pan
+          de couverture, remplacement complet d'un toit en fin de vie, zinguerie façonnée sur
+          mesure. Chaque chantier suit le même ordre — dépose, contrôle de la charpente, écran de
+          sous-toiture, liteaunage, pose, finitions — et chaque étape est vérifiée avant la
+          suivante. La garantie décennale couvre l'ensemble.
+        </p>
+        <p>
+          La connaissance des matériaux relie les deux : tuile de pays, tuile plate, tuile
+          mécanique et ardoise n'ont ni les mêmes pentes, ni les mêmes fixations, ni le même
+          entretien, et chaque toit se travaille selon les règles de son matériau. Gardez enfin en
+          tête que refaire certains travaux sur une toiture implique le respect du code de
+          l'urbanisme — notamment du plan local d'urbanisme ou du plan d'occupation des sols — et
+          que plusieurs types de chantiers exigent une déclaration préalable. Le service urbanisme
+          de la mairie de {ville} vous renseignera sur les règles applicables à votre maison.
+        </p>
+      </div>
+
+      <div class="carte mairie-encart">
+        <span class="mairie-encart__icone" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18"/><path d="M5 21V10l7-5 7 5v11"/><path d="M9 21v-6h6v6"/></svg>
+        </span>
+        <div class="mairie-encart__corps">
+          <p class="mairie-encart__invite">
+            Avant d'engager des travaux qui modifient l'aspect de votre toiture, renseignez-vous
+            auprès du service urbanisme de la <strong>mairie de {ville}</strong> :
           </p>
-          <p>
-            La commune abrite le <strong>château de Maintenon</strong>, monument historique : à ses
-            abords, vos travaux de couverture peuvent aussi requérir l'avis de l'<strong>Architecte
-            des Bâtiments de France</strong>. Je vous <strong>oriente</strong> et vous transmets les
-            <strong>éléments techniques</strong> — matériaux, teintes, nature des travaux — utiles à
-            votre dossier ; le service urbanisme de la mairie reste votre interlocuteur pour les
-            autorisations.
-          </p>
-        </div>
-        <div class="carte mairie">
-          <span class="mairie__icone" aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18"/><path d="M5 21V10l7-5 7 5v11"/><path d="M9 21v-6h6v6"/></svg>
-          </span>
-          <p class="mairie__nom"><strong>Mairie de {ville}</strong></p>
-          <address>7 Pl. Aristide Briand, {cp} {ville}</address>
-          <a href="https://www.maintenon.fr/" rel="noopener nofollow" target="_blank" class="btn btn--bleu mairie__lien">
-            Site de la mairie →
+          <address class="mairie-encart__adresse">7 place Aristide Briand, {cp} {ville}</address>
+          <a href="https://www.maintenon.fr/" rel="noopener nofollow" target="_blank" class="btn btn--bleu">
+            Site de la mairie de {ville}
           </a>
         </div>
       </div>
@@ -265,67 +296,137 @@ const schemaVille = {
     titre={`Des matériaux de qualité pour vos toitures à ${ville}`}
     intro={`Pour mes chantiers à ${ville}, je m'approvisionne notamment chez Gedimat Maintenon et auprès de fabricants reconnus, gage de matériaux durables.`}
   />
-
-  <!-- ── CTA devis ────────────────────────────────────────────── -->
-  <CtaDevis
-    titre={`Contactez-moi pour votre toit à ${ville}`}
-    image="/images/photos/traitement-hydrofuge-28.webp"
-    imageAlt={`Toiture en tuiles traitée et protégée par Renaud Rénov, couvreur à ${ville} en Eure-et-Loir`}
-    imageWidth={2000}
-    imageHeight={1500}
-  />
 </BaseLayout>
 
 <style>
-  /* Encadré d'accroche mis en avant sous le H1 */
-  .hero__encadre {
-    background: var(--bleu-pale);
-    border-radius: var(--rayon);
-    padding: 1.2rem 1.4rem;
-    margin-bottom: 1.4rem;
+  /* ══ Hero — design de la page d'accueil (repris de index.astro) ══ */
+  .hx { padding-block: clamp(1.6rem, 4vw, 3rem); }
+  .hx__grid {
+    display: grid;
+    gap: 1.6rem;
+    grid-template-columns: 1fr;
+    grid-template-areas: "head" "photo" "body";
   }
-  .hero__encadre p { margin: 0; color: var(--gris-700); }
-  .hero__encadre p + p { margin-top: 0.8rem; }
-
-  /* Encadré de section (même traitement que le hero) */
-  .encadre {
-    background: var(--bleu-pale);
-    border-radius: var(--rayon);
-    padding: clamp(1.3rem, 3vw, 1.8rem);
-    margin-top: 1.5rem;
+  @media (min-width: 980px) {
+    .hx__grid {
+      grid-template-columns: 1.05fr 1fr;
+      grid-template-areas: "head photo" "body photo";
+      column-gap: 3.5rem;
+      row-gap: 1.1rem;
+      align-items: center;
+    }
   }
-  .encadre p { margin: 0; color: var(--gris-700); }
-  .encadre p + p { margin-top: 0.9rem; }
+  .hx__head { grid-area: head; }
+  .hx__right { grid-area: photo; position: relative; }
+  .hx__right::after {
+    content: "";
+    position: absolute;
+    left: 0; right: 0; bottom: 0;
+    height: 42%;
+    border-radius: 0 0 24px 24px;
+    background: linear-gradient(to top, rgba(15, 34, 45, 0.6), rgba(15, 34, 45, 0));
+    pointer-events: none;
+    z-index: 1;
+  }
+  .hx__body { grid-area: body; }
+  .hx__title { margin: 0; color: var(--bleu); font-size: var(--fs-h1-hero); line-height: 1.2; letter-spacing: -0.01em; }
+  .hx__marque { color: var(--rouge); font-weight: 800; font-size: clamp(1.9rem, 4.4vw, 2.9rem); line-height: 1.1; margin: 0.6rem 0 0; }
+  .hx__photo { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; border-radius: 24px; box-shadow: var(--ombre-forte); display: block; }
+  @media (min-width: 980px) { .hx__photo { aspect-ratio: 4 / 5; } }
 
-  /* Bloc mairie (colonne de droite) */
-  .mairie-duo { margin-top: 1.5rem; }
-  .mairie {
-    padding: clamp(1.5rem, 4vw, 2rem);
+  .hx__chapo { color: var(--gris-700); margin: 0 0 1.2rem; max-width: var(--mesure-etroite); }
+  .hx__chapo strong { color: var(--bleu); }
+
+  .hx__points { list-style: none; padding: 0; margin: 0.4rem 0 1.2rem; display: grid; gap: 0.9rem; }
+  .hx__points li {
+    display: flex; align-items: center; gap: 0.8rem;
+    font-size: var(--fs-md); font-weight: 600; color: var(--bleu);
+  }
+  .hx__check { color: var(--rouge); flex-shrink: 0; line-height: 0; }
+  .hx__check svg { width: 30px; height: 30px; }
+
+  .hx__note {
+    position: absolute;
+    left: 50%;
+    bottom: 1rem;
+    transform: translateX(-50%);
+    width: max-content;
+    max-width: calc(100% - 1.6rem);
+    display: flex; flex-direction: column; align-items: center; gap: 0.3rem;
+    background: var(--blanc);
+    border-radius: 16px;
+    box-shadow: 0 14px 34px rgba(15, 34, 45, 0.42);
+    padding: 0.8rem 1.5rem;
+    z-index: 2;
+  }
+  .hx__note-top { display: flex; align-items: center; gap: 0.6rem; }
+  .hx__note-stars { display: inline-flex; gap: 0.1em; }
+  .hx__note-stars svg { width: 1.35rem; height: 1.35rem; fill: var(--etoile); }
+  .hx__note-txt { margin: 0; color: var(--gris-700); font-size: var(--fs-base); }
+  .hx__note-txt strong { color: var(--bleu); }
+
+  .hx__badges { display: flex; align-items: center; gap: 1.3rem; flex-wrap: wrap; margin: 0 0 1.6rem; }
+  .hx__badges img { height: 64px; width: auto; }
+
+  .hx__actions { display: flex; flex-wrap: wrap; gap: 0.8rem; }
+
+  @media (max-width: 979px) {
+    .hx__title, .hx__marque { text-align: center; }
+    .hx__chapo { margin-inline: auto; }
+    .hx__badges, .hx__actions { justify-content: center; }
+    .hx__badges img { height: 56px; }
+  }
+
+  /* ── Grille des 6 cards de services : 2 colonnes dès 700px, 3 × 2 en desktop ── */
+  .grille-cards-4 {
+    display: grid;
+    gap: 1.5rem;
+    grid-template-columns: 1fr;
+    margin-top: 2rem;
+  }
+  @media (min-width: 700px) {
+    .grille-cards-4 { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (min-width: 1024px) {
+    .grille-cards-4 { grid-template-columns: repeat(3, 1fr); }
+  }
+
+  /* ── Section longue : colonne de lecture confortable ── */
+  .texte-long { max-width: var(--mesure-large); margin: 1.8rem auto 0; display: grid; gap: 1.1rem; }
+  .texte-long p { margin: 0; color: var(--gris-700); line-height: 1.65; }
+
+  /* ── Encart mairie : adresse mise en évidence + lien vers le site ── */
+  .mairie-encart {
+    max-width: var(--mesure-large);
+    margin: 2.2rem auto 0;
+    padding: clamp(1.5rem, 4vw, 2.2rem);
     display: flex;
-    flex-direction: column;
+    gap: 1.4rem;
     align-items: flex-start;
-    gap: 0.4rem;
   }
-  .mairie:hover { transform: none; }
-  .mairie__icone {
-    width: 48px;
-    height: 48px;
+  .mairie-encart:hover { transform: none; }
+  .mairie-encart__icone {
+    flex-shrink: 0;
+    width: 52px;
+    height: 52px;
     border-radius: 50%;
     background: var(--bleu-pale);
     color: var(--bleu);
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    margin-bottom: 0.5rem;
   }
-  .mairie__icone svg { width: 1.5rem; height: 1.5rem; }
-  .mairie__nom { font-size: var(--fs-md); margin: 0; color: var(--bleu); }
-  .mairie address { font-style: normal; color: var(--gris-700); margin: 0 0 1rem; }
-  .mairie__lien { margin-top: 0.2rem; }
-
-  /* ── Mesure de lecture ────────────────────────────────────────
-     En dessous du seuil où ce bloc passe en deux colonnes, il occupe
-     toute la largeur du conteneur et la ligne dépassait 90 caractères
-     (le confort de lecture s'arrête vers 75). On borne la colonne. */
-  .encadre p { max-width: var(--mesure); }
+  .mairie-encart__icone svg { width: 1.6rem; height: 1.6rem; }
+  .mairie-encart__invite { margin: 0 0 0.7rem; color: var(--gris-700); max-width: var(--mesure); }
+  .mairie-encart__adresse {
+    font-style: normal;
+    font-weight: 700;
+    font-size: var(--fs-lg);
+    color: var(--bleu);
+    margin: 0 0 1.1rem;
+  }
+  @media (max-width: 620px) {
+    .mairie-encart { flex-direction: column; align-items: center; text-align: center; }
+    .mairie-encart__invite { text-align: center; }
+  }
 </style>
