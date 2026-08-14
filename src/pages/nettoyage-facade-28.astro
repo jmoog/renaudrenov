@@ -10,6 +10,7 @@
 // ─────────────────────────────────────────────────────────────────────────
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { SITE } from '../data/site.ts';
+import { schemaService, questionsFaq } from '../lib/schema.ts';
 import villes from '../data/villes.json';
 import reviews from '../data/reviews.json';
 import FilAriane from '../components/FilAriane.astro';
@@ -118,37 +119,20 @@ const zoneEnrichie = [
 const villeParSlug = Object.fromEntries(villes.map((v) => [v.slug, v]));
 
 // ── Schémas : Service rattaché au LocalBusiness + FAQPage ───────────────
-const businessId = `${SITE.url}/#localbusiness`;
-const schemaService = {
-  '@context': 'https://schema.org',
-  '@type': 'Service',
-  '@id': `${SITE.url}/nettoyage-facade-28/#service`,
+const schemaPrestation = schemaService({
+  chemin: '/nettoyage-facade-28/',
   serviceType: 'Nettoyage et démoussage de façade',
-  name: 'Nettoyage de façade en Eure-et-Loir',
-  description:
-    "Démoussage, traitement biocide, lavage adapté au revêtement et hydrofuge de façade (enduits, crépis, pierre, brique) par un artisan d'Eure-et-Loir.",
-  provider: { '@id': businessId },
-  areaServed: {
-    '@type': 'AdministrativeArea',
-    name: `${SITE.departement} (${SITE.departementNum})`,
-  },
-  offers: { '@type': 'Offer', priceCurrency: 'EUR', availability: 'https://schema.org/InStock' },
-};
+  nom: 'Nettoyage de façade en Eure-et-Loir',
+  description: "Démoussage, traitement biocide, lavage adapté au revêtement et hydrofuge de façade (enduits, crépis, pierre, brique) par un artisan d'Eure-et-Loir.",
+  image: '/images/photos/facade-pignon-sale-28.webp',
+});
 
-const schemaFaq = {
-  '@context': 'https://schema.org',
-  '@type': 'FAQPage',
-  mainEntity: faq.map((f) => ({
-    '@type': 'Question',
-    name: f.q,
-    acceptedAnswer: { '@type': 'Answer', text: f.r },
-  })),
-};
+const questions = questionsFaq('/nettoyage-facade-28/', faq);
 ---
 <BaseLayout title={title} description={description}
   lcpImage="/images/photos/facade-pignon-sale-28.webp"
   lcpSrcset="/images/photos/facade-pignon-sale-28-640.webp 640w, /images/photos/facade-pignon-sale-28.webp 900w"
-  lcpSizes="(min-width: 980px) 46vw, calc(100vw - 2rem)" extraSchemas={[schemaService, schemaFaq]}>
+  lcpSizes="(min-width: 980px) 46vw, calc(100vw - 2rem)" extraSchemas={[schemaPrestation]} typePage="FAQPage" mainEntitePage={questions}>
   <!-- ── Bloc 1 · Hero : design de la home (titre / photo / coches) ───── -->
   <section class="section section--sans-bas">
     <div class="conteneur">

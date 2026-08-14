@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { SITE } from '../data/site.ts';
+import { schemaService, questionsFaq } from '../lib/schema.ts';
 import villes from '../data/villes.json';
 import reviews from '../data/reviews.json';
 import FilAriane from '../components/FilAriane.astro';
@@ -30,24 +31,13 @@ const zone = [
 const villeParSlug = Object.fromEntries(villes.map((v) => [v.slug, v]));
 
 // ── Schémas : le Service rattaché à la fiche LocalBusiness + une FAQ ──
-const businessId = `${SITE.url}/#localbusiness`;
-const schemaService = {
-  '@context': 'https://schema.org',
-  '@type': 'Service',
-  '@id': `${SITE.url}/traitement-hydrofuge-28/#service`,
+const schemaPrestation = schemaService({
+  chemin: '/traitement-hydrofuge-28/',
   serviceType: "Application d'hydrofuge et de résine de toiture",
-  name: "Application d'hydrofuge et de résine colorée de toiture en Eure-et-Loir",
-  description:
-    "Application d'un hydrofuge incolore ou d'une résine colorée qui imperméabilise les tuiles, ravive le toit et retarde la repousse des mousses, par un artisan couvreur du 28.",
-  url: `${SITE.url}/traitement-hydrofuge-28/`,
-  image: `${SITE.url}/images/photos/hydrofuge-toiture-resultat-eure-et-loir.webp`,
-  provider: { '@id': businessId },
-  areaServed: {
-    '@type': 'AdministrativeArea',
-    name: `${SITE.departement} (${SITE.departementNum})`,
-  },
-  offers: { '@type': 'Offer', priceCurrency: 'EUR', availability: 'https://schema.org/InStock' },
-};
+  nom: "Application d'hydrofuge et de résine colorée de toiture en Eure-et-Loir",
+  description: "Application d'un hydrofuge incolore ou d'une résine colorée qui imperméabilise les tuiles, ravive le toit et retarde la repousse des mousses, par un artisan couvreur du 28.",
+  image: '/images/photos/hydrofuge-toiture-resultat-eure-et-loir.webp',
+});
 
 const faq = [
   {
@@ -91,17 +81,9 @@ const avisHydrofuge = nomsAvis
   .map((n) => reviews.avis.find((a) => a.auteur === n))
   .filter(Boolean);
 
-const schemaFaq = {
-  '@context': 'https://schema.org',
-  '@type': 'FAQPage',
-  mainEntity: faq.map((f) => ({
-    '@type': 'Question',
-    name: f.q,
-    acceptedAnswer: { '@type': 'Answer', text: f.r },
-  })),
-};
+const questions = questionsFaq('/traitement-hydrofuge-28/', faq);
 ---
-<BaseLayout title={title} description={description} extraSchemas={[schemaService, schemaFaq]}>
+<BaseLayout title={title} description={description} extraSchemas={[schemaPrestation]} typePage="FAQPage" mainEntitePage={questions}>
   <!-- ── Hero prestation ──────────────────────────────────────── -->
   <section class="section">
     <div class="conteneur">

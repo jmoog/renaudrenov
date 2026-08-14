@@ -17,6 +17,7 @@
 // ─────────────────────────────────────────────────────────────────────────
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { SITE } from '../data/site.ts';
+import { schemaService, commune } from '../lib/schema.ts';
 import reviews from '../data/reviews.json';
 import { VILLES_NETTOYAGE, villeNettoyageParSlug } from '../data/villes-nettoyage.ts';
 import FilAriane from '../components/FilAriane.astro';
@@ -40,20 +41,16 @@ const proches = v.proches
   .filter(Boolean);
 
 // ── Schema : Service rattaché au LocalBusiness, zone = la commune ──
-const businessId = `${SITE.url}/#localbusiness`;
-const schemaService = {
-  '@context': 'https://schema.org',
-  '@type': 'Service',
-  '@id': `${SITE.url}${path}#service`,
+const schemaPrestation = schemaService({
+  chemin: path,
   serviceType: 'Nettoyage et démoussage de toiture',
-  name: `Nettoyage de toiture à ${v.nom}`,
+  nom: `Nettoyage de toiture à ${v.nom}`,
   description: v.metaDesc,
-  provider: { '@id': businessId },
-  areaServed: { '@type': 'City', name: v.nom, postalCode: v.cp },
-  offers: { '@type': 'Offer', priceCurrency: 'EUR', availability: 'https://schema.org/InStock' },
-};
+  image: v.heroPhoto.src,
+  zone: commune(v.nom, v.cp),
+});
 ---
-<BaseLayout title={v.title} description={v.metaDesc} extraSchemas={[schemaService]}>
+<BaseLayout title={v.title} description={v.metaDesc} extraSchemas={[schemaPrestation]}>
   <!-- ── Fil d'Ariane : rattaché au pilier (3 niveaux) ─────────────────── -->
   <section class="section section--sans-bas">
     <div class="conteneur">

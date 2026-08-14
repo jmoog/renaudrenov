@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { SITE } from '../data/site.ts';
+import { schemaService, questionsFaq } from '../lib/schema.ts';
 import villes from '../data/villes.json';
 import reviews from '../data/reviews.json';
 import FilAriane from '../components/FilAriane.astro';
@@ -109,37 +110,20 @@ const faq = [
 ];
 
 // ── Schémas : Service rattaché au LocalBusiness + FAQPage ───────────────
-const businessId = `${SITE.url}/#localbusiness`;
-const schemaService = {
-  '@context': 'https://schema.org',
-  '@type': 'Service',
-  '@id': `${SITE.url}/nettoyage-toiture-28/#service`,
+const schemaPrestation = schemaService({
+  chemin: '/nettoyage-toiture-28/',
   serviceType: 'Nettoyage et démoussage de toiture',
-  name: 'Nettoyage de toiture en Eure-et-Loir',
-  description:
-    "Démoussage, brossage manuel, traitement hydrofuge et nettoyage de gouttières sur tuiles plates petit moule et ardoises naturelles, par un artisan couvreur du 28.",
-  provider: { '@id': businessId },
-  areaServed: {
-    '@type': 'AdministrativeArea',
-    name: `${SITE.departement} (${SITE.departementNum})`,
-  },
-  offers: { '@type': 'Offer', priceCurrency: 'EUR', availability: 'https://schema.org/InStock' },
-};
+  nom: 'Nettoyage de toiture en Eure-et-Loir',
+  description: "Démoussage, brossage manuel, traitement hydrofuge et nettoyage de gouttières sur tuiles plates petit moule et ardoises naturelles, par un artisan couvreur du 28.",
+  image: '/images/photos/nettoyage-demoussage-toiture.webp',
+});
 
-const schemaFaq = {
-  '@context': 'https://schema.org',
-  '@type': 'FAQPage',
-  mainEntity: faq.map((f) => ({
-    '@type': 'Question',
-    name: f.q,
-    acceptedAnswer: { '@type': 'Answer', text: f.r },
-  })),
-};
+const questions = questionsFaq('/nettoyage-toiture-28/', faq);
 ---
 <BaseLayout title={title} description={description}
   lcpImage="/images/photos/nettoyage-demoussage-toiture.webp"
   lcpSrcset="/images/photos/nettoyage-demoussage-toiture-640.webp 640w, /images/photos/nettoyage-demoussage-toiture-960.webp 960w, /images/photos/nettoyage-demoussage-toiture.webp 1200w"
-  lcpSizes="(min-width: 980px) 46vw, calc(100vw - 2rem)" extraSchemas={[schemaService, schemaFaq]}>
+  lcpSizes="(min-width: 980px) 46vw, calc(100vw - 2rem)" extraSchemas={[schemaPrestation]} typePage="FAQPage" mainEntitePage={questions}>
   <!-- ── Bloc 1 · Hero : design de la home (titre / photo / coches) ───── -->
   <section class="section section--sans-bas">
     <div class="conteneur">

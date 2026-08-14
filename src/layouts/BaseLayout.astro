@@ -6,13 +6,31 @@ import Footer from '../components/Footer.astro';
 import FloatingContact from '../components/FloatingContact.astro';
 import BandeauCookies from '../components/BandeauCookies.astro';
 import { SITE } from '../data/site.ts';
+import { ID_ENTREPRISE, ID_SITE_WEB, ZONES_SERVIES, COMPETENCES } from '../lib/schema.ts';
 
 export interface Props {
   title: string;
   description: string;
   canonical?: string;
   ogImage?: string;
+  /* Nœuds JSON-LD propres à la page (Service, ItemList, ImageObject…).
+     Ils sont fusionnés dans l'UNIQUE @graph de la page — ne pas les émettre
+     dans des <script> séparés, sous peine de recréer le conflit d'@id. */
   extraSchemas?: object[];
+  /* Type du nœud de page : WebPage par défaut, FAQPage sur les pages à FAQ,
+     AboutPage / ContactPage / CollectionPage selon le rôle de la page. */
+  typePage?: string | string[];
+  /* Contenu principal du nœud de page — les Question d'une FAQPage. */
+  mainEntitePage?: object | object[];
+  /* Propriétés fusionnées dans le nœud #localbusiness (areaServed élargi,
+     hasOfferCatalog…). C'est ainsi qu'une page ville enrichit la fiche
+     entreprise SANS en déclarer une seconde. */
+  enrichissementEntreprise?: Record<string, unknown>;
+  /* La page rend-elle un <FilAriane> ? Si oui, le nœud de page référence le
+     BreadcrumbList émis par le composant. */
+  avecFilAriane?: boolean;
+  /* Page utile mais sans intérêt pour l'index (merci, 404). */
+  noindex?: boolean;
   /* Préchargement de l'image LCP (photo de hero) : supprime le délai de
      découverte de la ressource et raccourcit le Largest Contentful Paint. */
   lcpImage?: string;
@@ -26,11 +44,102 @@ const {
   canonical,
   ogImage = '/images/logo/logo-renaud-renov-512.webp',
   extraSchemas = [],
+  typePage = 'WebPage',
+  mainEntitePage,
+  enrichissementEntreprise = {},
+  avecFilAriane = true,
+  noindex = false,
   lcpImage,
   lcpSrcset,
   lcpSizes,
 } = Astro.props;
 const canonicalURL = canonical || new URL(Astro.url.pathname, Astro.site).toString();
+
+/* ── Données structurées : UN SEUL bloc JSON-LD par page ─────────────────
+   Refonte du 14/08/2026. Avant, BaseLayout émettait une fiche entreprise et
+   chaque page ajoutait ses propres <script> ; sur les 14 pages villes, deux
+   nœuds portaient le même @id dans deux documents distincts, avec des
+   propriétés divergentes. Tout passe désormais par un @graph unique, où la
+   fusion par @id est garantie par la spécification JSON-LD. */
+const logoUrl = `${SITE.url}/images/logo/logo-renaud-renov-512.webp`;
+const entreprise = {
+  '@type': 'RoofingContractor',
+  '@id': ID_ENTREPRISE,
+  name: SITE.nom,
+  legalName: SITE.nomLegal,
+  alternateName: ['Entreprise Renaud Rénov', 'Couvreur 28 Renaud Rénov', 'Artisan couvreur Renaud'],
+  /* Description CANONIQUE : identique sur les 44 URL. */
+  description: SITE.descriptionEntreprise,
+  slogan: SITE.slogan,
+  image: logoUrl,
+  logo: { '@type': 'ImageObject', url: logoUrl, caption: `Logo ${SITE.nom}` },
+  url: `${SITE.url}/`,
+  telephone: SITE.telE164,
+  contactPoint: [
+    { '@type': 'ContactPoint', telephone: SITE.telE164, contactType: 'customer service', areaServed: 'FR', availableLanguage: 'French' },
+    { '@type': 'ContactPoint', telephone: SITE.telUrgenceE164, contactType: 'emergency', areaServed: 'FR', availableLanguage: 'French' },
+  ],
+  email: SITE.email,
+  founder: { '@type': 'Person', name: SITE.dirigeant },
+  foundingDate: SITE.dateCreation,
+  /* Identité légale : ce que Google et les moteurs génératifs consomment pour
+     désambiguïser l'entreprise (cf. /mentions-legales/). */
+  identifier: [
+    { '@type': 'PropertyValue', propertyID: 'SIREN', value: SITE.siren },
+    { '@type': 'PropertyValue', propertyID: 'SIRET', value: SITE.siret },
+  ],
+  vatID: SITE.tvaIntra,
+  priceRange: '€€',
+  currenciesAccepted: 'EUR',
+  address: { '@type': 'PostalAddress', streetAddress: SITE.rue, postalCode: SITE.cp, addressLocality: SITE.ville, addressRegion: SITE.region, addressCountry: 'FR' },
+  geo: { '@type': 'GeoCoordinates', latitude: SITE.geo.lat, longitude: SITE.geo.lng },
+  /* La fiche Google elle-même, pas une recherche d'adresse. */
+  hasMap: SITE.googleFiche,
+  openingHoursSpecification: [
+    { '@type': 'OpeningHoursSpecification', dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'], opens: '08:00', closes: '20:00' },
+  ],
+  areaServed: ZONES_SERVIES,
+  knowsAbout: COMPETENCES,
+  sameAs: [SITE.facebook, SITE.googleFiche],
+  /* Enrichissements de la page (ville servie, catalogue d'offres…). */
+  ...enrichissementEntreprise,
+};
+
+const siteWeb = {
+  '@type': 'WebSite',
+  '@id': ID_SITE_WEB,
+  url: `${SITE.url}/`,
+  name: SITE.nom,
+  description: SITE.descriptionEntreprise,
+  inLanguage: 'fr-FR',
+  publisher: { '@id': ID_ENTREPRISE },
+};
+
+const page = {
+  '@type': typePage,
+  '@id': `${canonicalURL}#webpage`,
+  url: canonicalURL,
+  name: title,
+  description,
+  inLanguage: 'fr-FR',
+  isPartOf: { '@id': ID_SITE_WEB },
+  about: { '@id': ID_ENTREPRISE },
+  primaryImageOfPage: { '@type': 'ImageObject', url: new URL(lcpImage || ogImage, Astro.site).toString() },
+  ...(avecFilAriane ? { breadcrumb: { '@id': `${canonicalURL}#breadcrumb` } } : {}),
+  ...(mainEntitePage ? { mainEntity: mainEntitePage } : {}),
+};
+
+/* Les nœuds de page peuvent encore porter un @context hérité : on le retire,
+   c'est le graphe qui le porte. */
+const sansContexte = (n: Record<string, unknown>) => {
+  const { '@context': _ignore, ...reste } = n;
+  return reste;
+};
+
+const donneesStructurees = {
+  '@context': 'https://schema.org',
+  '@graph': [entreprise, siteWeb, page, ...extraSchemas.map((s) => sansContexte(s as Record<string, unknown>))],
+};
 ---
 <!DOCTYPE html>
 <html lang="fr">
@@ -59,6 +168,7 @@ const canonicalURL = canonical || new URL(Astro.url.pathname, Astro.site).toStri
 
     <title>{title}</title>
     <meta name="description" content={description} />
+    {noindex && <meta name="robots" content="noindex, follow" />}
     <meta name="google-site-verification" content="CmFFNCQIv9r4qBSILwhPX2NI5BfN4uDdY0SdGajsOwk" />
     <link rel="canonical" href={canonicalURL} />
 
@@ -76,39 +186,8 @@ const canonicalURL = canonical || new URL(Astro.url.pathname, Astro.site).toStri
     <meta property="og:locale" content="fr_FR" />
     <meta property="og:site_name" content={`${SITE.nom} — ${SITE.slogan}`} />
 
-    <!-- Données structurées LocalBusiness (RoofingContractor) -->
-    <script type="application/ld+json" set:html={JSON.stringify({
-      "@context": "https://schema.org",
-      "@type": "RoofingContractor",
-      "@id": `${SITE.url}/#localbusiness`,
-      "name": SITE.nom,
-      "alternateName": ["Entreprise Renaud Rénov", "Couvreur 28 Renaud Rénov", "Artisan couvreur Renaud"],
-      "description": description,
-      "image": `${SITE.url}/images/logo/logo-renaud-renov-512.webp`,
-      "logo": { "@type": "ImageObject", "url": `${SITE.url}/images/logo/logo-renaud-renov-512.webp`, "caption": `Logo ${SITE.nom}` },
-      "url": SITE.url,
-      "telephone": SITE.telE164,
-      "contactPoint": [
-        { "@type": "ContactPoint", "telephone": SITE.telE164, "contactType": "customer service", "areaServed": "FR", "availableLanguage": "French" },
-        { "@type": "ContactPoint", "telephone": SITE.telUrgenceE164, "contactType": "emergency", "areaServed": "FR", "availableLanguage": "French" }
-      ],
-      "email": SITE.email,
-      "founder": { "@type": "Person", "name": SITE.dirigeant },
-      "priceRange": "€€",
-      "currenciesAccepted": "EUR",
-      "address": { "@type": "PostalAddress", "streetAddress": SITE.rue, "postalCode": SITE.cp, "addressLocality": SITE.ville, "addressRegion": SITE.region, "addressCountry": "FR" },
-      "geo": { "@type": "GeoCoordinates", "latitude": SITE.geo.lat, "longitude": SITE.geo.lng },
-      "openingHoursSpecification": [
-        { "@type": "OpeningHoursSpecification", "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"], "opens": "08:00", "closes": "20:00" }
-      ],
-      "areaServed": { "@type": "AdministrativeArea", "name": `${SITE.departement} (${SITE.departementNum})` },
-      "knowsAbout": ["Couverture", "Nettoyage de toiture", "Nettoyage de façade", "Démoussage", "Traitement hydrofuge", "Zinguerie", "Réparation de toiture", "Rénovation de toiture", "Pose de gouttière"],
-      "sameAs": [SITE.facebook]
-    })} />
-
-    {extraSchemas.map((schema) => (
-      <script type="application/ld+json" set:html={JSON.stringify(schema)} />
-    ))}
+    <!-- Données structurées : un @graph unique (entreprise + site + page + nœuds de la page) -->
+    <script type="application/ld+json" set:html={JSON.stringify(donneesStructurees)} />
 
     <!-- Google tag (gtag.js) — chargé uniquement après consentement (bandeau cookies RGPD) -->
     <script is:inline>

@@ -2,6 +2,7 @@
 import FlecheRonde from '../../components/FlecheRonde.astro';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { SITE } from '../../data/site.ts';
+import { schemaService, commune, lieuChantier, photoChantier } from '../../lib/schema.ts';
 import FilAriane from '../../components/FilAriane.astro';
 import CtaDevis from '../../components/CtaDevis.astro';
 import LogoGoogle from '../../components/LogoGoogle.astro';
@@ -16,7 +17,6 @@ const title = 'Chantier de nettoyage de toiture à Maintenon (28) | Renaud Réno
 const description =
   "Juin 2026 : Renaud Rénov a démoussé un toit à Maintenon. Photos avant / après et déroulé du chantier : le savoir-faire d'un artisan couvreur en images.";
 
-const businessId = `${SITE.url}/#localbusiness`;
 const pageUrl = `${SITE.url}/realisations/demoussage-toiture-maintenon/`;
 const imgApres = '/images/photos/demoussage-toiture-maintenon-apres.webp';
 const imgAvant = '/images/photos/demoussage-toiture-maintenon-avant.webp';
@@ -45,29 +45,48 @@ const etapes = [
   },
 ];
 
+// ── Balisage des photos du chantier (feature Google « Image metadata ») ──
+// Aligné sur le modèle de /realisations/nettoyage-facade-haras-guainville/ :
+// crédit, licence et page d'acquisition rendent la photo éligible au badge
+// « Licensable » de Google Images.
+const lieu = lieuChantier(`Maison à ${ville}`, ville, cp);
+
+const photos = [
+  photoChantier({
+    pageUrl,
+    cle: 'toiture-avant',
+    fichier: imgAvant,
+    nom: `Toiture en tuiles avant démoussage — ${ville} (${cp})`,
+    legende: `Toit encrassé, envahi de mousses et de lichens avant nettoyage à ${ville}`,
+    lieu,
+  }),
+  photoChantier({
+    pageUrl,
+    cle: 'toiture-apres',
+    fichier: imgApres,
+    nom: `La même toiture après démoussage — ${ville} (${cp})`,
+    legende: `Le même toit, tuiles propres et saines une fois le démoussage terminé à ${ville}`,
+    lieu,
+    principale: true,
+  }),
+];
+
 const schemaRealisation = {
-  '@context': 'https://schema.org',
-  '@type': 'Service',
+  ...schemaService({
+    chemin: '/realisations/demoussage-toiture-maintenon/',
+    serviceType: 'Démoussage de toiture',
+    nom: `Démoussage de toiture à ${ville} — juin 2026`,
+    description: `Chantier de nettoyage et démoussage d'un toit en tuiles réalisé à ${ville} (${cp}) en juin 2026 par Renaud Rénov : diagnostic, brossage basse pression et traitement anti-mousse.`,
+    zone: commune(ville, cp),
+  }),
   '@id': `${pageUrl}#realisation`,
-  serviceType: 'Démoussage de toiture',
-  name: `Démoussage de toiture à ${ville} — juin 2026`,
-  description:
-    `Chantier de nettoyage et démoussage d'un toit en tuiles réalisé à ${ville} (${cp}) en juin 2026 par Renaud Rénov : diagnostic, brossage basse pression et traitement anti-mousse.`,
-  provider: { '@id': businessId },
-  areaServed: { '@type': 'City', name: ville, postalCode: cp },
-  image: [`${SITE.url}${imgAvant}`, `${SITE.url}${imgApres}`],
+  image: photos.map((ph) => ({ '@id': ph['@id'] })),
 };
 
-const schemaFil = {
-  '@context': 'https://schema.org',
-  '@type': 'BreadcrumbList',
-  itemListElement: [
-    { '@type': 'ListItem', position: 1, name: 'Accueil', item: `${SITE.url}/` },
-    { '@type': 'ListItem', position: 2, name: `Démoussage de toiture à ${ville}`, item: pageUrl },
-  ],
-};
+// Le BreadcrumbList est émis par le composant <FilAriane>, une seule fois :
+// la page en déclarait un second à la main jusqu'au 14/08/2026.
 ---
-<BaseLayout title={title} description={description} extraSchemas={[schemaRealisation, schemaFil]}>
+<BaseLayout title={title} description={description} extraSchemas={[schemaRealisation, ...photos]}>
   <!-- ── Fil d'Ariane ─────────────────────────────────────────── -->
   <section class="section section--compact">
     <div class="conteneur">

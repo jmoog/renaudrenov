@@ -17,6 +17,7 @@
 import FlecheRonde from '../../components/FlecheRonde.astro';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { SITE } from '../../data/site.ts';
+import { ZONES_SERVIES, commune, cataloguePrestations } from '../../lib/schema.ts';
 import services from '../../data/services.json';
 import villes from '../../data/villes.json';
 import { VILLES_CONTENU } from '../../data/villes-contenu.ts';
@@ -80,41 +81,16 @@ const marquesVille = contenu.logos ?? [
   { nom: 'Knauf', url: 'https://www.knaufinsulation.fr/', logo: '/images/marques/logo-knauf.webp', alt: 'Knauf – isolation thermique' },
 ];
 
-// ── Schema : même @id que la fiche globale (fusion) + areaServed ville ──
-const businessId = `${SITE.url}/#localbusiness`;
-const schemaVille = {
-  '@context': 'https://schema.org',
-  '@type': 'RoofingContractor',
-  '@id': businessId,
-  name: SITE.nom,
-  url: SITE.url,
-  areaServed: [
-    { '@type': 'AdministrativeArea', name: `${SITE.departement} (${SITE.departementNum})` },
-    { '@type': 'City', name: nom, postalCode: cp },
-  ],
-  knowsAbout: [
-    'Nettoyage de toiture',
-    'Démoussage de toiture',
-    'Traitement hydrofuge',
-    'Réparation de toiture',
-    'Rénovation de toiture',
-    'Nettoyage de façade',
-    'Zinguerie',
-    'Pose de gouttière',
-    'Couverture tuile et ardoise',
-  ],
-  hasOfferCatalog: {
-    '@type': 'OfferCatalog',
-    name: `Prestations de couverture à ${nom}`,
-    itemListElement: services.map((s, i) => ({
-      '@type': 'Offer',
-      position: i + 1,
-      itemOffered: { '@type': 'Service', name: s.label, url: `${SITE.url}${s.href}`, provider: { '@id': businessId } },
-    })),
-  },
+// ── Données structurées : la page ENRICHIT le nœud #localbusiness du
+// graphe (zone communale + catalogue), elle n'en déclare PAS un second.
+// Avant le 14/08/2026, un deuxième RoofingContractor portait le même @id
+// dans un script séparé : Google n'avait aucune garantie de fusion.
+const enrichissement = {
+  areaServed: [...ZONES_SERVIES, commune(nom, cp)],
+  hasOfferCatalog: cataloguePrestations(`à ${nom}`),
 };
 ---
-<BaseLayout title={contenu.title} description={contenu.metaDesc} extraSchemas={[schemaVille]}>
+<BaseLayout title={contenu.title} description={contenu.metaDesc} enrichissementEntreprise={enrichissement}>
   <!-- ── Fil d'Ariane ─────────────────────────────────────────── -->
   <section class="section section--sans-bas">
     <div class="conteneur">

@@ -5,9 +5,14 @@ export interface Props {
 }
 const { items } = Astro.props;
 
+// L'@id permet au nœud de page (BaseLayout) de référencer ce fil d'Ariane
+// via sa propriété `breadcrumb` : le graphe reste connecté.
+const urlPage = new URL(Astro.url.pathname, Astro.site).toString();
+
 const schema = {
   '@context': 'https://schema.org',
   '@type': 'BreadcrumbList',
+  '@id': `${urlPage}#breadcrumb`,
   itemListElement: items.map((it, i) => ({
     '@type': 'ListItem',
     position: i + 1,

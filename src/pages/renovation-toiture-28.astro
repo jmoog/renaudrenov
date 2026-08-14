@@ -12,6 +12,7 @@
 // ─────────────────────────────────────────────────────────────────────────
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { SITE } from '../data/site.ts';
+import { schemaService, questionsFaq } from '../lib/schema.ts';
 import villes from '../data/villes.json';
 import reviews from '../data/reviews.json';
 import FilAriane from '../components/FilAriane.astro';
@@ -123,37 +124,20 @@ const zoneEnrichie = [
 const villeParSlug = Object.fromEntries(villes.map((v) => [v.slug, v]));
 
 // ── Schémas : Service rattaché au LocalBusiness + FAQPage ───────────────
-const businessId = `${SITE.url}/#localbusiness`;
-const schemaService = {
-  '@context': 'https://schema.org',
-  '@type': 'Service',
-  '@id': `${SITE.url}/renovation-toiture-28/#service`,
+const schemaPrestation = schemaService({
+  chemin: '/renovation-toiture-28/',
   serviceType: 'Rénovation et réfection de toiture',
-  name: 'Rénovation de toiture en Eure-et-Loir',
-  description:
-    "Réfection complète de couverture (tuile plate, ardoise naturelle), reprise de charpente, isolation et écran de sous-toiture, zinguerie et finitions, par un artisan couvreur d'Eure-et-Loir.",
-  provider: { '@id': businessId },
-  areaServed: {
-    '@type': 'AdministrativeArea',
-    name: `${SITE.departement} (${SITE.departementNum})`,
-  },
-  offers: { '@type': 'Offer', priceCurrency: 'EUR', availability: 'https://schema.org/InStock' },
-};
+  nom: 'Rénovation de toiture en Eure-et-Loir',
+  description: "Réfection complète de couverture (tuile plate, ardoise naturelle), reprise de charpente, isolation et écran de sous-toiture, zinguerie et finitions, par un artisan couvreur d'Eure-et-Loir.",
+  image: '/images/photos/renovation-toiture-28-renaud-renov.webp',
+});
 
-const schemaFaq = {
-  '@context': 'https://schema.org',
-  '@type': 'FAQPage',
-  mainEntity: faq.map((f) => ({
-    '@type': 'Question',
-    name: f.q,
-    acceptedAnswer: { '@type': 'Answer', text: f.r },
-  })),
-};
+const questions = questionsFaq('/renovation-toiture-28/', faq);
 ---
 <BaseLayout title={title} description={description}
   lcpImage="/images/photos/renovation-toiture-28-renaud-renov.webp"
   lcpSrcset="/images/photos/renovation-toiture-28-renaud-renov-640.webp 640w, /images/photos/renovation-toiture-28-renaud-renov.webp 900w"
-  lcpSizes="(min-width: 980px) 46vw, calc(100vw - 2rem)" extraSchemas={[schemaService, schemaFaq]}>
+  lcpSizes="(min-width: 980px) 46vw, calc(100vw - 2rem)" extraSchemas={[schemaPrestation]} typePage="FAQPage" mainEntitePage={questions}>
   <!-- ── Bloc 1 · Hero ────────────────────────────────────────────────── -->
   <section class="section section--sans-bas">
     <div class="conteneur">

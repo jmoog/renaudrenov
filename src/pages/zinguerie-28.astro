@@ -12,6 +12,7 @@
 // ─────────────────────────────────────────────────────────────────────────
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { SITE } from '../data/site.ts';
+import { schemaService, questionsFaq } from '../lib/schema.ts';
 import villes from '../data/villes.json';
 import reviews from '../data/reviews.json';
 import FilAriane from '../components/FilAriane.astro';
@@ -128,37 +129,20 @@ const zoneEnrichie = [
 const villeParSlug = Object.fromEntries(villes.map((v) => [v.slug, v]));
 
 // ── Schémas : Service rattaché au LocalBusiness + FAQPage ───────────────
-const businessId = `${SITE.url}/#localbusiness`;
-const schemaService = {
-  '@context': 'https://schema.org',
-  '@type': 'Service',
-  '@id': `${SITE.url}/zinguerie-28/#service`,
+const schemaPrestation = schemaService({
+  chemin: '/zinguerie-28/',
   serviceType: 'Zinguerie de toiture',
-  name: 'Zinguerie en Eure-et-Loir',
-  description:
-    "Façonnage et pose de noues, chéneaux, solins de cheminée, abergements, bandes de rive, bavettes et noquets en zinc, par un couvreur-zingueur d'Eure-et-Loir.",
-  provider: { '@id': businessId },
-  areaServed: {
-    '@type': 'AdministrativeArea',
-    name: `${SITE.departement} (${SITE.departementNum})`,
-  },
-  offers: { '@type': 'Offer', priceCurrency: 'EUR', availability: 'https://schema.org/InStock' },
-};
+  nom: 'Zinguerie en Eure-et-Loir',
+  description: "Façonnage et pose de noues, chéneaux, solins de cheminée, abergements, bandes de rive, bavettes et noquets en zinc, par un couvreur-zingueur d'Eure-et-Loir.",
+  image: '/images/photos/zinguerie-epi.webp',
+});
 
-const schemaFaq = {
-  '@context': 'https://schema.org',
-  '@type': 'FAQPage',
-  mainEntity: faq.map((f) => ({
-    '@type': 'Question',
-    name: f.q,
-    acceptedAnswer: { '@type': 'Answer', text: f.r },
-  })),
-};
+const questions = questionsFaq('/zinguerie-28/', faq);
 ---
 <BaseLayout title={title} description={description}
   lcpImage="/images/photos/zinguerie-epi.webp"
   lcpSrcset="/images/photos/zinguerie-epi-640.webp 640w, /images/photos/zinguerie-epi-960.webp 960w, /images/photos/zinguerie-epi.webp 1200w"
-  lcpSizes="(min-width: 980px) 46vw, calc(100vw - 2rem)" extraSchemas={[schemaService, schemaFaq]}>
+  lcpSizes="(min-width: 980px) 46vw, calc(100vw - 2rem)" extraSchemas={[schemaPrestation]} typePage="FAQPage" mainEntitePage={questions}>
   <!-- ── Bloc 1 · Hero ────────────────────────────────────────────────── -->
   <section class="section section--sans-bas">
     <div class="conteneur">

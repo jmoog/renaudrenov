@@ -168,9 +168,9 @@ export const VILLES_NETTOYAGE: VilleNettoyage[] = [
     sectionA: {
       h2: 'Le traitement hydrofuge, la vraie protection de votre toit',
       paragraphes: [
-        "Nettoyer une toiture sans la protéger ensuite, c'est accepter de recommencer dans deux ans. À Maintenon, je termine donc la plupart des chantiers par un <a href=\"/traitement-hydrofuge-28/\">traitement hydrofuge</a> : une résine pulvérisée à saturation qui imprègne le matériau sur quelques millimètres. L'eau de pluie perle et ruisselle au lieu de s'infiltrer — et sans eau stagnante, les mousses n'ont plus de quoi s'installer.",
-        "J'attends toujours que le support soit parfaitement sec avant d'appliquer : un hydrofuge posé sur un matériau gorgé d'eau ne pénètre pas. Et j'adapte la formulation au support — le produit qui convient à une tuile plate petit moule n'est pas celui d'une ardoise naturelle. La microporosité doit rester ouverte pour que le toit continue de respirer.",
-        "Le résultat se vérifie à l'œil nu dès la première pluie : l'eau forme des gouttes rondes qui filent vers les gouttières au lieu de s'étaler en auréoles sombres. C'est le test que je vous invite à faire quelques jours après mon passage.",
+        "Nettoyer une toiture sans la protéger ensuite, c'est accepter de recommencer dans deux ans. À Maintenon, je termine donc la plupart des chantiers par un <a href=\"/traitement-hydrofuge-28/\">traitement hydrofuge</a> : une résine pulvérisée à saturation qui imprègne le matériau sur quelques millimètres. L'eau de pluie perle en surface et file vers les gouttières — et sans eau stagnante, les mousses n'ont plus de quoi s'installer.",
+        "J'attends toujours que le support soit parfaitement sec avant d'appliquer : un hydrofuge posé sur un matériau gorgé d'eau ne pénètre pas. Et j'adapte la formulation au support — une tuile plate petit moule et une ardoise naturelle appellent deux produits différents. La microporosité doit rester ouverte pour que le toit continue de respirer.",
+        "Le résultat se vérifie à l'œil nu dès la première pluie : l'eau forme des gouttes rondes qui roulent jusqu'aux gouttières et laissent le versant sec. C'est le test que je vous invite à faire quelques jours après mon passage.",
       ],
     },
     sectionB: {
@@ -190,7 +190,7 @@ export const VILLES_NETTOYAGE: VilleNettoyage[] = [
       h2: 'Un chantier déjà mené à Maintenon, photos à l’appui',
       paragraphes: [
         "Je ne vous demande pas de me croire sur parole : j'ai déjà démoussé des toitures dans votre commune, et l'une de ces interventions est documentée en photos, avant et après — voyez le <a href=\"/realisations/demoussage-toiture-maintenon/\">démoussage de toiture réalisé à Maintenon</a>. Vous y verrez le toit tel qu'il était, le déroulé du chantier et le résultat.",
-        "C'est aussi la différence entre un <a href=\"/villes/maintenon/\">couvreur à Maintenon</a> et une société de nettoyage de passage : je connais les couvertures d'ici, je vois la tuile fêlée ou le solin fatigué pendant le lavage, et je peux le reprendre dans la foulée plutôt que de vous laisser avec un toit propre mais percé.",
+        "C'est aussi la différence entre un <a href=\"/villes/maintenon/\">couvreur à Maintenon</a> et une société de nettoyage de passage : je connais les couvertures d'ici, je vois la tuile fêlée ou le solin fatigué pendant le lavage, et je peux le reprendre dans la foulée : vous récupérez un toit propre et étanche le même jour.",
       ],
     },
     etapesH2: 'Ma méthode, étape par étape',
@@ -198,7 +198,7 @@ export const VILLES_NETTOYAGE: VilleNettoyage[] = [
       {
         titre: 'Diagnostic sur place',
         texte:
-          "Matériau, pente, niveau d'encrassement, état des rangs : le devis se fonde sur ce que je constate sur votre toit, pas sur une grille théorique.",
+          "Matériau, pente, niveau d'encrassement, état des rangs : le devis se fonde sur ce que je constate en contrôlant votre couverture.",
       },
       {
         titre: 'Antimousse curatif',
@@ -256,14 +256,14 @@ export const VILLES_NETTOYAGE: VilleNettoyage[] = [
       h2: "Les signes qui montrent qu'il est temps d'agir",
       paragraphes: [
         "Des plaques vertes sur le versant le moins ensoleillé, des traînées sombres sous les rives, des touffes de mousse logées dans les noues, des débris de terre cuite dans les gouttières : votre toiture vous parle. À Nogent-le-Roi, ces signes annoncent un encrassement qui, laissé à lui-même, finit par attaquer le matériau — les mousses soulèvent les rangs et ouvrent le chemin de l'eau.",
-        "Le bon réflexe n'est pas d'attendre la fuite : au moindre doute, je contrôle la toiture et je vous dis franchement si un nettoyage s'impose ou si votre couverture peut patienter. Ce diagnostic ne vous engage à rien — dix minutes de vérification valent mieux qu'une infiltration découverte au premier gros orage.",
+        "Le bon réflexe, c'est d'agir au premier doute : je contrôle la toiture et je vous dis franchement si un nettoyage s'impose ou si votre couverture peut patienter. Ce diagnostic ne vous engage à rien — dix minutes de vérification valent mieux qu'une infiltration découverte au premier gros orage.",
         "Et si le toit est encore sain, tant mieux : je vous indique simplement à quelle échéance prévoir l'entretien, et ce que vous pouvez surveiller vous-même depuis le sol, sans prendre de risque.",
       ],
     },
     sectionB: {
       h2: 'Après le nettoyage, la protection hydrofuge',
       paragraphes: [
-        "Un toit nettoyé mais laissé nu se recharge en mousses en deux ou trois saisons. C'est pourquoi je propose presque toujours de terminer par un <a href=\"/traitement-hydrofuge-28/\">hydrofuge de toiture</a> : appliqué sur support sec, il imprègne la tuile ou l'ardoise et fait ruisseler l'eau au lieu de la laisser s'infiltrer.",
+        "Un toit nettoyé mais laissé nu se recharge en mousses en deux ou trois saisons. C'est pourquoi je propose presque toujours de terminer par un <a href=\"/traitement-hydrofuge-28/\">hydrofuge de toiture</a> : appliqué sur support sec, il imprègne la tuile ou l'ardoise sur quelques millimètres et fait ruisseler l'eau jusqu'aux gouttières.",
         "Privées d'humidité, les spores ne s'installent plus : la protection tient de longues années, et votre couverture vieillit mieux. Sur les tuiles anciennes de Nogent-le-Roi, souvent poreuses, c'est l'investissement le plus utile après le démoussage lui-même.",
       ],
       photo: {
@@ -364,7 +364,7 @@ export const VILLES_NETTOYAGE: VilleNettoyage[] = [
       h2: "L'avantage de confier ce travail à un couvreur",
       paragraphes: [
         "Une société de nettoyage lave ; un couvreur lit le toit. Pendant le lavage, je repère la tuile fêlée, le crochet déchaussé, le solin qui se décolle — et je peux les reprendre dans la foulée, parce que la couverture est mon métier. Vous évitez le scénario classique du toit propre… mais toujours fuyard.",
-        "C'est le sens de ma présence à Épernon comme <a href=\"/villes/epernon/\">couvreur</a> : un seul artisan pour l'entretien, la réparation et le conseil. Et si votre couverture mérite une protection durable, je vous oriente vers le bon <a href=\"/traitement-hydrofuge-28/\">traitement hydrofuge</a> plutôt que vers une prestation inutile.",
+        "C'est le sens de ma présence à Épernon comme <a href=\"/villes/epernon/\">couvreur</a> : un seul artisan pour l'entretien, la réparation et le conseil. Et si votre couverture mérite une protection durable, je vous oriente vers le bon <a href=\"/traitement-hydrofuge-28/\">traitement hydrofuge</a>, et uniquement s'il apporte quelque chose à votre couverture.",
       ],
     },
     etapesH2: 'Quatre étapes pour un toit propre',
@@ -524,7 +524,7 @@ export const VILLES_NETTOYAGE: VilleNettoyage[] = [
       h2: "L'hydrofuge, pour que le résultat dure",
       paragraphes: [
         "Après le nettoyage, je recommande souvent un <a href=\"/traitement-hydrofuge-28/\">traitement hydrofuge de toiture</a> : pulvérisée sur support sec, la résine imprègne la tuile sur quelques millimètres et fait perler l'eau de pluie. Sans humidité stagnante, mousses et lichens perdent leur terrain d'accroche.",
-        "J'utilise des formulations qui préservent la microporosité du matériau — le toit continue de respirer, condition indispensable sur les couvertures anciennes. La protection se mesure en années, pas en saisons, et elle est chiffrée à part dans le devis : vous voyez précisément ce qu'elle coûte et ce qu'elle apporte.",
+        "J'utilise des formulations qui préservent la microporosité du matériau — le toit continue de respirer, condition indispensable sur les couvertures anciennes. La protection se compte en années, et elle est chiffrée à part dans le devis : vous voyez précisément ce qu'elle coûte et ce qu'elle apporte.",
       ],
       photo: {
         src: '/images/photos/toiture-apres-hydrofuge-resine-28.webp',
@@ -586,7 +586,7 @@ export const VILLES_NETTOYAGE: VilleNettoyage[] = [
       "Votre toiture verdit à Pierres ? Brossage manuel, lavage basse pression et antimousse professionnel par un couvreur voisin. Devis gratuit.",
     h1: 'Nettoyage de toiture à Pierres',
     chapo:
-      "Un toit qui verdit, des tuiles qui noircissent, et l'envie de confier ça à quelqu'un du coin plutôt qu'à une société de passage ? Je suis M.&nbsp;Renaud : <strong>Renaud Rénov</strong> est installée à quatre kilomètres de <strong>Pierres</strong>, et le <strong>démoussage de toiture</strong> y est l'une de mes interventions les plus demandées.",
+      "Un toit qui verdit, des tuiles qui noircissent, et l'envie de confier ça à un artisan couvreur du coin ? Je suis M.&nbsp;Renaud : <strong>Renaud Rénov</strong> est installée à quatre kilomètres de <strong>Pierres</strong>, et le <strong>démoussage de toiture</strong> y est l'une de mes interventions les plus demandées.",
     coches: [
       'Couvreur du secteur, à quelques minutes de chez vous',
       'Lavage basse pression et brossage manuel',
@@ -710,7 +710,7 @@ export const VILLES_NETTOYAGE: VilleNettoyage[] = [
     sectionC: {
       h2: 'Protéger après avoir nettoyé : le bon réflexe',
       paragraphes: [
-        "Le nettoyage rend la propreté ; la protection la conserve. Je termine mes chantiers de Saint-Piat par un traitement rémanent qui retarde la réinstallation des spores, et je propose en option un <a href=\"/traitement-hydrofuge-28/\">traitement hydrofuge</a> : l'eau perle et ruisselle au lieu de s'imprégner, et le matériau, gardé au sec, cesse d'offrir un terrain aux mousses.",
+        "Le nettoyage rend la propreté ; la protection la conserve. Je termine mes chantiers de Saint-Piat par un traitement rémanent qui retarde la réinstallation des spores, et je propose en option un <a href=\"/traitement-hydrofuge-28/\">traitement hydrofuge</a> : l'eau perle et ruisselle en surface, et le matériau, gardé au sec, cesse d'offrir un terrain aux mousses.",
         "Votre <a href=\"/villes/saint-piat/\">couvreur à Saint-Piat</a> vous détaille les deux options dans le devis, avec leur durée d'efficacité : à vous de choisir, en connaissance de cause.",
       ],
     },
@@ -863,9 +863,9 @@ export const VILLES_NETTOYAGE: VilleNettoyage[] = [
     sectionA: {
       h2: 'En ville aussi, les toits s’encrassent',
       paragraphes: [
-        "À Chartres, l'ennemi des couvertures n'est pas seulement la mousse : c'est aussi la pollution, qui dépose sur les tuiles et les ardoises ces traînées sombres impossibles à ignorer depuis la rue. L'encrassement urbain retient l'humidité exactement comme les végétaux, et le matériau en souffre de la même façon : porosité qui s'ouvre, gel qui fissure, étanchéité qui recule.",
+        "À Chartres, les couvertures affrontent deux adversaires : la mousse, et la pollution qui dépose sur les tuiles et les ardoises ces traînées sombres impossibles à ignorer depuis la rue. L'encrassement urbain retient l'humidité exactement comme les végétaux, et le matériau en souffre de la même façon : porosité qui s'ouvre, gel qui fissure, étanchéité qui recule.",
         "Les maisons de ville posent en plus leurs contraintes propres : accès par cour étroite, mitoyenneté, versants raides. J'en tiens compte dès le devis — matériel adapté, protection des abords, coordination avec vos voisins si l'accès l'exige.",
-        "Sur les ardoises, fréquentes dans le centre, la règle est stricte : jets doux, appuis calculés, jamais de pression qui feuillette la surface. C'est le métier de couvreur qui parle, pas celui de nettoyeur.",
+        "Sur les ardoises, fréquentes dans le centre, la règle est stricte : jets doux, appuis calculés, jamais de pression qui feuillette la surface. C'est le métier de couvreur qui commande le geste.",
       ],
     },
     sectionB: {
@@ -882,7 +882,7 @@ export const VILLES_NETTOYAGE: VilleNettoyage[] = [
       },
     },
     sectionC: {
-      h2: 'Un couvreur sur votre toit, pas un simple laveur',
+      h2: 'Un couvreur de métier sur votre toiture',
       paragraphes: [
         "Le nettoyage est le moment idéal pour ausculter une couverture : je profite de chaque chantier à Chartres pour vérifier tuiles, crochets d'ardoise, solins et abords de cheminée. Ce qui mérite une reprise vous est signalé photos à l'appui — et je peux le faire dans la foulée, c'est mon métier de <a href=\"/villes/chartres/\">couvreur à Chartres</a>.",
         "Vous évitez ainsi le piège du toit propre mais malade : l'esthétique est revenue, l'infiltration continue. Chez moi, propreté et étanchéité se traitent ensemble.",
@@ -933,7 +933,7 @@ export const VILLES_NETTOYAGE: VilleNettoyage[] = [
       "Mousses et traces noires sur votre toit à Dreux ? Lavage basse pression et traitement des couvertures, tuiles et ardoises. Devis gratuit.",
     h1: 'Nettoyage de toiture à Dreux',
     chapo:
-      "Votre couverture à <strong>Dreux</strong> se couvre de plaques vertes, des traces sombres coulent le long des versants, et vous voulez un résultat durable, pas un coup d'éclat ? Je suis M.&nbsp;Renaud : avec <strong>Renaud Rénov</strong>, entreprise de couverture du 28, je pratique un <strong>démoussage</strong> complet — traitement, lavage doux, protection.",
+      "Votre couverture à <strong>Dreux</strong> se couvre de plaques vertes, des traces sombres coulent le long des versants, et vous voulez un résultat qui tienne dans la durée ? Je suis M.&nbsp;Renaud : avec <strong>Renaud Rénov</strong>, entreprise de couverture du 28, je pratique un <strong>démoussage</strong> complet — traitement, lavage doux, protection.",
     coches: [
       'Démoussage professionnel des toitures',
       'Antimousses appliqués selon les prescriptions fabricant',
@@ -970,7 +970,7 @@ export const VILLES_NETTOYAGE: VilleNettoyage[] = [
     sectionC: {
       h2: 'La protection qui rentabilise le nettoyage',
       paragraphes: [
-        "Nettoyer sans protéger, c'est louer la propreté au lieu de l'acheter. Après le lavage, j'applique un traitement rémanent qui retarde la réinstallation des spores ; et pour les couvertures poreuses, je conseille le <a href=\"/traitement-hydrofuge-28/\">traitement hydrofuge</a>, qui fait perler l'eau et garde le matériau au sec — le terrain des mousses disparaît.",
+        "Nettoyer sans protéger, c'est louer la propreté pour une saison. Après le lavage, j'applique un traitement rémanent qui retarde la réinstallation des spores ; et pour les couvertures poreuses, je conseille le <a href=\"/traitement-hydrofuge-28/\">traitement hydrofuge</a>, qui fait perler l'eau et garde le matériau au sec — le terrain des mousses disparaît.",
         "Votre <a href=\"/villes/dreux/\">couvreur à Dreux</a> chiffre chaque protection à part dans le devis : vous voyez ce que chacune coûte, ce qu'elle apporte, et vous décidez librement.",
       ],
     },
@@ -994,7 +994,7 @@ export const VILLES_NETTOYAGE: VilleNettoyage[] = [
       {
         titre: 'Protection appliquée',
         texte:
-          "Rémanent anti-repousse, hydrofuge en option sur support sec : le résultat tient des années, pas des mois.",
+          "Rémanent anti-repousse, hydrofuge en option sur support sec : le résultat tient des années.",
       },
     ],
     prochesH2: 'Le nettoyage de toiture autour de Dreux',
@@ -1020,7 +1020,7 @@ export const VILLES_NETTOYAGE: VilleNettoyage[] = [
       "Votre toiture s'encrasse à Auneau ? Démoussage doux, antimousse professionnel et hydrofuge par un couvreur d'Eure-et-Loir. Devis gratuit.",
     h1: 'Démoussage de toiture à Auneau-Bleury-Saint-Symphorien',
     chapo:
-      "Un toit qui verdit à <strong>Auneau</strong>, des tuiles qui perdent leur couleur, et l'envie d'un travail sérieux plutôt que d'un coup de propre éphémère ? Je suis M.&nbsp;Renaud et, avec mon entreprise de couverture <strong>Renaud Rénov</strong>, je mène le <strong>nettoyage de toiture</strong> comme un chantier de couvreur : diagnostic, traitement, lavage doux, protection.",
+      "Un toit qui verdit à <strong>Auneau</strong>, des tuiles qui perdent leur couleur, et l'envie d'un travail d'artisan qui tienne plusieurs années ? Je suis M.&nbsp;Renaud et, avec mon entreprise de couverture <strong>Renaud Rénov</strong>, je mène le <strong>nettoyage de toiture</strong> comme un chantier de couvreur : diagnostic, traitement, lavage doux, protection.",
     coches: [
       "15 années d'expérience en entretien de toitures",
       'Lavage basse pression et brossage manuel',
@@ -1042,7 +1042,7 @@ export const VILLES_NETTOYAGE: VilleNettoyage[] = [
       ],
     },
     sectionB: {
-      h2: 'Un entretien à planifier, pas à subir',
+      h2: "Un entretien qui s'anticipe",
       paragraphes: [
         "La bonne fréquence dépend de votre environnement : toit sous les arbres, contrôle tous les quatre à cinq ans ; toit dégagé, tous les huit à dix ans. Entre deux, un coup d'œil aux gouttières suffit — quand elles verdissent, la couverture aussi.",
         "Côté calendrier, j'interviens par temps sec, hors gel : les biocides ont besoin de 48 à 72 heures d'action sur support sec pour tuer les végétaux jusqu'à la racine. Du printemps au début de l'automne, les conditions sont réunies — et c'est le bon moment pour programmer votre chantier à Auneau.",
@@ -1124,7 +1124,7 @@ export const VILLES_NETTOYAGE: VilleNettoyage[] = [
       h2: 'L’hydrofuge, indispensable sous les arbres',
       paragraphes: [
         "Un environnement boisé est une bénédiction pour la maison et une épreuve pour son toit : ombre portée qui ralentit le séchage, feuilles qui nourrissent les mousses, spores en abondance. À Rambouillet, un toit nettoyé mais non protégé peut reverdir en deux saisons — c'est pourquoi je conseille presque systématiquement de finir par un <a href=\"/traitement-hydrofuge-28/\">traitement hydrofuge</a>.",
-        "Appliqué sur support sec, l'hydrofuge imprègne la tuile sur quelques millimètres : l'eau perle et file vers les gouttières au lieu de stagner, et les végétaux perdent l'humidité dont ils vivent. La microporosité du matériau reste ouverte — le toit respire, condition essentielle sur les couvertures anciennes.",
+        "Appliqué sur support sec, l'hydrofuge imprègne la tuile sur quelques millimètres : l'eau perle et file vers les gouttières sans jamais stagner, et les végétaux perdent l'humidité dont ils vivent. La microporosité du matériau reste ouverte — le toit respire, condition essentielle sur les couvertures anciennes.",
         "Le duo rémanent + hydrofuge, c'est la différence entre un entretien à refaire tous les trois ans et une couverture tranquille pour longtemps.",
       ],
     },
@@ -1210,7 +1210,7 @@ export const VILLES_NETTOYAGE: VilleNettoyage[] = [
     sectionA: {
       h2: 'Ce qui se joue sous la mousse de votre toit',
       paragraphes: [
-        "La mousse n'est pas un problème esthétique : c'est un réservoir d'eau posé sur un matériau poreux. La terre cuite boit, le gel dilate, la tuile éclate — et une couverture qui aurait duré des décennies part en réfection anticipée. Les maisons anciennes de Houdan, avec leurs tuiles plates traditionnelles, sont les premières concernées : leur calcin de surface, une fois attaqué, ne se reconstitue pas.",
+        "La mousse est un réservoir d'eau posé sur un matériau poreux. La terre cuite boit, le gel dilate, la tuile éclate — et une couverture qui aurait duré des décennies part en réfection anticipée. Les maisons anciennes de Houdan, avec leurs tuiles plates traditionnelles, sont les premières concernées : leur calcin de surface, une fois attaqué, ne se reconstitue pas.",
         "S'ajoute l'effet sur la maison : combles humides, isolation qui perd en efficacité, gouttières engorgées qui débordent sur les façades. Un toit encrassé coûte, même sans fuite visible.",
         "La parade est simple et éprouvée : traiter, laver en douceur, protéger. C'est tout mon protocole — et il tient en une journée pour la plupart des pavillons.",
       ],
@@ -1240,7 +1240,7 @@ export const VILLES_NETTOYAGE: VilleNettoyage[] = [
       {
         titre: 'Examen du toit',
         texte:
-          "Matériau, pente, encrassement, points singuliers : je fonde le devis sur ce que je constate, pas sur une grille.",
+          "Matériau, pente, encrassement, points singuliers : je fonde le devis sur ce que je constate lors du contrôle.",
       },
       {
         titre: 'Antimousse professionnel',

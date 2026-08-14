@@ -38,7 +38,6 @@ const realisations = [
 ];
 
 const schemaListe = {
-  '@context': 'https://schema.org',
   '@type': 'ItemList',
   '@id': `${pageUrl}#realisations`,
   name: `Chantiers réalisés par Renaud Rénov en ${SITE.departement}`,
@@ -50,7 +49,7 @@ const schemaListe = {
   })),
 };
 ---
-<BaseLayout title={title} description={description} extraSchemas={[schemaListe]}>
+<BaseLayout title={title} description={description} typePage="CollectionPage" extraSchemas={[schemaListe]}>
   <!-- ── En-tête marine (même trame que le plan du site) ──────── -->
   <section class="reals-entete">
     <div class="conteneur">

@@ -17,6 +17,13 @@ import reviews from '../data/reviews.json';
 import LogoGoogle from '../components/LogoGoogle.astro';
 import LogosMarques from '../components/LogosMarques.astro';
 import FlecheRonde from '../components/FlecheRonde.astro';
+import { cataloguePrestations } from '../lib/schema.ts';
+
+// La home est la page racine : c'est elle qui doit porter le catalogue des
+// prestations du département (il n'existait que sur les pages villes).
+const catalogueRacine = {
+  hasOfferCatalog: cataloguePrestations(`en ${SITE.departement}`),
+};
 ---
 <BaseLayout
   title="Couvreur 28 - Renaud Rénov - un pro de la toiture"
@@ -24,6 +31,8 @@ import FlecheRonde from '../components/FlecheRonde.astro';
   lcpImage="/images/photos/renaud-renov-couvreur-28.webp"
   lcpSrcset="/images/photos/renaud-renov-couvreur-28-640.webp 640w, /images/photos/renaud-renov-couvreur-28-768.webp 768w, /images/photos/renaud-renov-couvreur-28-896.webp 896w, /images/photos/renaud-renov-couvreur-28.webp 1024w"
   lcpSizes="(min-width: 980px) 46vw, calc(100vw - 2rem)"
+  avecFilAriane={false}
+  enrichissementEntreprise={catalogueRacine}
 >
   <!-- ── Hero (titre + photo + coches + badges) ───────────────── -->
   <section class="hx">
