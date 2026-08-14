@@ -1,15 +1,19 @@
 ---
 // Carrousel d'avis Google — scroll-snap natif + flèches, sans dépendance.
+// `avecCtaAvis` : affiche le bouton « Laisser un avis Google » sous le
+// carrousel (utilisé sur la home, où il remplace l'ancienne grille de 6 avis).
 import reviews from '../data/reviews.json';
 import LogoGoogle from './LogoGoogle.astro';
+import FlecheRonde from './FlecheRonde.astro';
 
 export interface Props {
   tag?: string;
   lieu?: string;
   ordre?: number;
   titre?: string;
+  avecCtaAvis?: boolean;
 }
-const { tag, lieu = 'en Eure-et-Loir', ordre = 0, titre } = Astro.props;
+const { tag, lieu = 'en Eure-et-Loir', ordre = 0, titre, avecCtaAvis = false } = Astro.props;
 const titreAffiche = titre ?? `Les avis de mes clients ${lieu}`;
 
 const base = reviews.avis;
@@ -57,6 +61,14 @@ const avisTries = tag
         <svg class="icone" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg>
       </button>
     </div>
+
+    {avecCtaAvis && (
+      <div class="avis-cta">
+        <a href={reviews.urlFiche} target="_blank" rel="noopener" class="btn btn--blanc">
+          Laisser un avis Google<FlecheRonde />
+        </a>
+      </div>
+    )}
   </div>
 </section>
 
@@ -120,6 +132,8 @@ const avisTries = tag
   @media (max-width: 800px) {
     .carrousel__fleche { display: none; }
   }
+
+  .avis-cta { text-align: center; margin-top: 1.6rem; }
 </style>
 
 <script>

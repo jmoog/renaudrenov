@@ -151,7 +151,10 @@ const schemaFaq = {
   })),
 };
 ---
-<BaseLayout title={title} description={description} extraSchemas={[schemaService, schemaFaq]}>
+<BaseLayout title={title} description={description}
+  lcpImage="/images/photos/reparation-toiture-urgence-28.webp"
+  lcpSrcset="/images/photos/reparation-toiture-urgence-28-640.webp 640w, /images/photos/reparation-toiture-urgence-28.webp 900w"
+  lcpSizes="(min-width: 980px) 46vw, calc(100vw - 2rem)" extraSchemas={[schemaService, schemaFaq]}>
   <!-- ── Bloc 1 · Hero : design de la home (titre / photo / coches) ───── -->
   <section class="section section--sans-bas">
     <div class="conteneur">
@@ -169,10 +172,13 @@ const schemaFaq = {
         <img
           class="hx__photo"
           src="/images/photos/reparation-toiture-urgence-28.webp"
+          srcset="/images/photos/reparation-toiture-urgence-28-640.webp 640w, /images/photos/reparation-toiture-urgence-28.webp 900w"
+          sizes="(min-width: 980px) 46vw, calc(100vw - 2rem)"
           alt="La camionnette Renaud Rénov arrivée sur une intervention de réparation de toiture en Eure-et-Loir (28)"
           fetchpriority="high"
           width="900"
           height="675"
+          decoding="async"
         />
         <div class="hx__note">
           <div class="hx__note-top">
@@ -219,8 +225,8 @@ const schemaFaq = {
         </ul>
 
         <div class="hx__badges">
-          <img src="/images/labels/garantie-decennale-10-ans.png" alt="Garantie décennale 10 ans" width="220" height="220" loading="lazy" />
-          <img src="/images/labels/artisan-cma28.png" alt="Artisan — Chambre de Métiers et de l'Artisanat d'Eure-et-Loir" width="320" height="228" loading="lazy" />
+          <img src="/images/labels/garantie-decennale-10-ans.webp" alt="Garantie décennale 10 ans" width="220" height="220" loading="lazy" />
+          <img src="/images/labels/artisan-cma28.webp" alt="Artisan — Chambre de Métiers et de l'Artisanat d'Eure-et-Loir" width="320" height="228" loading="lazy" />
         </div>
 
         <div class="hx__actions">

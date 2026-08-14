@@ -145,7 +145,10 @@ const schemaFaq = {
   })),
 };
 ---
-<BaseLayout title={title} description={description} extraSchemas={[schemaService, schemaFaq]}>
+<BaseLayout title={title} description={description}
+  lcpImage="/images/photos/facade-pignon-sale-28.webp"
+  lcpSrcset="/images/photos/facade-pignon-sale-28-640.webp 640w, /images/photos/facade-pignon-sale-28.webp 900w"
+  lcpSizes="(min-width: 980px) 46vw, calc(100vw - 2rem)" extraSchemas={[schemaService, schemaFaq]}>
   <!-- ── Bloc 1 · Hero : design de la home (titre / photo / coches) ───── -->
   <section class="section section--sans-bas">
     <div class="conteneur">
@@ -163,10 +166,13 @@ const schemaFaq = {
         <img
           class="hx__photo"
           src="/images/photos/facade-pignon-sale-28.webp"
+          srcset="/images/photos/facade-pignon-sale-28-640.webp 640w, /images/photos/facade-pignon-sale-28.webp 900w"
+          sizes="(min-width: 980px) 46vw, calc(100vw - 2rem)"
           alt="Façade et pignon d'une maison encrassés par les mousses avant nettoyage en Eure-et-Loir (28)"
           fetchpriority="high"
           width="900"
           height="675"
+          decoding="async"
         />
         <div class="hx__note">
           <div class="hx__note-top">
@@ -596,8 +602,8 @@ const schemaFaq = {
     ]}
     image="/images/photos/facade-pignon-apres-nettoyage-28.webp"
     imageAlt="Pignon et façade rendus propres par Renaud Rénov sur un pavillon d'Eure-et-Loir"
-    imageWidth={1600}
-    imageHeight={1200}
+    imageWidth={1200}
+    imageHeight={900}
   />
 </BaseLayout>
 

@@ -88,7 +88,7 @@ export const VILLES_CONTENU: Record<string, VilleContenu> = {
         type: 'zinguerie',
         titre: 'Zinguerie : noues, solins et chéneaux',
         texte:
-          "L'étanchéité d'un toit se joue aux points singuliers : noues, solins de cheminée, chéneaux et habillages de rive. Un travail du zinc soigné, façonné et posé par un couvreur zingueur de métier.",
+          "L'étanchéité d'un toit se joue aux points singuliers : noues, solins de cheminée, chéneaux et habillages de rive. Chaque pièce de zinc est façonnée et posée à la main par un couvreur zingueur de métier.",
       },
       {
         type: 'facade',
@@ -168,7 +168,7 @@ export const VILLES_CONTENU: Record<string, VilleContenu> = {
         type: 'facade',
         titre: 'Nettoyage de façade en Eure-et-Loir',
         texte:
-          "Renaud Rénov est aussi le spécialiste de l'entretien des façades : nettoyage des murs et traitements adaptés pour laver, assainir et protéger vos revêtements, avec le soin d'un artisan.",
+          "Renaud Rénov est aussi le spécialiste de l'entretien des façades : nettoyage des murs et traitements adaptés pour laver, assainir et protéger vos revêtements, avec la main d'un artisan qui connaît ses supports.",
       },
       {
         type: 'zinguerie',
@@ -246,7 +246,7 @@ export const VILLES_CONTENU: Record<string, VilleContenu> = {
     finalParas: [
       "Remplacer une toiture est le chantier le plus engageant qu'une maison puisse connaître : on ne le fait qu'une ou deux fois dans une vie de propriétaire. C'est précisément là que l'expérience compte. Avec plus de quinze années de métier et une pratique transmise de père en fils, Renaud Rénov aborde chaque projet à Hanches avec ce que l'habitude des chantiers apprend : anticiper, préparer, et ne jamais découvrir un problème en cours de route qu'on aurait pu voir avant. Cette préparation se lit jusque dans le devis : chaque poste est détaillé, rien n'est laissé au forfait vague.",
       "Avant d'en arriver au remplacement, l'entretien reste la meilleure des protections. Mon savoir-faire, c'est aussi celui-là : un démoussage fait dans les règles, un <a href=\"/traitement-hydrofuge-28/\">traitement hydrofuge</a> appliqué au bon dosage, des gouttières dégagées, des solins vérifiés. Un toit suivi régulièrement gagne des années, et quand le remplacement devient inévitable, il se décide sur des faits constatés — pas sur une inquiétude. C'est le suivi le plus rentable qu'un propriétaire puisse offrir à sa maison.",
-      "Le jour du chantier, tout est affaire de méthode : dépose soignée de l'ancienne couverture, contrôle de la charpente, écran de sous-toiture, liteaunage neuf, pose du matériau choisi et zinguerie ajustée. Je conduis ces travaux à Hanches en protégeant votre maison et votre terrain, et en tenant le calendrier annoncé. La garantie décennale couvre l'ensemble.",
+      "Le jour du chantier, tout est affaire de méthode : dépose de l'ancienne couverture menée sans casse, contrôle de la charpente, écran de sous-toiture, liteaunage neuf, pose du matériau choisi et zinguerie ajustée. Je conduis ces travaux à Hanches en protégeant votre maison et votre terrain, et en tenant le calendrier annoncé. La garantie décennale couvre l'ensemble.",
       "Reste le choix du matériau, qui ne se fait jamais au hasard : la tuile plate, la tuile mécanique et l'ardoise ont chacune leurs exigences de pente, de fixation et de ventilation, et je vous guide vers ce qui convient à votre toit. Sachez enfin que refaire certains travaux sur une toiture implique le respect du code de l'urbanisme — notamment le plan local d'urbanisme ou le plan d'occupation des sols — et qu'une déclaration préalable est parfois obligatoire. Les délais d'instruction se comptent en semaines : anticipez-les dans votre projet. Renseignez-vous auprès du service urbanisme de la mairie de Hanches avant de commencer.",
     ],
     mairieAdresse: '30 rue de la Barre',
@@ -268,11 +268,11 @@ export const VILLES_CONTENU: Record<string, VilleContenu> = {
         type: 'facade',
         titre: 'Nettoyage de façade',
         texte:
-          "Renaud Rénov est le spécialiste de l'entretien des façades en Eure-et-Loir : lavage, traitements adaptés au support, et le soin d'un artisan pour rendre à vos murs un aspect propre et net.",
+          "Renaud Rénov est le spécialiste de l'entretien des façades en Eure-et-Loir : lavage, traitements adaptés au support, et la main d'un artisan pour rendre à vos murs un aspect propre et net.",
       },
       {
         type: 'zinguerie',
-        titre: 'Zinguerie soignée',
+        titre: 'Zinguerie façonnée à la main',
         texte:
           "Une noue bien façonnée, un solin ajusté, un chéneau étanche : la zinguerie demande précision et expérience. J'entretiens, répare et rénove les ouvrages en zinc de votre toiture à Gallardon.",
       },
@@ -369,7 +369,7 @@ export const VILLES_CONTENU: Record<string, VilleContenu> = {
     finalH2: "Faites appel à une entreprise de couverture pour l'entretien de votre toiture",
     finalParas: [
       "Un toit n'attire l'attention que lorsqu'il fuit — et c'est exactement ce qu'un bon entretien évite. Chez Renaud Rénov, l'entretien de toiture est un métier à part entière, appris sur les chantiers et transmis de père en fils : savoir lire une couverture, repérer la tuile qui glisse, le solin qui se décolle, la mousse qui retient l'humidité, et intervenir avant que le petit défaut ne devienne un dégât des eaux.",
-      "Ce savoir-faire d'entretien s'appuie sur des techniques précises. Un nettoyage se règle selon le matériau et l'état du toit ; un <a href=\"/traitement-hydrofuge-28/\">traitement hydrofuge</a> s'applique au bon dosage et à la bonne saison ; des gouttières se contrôlent et se dégagent pour que l'eau parte là où elle doit. À Pierres, j'applique ces méthodes avec le soin d'un artisan qui reviendra — pas d'un prestataire de passage. Ce suivi crée un historique utile : chaque passage documente l'état du toit et prépare le suivant.",
+      "Ce savoir-faire d'entretien s'appuie sur des techniques précises. Un nettoyage se règle selon le matériau et l'état du toit ; un <a href=\"/traitement-hydrofuge-28/\">traitement hydrofuge</a> s'applique au bon dosage et à la bonne saison ; des gouttières se contrôlent et se dégagent pour que l'eau parte là où elle doit. À Pierres, j'applique ces méthodes en artisan qui repassera l'année suivante et qui répond de son travail. Ce suivi crée un historique utile : chaque passage documente l'état du toit et prépare le suivant.",
       "Quand des travaux plus importants s'imposent, la même rigueur s'applique en plus grand : réparation charpentée d'un pan abîmé, remplacement d'une couverture en fin de vie, zinguerie refaite à neuf. Mon expérience — plus de quinze années — me permet d'annoncer un calendrier réaliste, de préparer le chantier pour qu'il ne réserve pas de surprise, et de livrer un toit dont l'étanchéité est garantie par la décennale.",
       "La connaissance des matériaux complète le tout : tuile plate, tuile mécanique, ardoise, zinc — chacun impose sa pente, son recouvrement et sa fixation, et je travaille chaque toit avec les règles de son matériau. Un point d'administration pour finir : refaire certains travaux sur une toiture implique le respect du code de l'urbanisme, en particulier du plan local d'urbanisme ou du plan d'occupation des sols, et une déclaration préalable est parfois requise. Un point vérifié en amont, c'est un chantier qui démarre sans mauvaise surprise administrative. Le service urbanisme de la mairie de Pierres vous renseignera sur votre situation.",
     ],
@@ -472,19 +472,19 @@ export const VILLES_CONTENU: Record<string, VilleContenu> = {
         type: 'reparation',
         titre: 'Réparation de toiture',
         texte:
-          "Fuite, tuile envolée, infiltration : je me déplace vite, je bâche en urgence si nécessaire et je traite l'origine du problème — pas seulement son symptôme. Votre toiture retrouve son bon état.",
+          "Fuite, tuile envolée, infiltration : je me déplace vite, je bâche en urgence si nécessaire et je remonte à l'origine du problème pour le traiter à la source. Votre toiture retrouve son bon état.",
       },
       {
         type: 'facade',
         titre: 'Nettoyage et traitement des façades',
         texte:
-          "Renaud Rénov est le spécialiste de l'entretien des façades en Eure-et-Loir : lavage soigné des murs et traitements adaptés à chaque revêtement, avec le professionnalisme d'un artisan.",
+          "Renaud Rénov est le spécialiste de l'entretien des façades en Eure-et-Loir : lavage des murs conduit à la bonne pression et traitements adaptés à chaque revêtement, avec le professionnalisme d'un artisan.",
       },
       {
         type: 'zinguerie',
         titre: 'Travaux de zinguerie',
         texte:
-          "Solins de cheminée, noues, habillages de rive : ces ouvrages en zinc font l'étanchéité durable d'une toiture. M. Renaud les façonne et les pose avec le soin d'un artisan couvreur zingueur.",
+          "Solins de cheminée, noues, habillages de rive : ces ouvrages en zinc font l'étanchéité durable d'une toiture. M. Renaud les façonne et les pose avec la précision d'un couvreur zingueur de métier.",
       },
     ],
     ctaTitre: 'Votre artisan couvreur à Bouglainval vous conseille',
@@ -494,7 +494,7 @@ export const VILLES_CONTENU: Record<string, VilleContenu> = {
     finalParas: [
       "L'entretien d'une toiture est un métier de régularité. Chez Renaud Rénov, couvreurs depuis deux générations, on sait qu'un toit bien suivi coûte toujours moins cher qu'un toit oublié : les mousses retirées à temps ne soulèvent pas les tuiles, les gouttières dégagées n'inondent pas les façades, le solin repris ne laisse pas entrer l'eau. C'est ce suivi que je propose aux habitants de Bouglainval, avec la constance d'un artisan installé à quelques minutes.",
       "Chaque geste d'entretien a sa technique. Un démoussage se mène différemment sur une tuile mécanique, une tuile plate ou une ardoise ; un <a href=\"/traitement-hydrofuge-28/\">traitement hydrofuge</a> s'applique sur un support propre et sec, au dosage prescrit ; un contrôle de toiture se fait points singuliers en tête — faîtage, noues, abords de cheminée. Ce sont ces détails, invisibles depuis le sol, qui séparent l'entretien de professionnel du simple lavage. Ils s'apprennent sur les toits, pas dans les catalogues, et c'est l'expérience qui donne la main juste.",
-      "Le même savoir-faire s'étend aux travaux : réparation après une tempête, reprise d'un pan de couverture, remplacement complet d'un toit en fin de vie, zinguerie neuve. À Bouglainval, je conduis ces chantiers avec la méthode apprise sur des centaines de toits : préparation soignée, exécution dans les règles, contrôle final — et la garantie décennale sur l'ensemble des travaux. Le chantier est préparé en amont, mené proprement et laissé net : la maison reste habitable et protégée du premier au dernier jour.",
+      "Le même savoir-faire s'étend aux travaux : réparation après une tempête, reprise d'un pan de couverture, remplacement complet d'un toit en fin de vie, zinguerie neuve. À Bouglainval, je conduis ces chantiers avec la méthode apprise sur des centaines de toits : chantier préparé en amont, exécution dans les règles de l'art, contrôle final — et la garantie décennale sur l'ensemble des travaux. Le chantier est préparé en amont, mené proprement et laissé net : la maison reste habitable et protégée du premier au dernier jour.",
       "Connaître les matériaux, enfin, c'est connaître leurs exigences : pente minimale, recouvrement, fixation, ventilation de la sous-face — la tuile plate, la tuile mécanique et l'ardoise ont chacune les leurs. Avant de lancer des travaux, pensez aussi à la réglementation : refaire certains travaux sur une toiture implique le respect du code de l'urbanisme, notamment du plan local d'urbanisme ou du plan d'occupation des sols, et certains chantiers exigent une déclaration préalable. Selon la nature des travaux, la simple déclaration suffit ou un dossier plus complet s'impose : mieux vaut le vérifier avant de signer un devis. Le service urbanisme de la mairie de Bouglainval vous renseignera.",
     ],
     mairieAdresse: '17 rue de Châteauneuf',
@@ -557,7 +557,7 @@ export const VILLES_CONTENU: Record<string, VilleContenu> = {
       "Le remplacement d'une toiture se juge sur pièces : l'état réel de la couverture, celui de la charpente, la manière dont l'eau s'évacue. Avant de parler chantier, Renaud Rénov commence donc toujours par un examen complet du toit. C'est le bénéfice direct de plus de quinze années d'expérience : à Chartres comme ailleurs, je sais distinguer l'usure de surface, qui se traite, de la fin de vie d'une couverture, qui se remplace. Ce premier examen ne coûte rien et n'engage à rien : il donne simplement une base saine pour décider.",
       "Cette expérience s'est construite sur l'entretien, qui reste le cœur du métier : démoussages menés sans brutaliser les matériaux, <a href=\"/traitement-hydrofuge-28/\">traitements hydrofuges</a> appliqués au bon moment, gouttières et descentes maintenues en état. Un client qui entretient son toit avec régularité repousse le remplacement de plusieurs années — et quand l'échéance arrive, elle arrive sans urgence, ce qui permet de choisir sereinement.",
       "Le remplacement lui-même est une suite d'étapes qui ne souffrent pas l'à-peu-près : dépose et évacuation de l'ancienne couverture, contrôle et reprise éventuelle de la charpente, écran de sous-toiture, liteaunage, pose du nouveau matériau, zinguerie complète. Je conduis ces chantiers à Chartres avec une organisation stricte, du premier jour au contrôle final, et la garantie décennale couvre le résultat. Les abords sont protégés, les gravats évacués, et le chantier laissé propre à chaque fin de journée.",
-      "Le matériau, enfin, se choisit avec ses règles : la tuile plate demande de la pente, la tuile mécanique se pose vite et bien sur les toits qui lui conviennent, l'ardoise récompense la pose soignée par des décennies de tenue. Et avant tout démarrage, un passage par la réglementation s'impose : refaire certains travaux sur une toiture implique le respect du code de l'urbanisme — plan local d'urbanisme, plan d'occupation des sols — et une déclaration préalable est souvent exigée. Les délais d'instruction se comptent en semaines : intégrez-les à votre calendrier de travaux. Le service urbanisme de la mairie de Chartres vous indiquera les règles propres à votre adresse.",
+      "Le matériau, enfin, se choisit avec ses règles : la tuile plate demande de la pente, la tuile mécanique se pose vite et bien sur les toits qui lui conviennent, l'ardoise rend en décennies de tenue la précision qu'on met à la poser. Et avant tout démarrage, un passage par la réglementation s'impose : refaire certains travaux sur une toiture implique le respect du code de l'urbanisme — plan local d'urbanisme, plan d'occupation des sols — et une déclaration préalable est souvent exigée. Les délais d'instruction se comptent en semaines : intégrez-les à votre calendrier de travaux. Le service urbanisme de la mairie de Chartres vous indiquera les règles propres à votre adresse.",
     ],
     mairieAdresse: 'Hôtel de Ville, place des Halles',
     mairieSite: 'https://www.chartres.fr/',
@@ -646,7 +646,7 @@ export const VILLES_CONTENU: Record<string, VilleContenu> = {
         type: 'facade',
         titre: 'Nettoyage et traitement des façades',
         texte:
-          "Renaud Rénov est le spécialiste de l'entretien des façades en Eure-et-Loir : nettoyage soigné des murs et traitements adaptés au revêtement, pour une maison saine et propre.",
+          "Renaud Rénov est le spécialiste de l'entretien des façades en Eure-et-Loir : nettoyage des murs mené sans agresser le support et traitements adaptés au revêtement, pour une maison saine et propre.",
       },
       {
         type: 'demoussage',

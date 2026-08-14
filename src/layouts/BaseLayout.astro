@@ -13,6 +13,11 @@ export interface Props {
   canonical?: string;
   ogImage?: string;
   extraSchemas?: object[];
+  /* Préchargement de l'image LCP (photo de hero) : supprime le délai de
+     découverte de la ressource et raccourcit le Largest Contentful Paint. */
+  lcpImage?: string;
+  lcpSrcset?: string;
+  lcpSizes?: string;
 }
 
 const {
@@ -21,6 +26,9 @@ const {
   canonical,
   ogImage = '/images/logo/logo-renaud-renov-512.webp',
   extraSchemas = [],
+  lcpImage,
+  lcpSrcset,
+  lcpSizes,
 } = Astro.props;
 const canonicalURL = canonical || new URL(Astro.url.pathname, Astro.site).toString();
 ---
@@ -37,6 +45,17 @@ const canonicalURL = canonical || new URL(Astro.url.pathname, Astro.site).toStri
 
     <!-- Inter auto-hébergée : @font-face + WOFF2 servis depuis le domaine. RGPD-OK. -->
     <Font cssVariable="--font-base" preload />
+
+    {lcpImage && (
+      <link
+        rel="preload"
+        as="image"
+        href={lcpImage}
+        imagesrcset={lcpSrcset}
+        imagesizes={lcpSizes}
+        fetchpriority="high"
+      />
+    )}
 
     <title>{title}</title>
     <meta name="description" content={description} />

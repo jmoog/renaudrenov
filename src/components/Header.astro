@@ -21,10 +21,13 @@ const menuServices = services.filter((s) =>
       <img
         class="entete__logo"
         src="/images/logo/logo-renaud-renov-256.webp"
-        width="256"
-        height="256"
+        srcset="/images/logo/logo-renaud-renov-128.webp 128w, /images/logo/logo-renaud-renov-256.webp 192w"
+        sizes="68px"
+        width="192"
+        height="192"
         alt={`Logo ${SITE.nom} — ${SITE.slogan}`}
         fetchpriority="high"
+        decoding="async"
       />
     </a>
 

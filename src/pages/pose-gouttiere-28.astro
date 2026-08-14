@@ -152,7 +152,10 @@ const schemaFaq = {
   })),
 };
 ---
-<BaseLayout title={title} description={description} extraSchemas={[schemaService, schemaFaq]}>
+<BaseLayout title={title} description={description}
+  lcpImage="/images/photos/gouttiere-descente.webp"
+  lcpSrcset="/images/photos/gouttiere-descente-640.webp 640w, /images/photos/gouttiere-descente-960.webp 960w, /images/photos/gouttiere-descente.webp 1200w"
+  lcpSizes="(min-width: 980px) 46vw, calc(100vw - 2rem)" extraSchemas={[schemaService, schemaFaq]}>
   <!-- ── Bloc 1 · Hero ────────────────────────────────────────────────── -->
   <section class="section section--sans-bas">
     <div class="conteneur">
@@ -170,10 +173,13 @@ const schemaFaq = {
         <img
           class="hx__photo"
           src="/images/photos/gouttiere-descente.webp"
+          srcset="/images/photos/gouttiere-descente-640.webp 640w, /images/photos/gouttiere-descente-960.webp 960w, /images/photos/gouttiere-descente.webp 1200w"
+          sizes="(min-width: 980px) 46vw, calc(100vw - 2rem)"
           alt="Gouttière et descente en zinc posées le long d'un pignon par Renaud Rénov en Eure-et-Loir"
           fetchpriority="high"
-          width="1600"
-          height="1200"
+          width="1200"
+          height="900"
+          decoding="async"
         />
         <div class="hx__note">
           <div class="hx__note-top">
@@ -219,8 +225,8 @@ const schemaFaq = {
         </ul>
 
         <div class="hx__badges">
-          <img src="/images/labels/garantie-decennale-10-ans.png" alt="Travaux couverts par la garantie décennale" width="240" height="240" loading="lazy" />
-          <img src="/images/labels/artisan-cma28.png" alt="Artisan inscrit à la Chambre de Métiers et de l'Artisanat d'Eure-et-Loir" width="240" height="240" loading="lazy" />
+          <img src="/images/labels/garantie-decennale-10-ans.webp" alt="Travaux couverts par la garantie décennale" width="240" height="240" loading="lazy" />
+          <img src="/images/labels/artisan-cma28.webp" alt="Artisan inscrit à la Chambre de Métiers et de l'Artisanat d'Eure-et-Loir" width="320" height="228" loading="lazy" />
         </div>
 
         <div class="hx__actions">
@@ -408,7 +414,7 @@ const schemaFaq = {
         </article>
 
         <article class="atout">
-          <h3>Une pose soignée et garantie</h3>
+          <h3>Une pose réglée au cordeau et garantie</h3>
           <p>
             Pente réglée au cordeau, crochets alignés, raccords étanches, contrôle à l'eau avant de
             quitter le chantier. Le devis est gratuit et détaillé poste par poste, et tous nos travaux

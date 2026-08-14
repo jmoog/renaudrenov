@@ -1,7 +1,24 @@
 ---
 // Bandeau CTA devis : photo de l'artisan à gauche, panneau marine à droite.
+import { existsSync, statSync } from 'node:fs';
 import { SITE } from '../data/site.ts';
 import FlecheRonde from './FlecheRonde.astro';
+
+/* Construit le srcset au build à partir des variantes réellement présentes
+   dans public/ (photo-480.webp, photo-640.webp…). Aucune URL inventée :
+   une variante absente n'est simplement pas proposée. */
+function srcsetAuto(url: string, largeurNative: number): string | undefined {
+  const base = url.replace(/\.webp$/, '');
+  const parts: string[] = [];
+  for (const w of [480, 640, 960]) {
+    if (w >= largeurNative) continue;
+    const rel = `${base}-${w}.webp`;
+    if (existsSync(`public${rel}`)) parts.push(`${rel} ${w}w`);
+  }
+  if (!parts.length) return undefined;
+  parts.push(`${url} ${largeurNative}w`);
+  return parts.join(', ');
+}
 
 export interface Props {
   titre?: string;
@@ -11,6 +28,8 @@ export interface Props {
   imageAlt?: string;
   imageWidth?: number;
   imageHeight?: number;
+  imageSrcset?: string;
+  imageSizes?: string;
 }
 const {
   titre = 'Contactez votre artisan couvreur',
@@ -22,17 +41,22 @@ const {
   ],
   image = '/images/photos/artisan-sur-toit.webp',
   imageAlt = 'Artisan Renaud Rénov au travail sur une toiture en tuiles en Eure-et-Loir',
-  imageWidth = 1500,
-  imageHeight = 2000,
+  imageWidth = 900,
+  imageHeight = 1200,
+  imageSizes = '(min-width: 900px) 42vw, calc(100vw - 2rem)',
 } = Astro.props;
+const srcset = Astro.props.imageSrcset ?? srcsetAuto(image, imageWidth);
 ---
 <section class="cta-devis">
   <div class="conteneur cta-devis__grille">
     <img
       class="cta-devis__photo"
       src={image}
+      srcset={srcset}
+      sizes={srcset ? imageSizes : undefined}
       alt={imageAlt}
       loading="lazy"
+      decoding="async"
       width={imageWidth}
       height={imageHeight}
     />

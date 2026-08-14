@@ -150,7 +150,10 @@ const schemaFaq = {
   })),
 };
 ---
-<BaseLayout title={title} description={description} extraSchemas={[schemaService, schemaFaq]}>
+<BaseLayout title={title} description={description}
+  lcpImage="/images/photos/renovation-toiture-28-renaud-renov.webp"
+  lcpSrcset="/images/photos/renovation-toiture-28-renaud-renov-640.webp 640w, /images/photos/renovation-toiture-28-renaud-renov.webp 900w"
+  lcpSizes="(min-width: 980px) 46vw, calc(100vw - 2rem)" extraSchemas={[schemaService, schemaFaq]}>
   <!-- ── Bloc 1 · Hero ────────────────────────────────────────────────── -->
   <section class="section section--sans-bas">
     <div class="conteneur">
@@ -168,10 +171,13 @@ const schemaFaq = {
         <img
           class="hx__photo"
           src="/images/photos/renovation-toiture-28-renaud-renov.webp"
+          srcset="/images/photos/renovation-toiture-28-renaud-renov-640.webp 640w, /images/photos/renovation-toiture-28-renaud-renov.webp 900w"
+          sizes="(min-width: 980px) 46vw, calc(100vw - 2rem)"
           alt="Chantier de rénovation de toiture mené par Renaud Rénov en Eure-et-Loir (28)"
           fetchpriority="high"
           width="900"
           height="675"
+          decoding="async"
         />
         <div class="hx__note">
           <div class="hx__note-top">
@@ -218,8 +224,8 @@ const schemaFaq = {
         </ul>
 
         <div class="hx__badges">
-          <img src="/images/labels/garantie-decennale-10-ans.png" alt="Travaux couverts par la garantie décennale" width="240" height="240" loading="lazy" />
-          <img src="/images/labels/artisan-cma28.png" alt="Artisan inscrit à la Chambre de Métiers et de l'Artisanat d'Eure-et-Loir" width="240" height="240" loading="lazy" />
+          <img src="/images/labels/garantie-decennale-10-ans.webp" alt="Travaux couverts par la garantie décennale" width="240" height="240" loading="lazy" />
+          <img src="/images/labels/artisan-cma28.webp" alt="Artisan inscrit à la Chambre de Métiers et de l'Artisanat d'Eure-et-Loir" width="320" height="228" loading="lazy" />
         </div>
 
         <div class="hx__actions">
@@ -311,7 +317,7 @@ const schemaFaq = {
               des combles perdus, une isolation soufflée suffit. Vient ensuite l'
               <strong>écran de sous-toiture HPV</strong>, hautement perméable à la vapeur, doublé
               d'un contre-lattage qui crée une lame d'air ventilée, de closoirs de faîtage et de
-              solins soignés à chaque point singulier. C'est cet ensemble qui
+              solins façonnés sur mesure à chaque point singulier. C'est cet ensemble qui
               rend un toit vraiment étanche.
             </p>
           </div>
@@ -570,8 +576,8 @@ const schemaFaq = {
     ]}
     image="/images/photos/hero-toiture-renaud-renov.webp"
     imageAlt="Toiture en tuiles et faîtage en parfait état sur une maison d'Eure-et-Loir"
-    imageWidth={1200}
-    imageHeight={1600}
+    imageWidth={900}
+    imageHeight={1200}
   />
 </BaseLayout>
 

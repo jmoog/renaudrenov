@@ -155,7 +155,10 @@ const schemaFaq = {
   })),
 };
 ---
-<BaseLayout title={title} description={description} extraSchemas={[schemaService, schemaFaq]}>
+<BaseLayout title={title} description={description}
+  lcpImage="/images/photos/zinguerie-epi.webp"
+  lcpSrcset="/images/photos/zinguerie-epi-640.webp 640w, /images/photos/zinguerie-epi-960.webp 960w, /images/photos/zinguerie-epi.webp 1200w"
+  lcpSizes="(min-width: 980px) 46vw, calc(100vw - 2rem)" extraSchemas={[schemaService, schemaFaq]}>
   <!-- ── Bloc 1 · Hero ────────────────────────────────────────────────── -->
   <section class="section section--sans-bas">
     <div class="conteneur">
@@ -173,10 +176,13 @@ const schemaFaq = {
         <img
           class="hx__photo"
           src="/images/photos/zinguerie-epi.webp"
+          srcset="/images/photos/zinguerie-epi-640.webp 640w, /images/photos/zinguerie-epi-960.webp 960w, /images/photos/zinguerie-epi.webp 1200w"
+          sizes="(min-width: 980px) 46vw, calc(100vw - 2rem)"
           alt="Épi de faîtage et arêtier habillés en zinc par Renaud Rénov sur une toiture en ardoise d'Eure-et-Loir"
           fetchpriority="high"
-          width="1500"
-          height="1125"
+          width="1200"
+          height="900"
+          decoding="async"
         />
         <div class="hx__note">
           <div class="hx__note-top">
@@ -223,8 +229,8 @@ const schemaFaq = {
         </ul>
 
         <div class="hx__badges">
-          <img src="/images/labels/garantie-decennale-10-ans.png" alt="Travaux couverts par la garantie décennale" width="240" height="240" loading="lazy" />
-          <img src="/images/labels/artisan-cma28.png" alt="Artisan inscrit à la Chambre de Métiers et de l'Artisanat d'Eure-et-Loir" width="240" height="240" loading="lazy" />
+          <img src="/images/labels/garantie-decennale-10-ans.webp" alt="Travaux couverts par la garantie décennale" width="240" height="240" loading="lazy" />
+          <img src="/images/labels/artisan-cma28.webp" alt="Artisan inscrit à la Chambre de Métiers et de l'Artisanat d'Eure-et-Loir" width="320" height="228" loading="lazy" />
         </div>
 
         <div class="hx__actions">

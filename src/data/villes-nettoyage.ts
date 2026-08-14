@@ -652,7 +652,7 @@ export const VILLES_NETTOYAGE: VilleNettoyage[] = [
     ],
     prochesH2: 'J’interviens tout autour de Pierres',
     prochesIntro:
-      "Maisons voisines, mêmes toitures, même soin — et tous les détails sur ma page <a href=\"/nettoyage-toiture-28/\">nettoyage et démoussage de toiture dans le 28</a> :",
+      "Maisons voisines, mêmes toitures, la même exigence — et tous les détails sur ma page <a href=\"/nettoyage-toiture-28/\">nettoyage et démoussage de toiture dans le 28</a> :",
     proches: [
       { slug: 'maintenon', ancre: 'Nettoyage de toiture à Maintenon' },
       { slug: 'hanches', ancre: 'Lavage de toiture à Hanches' },
@@ -824,7 +824,7 @@ export const VILLES_NETTOYAGE: VilleNettoyage[] = [
           "Un rémanent retarde la réinstallation des spores ; l'hydrofuge, en option, garde le matériau au sec.",
       },
     ],
-    prochesH2: 'Autour de Bouglainval, le même soin',
+    prochesH2: 'Autour de Bouglainval, le même savoir-faire',
     prochesIntro:
       "Le déplacement est gratuit dans les communes voisines — et ma page <a href=\"/nettoyage-toiture-28/\">démoussage de toiture dans le 28</a> répond à toutes vos questions :",
     proches: [
@@ -1084,7 +1084,7 @@ export const VILLES_NETTOYAGE: VilleNettoyage[] = [
           "Traitement rémanent, hydrofuge en option : votre toit reste propre et au sec pour des années.",
       },
     ],
-    prochesH2: 'Autour d’Auneau, même métier, même soin',
+    prochesH2: 'Autour d’Auneau, le même métier, la même exigence',
     prochesIntro:
       "Je me déplace gratuitement dans tout le secteur — ma page <a href=\"/nettoyage-toiture-28/\">lavage et démoussage de toiture dans le 28</a> détaille le protocole :",
     proches: [

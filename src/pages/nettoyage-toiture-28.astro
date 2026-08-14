@@ -136,7 +136,10 @@ const schemaFaq = {
   })),
 };
 ---
-<BaseLayout title={title} description={description} extraSchemas={[schemaService, schemaFaq]}>
+<BaseLayout title={title} description={description}
+  lcpImage="/images/photos/nettoyage-demoussage-toiture.webp"
+  lcpSrcset="/images/photos/nettoyage-demoussage-toiture-640.webp 640w, /images/photos/nettoyage-demoussage-toiture-960.webp 960w, /images/photos/nettoyage-demoussage-toiture.webp 1200w"
+  lcpSizes="(min-width: 980px) 46vw, calc(100vw - 2rem)" extraSchemas={[schemaService, schemaFaq]}>
   <!-- ── Bloc 1 · Hero : design de la home (titre / photo / coches) ───── -->
   <section class="section section--sans-bas">
     <div class="conteneur">
@@ -154,10 +157,13 @@ const schemaFaq = {
         <img
           class="hx__photo"
           src="/images/photos/nettoyage-demoussage-toiture.webp"
+          srcset="/images/photos/nettoyage-demoussage-toiture-640.webp 640w, /images/photos/nettoyage-demoussage-toiture-960.webp 960w, /images/photos/nettoyage-demoussage-toiture.webp 1200w"
+          sizes="(min-width: 980px) 46vw, calc(100vw - 2rem)"
           alt="M. Renaud, artisan couvreur, nettoyant et démoussant une toiture en Eure-et-Loir"
           fetchpriority="high"
-          width="2000"
-          height="1500"
+          width="1200"
+          height="900"
+          decoding="async"
         />
         <div class="hx__note">
           <div class="hx__note-top">
@@ -539,8 +545,8 @@ const schemaFaq = {
     ]}
     image="/images/photos/toiture-mousse-a-nettoyer-28.webp"
     imageAlt="Toiture envahie par la mousse à nettoyer et démousser en Eure-et-Loir (28)"
-    imageWidth={2000}
-    imageHeight={1500}
+    imageWidth={1200}
+    imageHeight={900}
   />
 </BaseLayout>
 
