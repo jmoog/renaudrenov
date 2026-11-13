@@ -42,6 +42,8 @@ RUN --mount=type=cache,target=/root/.npm npm ci --omit=dev && \
     npm cache clean --force
 
 COPY --from=builder /app/dist ./dist
+# Enveloppe HTTP : cache des images de public/ + en-têtes de sécurité.
+COPY --from=builder /app/server.mjs ./server.mjs
 
 # Utilisateur non-root
 RUN addgroup -S astro && adduser -S astro -G astro && \
@@ -50,4 +52,6 @@ USER astro
 
 EXPOSE 4321
 
-CMD ["node", "./dist/server/entry.mjs"]
+# server.mjs importe dist/server/entry.mjs sans laisser Astro ouvrir son propre port.
+ENV ASTRO_NODE_AUTOSTART=disabled
+CMD ["node", "./server.mjs"]
