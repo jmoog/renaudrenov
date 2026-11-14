@@ -79,8 +79,12 @@ const PRESTATIONS = [
 /**
  * Catalogue d'offres rattaché à la fiche entreprise.
  * @param zone suffixe de libellé, ex. « en Eure-et-Loir » ou « à Maintenon ».
+ * @param slugVille slug de la commune : le démoussage pointe alors vers la
+ *   page communale /nettoyage-toiture-{slug}/ au lieu de la page du 28.
  */
-export function cataloguePrestations(zone: string) {
+export function cataloguePrestations(zone: string, slugVille?: string) {
+  const lien = (href: string) =>
+    slugVille && href === '/nettoyage-toiture-28/' ? `/nettoyage-toiture-${slugVille}/` : href;
   return {
     '@type': 'OfferCatalog',
     name: `Prestations de couverture ${zone}`,
@@ -90,7 +94,7 @@ export function cataloguePrestations(zone: string) {
       itemOffered: {
         '@type': 'Service',
         name: p.label,
-        url: abs(p.href),
+        url: abs(lien(p.href)),
         provider: { '@id': ID_ENTREPRISE },
       },
     })),

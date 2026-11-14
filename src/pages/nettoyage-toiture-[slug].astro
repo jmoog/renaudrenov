@@ -50,7 +50,7 @@ const schemaPrestation = schemaService({
   zone: commune(v.nom, v.cp),
 });
 ---
-<BaseLayout title={v.title} description={v.metaDesc} extraSchemas={[schemaPrestation]}>
+<BaseLayout title={v.title} description={v.metaDesc} extraSchemas={[schemaPrestation]} lcpImage={v.heroPhoto.src}>
   <!-- ── Fil d'Ariane : rattaché au pilier (3 niveaux) ─────────────────── -->
   <section class="section section--sans-bas">
     <div class="conteneur">

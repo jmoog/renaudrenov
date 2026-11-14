@@ -87,7 +87,7 @@ const marquesVille = contenu.logos ?? [
 // dans un script séparé : Google n'avait aucune garantie de fusion.
 const enrichissement = {
   areaServed: [...ZONES_SERVIES, commune(nom, cp)],
-  hasOfferCatalog: cataloguePrestations(`à ${nom}`),
+  hasOfferCatalog: cataloguePrestations(`à ${nom}`, slug),
 };
 ---
 <BaseLayout title={contenu.title} description={contenu.metaDesc} enrichissementEntreprise={enrichissement}>
@@ -221,9 +221,31 @@ const enrichissement = {
     titre={`Des matériaux de qualité pour vos toitures à ${nom}`}
     intro={`Pour vos travaux de toiture à ${nom}, je sélectionne des matériaux de fabricants reconnus, gage d'une couverture durable.`}
   />
+
+  <!-- ── Communes voisines (si renseignées dans villes-contenu.ts) ── -->
+  {contenu.voisines && (
+    <section class="section">
+      <div class="conteneur">
+        <h2>Des interventions dans d'autres communes</h2>
+        <ul class="nuage-villes voisines">
+          {contenu.voisines.liees.map((l) => (
+            <li><a href={`/villes/${l.slug}/`}>{l.ancre}</a></li>
+          ))}
+          {contenu.voisines.autres.map((c) => (
+            <li><span>{c}</span></li>
+          ))}
+        </ul>
+      </div>
+    </section>
+  )}
 </BaseLayout>
 
 <style>
+  /* Communes voisines : nuage centré (même rendu que la page Lucé) */
+  .section .voisines {
+    display: flex; flex-wrap: wrap; justify-content: center; gap: 0.6rem;
+    max-width: none; margin: 2rem 0 0; padding: 0; list-style: none;
+  }
   /* ══ Hero — design de la page d'accueil (repris de index.astro) ══ */
   .hx { padding-block: clamp(1.6rem, 4vw, 3rem); }
   .hx__grid {

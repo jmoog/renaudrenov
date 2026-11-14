@@ -57,6 +57,9 @@ export interface VilleContenu {
   finalParas: string[]; // 4 paragraphes HTML, le dernier finit par l'urbanisme
   mairieAdresse: string;
   mairieSite: string;
+  /* Bloc « Des interventions dans d'autres communes » (comme la page Lucé) :
+     communes liées (une page ville existe) puis communes citées sans lien. */
+  voisines?: { liees: { slug: string; ancre: string }[]; autres: string[] };
   logos?: Marque[]; // jeu de logos spécifique (sinon 4 fabricants par défaut)
   avisOrdre: number;
 }
@@ -68,7 +71,7 @@ export const VILLES_CONTENU: Record<string, VilleContenu> = {
     metaDesc:
       "Renaud Rénov entretient, répare et rénove vos toitures à Nogent-le-Roi : démoussage, zinguerie, gouttières. ✓ Devis gratuit ✓ 02 34 40 17 61.",
     chapo:
-      "Vous avez besoin d'un spécialiste de la toiture à Nogent-le-Roi ? <strong>Renaud Rénov</strong>, <a href=\"/\">artisan couvreur en Eure-et-Loir</a>, est votre professionnel : entretien avec le démoussage et le nettoyage de la toiture, application de traitements hydrofuges, réparation d'infiltration ou remplacement d'une toiture ancienne.",
+      "Vous avez besoin d'un spécialiste de la toiture à Nogent-le-Roi ? <strong>Renaud Rénov</strong>, artisan couvreur en Eure-et-Loir, est votre professionnel : entretien avec le démoussage et le nettoyage de la toiture, application de traitements hydrofuges, réparation d'infiltration ou remplacement d'une toiture ancienne.",
     coches: ['Entreprise artisanale de couverture', 'Tous matériaux de couverture', 'Garantie décennale'],
     servicesH2: 'Mes services pour votre toiture à Nogent-le-Roi',
     cartes: [
@@ -136,7 +139,7 @@ export const VILLES_CONTENU: Record<string, VilleContenu> = {
       { nom: 'Edilians', url: 'https://www.edilians.com/', logo: '/images/marques/logo-edilians.webp', alt: 'Edilians – tuiles en terre cuite' },
     ],
     chapo:
-      "Il vous faut un spécialiste de la toiture à Épernon ? <strong>Renaud Rénov</strong>, <a href=\"/\">couvreur du 28</a>, est votre professionnel : démoussage et nettoyage de la toiture, recherche de fuites, réparation de toiture ou rénovation d'une couverture abîmée.",
+      "Il vous faut un spécialiste de la toiture à Épernon ? <strong>Renaud Rénov</strong>, couvreur du 28, est votre professionnel : démoussage et nettoyage de la toiture, recherche de fuites, réparation de toiture ou rénovation d'une couverture abîmée.",
     coches: ['Couvreur depuis deux générations', 'Savoir-faire artisanal', 'Garantie décennale'],
     servicesH2: "Les services de mon entreprise de couverture à Épernon",
     cartes: [
@@ -198,7 +201,7 @@ export const VILLES_CONTENU: Record<string, VilleContenu> = {
     metaDesc:
       "Toiture à démousser, à réparer ou à refaire à Hanches ? Renaud Rénov intervient rapidement. ✓ Devis gratuit et sans engagement ✓ 02 34 40 17 61.",
     chapo:
-      "Votre toiture à Hanches a besoin d'un professionnel ? <strong>Renaud Rénov</strong>, <a href=\"/\">couvreur en Eure-et-Loir</a>, est votre spécialiste : entretien avec démoussage et nettoyage du toit, traitements hydrofuges, réparation d'infiltration ou remplacement d'une toiture ancienne.",
+      "Votre toiture à Hanches a besoin d'un professionnel ? <strong>Renaud Rénov</strong>, couvreur en Eure-et-Loir, est votre spécialiste : entretien avec démoussage et nettoyage du toit, traitements hydrofuges, réparation d'infiltration ou remplacement d'une toiture ancienne.",
     coches: ['Spécialiste des toitures traditionnelles', "Plus de 15 années d'expérience", 'Garantie décennale'],
     servicesH2: "Mes services d'artisan couvreur à Hanches",
     cartes: [
@@ -260,7 +263,7 @@ export const VILLES_CONTENU: Record<string, VilleContenu> = {
     metaDesc:
       "Renaud Rénov, votre artisan pour la toiture à Gallardon : démoussage, réparation de fuite, gouttières. ✓ 02 34 40 17 61 ✓ Devis gratuit sans engagement.",
     chapo:
-      "Un problème de toiture à Gallardon ? <strong>Renaud Rénov</strong>, <a href=\"/\">entreprise de couverture en Eure-et-Loir</a>, est votre professionnel : nettoyage et démoussage du toit, application de traitements hydrofuges, recherche de fuites ou rénovation d'une toiture abîmée.",
+      "Un problème de toiture à Gallardon ? <strong>Renaud Rénov</strong>, entreprise de couverture en Eure-et-Loir, est votre professionnel : nettoyage et démoussage du toit, application de traitements hydrofuges, recherche de fuites ou rénovation d'une toiture abîmée.",
     coches: ["Deux générations d'artisans couvreurs", 'Tous matériaux de couverture', 'Applicateur de solutions Dalep certifié'],
     servicesH2: 'Ce que je fais pour votre toiture à Gallardon',
     cartes: [
@@ -322,7 +325,7 @@ export const VILLES_CONTENU: Record<string, VilleContenu> = {
     metaDesc:
       "Entretien et rénovation de toiture à Pierres par M. Renaud, artisan de père en fils : nettoyage, zinguerie, gouttières. ✓ Devis gratuit ✓ 02 34 40 17 61.",
     chapo:
-      "Vous cherchez un spécialiste de la toiture à Pierres ? <strong>Renaud Rénov</strong>, <a href=\"/\">couvreur 28</a>, est votre professionnel : démoussage et nettoyage de la toiture, traitements hydrofuges, réparation de toiture ou remplacement d'une couverture ancienne.",
+      "Vous cherchez un spécialiste de la toiture à Pierres ? <strong>Renaud Rénov</strong>, couvreur 28, est votre professionnel : démoussage et nettoyage de la toiture, traitements hydrofuges, réparation de toiture ou remplacement d'une couverture ancienne.",
     coches: ['Savoir-faire artisanal', 'Couvreur de père en fils', 'Garantie décennale'],
     servicesH2: 'Mes services de couvreur zingueur à Pierres',
     cartes: [
@@ -384,7 +387,7 @@ export const VILLES_CONTENU: Record<string, VilleContenu> = {
     metaDesc:
       "Votre toiture à Saint-Piat mérite un professionnel : démoussage, réparation, tuiles et ardoises par Renaud Rénov. ✓ 02 34 40 17 61 ✓ Devis gratuit.",
     chapo:
-      "Vous avez besoin d'un spécialiste de la toiture à Saint-Piat ? <strong>Renaud Rénov</strong>, <a href=\"/\">artisan couvreur du 28</a>, est votre professionnel : entretien avec démoussage et nettoyage du toit, recherche de fuites, réparation d'infiltration ou rénovation d'une toiture abîmée.",
+      "Vous avez besoin d'un spécialiste de la toiture à Saint-Piat ? <strong>Renaud Rénov</strong>, artisan couvreur du 28, est votre professionnel : entretien avec démoussage et nettoyage du toit, recherche de fuites, réparation d'infiltration ou rénovation d'une toiture abîmée.",
     coches: ['Entreprise artisanale de couverture', 'Spécialiste des toitures traditionnelles', "Plus de 15 années d'expérience"],
     servicesH2: 'Mes services pour votre toit à Saint-Piat',
     cartes: [
@@ -446,7 +449,7 @@ export const VILLES_CONTENU: Record<string, VilleContenu> = {
     metaDesc:
       "Renaud Rénov entretient et répare les toitures de Bouglainval : nettoyage, recherche de fuite, gouttières. ✓ Déplacement et devis gratuits ✓ 02 34 40 17 61.",
     chapo:
-      "Votre toit à Bouglainval réclame de l'attention ? <strong>Renaud Rénov</strong>, <a href=\"/\">entreprise de couverture 28</a>, est votre spécialiste de la toiture : démoussage et nettoyage, application de traitements hydrofuges, réparation de toiture ou remplacement d'une couverture ancienne.",
+      "Votre toit à Bouglainval réclame de l'attention ? <strong>Renaud Rénov</strong>, entreprise de couverture 28, est votre spécialiste de la toiture : démoussage et nettoyage, application de traitements hydrofuges, réparation de toiture ou remplacement d'une couverture ancienne.",
     coches: ['Couvreur depuis deux générations', 'Tous matériaux de couverture', 'Garantie décennale'],
     servicesH2: 'Les services de mon entreprise de couverture à Bouglainval',
     cartes: [
@@ -508,7 +511,7 @@ export const VILLES_CONTENU: Record<string, VilleContenu> = {
     metaDesc:
       "Démoussage de toiture, réparation et rénovation à Chartres par Renaud Rénov, entreprise familiale du 28. ✓ Devis gratuit sans engagement ✓ 02 34 40 17 61.",
     chapo:
-      "Il vous faut un spécialiste de la toiture à Chartres ? <strong>Renaud Rénov</strong>, <a href=\"/\">couvreur en Eure-et-Loir</a>, est votre professionnel : nettoyage et démoussage de la toiture, traitements hydrofuges, recherche de fuites ou rénovation d'une couverture abîmée.",
+      "Il vous faut un spécialiste de la toiture à Chartres ? <strong>Renaud Rénov</strong>, couvreur en Eure-et-Loir, est votre professionnel : nettoyage et démoussage de la toiture, traitements hydrofuges, recherche de fuites ou rénovation d'une couverture abîmée.",
     coches: ["Plus de 15 années d'expérience", 'Savoir-faire artisanal', 'Garantie décennale'],
     servicesH2: 'Mes services de couverture à Chartres',
     cartes: [
@@ -561,6 +564,10 @@ export const VILLES_CONTENU: Record<string, VilleContenu> = {
     ],
     mairieAdresse: 'Hôtel de Ville, place des Halles',
     mairieSite: 'https://www.chartres.fr/',
+    voisines: {
+      liees: [{ slug: 'luce', ancre: 'Couvreur à Lucé' }],
+      autres: ['Mainvilliers', 'Luisant', 'Lèves', 'Le Coudray', 'Champhol', 'Barjouville'],
+    },
     avisOrdre: 4,
   },
 
@@ -576,7 +583,7 @@ export const VILLES_CONTENU: Record<string, VilleContenu> = {
       { nom: 'Knauf', url: 'https://www.knaufinsulation.fr/', logo: '/images/marques/logo-knauf.webp', alt: 'Knauf – isolation thermique' },
     ],
     chapo:
-      "Vous avez besoin d'un spécialiste de la toiture à Dreux ? <strong>Renaud Rénov</strong>, <a href=\"/\">couvreur 28</a>, est votre professionnel : entretien avec démoussage et nettoyage du toit, traitements hydrofuges, réparation d'infiltration ou remplacement d'une toiture ancienne.",
+      "Vous avez besoin d'un spécialiste de la toiture à Dreux ? <strong>Renaud Rénov</strong>, couvreur 28, est votre professionnel : entretien avec démoussage et nettoyage du toit, traitements hydrofuges, réparation d'infiltration ou remplacement d'une toiture ancienne.",
     coches: ['Entreprise artisanale de couverture', 'Applicateur de solutions Dalep certifié', 'Tous matériaux de couverture'],
     servicesH2: "Mes services d'artisan couvreur à Dreux",
     cartes: [
@@ -638,7 +645,7 @@ export const VILLES_CONTENU: Record<string, VilleContenu> = {
     metaDesc:
       "Renaud Rénov prend en charge vos toitures à Auneau-Bleury-Saint-Symphorien : démoussage, réparation, rénovation. ✓ Devis gratuit ✓ 02 34 40 17 61.",
     chapo:
-      "Un problème de toiture à Auneau-Bleury-Saint-Symphorien ? <strong>Renaud Rénov</strong>, <a href=\"/\">professionnel de la toiture dans le 28</a>, est votre spécialiste : nettoyage et démoussage du toit, application de traitements hydrofuges, recherche de fuites ou rénovation d'une toiture abîmée.",
+      "Un problème de toiture à Auneau-Bleury-Saint-Symphorien ? <strong>Renaud Rénov</strong>, professionnel de la toiture dans le 28, est votre spécialiste : nettoyage et démoussage du toit, application de traitements hydrofuges, recherche de fuites ou rénovation d'une toiture abîmée.",
     coches: ['Couvreur de père en fils', 'Spécialiste des toitures traditionnelles', 'Garantie décennale'],
     servicesH2: 'Les services de votre artisan couvreur à Auneau-Bleury-Saint-Symphorien',
     cartes: [
@@ -700,7 +707,7 @@ export const VILLES_CONTENU: Record<string, VilleContenu> = {
     metaDesc:
       "M. Renaud entretient, répare et rénove les toitures à Rambouillet : nettoyage, zinguerie, gouttières. ✓ 02 34 40 17 61 ✓ Devis gratuit sans engagement.",
     chapo:
-      "Vous cherchez un spécialiste de la toiture à Rambouillet ? <strong>Renaud Rénov</strong>, <a href=\"/\">entreprise de couverture du 28</a>, est votre professionnel : entretien avec démoussage et nettoyage de la toiture, traitements hydrofuges, réparation de toiture ou remplacement d'une couverture ancienne.",
+      "Vous cherchez un spécialiste de la toiture à Rambouillet ? <strong>Renaud Rénov</strong>, entreprise de couverture du 28, est votre professionnel : entretien avec démoussage et nettoyage de la toiture, traitements hydrofuges, réparation de toiture ou remplacement d'une couverture ancienne.",
     coches: ["Deux générations d'artisans couvreurs", 'Savoir-faire artisanal', 'Garantie décennale'],
     servicesH2: 'Mes prestations de couverture à Rambouillet',
     cartes: [
@@ -762,7 +769,7 @@ export const VILLES_CONTENU: Record<string, VilleContenu> = {
     metaDesc:
       "Nettoyage de toiture, réparation de fuite et rénovation à Houdan par Renaud Rénov, artisan couvreur de père en fils. ✓ Devis gratuit ✓ 02 34 40 17 61.",
     chapo:
-      "Il vous faut un spécialiste de la toiture à Houdan ? <strong>Renaud Rénov</strong>, <a href=\"/\">artisan couvreur en Eure-et-Loir</a>, est votre professionnel : démoussage et nettoyage de la toiture, application de traitements hydrofuges, recherche de fuites ou réparation d'infiltration.",
+      "Il vous faut un spécialiste de la toiture à Houdan ? <strong>Renaud Rénov</strong>, artisan couvreur en Eure-et-Loir, est votre professionnel : démoussage et nettoyage de la toiture, application de traitements hydrofuges, recherche de fuites ou réparation d'infiltration.",
     coches: ['Entreprise artisanale de couverture', "Plus de 15 années d'expérience", 'Tous matériaux de couverture'],
     servicesH2: 'Mes services de couvreur zingueur à Houdan',
     cartes: [

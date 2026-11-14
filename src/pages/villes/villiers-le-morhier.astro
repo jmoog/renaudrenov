@@ -95,7 +95,7 @@ const mapsUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComp
 // dans un script séparé : Google n'avait aucune garantie de fusion.
 const enrichissement = {
   areaServed: [...ZONES_SERVIES, commune(ville, SITE.cp)],
-  hasOfferCatalog: cataloguePrestations(`à ${ville}`),
+  hasOfferCatalog: cataloguePrestations(`à ${ville}`, 'villiers-le-morhier'),
 };
 ---
 <BaseLayout title={title} description={description} enrichissementEntreprise={enrichissement}>
@@ -143,7 +143,7 @@ const enrichissement = {
       <div class="hx__body">
         <p class="hx__chapo">
           Vous avez besoin d'un spécialiste de la toiture à {ville} ?
-          <strong>Renaud Rénov</strong>, <a href="/">artisan couvreur du 28</a>, est votre professionnel — et votre voisin, puisque
+          <strong>Renaud Rénov</strong>, artisan couvreur du 28, est votre professionnel — et votre voisin, puisque
           l'entreprise est installée dans la commune : démoussage et nettoyage de la toiture,
           traitements hydrofuges, réparation d'infiltration ou remplacement d'une toiture ancienne.
         </p>

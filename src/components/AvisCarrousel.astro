@@ -12,11 +12,15 @@ export interface Props {
   ordre?: number;
   titre?: string;
   avecCtaAvis?: boolean;
+  /** Page à laquelle des avis sont réservés (champ `reserve` de reviews.json). */
+  reserve?: string;
 }
-const { tag, lieu = 'en Eure-et-Loir', ordre = 0, titre, avecCtaAvis = false } = Astro.props;
+const { tag, lieu = 'en Eure-et-Loir', ordre = 0, titre, avecCtaAvis = false, reserve } = Astro.props;
 const titreAffiche = titre ?? `Les avis de mes clients ${lieu}`;
 
-const base = reviews.avis;
+// Un avis marqué `reserve` n'apparaît que sur la page qui le réclame ;
+// partout ailleurs, seuls les avis non réservés sont affichés.
+const base = reviews.avis.filter((a) => (reserve ? a.reserve === reserve : !a.reserve));
 const n = base.length;
 const decalage = ((ordre % n) + n) % n;
 const avisDecales = decalage ? [...base.slice(decalage), ...base.slice(0, decalage)] : base;

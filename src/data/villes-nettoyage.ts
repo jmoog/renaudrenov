@@ -917,11 +917,102 @@ export const VILLES_NETTOYAGE: VilleNettoyage[] = [
     proches: [
       { slug: 'bouglainval', ancre: 'Démoussage de toiture à Bouglainval' },
       { slug: 'saint-piat', ancre: 'Lavage de toiture à Saint-Piat' },
+      { slug: 'luce', ancre: 'Démoussage de toiture à Lucé' },
       { slug: 'gallardon', ancre: 'Nettoyage de toiture à Gallardon' },
     ],
     ctaTitre: 'Votre toiture à Chartres, propre et saine',
     ctaTexte:
       "Maison de ville ou pavillon, décrivez-moi votre toit et ses accès : je viens l'examiner et vous recevez un devis précis sous 24 h. Gratuit, détaillé, sans engagement.",
+  },
+  // ──────────────────────────────────────────────────────────────── LUCÉ ──
+  // Ajoutée le 14/11/2026 (15e satellite). Règles en vigueur : aucun délai
+  // chiffré, un seul <strong> dans le chapô, un lien par paragraphe, ancres
+  // jamais annoncées par le support. Renvoie à la réalisation rénovation de Lucé.
+  {
+    slug: 'luce',
+    nom: 'Lucé',
+    cp: '28110',
+    title: 'Démoussage et nettoyage de toiture à Lucé — Devis gratuit',
+    metaDesc:
+      "Tuiles verdies, mousses dans les gouttières ? Renaud Rénov nettoie et démousse votre toiture à Lucé : traitement, lavage à basse pression. ✓ Devis gratuit.",
+    h1: 'Nettoyage de toiture à Lucé',
+    chapo:
+      "Votre toit verdit, les mousses s'installent entre les tuiles et vous souhaitez faire réaliser un <strong>nettoyage de toiture à Lucé</strong> ? Je suis M.&nbsp;Renaud. Avec mon entreprise de couverture Renaud Rénov, je traite, je lave et je protège votre couverture avec des produits professionnels.",
+    coches: [
+      'Démoussage des tuiles et des ardoises',
+      'Lavage à basse pression',
+      'Applicateur de solutions Dalep',
+      'Devis gratuit et sans engagement',
+    ],
+    heroPhoto: {
+      src: '/images/photos/demoussage-toiture-apres-eure-et-loir.webp',
+      largeur: 1200,
+      hauteur: 900,
+      alt: 'Toiture en tuiles débarrassée de ses mousses après un nettoyage par Renaud Rénov, couvreur à Lucé',
+    },
+    sectionA: {
+      h2: 'Les signes qu’un toit de Lucé a besoin d’un démoussage',
+      paragraphes: [
+        "Une toiture prévient avant de fuir. Les tuiles verdissent du côté le moins ensoleillé, des coussins de mousse se forment à la jonction des rangs, et les gouttières se remplissent de débris verts après chaque averse. Ces signes se voient depuis le jardin ou depuis la rue.",
+        "La mousse garde l'eau contre la tuile. En hiver, cette eau gèle, la terre cuite devient poreuse et finit par se fendre. Les mousses soulèvent aussi les tuiles en poussant dans les emboîtements, et la pluie trouve alors un passage vers le bois de la charpente.",
+        "Sur un pavillon construit il y a plusieurs dizaines d'années, comme ceux sur lesquels j'interviens à Lucé, les tuiles d'origine ont perdu une partie de leur protection de surface. Elles retiennent davantage l'humidité et les mousses s'y installent plus vite. Un nettoyage fait à temps prolonge la vie de ces couvertures.",
+      ],
+    },
+    sectionB: {
+      h2: 'Un lavage à basse pression qui ménage vos tuiles',
+      paragraphes: [
+        "Je commence par appliquer un produit de traitement professionnel, qui dessèche les mousses, les lichens et les algues jusqu'à la racine. Quand il a agi, le lavage n'a plus qu'à évacuer des végétaux morts.",
+        "Ce lavage se fait à basse pression, entre 2 et 3 bars, et à la brosse sur les zones fragiles. Les tuiles conservent ainsi la surface qui les rend étanches. Pour que le résultat dure, je propose ensuite un <a href=\"/traitement-hydrofuge-28/\">traitement hydrofuge</a> : la pluie glisse sur la tuile et les mousses mettent bien plus longtemps à revenir.",
+      ],
+      photo: {
+        src: '/images/photos/toiture-mousse-a-nettoyer-28.webp',
+        largeur: 1200,
+        hauteur: 900,
+        alt: 'Toiture en tuiles couverte de mousses avant un démoussage, comme on en voit à Lucé',
+      },
+    },
+    sectionC: {
+      h2: 'Le démoussage, l’occasion de vérifier votre couverture',
+      paragraphes: [
+        "Pendant le nettoyage, j'examine les tuiles, les rives, le faîtage et les abords de cheminée. Une tuile fendue ou un scellement abîmé vous sont signalés avec des photos, et je peux les reprendre dans la même intervention : c'est mon métier d'<a href=\"/villes/luce/\">artisan couvreur à Lucé</a>.",
+        "Cette vérification évite les mauvaises surprises. Dans la commune, j'ai découvert des liteaux pourris sous une couverture qui paraissait saine depuis le jardin : le chantier s'est terminé par la <a href=\"/realisations/renovation-toiture-luce/\">rénovation complète d'une toiture en tuiles</a>. Un contrôle régulier permet de repérer ces dégâts plus tôt.",
+        "Je termine par le nettoyage des gouttières et des descentes, pour que l'eau de pluie s'évacue normalement.",
+      ],
+    },
+    etapesH2: 'Les étapes de mon intervention à Lucé',
+    etapes: [
+      {
+        titre: 'Examen de la toiture et devis',
+        texte:
+          "J'examine votre couverture et ses accès, puis je vous remets un devis détaillé, gratuit et sans engagement.",
+      },
+      {
+        titre: 'Traitement antimousse',
+        texte:
+          "Le produit est appliqué sur toute la surface et agit en profondeur sur les mousses, les lichens et les algues.",
+      },
+      {
+        titre: 'Lavage à basse pression',
+        texte:
+          "Les végétaux morts sont évacués à basse pression et à la brosse, en ménageant la surface des tuiles.",
+      },
+      {
+        titre: 'Gouttières et protection',
+        texte:
+          "Les gouttières sont nettoyées, puis la toiture reçoit, si vous le souhaitez, un traitement hydrofuge.",
+      },
+    ],
+    prochesH2: 'Le nettoyage de toiture autour de Lucé',
+    prochesIntro:
+      "J'assure le même <a href=\"/nettoyage-toiture-28/\">nettoyage de toiture en Eure-et-Loir</a>, dans les communes voisines de Lucé :",
+    proches: [
+      { slug: 'chartres', ancre: 'Nettoyage de toiture à Chartres' },
+      { slug: 'saint-piat', ancre: 'Démoussage de toit à Saint-Piat' },
+      { slug: 'gallardon', ancre: 'Lavage de toiture à Gallardon' },
+    ],
+    ctaTitre: 'Faites intervenir un couvreur à Lucé',
+    ctaTexte:
+      "Votre toit verdit ou vos gouttières débordent de mousse ? Renaud Rénov intervient rapidement à Lucé. Le devis est gratuit et sans engagement.",
   },
   // ─────────────────────────────────────────────────────────────── DREUX ──
   {

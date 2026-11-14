@@ -1,0 +1,632 @@
+---
+// ─────────────────────────────────────────────────────────────────────────
+// /realisations/renovation-toiture-luce/ — chantier réel, décembre 2025.
+// Texte validé dans Notion (« Réalisation — Rénovation de toiture à Lucé »,
+// 14/11/2026). Modèle : la page Guainville (hero .hx, étapes, fiche).
+//
+// Balises : H1 et meta sur « rénovation de toiture », title sur le synonyme
+// « réfection d'une couverture » pour laisser le mot-clé à la page de service.
+// Pas de liste à puces dans le hero (demande de Joseph). Un lien par bloc.
+// À COMPLÉTER quand Jordy les fournit : photo du toit terminé, modèle de tuile.
+// ─────────────────────────────────────────────────────────────────────────
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { SITE } from '../../data/site.ts';
+import { schemaService, commune, lieuChantier, photoChantier } from '../../lib/schema.ts';
+import FilAriane from '../../components/FilAriane.astro';
+import LogoGoogle from '../../components/LogoGoogle.astro';
+import FlecheRonde from '../../components/FlecheRonde.astro';
+import reviews from '../../data/reviews.json';
+import CtaDevis from '../../components/CtaDevis.astro';
+
+const ville = 'Lucé';
+const cp = '28110';
+
+const title = "Réfection d'une couverture en tuiles à Lucé (28)";
+const description =
+  "Rénovation de la toiture d'un pavillon à Lucé par Renaud Rénov : liteaux pourris, tuiles fendues, couverture refaite à neuf. Photos du chantier.";
+
+const chemin = '/realisations/renovation-toiture-luce/';
+const pageUrl = `${SITE.url}${chemin}`;
+const img = (n: string) => `/images/photos/renovation-toiture-luce-${n}.webp`;
+const heroImg = '/images/photos/renovation-toiture-luce-avant-travaux';
+
+// ── Les quatre constats du premier jour ──
+const constats = [
+  {
+    cle: 'tuile-fendue',
+    titre: 'La tuile fendue',
+    texte:
+      "Une tuile mécanique fendue sur toute sa longueur. À chaque averse, la pluie passe par la fissure et mouille le bois placé dessous.",
+    alt: `Tuile mécanique fendue sur toute sa longueur, toiture d'un pavillon à ${ville}`,
+  },
+  {
+    cle: 'liteaux-pourris',
+    titre: 'Les liteaux',
+    texte:
+      "Les liteaux, ces lattes de bois sur lesquelles reposent les tuiles, étaient noircis et pourris par endroits. Un liteau dans cet état ne retient plus la tuile qu'il porte.",
+    alt: `Liteau noirci et pourri découvert sous les tuiles d'un pavillon à ${ville}`,
+  },
+  {
+    cle: 'ancien-support',
+    titre: "L'ancien support",
+    texte:
+      "Sous les tuiles, l'ancien support se détachait par morceaux. Il ne protégeait plus les combles.",
+    alt: `Ancien support dégradé sous la couverture d'un pavillon à ${ville}`,
+  },
+  {
+    cle: 'rive',
+    titre: 'La rive',
+    texte: "Le long du mur, le raccord entre les tuiles et l'enduit était à reprendre.",
+    alt: `Rive de toiture le long d'un mur enduit, pavillon à ${ville} avant rénovation`,
+  },
+];
+
+// ── La réfection, étape par étape ──
+const etapes = [
+  {
+    t: 'Dépose des tuiles et des anciens liteaux',
+    d: "Toute la couverture a été retirée, tuiles et liteaux compris, jusqu'aux chevrons.",
+  },
+  {
+    t: "Pose de l'écran de sous-toiture",
+    d: "Un écran neuf a été déroulé sur toute la surface du toit. Il protège la charpente et les combles si une tuile vient à se déplacer.",
+  },
+  {
+    t: 'Contre-lattes et liteaunage neuf',
+    d: "Des contre-lattes fixées sur les chevrons maintiennent l'écran et laissent l'air circuler sous les tuiles. Les liteaux neufs sont ensuite posés à l'écartement de la tuile choisie.",
+  },
+  {
+    t: 'Pose des tuiles, des rives et du faîtage',
+    d: "Les tuiles neuves, approvisionnées sur le toit, sont posées rang par rang. Les rives et le faîtage ferment ensuite la couverture.",
+  },
+];
+
+// ── Le chantier en bref ──
+const fiche = [
+  { label: 'Commune', valeur: `${ville} (${cp})`, icone: 'pin' },
+  { label: 'Maison', valeur: 'Pavillon à deux lucarnes', icone: 'maison' },
+  { label: "Couverture d'origine", valeur: 'Tuiles mécaniques', icone: 'mur' },
+  { label: 'Période', valeur: 'Décembre 2025', icone: 'date' },
+];
+
+// ── Données structurées : chantier + photos (mêmes fabriques que Guainville) ──
+const lieu = lieuChantier(`Pavillon à ${ville}`, ville, cp);
+const photos = [
+  photoChantier({
+    pageUrl,
+    cle: 'chantier',
+    fichier: `${heroImg}.webp`,
+    nom: `Pavillon avant la rénovation de sa toiture — ${ville} (${cp})`,
+    legende: `Pavillon à deux lucarnes à ${ville}, couverture en tuiles mécaniques avant sa rénovation`,
+    lieu,
+    principale: true,
+  }),
+  ...constats.map((c) =>
+    photoChantier({
+      pageUrl,
+      cle: c.cle,
+      fichier: img(c.cle),
+      nom: `${c.titre} — ${ville} (${cp})`,
+      legende: c.alt,
+      lieu,
+    }),
+  ),
+  photoChantier({
+    pageUrl,
+    cle: 'liteaunage',
+    fichier: img('liteaunage'),
+    nom: `Liteaunage neuf — ${ville} (${cp})`,
+    legende: `Écran de sous-toiture, contre-lattes et liteaux neufs sur la toiture d'un pavillon à ${ville}`,
+    lieu,
+  }),
+];
+const schemaRealisation = {
+  ...schemaService({
+    chemin,
+    serviceType: 'Rénovation de toiture',
+    nom: `Rénovation d'une toiture en tuiles à ${ville}`,
+    description: `Chantier de rénovation de toiture réalisé par Renaud Rénov sur un pavillon de ${ville} (${cp}), en Eure-et-Loir : dépose de la couverture, écran de sous-toiture, liteaunage neuf et pose de tuiles neuves.`,
+    zone: commune(ville, cp),
+  }),
+  '@id': `${pageUrl}#realisation`,
+  image: photos.map((ph) => ({ '@id': ph['@id'] })),
+};
+---
+<BaseLayout
+  title={title}
+  description={description}
+  extraSchemas={[schemaRealisation, ...photos]}
+  lcpImage={`${heroImg}.webp`}
+  lcpSrcset={`${heroImg}-640.webp 640w, ${heroImg}-960.webp 960w, ${heroImg}-1280.webp 1280w, ${heroImg}.webp 1600w`}
+  lcpSizes="(min-width: 980px) 46vw, calc(100vw - 2rem)"
+>
+  <!-- ── Fil d'Ariane (BreadcrumbList émis par le composant, une seule fois) ── -->
+  <section class="section section--compact">
+    <div class="conteneur">
+      <FilAriane
+        items={[
+          { label: 'Accueil', href: '/' },
+          { label: 'Réalisations', href: '/realisations/' },
+          { label: `Rénovation de toiture à ${ville}` },
+        ]}
+      />
+    </div>
+  </section>
+
+  <!-- ── Hero ─────────────────────────────────────────────────── -->
+  <section class="hx">
+    <div class="conteneur hx__grid">
+      <div class="hx__head">
+        <h1 class="hx__title">Rénovation d'une toiture en tuiles à {ville}</h1>
+        <p class="hx__marque">RENAUD RÉNOV</p>
+      </div>
+
+      <div class="hx__right">
+        <img
+          class="hx__photo"
+          src={`${heroImg}.webp`}
+          srcset={`${heroImg}-640.webp 640w, ${heroImg}-960.webp 960w, ${heroImg}-1280.webp 1280w, ${heroImg}.webp 1600w`}
+          sizes="(min-width: 980px) 46vw, calc(100vw - 2rem)"
+          alt={`Pavillon à ${ville} avant la rénovation de sa toiture en tuiles par Renaud Rénov`}
+          width="1600" height="1200"
+          fetchpriority="high"
+        />
+        <div class="hx__note">
+          <div class="hx__note-top">
+            <LogoGoogle taille={26} />
+            <span class="hx__note-stars" aria-label={`${reviews.note} étoiles sur 5`}>
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l2.9 6.26 6.9.6-5.2 4.53 1.55 6.75L12 17.77 5.85 20.7 7.4 13.95 2.2 9.42l6.9-.6L12 2z"/></svg>
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l2.9 6.26 6.9.6-5.2 4.53 1.55 6.75L12 17.77 5.85 20.7 7.4 13.95 2.2 9.42l6.9-.6L12 2z"/></svg>
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l2.9 6.26 6.9.6-5.2 4.53 1.55 6.75L12 17.77 5.85 20.7 7.4 13.95 2.2 9.42l6.9-.6L12 2z"/></svg>
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l2.9 6.26 6.9.6-5.2 4.53 1.55 6.75L12 17.77 5.85 20.7 7.4 13.95 2.2 9.42l6.9-.6L12 2z"/></svg>
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l2.9 6.26 6.9.6-5.2 4.53 1.55 6.75L12 17.77 5.85 20.7 7.4 13.95 2.2 9.42l6.9-.6L12 2z"/></svg>
+            </span>
+          </div>
+          <p class="hx__note-txt">Noté <strong>{reviews.note.toLocaleString('fr-FR')}/5</strong> sur Google · {reviews.nombre} avis</p>
+        </div>
+      </div>
+
+      <div class="hx__body">
+        <p class="hx__chapo">
+          Réalisation d'un chantier de rénovation de toiture à {ville}. La toiture de ce pavillon
+          paraissait encore en bon état, vue depuis le jardin. La vérification a permis de découvrir
+          que, sous les tuiles, le bois qui les portait était pourri. La couverture a été
+          complètement déposée et la toiture refaite dans son intégralité, avec l'intégration d'un
+          écran de sous-toiture.
+        </p>
+
+        <div class="hx__badges">
+          <img src="/images/labels/garantie-decennale-10-ans.webp" alt="Garantie décennale 10 ans" width="220" height="220" loading="lazy" />
+        </div>
+
+        <div class="hx__actions">
+          <a href="/devis-gratuit/" class="btn btn--rouge">Devis gratuit<FlecheRonde /></a>
+          <a href={SITE.telHref} class="btn btn--bleu">
+            <svg class="icone" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6.5 3.5h-2A1.5 1.5 0 0 0 3 5.2C3.4 13 11 20.6 18.8 21a1.5 1.5 0 0 0 1.7-1.5v-2a1.5 1.5 0 0 0-1.3-1.5l-2.5-.35a1.5 1.5 0 0 0-1.4.6l-.7.95a11.5 11.5 0 0 1-4.9-4.9l.95-.7a1.5 1.5 0 0 0 .6-1.4l-.35-2.5a1.5 1.5 0 0 0-1.5-1.3Z"/><path d="M14.5 3.6a5.5 5.5 0 0 1 4.9 4.9"/><path d="M14 7a2.4 2.4 0 0 1 2 2"/></svg>
+            {SITE.tel}
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Ce que cachaient les tuiles ──────────────────────────── -->
+  <section class="section section--gris">
+    <div class="conteneur">
+      <div class="section__entete">
+        <h2>Ce que cachaient les tuiles de ce pavillon</h2>
+      </div>
+      <p class="reno-intro">
+        Le premier jour, j'ai soulevé quelques tuiles pour examiner ce qu'elles recouvraient. Quatre
+        constats ont décidé de la suite.
+      </p>
+      <div class="luce-constats">
+        {constats.map((c) => (
+          <figure class="luce-constat">
+            <img src={img(c.cle)} alt={c.alt} width="720" height="720" loading="lazy" />
+            <figcaption>
+              <h3>{c.titre}</h3>
+              <p>{c.texte}</p>
+            </figcaption>
+          </figure>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Le choix de la rénovation ────────────────────────────── -->
+  <section class="section">
+    <div class="conteneur">
+      <div class="section__entete">
+        <h2>Le choix de la rénovation de toiture</h2>
+      </div>
+      <p class="reno-intro">
+        Quand seules quelques tuiles sont cassées et que le bois est sain, une
+        <a href="/reparation-toiture-28/">réparation de toiture</a> suffit. Sur ce pavillon, les
+        liteaux étaient atteints à plusieurs endroits du toit&nbsp;: remplacer des tuiles sur un bois
+        qui ne tient plus aurait seulement repoussé le problème. Avec le propriétaire, nous avons
+        retenu la réfection complète de la couverture.
+      </p>
+    </div>
+  </section>
+
+  <!-- ── La réfection, étape par étape ────────────────────────── -->
+  <section class="section section--gris">
+    <div class="conteneur">
+      <div class="section__entete">
+        <h2>La réfection de la couverture, étape par étape</h2>
+      </div>
+      <p class="reno-intro">
+        Une <a href="/renovation-toiture-28/">rénovation de toiture</a> suit toujours le même ordre.
+        Voici celui de ce chantier.
+      </p>
+      <figure class="luce-etape-photo">
+        <img
+          src={img('liteaunage')}
+          alt={`Écran de sous-toiture, contre-lattes et liteaux neufs sur la toiture d'un pavillon à ${ville}`}
+          width="1280" height="960" loading="lazy"
+        />
+        <figcaption>L'écran de sous-toiture, les contre-lattes et les liteaux neufs, avant la pose des tuiles.</figcaption>
+      </figure>
+      <ol class="reno-etapes">
+        {etapes.map((e, i) => (
+          <li class="reno-etape">
+            <span class="reno-etape__num">{i + 1}</span>
+            <div>
+              <h3>{e.t}</h3>
+              <p>{e.d}</p>
+            </div>
+          </li>
+        ))}
+      </ol>
+    </div>
+  </section>
+
+  <!-- ── Le chantier en bref ──────────────────────────────────── -->
+  <section class="section">
+    <div class="conteneur">
+      <div class="section__entete">
+        <h2>Le chantier en bref</h2>
+      </div>
+      <ul class="reno-fiche luce-fiche">
+        {fiche.map((f) => (
+          <li>
+            <span class="reno-fiche__icone" aria-hidden="true">
+              {f.icone === 'pin' && <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>}
+              {f.icone === 'maison' && <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11.5 12 4l9 7.5"/><path d="M5.5 10v10h13V10"/><path d="M10 20v-5h4v5"/></svg>}
+              {f.icone === 'mur' && <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="1.5"/><path d="M3 9.3h18M3 14.7h18M9 4v5.3M15 9.3v5.4M9 14.7V20"/></svg>}
+              {f.icone === 'date' && <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="5" width="17" height="15" rx="2"/><path d="M3.5 10h17M8 3v4M16 3v4"/></svg>}
+            </span>
+            <span class="reno-fiche__txt">
+              <span class="reno-fiche__label">{f.label}</span>
+              <strong>{f.valeur}</strong>
+            </span>
+          </li>
+        ))}
+      </ul>
+      <p class="reno-intro luce-ville">
+        Ce chantier fait partie de mes interventions de <a href="/villes/luce/">couvreur à Lucé</a>
+        et dans les communes voisines.
+      </p>
+      <p class="reno-intro">
+        Dans la même commune, j'ai aussi rendu son blanc au pignon d'un autre pavillon&nbsp;: un
+        <a href="/realisations/nettoyage-facade-luce/">nettoyage de façade</a> photographié avant
+        puis après.
+      </p>
+    </div>
+  </section>
+
+  <!-- ── CTA devis ────────────────────────────────────────────── -->
+  <CtaDevis
+    titre="Faites appel à votre couvreur à Lucé"
+    texte="Votre toiture a le même âge ou montre les mêmes signes ? Renaud Rénov examine votre couverture et vous remet un devis gratuit et sans engagement."
+  />
+</BaseLayout>
+
+<style>
+  /* ══ Hero — design de la page d'accueil (repris de index.astro) ══ */
+  .hx { padding-block: clamp(1.6rem, 4vw, 3rem); }
+  .hx__grid {
+    display: grid;
+    gap: 1.6rem;
+    grid-template-columns: 1fr;
+    grid-template-areas: "head" "photo" "body";
+  }
+  @media (min-width: 980px) {
+    .hx__grid {
+      grid-template-columns: 1.05fr 1fr;
+      grid-template-areas: "head photo" "body photo";
+      column-gap: 3.5rem;
+      row-gap: 1.1rem;
+      align-items: center;
+    }
+  }
+  .hx__head { grid-area: head; }
+  .hx__right { grid-area: photo; position: relative; }
+  .hx__right::after {
+    content: "";
+    position: absolute;
+    left: 0; right: 0; bottom: 0;
+    height: 42%;
+    border-radius: 0 0 24px 24px;
+    background: linear-gradient(to top, rgba(15, 34, 45, 0.6), rgba(15, 34, 45, 0));
+    pointer-events: none;
+    z-index: 1;
+  }
+  .hx__body { grid-area: body; }
+  .hx__title { margin: 0; color: var(--bleu); font-size: var(--fs-h1-hero); line-height: 1.2; letter-spacing: -0.01em; }
+  .hx__marque { color: var(--rouge); font-weight: 800; font-size: clamp(1.9rem, 4.4vw, 2.9rem); line-height: 1.1; margin: 0.6rem 0 0; }
+  .hx__photo { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; border-radius: 24px; box-shadow: var(--ombre-forte); display: block; }
+  @media (min-width: 980px) { .hx__photo { aspect-ratio: 4 / 5; } }
+
+  /* Étiquette « Après » sur la photo du hero */
+  .hx__etiquette {
+    position: absolute;
+    top: 1rem; left: 1rem;
+    z-index: 2;
+    padding: 0.35rem 0.85rem;
+    border-radius: 999px;
+    background: var(--rouge);
+    color: var(--blanc);
+    font-size: var(--fs-xs);
+    font-weight: 700;
+  }
+
+  .hx__chapo { color: var(--gris-700); margin: 0 0 1.2rem; max-width: var(--mesure-etroite); }
+  .hx__chapo a { color: var(--rouge-fonce); font-weight: 600; }
+
+  .hx__points { list-style: none; padding: 0; margin: 0.4rem 0 1.2rem; display: grid; gap: 0.9rem; }
+  .hx__points li {
+    display: flex; align-items: center; gap: 0.8rem;
+    font-size: var(--fs-md); font-weight: 600; color: var(--bleu);
+  }
+  .hx__check { color: var(--rouge); flex-shrink: 0; line-height: 0; }
+  .hx__check svg { width: 30px; height: 30px; }
+
+  .hx__note {
+    position: absolute;
+    left: 50%;
+    bottom: 1rem;
+    transform: translateX(-50%);
+    width: max-content;
+    max-width: calc(100% - 1.6rem);
+    display: flex; flex-direction: column; align-items: center; gap: 0.3rem;
+    background: var(--blanc);
+    border-radius: 16px;
+    box-shadow: 0 14px 34px rgba(15, 34, 45, 0.42);
+    padding: 0.8rem 1.5rem;
+    z-index: 2;
+  }
+  .hx__note-top { display: flex; align-items: center; gap: 0.6rem; }
+  .hx__note-stars { display: inline-flex; gap: 0.1em; }
+  .hx__note-stars svg { width: 1.35rem; height: 1.35rem; fill: var(--etoile); }
+  .hx__note-txt { margin: 0; color: var(--gris-700); font-size: var(--fs-base); }
+  .hx__note-txt strong { color: var(--bleu); }
+
+  .hx__badges { display: flex; align-items: center; gap: 1.3rem; flex-wrap: wrap; margin: 0 0 1.6rem; }
+  .hx__badges img { height: 64px; width: auto; }
+
+  .hx__actions { display: flex; flex-wrap: wrap; gap: 0.8rem; }
+  .hx__cta-sub { color: var(--rouge-fonce); font-size: var(--fs-sm); margin: 0.5rem 0 0; }
+
+  @media (max-width: 979px) {
+    .hx__title, .hx__marque { text-align: center; }
+    .hx__chapo { margin-inline: auto; } /* chapô long : reste en drapeau à gauche */
+    .hx__badges, .hx__actions { justify-content: center; }
+    .hx__cta-sub { text-align: center; }
+    .hx__badges img { height: 56px; }
+  }
+
+  /* ══ Fiche chantier (chevauche le hero) ══ */
+  .reno-fiche-wrap { padding-top: 0; padding-bottom: 0; }
+  .reno-fiche-wrap--clair .reno-fiche li { box-shadow: 0 8px 22px rgba(36, 75, 100, 0.09); }
+  .reno-fiche {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    position: relative;
+    z-index: 2;
+    display: grid;
+    gap: 1rem;
+    grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+  }
+  .reno-fiche li {
+    display: flex;
+    align-items: center;
+    gap: 0.9rem;
+    background: #fff;
+    border: 1px solid rgba(36, 75, 100, 0.08);
+    border-radius: 16px;
+    padding: 1.1rem 1.25rem;
+    box-shadow: 0 12px 30px rgba(36, 75, 100, 0.14);
+  }
+  .reno-fiche__icone {
+    flex: 0 0 auto;
+    width: 44px; height: 44px;
+    display: inline-flex; align-items: center; justify-content: center;
+    border-radius: 12px;
+    background: var(--rouge-pale);
+    color: var(--rouge);
+  }
+  .reno-fiche__icone svg { width: 1.4rem; height: 1.4rem; }
+  .reno-fiche__txt { display: flex; flex-direction: column; line-height: 1.3; }
+  .reno-fiche__label { font-size: var(--fs-xs); text-transform: uppercase; letter-spacing: 0.05em; color: var(--gris-500); }
+  .reno-fiche__txt strong { color: var(--bleu); font-size: var(--fs-base); }
+
+  /* ══ Intro de section ══ */
+  .reno-intro {
+    max-width: var(--mesure);
+    margin: 0 auto 1.4rem;
+    /* drapeau à gauche : au-delà de 2 lignes, un texte centré oblige
+       l'œil à rechercher le début de chaque ligne */
+    text-align: left;
+    text-wrap: pretty;
+    color: var(--gris-700);
+  }
+  .reno-intro:last-of-type { margin-bottom: 0; }
+
+  /* ══ Comparateurs avant / après ══ */
+  .reno-compare {
+    display: grid;
+    gap: clamp(1.4rem, 3vw, 2.2rem);
+    margin-top: 2rem;
+  }
+  @media (min-width: 900px) {
+    .reno-compare { grid-template-columns: repeat(2, 1fr); }
+    /* Le premier comparateur occupe toute la largeur : c'est la photo maîtresse. */
+    .reno-compare__item:first-child { grid-column: 1 / -1; }
+  }
+  .reno-compare__item { margin: 0; }
+  .reno-compare figcaption {
+    margin-top: 0.9rem;
+    color: var(--gris-700);
+    font-size: var(--fs-sm);
+    line-height: 1.55;
+  }
+  .reno-compare figcaption strong {
+    display: block;
+    color: var(--bleu);
+    font-size: var(--fs-base);
+    margin-bottom: 0.2rem;
+  }
+
+  /* ══ Déroulé en étapes ══ */
+  .reno-etapes {
+    list-style: none;
+    padding: 0;
+    margin: 2.2rem 0 0;
+    display: grid;
+    gap: 1.2rem;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  }
+  .reno-etape {
+    background: #fff;
+    border-radius: 18px;
+    padding: 1.9rem 1.7rem;
+    box-shadow: 0 10px 28px rgba(36, 75, 100, 0.10);
+  }
+  .reno-etape__num {
+    display: inline-flex;
+    align-items: center; justify-content: center;
+    width: 42px; height: 42px;
+    border-radius: 50%;
+    background: var(--bleu);
+    color: #fff;
+    font-weight: 800;
+    font-size: var(--fs-md);
+    margin-bottom: 1rem;
+  }
+  .reno-etape h3 { margin: 0 0 0.5rem; color: var(--bleu); }
+  .reno-etape p { margin: 0; color: var(--gris-700); }
+
+  /* ══ Encart « particularité du chantier » ══ */
+  .reno-encart {
+    display: grid;
+    gap: clamp(1.5rem, 4vw, 2.6rem);
+    align-items: center;
+    background: #fff;
+    border-radius: 20px;
+    padding: clamp(1.7rem, 4vw, 2.8rem);
+    box-shadow: 0 14px 34px rgba(36, 75, 100, 0.12);
+  }
+  @media (min-width: 900px) {
+    .reno-encart { grid-template-columns: 1.35fr 1fr; }
+  }
+  .reno-encart h2 { margin: 0 0 0.9rem; }
+  .reno-encart p { color: var(--gris-700); margin: 0 0 0.9rem; }
+  .reno-encart p:last-child { margin-bottom: 0; }
+  .reno-encart__liste {
+    list-style: none;
+    margin: 0;
+    padding: clamp(1.2rem, 3vw, 1.6rem);
+    background: var(--bleu-pale);
+    border-radius: 16px;
+    display: grid;
+    gap: 0.85rem;
+  }
+  .reno-encart__liste li {
+    display: flex;
+    gap: 0.6rem;
+    align-items: flex-start;
+    color: var(--bleu);
+    font-weight: 600;
+    line-height: 1.4;
+  }
+  .reno-encart__liste li::before {
+    content: '✓';
+    color: var(--rouge-fonce);
+    font-weight: 800;
+    flex: 0 0 auto;
+  }
+
+  /* ══ Passerelles de maillage ══ */
+  .reno-liens {
+    display: grid;
+    gap: 1.1rem;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    margin-top: 2rem;
+  }
+  .reno-lien {
+    display: block;
+    background: #fff;
+    border: 1px solid var(--gris-200);
+    border-radius: 18px;
+    padding: 1.5rem 1.6rem;
+    text-decoration: none;
+    box-shadow: 0 10px 26px rgba(36, 75, 100, 0.08);
+    transition: transform var(--transition), box-shadow var(--transition), border-color var(--transition);
+  }
+  .reno-lien:hover {
+    transform: translateY(-4px);
+    border-color: transparent;
+    box-shadow: 0 16px 36px rgba(36, 75, 100, 0.16);
+  }
+  .reno-lien strong { display: block; color: var(--bleu); font-size: var(--fs-md); margin-bottom: 0.4rem; }
+  .reno-lien__d { display: block; color: var(--gris-700); font-size: var(--fs-sm); line-height: 1.5; }
+
+  .reno-signature {
+    max-width: var(--mesure-etroite);
+    margin: 2.4rem auto 0;
+    text-align: left;
+    text-wrap: pretty;
+    font-size: var(--fs-md);
+    font-weight: 600;
+    color: var(--bleu);
+  }
+
+  /* ══ Mobile : mêmes règles de centrage que le reste du site ══ */
+  @media (max-width: 800px) {
+    .reno-encart__liste { order: -1; }
+  }
+
+  /* ── Mesure de lecture ────────────────────────────────────────
+     En dessous du seuil où ce bloc passe en deux colonnes, il occupe
+     toute la largeur du conteneur et la ligne dépassait 90 caractères
+     (le confort de lecture s'arrête vers 75). On borne la colonne. */
+  .reno-encart__txt p { max-width: var(--mesure); }
+
+  /* ══ Ajouts propres à la réalisation de Lucé ══ */
+  /* Les quatre constats : photo carrée + légende, 2 colonnes puis 4 */
+  .luce-constats {
+    display: grid; gap: 1.2rem; grid-template-columns: 1fr;
+    margin: 2rem auto 0; max-width: 68rem;
+  }
+  @media (min-width: 620px) { .luce-constats { grid-template-columns: repeat(2, 1fr); } }
+  @media (min-width: 1024px) { .luce-constats { grid-template-columns: repeat(4, 1fr); } }
+  .luce-constat {
+    margin: 0; background: #fff; border-radius: 16px; overflow: hidden;
+    border: 1px solid var(--gris-200); box-shadow: 0 8px 22px rgba(36, 75, 100, 0.08);
+  }
+  .luce-constat img { display: block; width: 100%; aspect-ratio: 1 / 1; object-fit: cover; }
+  .luce-constat figcaption { padding: 1.1rem 1.2rem 1.3rem; }
+  .luce-constat h3 { margin: 0 0 0.4rem; color: var(--bleu); font-size: var(--fs-md); }
+  .luce-constat p { margin: 0; color: var(--gris-700); font-size: var(--fs-sm); line-height: 1.55; }
+
+  /* Photo du liteaunage, entre l'introduction et les étapes */
+  .luce-etape-photo { margin: 2rem auto 0; max-width: 52rem; }
+  .luce-etape-photo img { display: block; width: 100%; height: auto; border-radius: 16px; }
+  .luce-etape-photo figcaption { margin-top: 0.7rem; color: var(--gris-700); font-size: var(--fs-sm); text-align: left; }
+
+  .section .luce-fiche { max-width: 68rem; margin: 2rem auto 0; }
+  .luce-ville { margin-top: 2rem; }
+</style>

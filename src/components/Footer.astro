@@ -14,6 +14,9 @@ import FlecheRonde from './FlecheRonde.astro';
 const villesPubliees = villes.map((v) => v.slug);
 // Les horaires cassaient en fin de ligne au milieu de « 20 h 00 » : on rend
 // insécables les espaces internes des heures.
+// Le slogan porte le lien vers l'accueil (ancre « Artisan couvreur en
+// Eure-et-Loir (28) ») sur toutes les pages, sauf sur l'accueil elle-même.
+const estAccueil = Astro.url.pathname === '/';
 const horairesInsecables = SITE.horaires.replace(/(\d+)\s*h\s*(\d+)/g, '$1\u00a0h\u00a0$2');
 ---
 <footer class="pied">
@@ -27,7 +30,7 @@ const horairesInsecables = SITE.horaires.replace(/(\d+)\s*h\s*(\d+)/g, '$1\u00a0
         alt={`Logo ${SITE.nom} — ${SITE.slogan}`}
         loading="lazy"
       />
-      <p><strong>{SITE.nom}</strong><br />{SITE.slogan}</p>
+      <p><strong>{SITE.nom}</strong><br />{estAccueil ? SITE.slogan : <a href="/">{SITE.slogan}</a>}</p>
       <p>{SITE.rue}<br />{SITE.cp} {SITE.ville}</p>
       <p class="pied__note">
         <LogoGoogle taille={18} />

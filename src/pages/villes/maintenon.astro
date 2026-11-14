@@ -91,7 +91,7 @@ const marquesVille = [
 // dans un script séparé : Google n'avait aucune garantie de fusion.
 const enrichissement = {
   areaServed: [...ZONES_SERVIES, commune(ville, cp)],
-  hasOfferCatalog: cataloguePrestations(`à ${ville}`),
+  hasOfferCatalog: cataloguePrestations(`à ${ville}`, 'maintenon'),
 };
 ---
 <BaseLayout title={title} description={description} enrichissementEntreprise={enrichissement}>
@@ -139,7 +139,7 @@ const enrichissement = {
       <div class="hx__body">
         <p class="hx__chapo">
           Vous avez besoin d'un spécialiste de la toiture à {ville} ?
-          <strong>Renaud Rénov</strong>, <a href="/">couvreur zingueur en Eure-et-Loir</a>, est votre professionnel : entretien avec le démoussage et
+          <strong>Renaud Rénov</strong>, couvreur zingueur en Eure-et-Loir, est votre professionnel : entretien avec le démoussage et
           le nettoyage de la toiture, application de traitements hydrofuges, réparation de toiture
           ou remplacement d'une couverture ancienne.
         </p>
