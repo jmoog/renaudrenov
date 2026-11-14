@@ -111,6 +111,11 @@ const zoneEnrichie = [
   { slug: 'saint-piat', ancre: 'le nettoyage de pignon à Saint-Piat' },
   { slug: 'bouglainval', ancre: 'intervention sur vos murs à Bouglainval' },
   { slug: 'chartres', ancre: 'le nettoyage de façade à Chartres' },
+  { slug: 'luce', ancre: 'vos façades à Lucé' },
+  { slug: 'luisant', ancre: 'le démoussage de façade à Luisant' },
+  { slug: 'leves', ancre: 'intervention sur vos murs à Lèves' },
+  { slug: 'le-coudray', ancre: 'vos façades au Coudray' },
+  { slug: 'mainvilliers', ancre: 'le nettoyage de façade à Mainvilliers' },
   { slug: 'dreux', ancre: 'le démoussage de façade à Dreux' },
   { slug: 'auneau', ancre: 'le nettoyage de crépi à Auneau' },
   { slug: 'rambouillet', ancre: 'le lavage de façade à Rambouillet' },
@@ -499,6 +504,13 @@ const questions = questionsFaq('/nettoyage-facade-28/', faq);
         une descente de garage noircie ont retrouvé leur teinte claire après le
         <a href="/realisations/nettoyage-facade-luce/">démoussage d'un pavillon</a>.
       </p>
+      <p class="facade-preuve">D'autres chantiers menés autour de Chartres&nbsp;:</p>
+      <ul class="facade-chantiers">
+        <li><a href="/realisations/nettoyage-peinture-facade-luisant/">nettoyage et peinture d'un pignon à Luisant</a></li>
+        <li><a href="/realisations/nettoyage-facade-leves/">démoussage d'un pignon à Lèves</a></li>
+        <li><a href="/realisations/nettoyage-facade-salle-municipale-le-coudray/">façades d'une salle municipale au Coudray</a></li>
+        <li><a href="/realisations/nettoyage-mur-enceinte-parc-le-coudray/">mur d'enceinte d'un parc au Coudray</a></li>
+      </ul>
     </div>
   </section>
 
@@ -810,6 +822,9 @@ const questions = questionsFaq('/nettoyage-facade-28/', faq);
     color: var(--gris-700);
   }
   .facade-preuve a { color: var(--rouge-fonce); font-weight: 600; }
+  .section .facade-chantiers { max-width: var(--mesure); margin: 0.6rem auto 0; padding-left: 1.2rem; color: var(--gris-700); text-align: left; }
+  .facade-chantiers li { margin: 0.25rem 0; }
+  .facade-chantiers a { color: var(--rouge-fonce); font-weight: 600; }
 
   /* ── Prix : 3 cartes ── */
   .prix-cartes {

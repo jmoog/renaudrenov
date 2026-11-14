@@ -1,0 +1,627 @@
+---
+// ─────────────────────────────────────────────────────────────────────────
+// /realisations/nettoyage-peinture-facade-luisant/ — chantier réel, février 2022.
+// Créée le 14/11/2026 sur le modèle des réalisations de Lucé (mêmes règles :
+// H1 et meta sur le mot-clé, title sur un synonyme, pas de liste à puces dans
+// le hero, badge Dalep seul, un seul lien par paragraphe, rien d'inventé).
+// À CONFIRMER avec Jordy : type de peinture, reprise éventuelle de la fissure visible avant peinture.
+// ─────────────────────────────────────────────────────────────────────────
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { SITE } from '../../data/site.ts';
+import { schemaService, commune, lieuChantier, photoChantier } from '../../lib/schema.ts';
+import FilAriane from '../../components/FilAriane.astro';
+import AvantApresSlider from '../../components/AvantApresSlider.astro';
+import LogoGoogle from '../../components/LogoGoogle.astro';
+import FlecheRonde from '../../components/FlecheRonde.astro';
+import reviews from '../../data/reviews.json';
+import CtaDevis from '../../components/CtaDevis.astro';
+
+const ville = "Luisant";
+const cp = "28600";
+
+const title = "Ravalement d'un pignon à Luisant (28) : lavage et peinture";
+const description =
+  "Nettoyage puis peinture du pignon d'un pavillon à Luisant par Renaud Rénov : enduit verdi lavé, façade repeinte. Photos avant / après.";
+
+const chemin = "/realisations/nettoyage-peinture-facade-luisant/";
+const pageUrl = `${SITE.url}${chemin}`;
+const img = (n: string) => `/images/photos/nettoyage-peinture-facade-luisant-${n}.webp`;
+const heroImg = '/images/photos/nettoyage-peinture-facade-luisant-hero';
+const heroSrcset = "/images/photos/nettoyage-peinture-facade-luisant-hero-640.webp 640w, /images/photos/nettoyage-peinture-facade-luisant-hero-960.webp 960w, /images/photos/nettoyage-peinture-facade-luisant-hero.webp 1200w";
+
+const alts: Record<string, string> = {
+  "vue-ensemble": "Pignon verdi d'un pavillon à Luisant avant le nettoyage de la façade, vu d'en haut",
+  "pignon-avant": "Pignon d'un pavillon à Luisant avant nettoyage : enduit marqué de traînées vertes et grises",
+  "pignon-nettoye": "Pignon d'un pavillon à Luisant après le lavage de la façade",
+  "peinture-en-cours": "Peinture en cours sur le pignon d'un pavillon à Luisant",
+  "pignon-termine": "Pignon repeint d'un pavillon à Luisant, chantier terminé",
+  "hero": "Pignon d'un pavillon à Luisant après nettoyage et peinture de la façade par Renaud Rénov"
+};
+
+const etapes = [
+  {
+    "t": "Nettoyage du pignon",
+    "d": "Le mur a été lavé sur toute sa hauteur pour retirer les algues et les salissures incrustées dans l'enduit."
+  },
+  {
+    "t": "Séchage du mur",
+    "d": "Onze jours séparent le lavage de la peinture : le mur a eu le temps de sécher."
+  },
+  {
+    "t": "Peinture de la façade",
+    "d": "Le sol a été protégé par une bâche, puis la peinture a été appliquée à l'échelle sur l'ensemble du pignon."
+  }
+];
+
+const fiche = [
+  {
+    "label": "Commune",
+    "valeur": "Luisant (28600)",
+    "icone": "pin"
+  },
+  {
+    "label": "Maison",
+    "valeur": "Pavillon",
+    "icone": "maison"
+  },
+  {
+    "label": "Surface traitée",
+    "valeur": "Pignon enduit",
+    "icone": "mur"
+  },
+  {
+    "label": "Période",
+    "valeur": "Février 2022",
+    "icone": "date"
+  }
+];
+
+// ── Données structurées : chantier + photos ──
+const lieu = lieuChantier("Pavillon à Luisant", ville, cp);
+const photos = [
+  photoChantier({ pageUrl, cle: 'chantier', fichier: `${heroImg}.webp`, nom: `Nettoyage et peinture de façade à Luisant — ${ville} (${cp})`, legende: alts.hero, lieu, principale: true }),
+  ...["vue-ensemble", "pignon-avant", "pignon-nettoye", "peinture-en-cours", "pignon-termine"].map((k) =>
+    photoChantier({ pageUrl, cle: k, fichier: img(k), nom: `${alts[k]}`, legende: alts[k], lieu }),
+  ),
+];
+const schemaRealisation = {
+  ...schemaService({
+    chemin,
+    serviceType: "Nettoyage de façade",
+    nom: "Nettoyage et peinture de façade à Luisant",
+    description: "Chantier de nettoyage puis de peinture de façade réalisé par Renaud Rénov sur le pignon d'un pavillon de Luisant (28600), en Eure-et-Loir.",
+    zone: commune(ville, cp),
+  }),
+  '@id': `${pageUrl}#realisation`,
+  image: photos.map((ph) => ({ '@id': ph['@id'] })),
+};
+---
+<BaseLayout
+  title={title}
+  description={description}
+  extraSchemas={[schemaRealisation, ...photos]}
+  lcpImage={`${heroImg}.webp`}
+  lcpSrcset={heroSrcset}
+  lcpSizes="(min-width: 980px) 46vw, calc(100vw - 2rem)"
+>
+  <!-- ── Fil d'Ariane (BreadcrumbList émis par le composant, une seule fois) ── -->
+  <section class="section section--compact">
+    <div class="conteneur">
+      <FilAriane
+        items={[
+          { label: 'Accueil', href: '/' },
+          { label: 'Réalisations', href: '/realisations/' },
+          { label: "Nettoyage et peinture de façade à Luisant" },
+        ]}
+      />
+    </div>
+  </section>
+
+  <!-- ── Hero ─────────────────────────────────────────────────── -->
+  <section class="hx">
+    <div class="conteneur hx__grid">
+      <div class="hx__head">
+        <h1 class="hx__title">Nettoyage et peinture de façade à Luisant</h1>
+        <p class="hx__marque">RENAUD RÉNOV</p>
+      </div>
+
+      <div class="hx__right">
+        <img
+          class="hx__photo"
+          src={`${heroImg}.webp`}
+          srcset={heroSrcset}
+          sizes="(min-width: 980px) 46vw, calc(100vw - 2rem)"
+          alt={alts.hero}
+          width="1200" height="1600"
+          fetchpriority="high"
+        />
+        <div class="hx__note">
+          <div class="hx__note-top">
+            <LogoGoogle taille={26} />
+            <span class="hx__note-stars" aria-label={`${reviews.note} étoiles sur 5`}>
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l2.9 6.26 6.9.6-5.2 4.53 1.55 6.75L12 17.77 5.85 20.7 7.4 13.95 2.2 9.42l6.9-.6L12 2z"/></svg>
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l2.9 6.26 6.9.6-5.2 4.53 1.55 6.75L12 17.77 5.85 20.7 7.4 13.95 2.2 9.42l6.9-.6L12 2z"/></svg>
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l2.9 6.26 6.9.6-5.2 4.53 1.55 6.75L12 17.77 5.85 20.7 7.4 13.95 2.2 9.42l6.9-.6L12 2z"/></svg>
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l2.9 6.26 6.9.6-5.2 4.53 1.55 6.75L12 17.77 5.85 20.7 7.4 13.95 2.2 9.42l6.9-.6L12 2z"/></svg>
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l2.9 6.26 6.9.6-5.2 4.53 1.55 6.75L12 17.77 5.85 20.7 7.4 13.95 2.2 9.42l6.9-.6L12 2z"/></svg>
+            </span>
+          </div>
+          <p class="hx__note-txt">Noté <strong>{reviews.note.toLocaleString('fr-FR')}/5</strong> sur Google · {reviews.nombre} avis</p>
+        </div>
+      </div>
+
+      <div class="hx__body">
+        <p class="hx__chapo">
+          Réalisation d'un chantier de <strong>nettoyage de façade à Luisant</strong>. Le pignon de ce pavillon était marqué de traînées vertes et grises. Il a été lavé, puis repeint&nbsp;: le mur a retrouvé une teinte claire et uniforme.
+        </p>
+
+        <div class="hx__badges">
+          <img src="/images/labels/applicateur-dalep.webp" alt="Applicateur de solutions DALEP certifié" width="240" height="240" loading="lazy" />
+        </div>
+
+        <div class="hx__actions">
+          <a href="/devis-gratuit/" class="btn btn--rouge">Devis gratuit<FlecheRonde /></a>
+          <a href={SITE.telHref} class="btn btn--bleu">
+            <svg class="icone" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6.5 3.5h-2A1.5 1.5 0 0 0 3 5.2C3.4 13 11 20.6 18.8 21a1.5 1.5 0 0 0 1.7-1.5v-2a1.5 1.5 0 0 0-1.3-1.5l-2.5-.35a1.5 1.5 0 0 0-1.4.6l-.7.95a11.5 11.5 0 0 1-4.9-4.9l.95-.7a1.5 1.5 0 0 0 .6-1.4l-.35-2.5a1.5 1.5 0 0 0-1.5-1.3Z"/><path d="M14.5 3.6a5.5 5.5 0 0 1 4.9 4.9"/><path d="M14 7a2.4 2.4 0 0 1 2 2"/></svg>
+            {SITE.tel}
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Le constat ───────────────────────────────────────────── -->
+  <section class="section section--gris">
+    <div class="conteneur">
+      <div class="section__entete">
+        <h2>Un pignon verdi par les algues</h2>
+      </div>
+      <p class="reno-intro">
+        Sur ce pavillon, le pignon était couvert de traînées vertes et grises, plus denses dans la moitié basse du mur. Vu de la rue, l'enduit paraissait sale et vieilli.
+      </p>
+      <p class="reno-intro">
+        Un <a href="/nettoyage-facade-28/">nettoyage de façade</a> retire ces salissures. Ici, le chantier est allé plus loin&nbsp;: une fois le mur propre et sec, il a été repeint.
+      </p>
+      <figure class="luce-aa">
+        <img class="real-photo" src={img('vue-ensemble')} alt={alts['vue-ensemble']} width="1280" height="960" loading="lazy" />
+        <figcaption>Le pignon avant l'intervention, vu d'en haut.</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <!-- ── Avant / après ────────────────────────────────────────── -->
+  <section class="section">
+    <div class="conteneur">
+      <div class="section__entete">
+        <h2>Lavage et peinture : avant / après</h2>
+      </div>
+
+      <figure class="luce-aa luce-aa--portrait">
+        <AvantApresSlider
+          avantSrc={img('pignon-avant')}
+          apresSrc={img('pignon-nettoye')}
+          avantAlt={alts['pignon-avant']}
+          apresAlt={alts['pignon-nettoye']}
+          width={1200}
+          height={1600}
+        />
+        <figcaption>
+          <strong>Le lavage du pignon</strong>
+          Après le nettoyage, les traînées ont disparu et l'enduit a retrouvé sa teinte d'origine. Passez la souris sur l'image, ou glissez le doigt sur mobile, pour révéler le résultat.
+        </figcaption>
+      </figure>
+
+      <figure class="luce-aa">
+        <div class="luce-paire">
+          <div class="luce-paire__vue">
+            <img src={img('peinture-en-cours')} alt={alts['peinture-en-cours']} width="1000" height="1250" loading="lazy" />
+            <span class="luce-paire__label">En cours</span>
+          </div>
+          <div class="luce-paire__vue">
+            <img src={img('pignon-termine')} alt={alts['pignon-termine']} width="1000" height="1250" loading="lazy" />
+            <span class="luce-paire__label">Terminé</span>
+          </div>
+        </div>
+        <figcaption>
+          <strong>La peinture de la façade</strong>
+          Le bas du mur est déjà repeint et l'application se poursuit vers le haut du pignon. Sur la seconde photo, le mur est terminé.
+        </figcaption>
+      </figure>
+
+      <p class="reno-intro luce-ville">
+        Ce chantier fait partie de mes interventions de <a href="/villes/luisant/">couvreur à Luisant</a> et dans les communes voisines.
+      </p>
+    </div>
+  </section>
+
+  <!-- ── Le déroulé ───────────────────────────────────────────── -->
+  <section class="section section--gris">
+    <div class="conteneur">
+      <div class="section__entete">
+        <h2>Du lavage à la peinture de la façade</h2>
+      </div>
+      <p class="reno-intro">
+        Le chantier s'est déroulé en deux passages, à onze jours d'intervalle.
+      </p>
+      <ol class="reno-etapes luce-etapes3">
+        {etapes.map((e, i) => (
+          <li class="reno-etape">
+            <span class="reno-etape__num">{i + 1}</span>
+            <div>
+              <h3>{e.t}</h3>
+              <p>{e.d}</p>
+            </div>
+          </li>
+        ))}
+      </ol>
+    </div>
+  </section>
+
+  <!-- ── Le chantier en bref ──────────────────────────────────── -->
+  <section class="section">
+    <div class="conteneur">
+      <div class="section__entete">
+        <h2>Le chantier en bref</h2>
+      </div>
+      <ul class="reno-fiche luce-fiche">
+        {fiche.map((f) => (
+          <li>
+            <span class="reno-fiche__icone" aria-hidden="true">
+              {f.icone === 'pin' && <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>}
+              {f.icone === 'maison' && <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11.5 12 4l9 7.5"/><path d="M5.5 10v10h13V10"/><path d="M10 20v-5h4v5"/></svg>}
+              {f.icone === 'mur' && <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="1.5"/><path d="M3 9.3h18M3 14.7h18M9 4v5.3M15 9.3v5.4M9 14.7V20"/></svg>}
+              {f.icone === 'date' && <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="5" width="17" height="15" rx="2"/><path d="M3.5 10h17M8 3v4M16 3v4"/></svg>}
+            </span>
+            <span class="reno-fiche__txt">
+              <span class="reno-fiche__label">{f.label}</span>
+              <strong>{f.valeur}</strong>
+            </span>
+          </li>
+        ))}
+      </ul>
+      <p class="reno-intro luce-ville">
+        Dans une commune voisine, un autre mur a retrouvé sa couleur après le <a href="/realisations/nettoyage-facade-leves/">nettoyage d'un pignon à Lèves</a>.
+      </p>
+    </div>
+  </section>
+
+  <!-- ── CTA devis ────────────────────────────────────────────── -->
+  <CtaDevis
+    titre="Faites appel à votre couvreur à Luisant"
+    puces={[
+      'Entreprise familiale, père & fils.',
+      "Un travail d'artisan, mené avec exigence et passion.",
+      'Applicateur certifié de solutions Dalep.',
+    ]}
+    texte="Votre façade a verdi ou votre enduit a perdu sa couleur ? Renaud Rénov vous remet un devis gratuit et sans engagement."
+  />
+</BaseLayout>
+
+<style>
+  /* ══ Hero — design de la page d'accueil (repris de index.astro) ══ */
+  .hx { padding-block: clamp(1.6rem, 4vw, 3rem); }
+  .hx__grid {
+    display: grid;
+    gap: 1.6rem;
+    grid-template-columns: 1fr;
+    grid-template-areas: "head" "photo" "body";
+  }
+  @media (min-width: 980px) {
+    .hx__grid {
+      grid-template-columns: 1.05fr 1fr;
+      grid-template-areas: "head photo" "body photo";
+      column-gap: 3.5rem;
+      row-gap: 1.1rem;
+      align-items: center;
+    }
+  }
+  .hx__head { grid-area: head; }
+  .hx__right { grid-area: photo; position: relative; }
+  .hx__right::after {
+    content: "";
+    position: absolute;
+    left: 0; right: 0; bottom: 0;
+    height: 42%;
+    border-radius: 0 0 24px 24px;
+    background: linear-gradient(to top, rgba(15, 34, 45, 0.6), rgba(15, 34, 45, 0));
+    pointer-events: none;
+    z-index: 1;
+  }
+  .hx__body { grid-area: body; }
+  .hx__title { margin: 0; color: var(--bleu); font-size: var(--fs-h1-hero); line-height: 1.2; letter-spacing: -0.01em; }
+  .hx__marque { color: var(--rouge); font-weight: 800; font-size: clamp(1.9rem, 4.4vw, 2.9rem); line-height: 1.1; margin: 0.6rem 0 0; }
+  .hx__photo { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; border-radius: 24px; box-shadow: var(--ombre-forte); display: block; }
+  @media (min-width: 980px) { .hx__photo { aspect-ratio: 4 / 5; } }
+
+  /* Étiquette « Après » sur la photo du hero */
+  .hx__etiquette {
+    position: absolute;
+    top: 1rem; left: 1rem;
+    z-index: 2;
+    padding: 0.35rem 0.85rem;
+    border-radius: 999px;
+    background: var(--rouge);
+    color: var(--blanc);
+    font-size: var(--fs-xs);
+    font-weight: 700;
+  }
+
+  .hx__chapo { color: var(--gris-700); margin: 0 0 1.2rem; max-width: var(--mesure-etroite); }
+  .hx__chapo a { color: var(--rouge-fonce); font-weight: 600; }
+
+  .hx__points { list-style: none; padding: 0; margin: 0.4rem 0 1.2rem; display: grid; gap: 0.9rem; }
+  .hx__points li {
+    display: flex; align-items: center; gap: 0.8rem;
+    font-size: var(--fs-md); font-weight: 600; color: var(--bleu);
+  }
+  .hx__check { color: var(--rouge); flex-shrink: 0; line-height: 0; }
+  .hx__check svg { width: 30px; height: 30px; }
+
+  .hx__note {
+    position: absolute;
+    left: 50%;
+    bottom: 1rem;
+    transform: translateX(-50%);
+    width: max-content;
+    max-width: calc(100% - 1.6rem);
+    display: flex; flex-direction: column; align-items: center; gap: 0.3rem;
+    background: var(--blanc);
+    border-radius: 16px;
+    box-shadow: 0 14px 34px rgba(15, 34, 45, 0.42);
+    padding: 0.8rem 1.5rem;
+    z-index: 2;
+  }
+  .hx__note-top { display: flex; align-items: center; gap: 0.6rem; }
+  .hx__note-stars { display: inline-flex; gap: 0.1em; }
+  .hx__note-stars svg { width: 1.35rem; height: 1.35rem; fill: var(--etoile); }
+  .hx__note-txt { margin: 0; color: var(--gris-700); font-size: var(--fs-base); }
+  .hx__note-txt strong { color: var(--bleu); }
+
+  .hx__badges { display: flex; align-items: center; gap: 1.3rem; flex-wrap: wrap; margin: 0 0 1.6rem; }
+  .hx__badges img { height: 64px; width: auto; }
+
+  .hx__actions { display: flex; flex-wrap: wrap; gap: 0.8rem; }
+  .hx__cta-sub { color: var(--rouge-fonce); font-size: var(--fs-sm); margin: 0.5rem 0 0; }
+
+  @media (max-width: 979px) {
+    .hx__title, .hx__marque { text-align: center; }
+    .hx__chapo { margin-inline: auto; } /* chapô long : reste en drapeau à gauche */
+    .hx__badges, .hx__actions { justify-content: center; }
+    .hx__cta-sub { text-align: center; }
+    .hx__badges img { height: 56px; }
+  }
+
+  /* ══ Fiche chantier (chevauche le hero) ══ */
+  .reno-fiche-wrap { padding-top: 0; padding-bottom: 0; }
+  .reno-fiche-wrap--clair .reno-fiche li { box-shadow: 0 8px 22px rgba(36, 75, 100, 0.09); }
+  .reno-fiche {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    position: relative;
+    z-index: 2;
+    display: grid;
+    gap: 1rem;
+    grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+  }
+  .reno-fiche li {
+    display: flex;
+    align-items: center;
+    gap: 0.9rem;
+    background: #fff;
+    border: 1px solid rgba(36, 75, 100, 0.08);
+    border-radius: 16px;
+    padding: 1.1rem 1.25rem;
+    box-shadow: 0 12px 30px rgba(36, 75, 100, 0.14);
+  }
+  .reno-fiche__icone {
+    flex: 0 0 auto;
+    width: 44px; height: 44px;
+    display: inline-flex; align-items: center; justify-content: center;
+    border-radius: 12px;
+    background: var(--rouge-pale);
+    color: var(--rouge);
+  }
+  .reno-fiche__icone svg { width: 1.4rem; height: 1.4rem; }
+  .reno-fiche__txt { display: flex; flex-direction: column; line-height: 1.3; }
+  .reno-fiche__label { font-size: var(--fs-xs); text-transform: uppercase; letter-spacing: 0.05em; color: var(--gris-500); }
+  .reno-fiche__txt strong { color: var(--bleu); font-size: var(--fs-base); }
+
+  /* ══ Intro de section ══ */
+  .reno-intro {
+    max-width: var(--mesure);
+    margin: 0 auto 1.4rem;
+    /* drapeau à gauche : au-delà de 2 lignes, un texte centré oblige
+       l'œil à rechercher le début de chaque ligne */
+    text-align: left;
+    text-wrap: pretty;
+    color: var(--gris-700);
+  }
+  .reno-intro:last-of-type { margin-bottom: 0; }
+
+  /* ══ Comparateurs avant / après ══ */
+  .reno-compare {
+    display: grid;
+    gap: clamp(1.4rem, 3vw, 2.2rem);
+    margin-top: 2rem;
+  }
+  @media (min-width: 900px) {
+    .reno-compare { grid-template-columns: repeat(2, 1fr); }
+    /* Le premier comparateur occupe toute la largeur : c'est la photo maîtresse. */
+    .reno-compare__item:first-child { grid-column: 1 / -1; }
+  }
+  .reno-compare__item { margin: 0; }
+  .reno-compare figcaption {
+    margin-top: 0.9rem;
+    color: var(--gris-700);
+    font-size: var(--fs-sm);
+    line-height: 1.55;
+  }
+  .reno-compare figcaption strong {
+    display: block;
+    color: var(--bleu);
+    font-size: var(--fs-base);
+    margin-bottom: 0.2rem;
+  }
+
+  /* ══ Déroulé en étapes ══ */
+  .reno-etapes {
+    list-style: none;
+    padding: 0;
+    margin: 2.2rem 0 0;
+    display: grid;
+    gap: 1.2rem;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  }
+  .reno-etape {
+    background: #fff;
+    border-radius: 18px;
+    padding: 1.9rem 1.7rem;
+    box-shadow: 0 10px 28px rgba(36, 75, 100, 0.10);
+  }
+  .reno-etape__num {
+    display: inline-flex;
+    align-items: center; justify-content: center;
+    width: 42px; height: 42px;
+    border-radius: 50%;
+    background: var(--bleu);
+    color: #fff;
+    font-weight: 800;
+    font-size: var(--fs-md);
+    margin-bottom: 1rem;
+  }
+  .reno-etape h3 { margin: 0 0 0.5rem; color: var(--bleu); }
+  .reno-etape p { margin: 0; color: var(--gris-700); }
+
+  /* ══ Encart « particularité du chantier » ══ */
+  .reno-encart {
+    display: grid;
+    gap: clamp(1.5rem, 4vw, 2.6rem);
+    align-items: center;
+    background: #fff;
+    border-radius: 20px;
+    padding: clamp(1.7rem, 4vw, 2.8rem);
+    box-shadow: 0 14px 34px rgba(36, 75, 100, 0.12);
+  }
+  @media (min-width: 900px) {
+    .reno-encart { grid-template-columns: 1.35fr 1fr; }
+  }
+  .reno-encart h2 { margin: 0 0 0.9rem; }
+  .reno-encart p { color: var(--gris-700); margin: 0 0 0.9rem; }
+  .reno-encart p:last-child { margin-bottom: 0; }
+  .reno-encart__liste {
+    list-style: none;
+    margin: 0;
+    padding: clamp(1.2rem, 3vw, 1.6rem);
+    background: var(--bleu-pale);
+    border-radius: 16px;
+    display: grid;
+    gap: 0.85rem;
+  }
+  .reno-encart__liste li {
+    display: flex;
+    gap: 0.6rem;
+    align-items: flex-start;
+    color: var(--bleu);
+    font-weight: 600;
+    line-height: 1.4;
+  }
+  .reno-encart__liste li::before {
+    content: '✓';
+    color: var(--rouge-fonce);
+    font-weight: 800;
+    flex: 0 0 auto;
+  }
+
+  /* ══ Passerelles de maillage ══ */
+  .reno-liens {
+    display: grid;
+    gap: 1.1rem;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    margin-top: 2rem;
+  }
+  .reno-lien {
+    display: block;
+    background: #fff;
+    border: 1px solid var(--gris-200);
+    border-radius: 18px;
+    padding: 1.5rem 1.6rem;
+    text-decoration: none;
+    box-shadow: 0 10px 26px rgba(36, 75, 100, 0.08);
+    transition: transform var(--transition), box-shadow var(--transition), border-color var(--transition);
+  }
+  .reno-lien:hover {
+    transform: translateY(-4px);
+    border-color: transparent;
+    box-shadow: 0 16px 36px rgba(36, 75, 100, 0.16);
+  }
+  .reno-lien strong { display: block; color: var(--bleu); font-size: var(--fs-md); margin-bottom: 0.4rem; }
+  .reno-lien__d { display: block; color: var(--gris-700); font-size: var(--fs-sm); line-height: 1.5; }
+
+  .reno-signature {
+    max-width: var(--mesure-etroite);
+    margin: 2.4rem auto 0;
+    text-align: left;
+    text-wrap: pretty;
+    font-size: var(--fs-md);
+    font-weight: 600;
+    color: var(--bleu);
+  }
+
+  /* ══ Mobile : mêmes règles de centrage que le reste du site ══ */
+  @media (max-width: 800px) {
+    .reno-encart__liste { order: -1; }
+  }
+
+  /* ── Mesure de lecture ────────────────────────────────────────
+     En dessous du seuil où ce bloc passe en deux colonnes, il occupe
+     toute la largeur du conteneur et la ligne dépassait 90 caractères
+     (le confort de lecture s'arrête vers 75). On borne la colonne. */
+  .reno-encart__txt p { max-width: var(--mesure); }
+
+  /* ══ Ajouts propres à la réalisation de Lucé ══ */
+  /* Les quatre constats : photo carrée + légende, 2 colonnes puis 4 */
+  .luce-constats {
+    display: grid; gap: 1.2rem; grid-template-columns: 1fr;
+    margin: 2rem auto 0; max-width: 68rem;
+  }
+  @media (min-width: 620px) { .luce-constats { grid-template-columns: repeat(2, 1fr); } }
+  @media (min-width: 1024px) { .luce-constats { grid-template-columns: repeat(4, 1fr); } }
+  .luce-constat {
+    margin: 0; background: #fff; border-radius: 16px; overflow: hidden;
+    border: 1px solid var(--gris-200); box-shadow: 0 8px 22px rgba(36, 75, 100, 0.08);
+  }
+  .luce-constat img { display: block; width: 100%; aspect-ratio: 1 / 1; object-fit: cover; }
+  .luce-constat figcaption { padding: 1.1rem 1.2rem 1.3rem; }
+  .luce-constat h3 { margin: 0 0 0.4rem; color: var(--bleu); font-size: var(--fs-md); }
+  .luce-constat p { margin: 0; color: var(--gris-700); font-size: var(--fs-sm); line-height: 1.55; }
+
+  /* Photo du liteaunage, entre l'introduction et les étapes */
+  .luce-etape-photo { margin: 2rem auto 0; max-width: 52rem; }
+  .luce-etape-photo img { display: block; width: 100%; height: auto; border-radius: 16px; }
+  .luce-etape-photo figcaption { margin-top: 0.7rem; color: var(--gris-700); font-size: var(--fs-sm); text-align: left; }
+
+  /* Avant / après : paire de photos (pignon) puis comparateur (descente) */
+  .luce-aa { margin: 2rem auto 0; max-width: 56rem; }
+  .luce-aa figcaption { margin-top: 0.8rem; color: var(--gris-700); font-size: var(--fs-sm); line-height: 1.55; text-align: left; }
+  .luce-aa figcaption strong { display: block; color: var(--bleu); font-size: var(--fs-md); margin-bottom: 0.2rem; }
+  .luce-paire { display: grid; gap: 0.8rem; grid-template-columns: repeat(2, 1fr); }
+  .luce-paire__vue { position: relative; }
+  .luce-paire__vue img { display: block; width: 100%; height: auto; border-radius: 16px; }
+  .luce-paire__label {
+    position: absolute; top: 0.7rem; left: 0.7rem; padding: 0.25rem 0.7rem; border-radius: 6px;
+    background: rgba(20, 40, 55, 0.78); color: #fff; font-size: var(--fs-xs); font-weight: 700;
+  }
+
+  /* Trois étapes : une seule rangée sur grand écran */
+  @media (min-width: 900px) {
+    .section .luce-etapes3 { max-width: 68rem; grid-template-columns: repeat(3, 1fr); }
+  }
+
+  /* Photo seule (constat, étape) et comparateur en format portrait */
+  .real-photo { display: block; width: 100%; height: auto; border-radius: 16px; }
+  .luce-aa--portrait { max-width: 30rem; }
+
+  .section .luce-fiche { max-width: 68rem; margin: 2rem auto 0; }
+  .luce-ville { margin-top: 2rem; }
+</style>

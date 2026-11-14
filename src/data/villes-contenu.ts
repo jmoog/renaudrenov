@@ -60,6 +60,20 @@ export interface VilleContenu {
   /* Bloc « Des interventions dans d'autres communes » (comme la page Lucé) :
      communes liées (une page ville existe) puis communes citées sans lien. */
   voisines?: { liees: { slug: string; ancre: string }[]; autres: string[] };
+  /* Formes « à / de + commune » quand l'article se contracte (« au Coudray »,
+     « du Coudray »). Par défaut : « à {nom} », « de {nom} ». */
+  a?: string;
+  de?: string;
+  /* Photo de hero propre à la commune (sinon la photo du véhicule). */
+  hero?: { src: string; srcset: string; largeur: number; hauteur: number; alt: string };
+  /* Portrait et nom de l'artisan sous le H1. */
+  portrait?: boolean;
+  /* Bloc « Quelques réalisations… » : chantiers réels, cartes liées. */
+  realisations?: {
+    h2: string;
+    intro: string;
+    cartes: { titre: string; href: string; image: string; alt: string; texte: string }[];
+  };
   logos?: Marque[]; // jeu de logos spécifique (sinon 4 fabricants par défaut)
   avisOrdre: number;
 }
@@ -549,24 +563,80 @@ export const VILLES_CONTENU: Record<string, VilleContenu> = {
         type: 'gouttiere',
         titre: 'Pose et remplacement de gouttières',
         texte:
-          "Des gouttières bien dimensionnées et bien posées collectent l'eau de pluie et l'éloignent des murs. Pose neuve ou remplacement, en zinc, en aluminium ou en PVC, avec des pentes réglées au cordeau.",
+          "Des gouttières bien dimensionnées et bien posées collectent l'eau de pluie et l'éloignent des murs. Pose neuve ou remplacement, en zinc, en aluminium ou en PVC, avec des pentes réglées pour que l'eau s'évacue.",
       },
     ],
-    ctaTitre: 'Une entreprise de couverture qui intervient à Chartres',
+    ctaTitre: 'Faites appel à votre couvreur à Chartres',
     ctaTexte:
-      "M. Renaud se déplace chez vous à Chartres pour examiner la toiture et poser un diagnostic complet : état de la couverture, zinguerie, points à surveiller. Quinze années d'expérience des travaux de couverture et un savoir-faire d'artisan, restitués dans un devis gratuit et détaillé.",
+      "Votre toiture a besoin d'un démoussage, d'une réparation ou d'une réfection ? Renaud Rénov intervient rapidement à Chartres. Le devis est gratuit et sans engagement.",
     finalH2: 'Faites appel à une entreprise de couverture pour le remplacement de votre toiture',
     finalParas: [
-      "Le remplacement d'une toiture se juge sur pièces : l'état réel de la couverture, celui de la charpente, la manière dont l'eau s'évacue. Avant de parler chantier, Renaud Rénov commence donc toujours par un examen complet du toit. C'est le bénéfice direct de plus de quinze années d'expérience : à Chartres comme ailleurs, je sais distinguer l'usure de surface, qui se traite, de la fin de vie d'une couverture, qui se remplace. Ce premier examen ne coûte rien et n'engage à rien : il donne simplement une base saine pour décider.",
+      "Le remplacement d'une toiture se juge sur pièces : l'état réel de la couverture, celui de la charpente, la manière dont l'eau s'évacue. Avant de parler chantier, Renaud Rénov commence donc toujours par un examen complet du toit. C'est le bénéfice direct de plus de quinze années d'expérience : à Chartres comme ailleurs, je sais distinguer l'usure de surface, qui se traite, de la fin de vie d'une couverture, qui se remplace. À Lucé, cet examen a révélé des liteaux pourris sous des tuiles en apparence saines, et le chantier s'est conclu par la <a href=\"/realisations/renovation-toiture-luce/\">réfection complète d'une couverture en tuiles</a>. Ce premier examen ne coûte rien et n'engage à rien : il donne simplement une base saine pour décider.",
       "Cette expérience s'est construite sur l'entretien, qui reste le cœur du métier : démoussages menés sans brutaliser les matériaux, <a href=\"/traitement-hydrofuge-28/\">traitements hydrofuges</a> appliqués au bon moment, gouttières et descentes maintenues en état. Un client qui entretient son toit avec régularité repousse le remplacement de plusieurs années — et quand l'échéance arrive, elle arrive sans urgence, ce qui permet de choisir sereinement.",
-      "Le remplacement lui-même est une suite d'étapes qui ne souffrent pas l'à-peu-près : dépose et évacuation de l'ancienne couverture, contrôle et reprise éventuelle de la charpente, écran de sous-toiture, liteaunage, pose du nouveau matériau, zinguerie complète. Je conduis ces chantiers à Chartres avec une organisation stricte, du premier jour au contrôle final, et la garantie décennale couvre le résultat. Les abords sont protégés, les gravats évacués, et le chantier laissé propre à chaque fin de journée.",
+      "Une <a href=\"/renovation-toiture-28/\">rénovation de toiture</a> suit des étapes précises : dépose et évacuation de l'ancienne couverture, contrôle et reprise éventuelle de la charpente, écran de sous-toiture, liteaunage, pose du nouveau matériau, zinguerie complète. Je conduis ces chantiers à Chartres avec une organisation stricte, du premier jour au contrôle final, et la garantie décennale couvre le résultat. Les abords sont protégés, les gravats évacués, et le chantier laissé propre à chaque fin de journée.",
       "Le matériau, enfin, se choisit avec ses règles : la tuile plate demande de la pente, la tuile mécanique se pose vite et bien sur les toits qui lui conviennent, l'ardoise rend en décennies de tenue la précision qu'on met à la poser. Et avant tout démarrage, un passage par la réglementation s'impose : refaire certains travaux sur une toiture implique le respect du code de l'urbanisme — plan local d'urbanisme, plan d'occupation des sols — et une déclaration préalable est souvent exigée. Les délais d'instruction se comptent en semaines : intégrez-les à votre calendrier de travaux. Le service urbanisme de la mairie de Chartres vous indiquera les règles propres à votre adresse.",
     ],
     mairieAdresse: 'Hôtel de Ville, place des Halles',
     mairieSite: 'https://www.chartres.fr/',
     voisines: {
-      liees: [{ slug: 'luce', ancre: 'Couvreur à Lucé' }],
-      autres: ['Mainvilliers', 'Luisant', 'Lèves', 'Le Coudray', 'Champhol', 'Barjouville'],
+      liees: [
+        { slug: 'luce', ancre: 'Couvreur à Lucé' },
+        { slug: 'mainvilliers', ancre: 'Couvreur à Mainvilliers' },
+        { slug: 'luisant', ancre: 'Couvreur à Luisant' },
+        { slug: 'leves', ancre: 'Couvreur à Lèves' },
+        { slug: 'le-coudray', ancre: 'Couvreur au Coudray' },
+      ],
+      autres: ['Champhol', 'Barjouville'],
+    },
+    portrait: true,
+    realisations: {
+      h2: 'Quelques réalisations près de Chartres',
+      intro:
+        "Rénovation de toiture, nettoyage et peinture de façades : voici des chantiers que j'ai menés dans les communes voisines de Chartres.",
+      cartes: [
+        {
+          titre: "Rénovation d'une toiture en tuiles à Lucé",
+          href: '/realisations/renovation-toiture-luce/',
+          image: '/images/photos/renovation-toiture-luce-pavillon.webp',
+          alt: "Pavillon de Lucé et sa toiture en tuiles avant la rénovation par Renaud Rénov",
+          texte: "Sous les tuiles, des liteaux pourris et des tuiles fendues : la couverture a été entièrement déposée puis refaite, avec un écran de sous-toiture.",
+        },
+        {
+          titre: "Nettoyage et peinture de façade à Luisant",
+          href: '/realisations/nettoyage-peinture-facade-luisant/',
+          image: '/images/photos/nettoyage-peinture-facade-luisant-carte.webp',
+          alt: "Pignon d'un pavillon à Luisant après nettoyage et peinture de la façade par Renaud Rénov",
+          texte: "Un pignon verdi par les algues, lavé puis repeint : le mur a retrouvé une teinte claire et uniforme.",
+        },
+        {
+          titre: "Nettoyage de façade d'un pavillon à Lèves",
+          href: '/realisations/nettoyage-facade-leves/',
+          image: '/images/photos/nettoyage-facade-leves-carte.webp',
+          alt: "Pignon d'un pavillon à Lèves après nettoyage de la façade par Renaud Rénov",
+          texte: "Un pignon couvert de coulures brunes, rendu à sa teinte jaune d'origine.",
+        },
+        {
+          titre: "Nettoyage de façade d'une salle au Coudray",
+          href: '/realisations/nettoyage-facade-salle-municipale-le-coudray/',
+          image: '/images/photos/nettoyage-facade-salle-municipale-le-coudray-carte.webp',
+          alt: "Façade de l'Espace Gérard Philipe au Coudray après nettoyage par Renaud Rénov",
+          texte: "Les façades noircies d'une salle municipale ont retrouvé leur teinte claire.",
+        },
+        {
+          titre: "Nettoyage d'un mur d'enceinte au Coudray",
+          href: '/realisations/nettoyage-mur-enceinte-parc-le-coudray/',
+          image: '/images/photos/nettoyage-mur-enceinte-parc-le-coudray-carte.webp',
+          alt: "Mur d'enceinte du parc du Gord au Coudray après nettoyage par Renaud Rénov",
+          texte: "Le mur d'un parc public, marqué de coulures rouges et vertes, nettoyé sur toute sa longueur.",
+        },
+        {
+          titre: "Nettoyage de façade d'un pavillon à Lucé",
+          href: '/realisations/nettoyage-facade-luce/',
+          image: '/images/photos/nettoyage-facade-luce-pignon-apres.webp',
+          alt: "Pignon d'un pavillon à Lucé après nettoyage de la façade par Renaud Rénov",
+          texte: "Un pignon terni et une descente de garage noircie : l'enduit et le béton ont retrouvé leur teinte claire.",
+        },
+      ],
     },
     avisOrdre: 4,
   },
@@ -823,5 +893,405 @@ export const VILLES_CONTENU: Record<string, VilleContenu> = {
     mairieAdresse: '69 Grande Rue',
     mairieSite: 'http://www.villehoudan.fr/',
     avisOrdre: 16,
+  },
+
+  // ── LUISANT — ajoutée le 14/11/2026 (règles en vigueur : un seul <strong>
+  //    dans le chapô, un lien par paragraphe, CTA en appel à l'action) ──
+  luisant: {
+    title: "Couvreur à Luisant (28) — Devis gratuit — Renaud Rénov",
+    h1: "Entreprise de couverture à Luisant",
+    metaDesc:
+      "Renaud Rénov, couvreur à Luisant : réparation et rénovation de toiture, démoussage, nettoyage et peinture de façade. ✓ Devis gratuit ✓ 02 34 40 17 61.",
+    chapo:
+      "Une fuite, des tuiles envahies par la mousse, une façade qui a verdi ? Renaud Rénov est votre <strong>couvreur à Luisant</strong> : réparation et rénovation de toiture, démoussage, zinguerie, nettoyage et peinture des façades.",
+    coches: ["Garantie décennale", "Devis gratuit", "Plus de 15 années d'expérience"],
+    servicesH2: "Mes prestations de couvreur à Luisant",
+    cartes: [
+      {
+        type: 'facade',
+        titre: "Nettoyage et peinture de façade",
+        texte:
+          "Un pignon verdi, des coulures sous les fenêtres : je lave vos façades avec des produits adaptés à l'enduit, puis je les repeins si vous le souhaitez. C'est le chantier que j'ai mené sur un pavillon de Luisant.",
+      },
+      {
+        type: 'demoussage',
+        titre: "Démoussage de toiture",
+        texte:
+          "Les mousses retiennent l'eau contre les tuiles et finissent par les rendre poreuses. Je traite votre toiture, je la lave à basse pression et je nettoie les gouttières.",
+      },
+      {
+        type: 'reparation',
+        titre: "Réparation de toiture",
+        texte:
+          "Tuile cassée, faîtage descellé, infiltration au plafond : j'interviens rapidement, je recherche l'origine de la fuite et je remets votre toit hors d'eau.",
+      },
+      {
+        type: 'renovation',
+        titre: "Rénovation de toiture",
+        texte:
+          "Quand la couverture arrive en fin de vie, je la dépose et je la refais : écran de sous-toiture, liteaunage neuf, tuiles ou ardoises neuves, avec la garantie décennale.",
+      },
+      {
+        type: 'zinguerie',
+        titre: "Travaux de zinguerie",
+        texte:
+          "Noues, solins, abergements de cheminée, rives : je répare et je remplace les ouvrages en zinc qui protègent les points sensibles de votre toit.",
+      },
+      {
+        type: 'gouttiere',
+        titre: "Pose de gouttières",
+        texte:
+          "Je pose et je remplace vos gouttières et vos descentes, en zinc, en aluminium ou en PVC, avec des pentes réglées pour que l'eau s'évacue.",
+      },
+    ],
+    ctaTitre: "Faites appel à votre couvreur à Luisant",
+    ctaTexte:
+      "Votre toiture fuit, se couvre de mousse ou arrive en fin de vie ? Renaud Rénov intervient rapidement à Luisant. Le devis est gratuit et sans engagement.",
+    finalH2: "Faites appel à un artisan couvreur pour l'entretien de votre toiture",
+    finalParas: [
+      "Une toiture bien entretenue dure plus longtemps et protège mieux la maison. À Luisant, j'interviens aussi bien sur la couverture que sur les murs : c'est sur un pavillon de la commune que j'ai réalisé le <a href=\"/realisations/nettoyage-peinture-facade-luisant/\">nettoyage et la peinture d'un pignon</a> verdi par les algues. Le même regard s'applique à votre toit : j'examine les tuiles, le faîtage, les rives et la zinguerie, puis je vous explique ce qui doit être fait et ce qui peut attendre.",
+      "L'entretien courant tient en trois gestes : retirer les mousses, vérifier les points sensibles et garder les gouttières dégagées. Après un démoussage, un <a href=\"/traitement-hydrofuge-28/\">traitement hydrofuge</a> aide les tuiles à rester sèches et retarde le retour des mousses. Ces interventions coûtent bien moins cher qu'une réfection et repoussent le moment de remplacer la couverture.",
+      "Quand une réparation s'impose, je recherche d'abord l'origine de la fuite. Une tuile fendue, un solin décollé ou une noue percée se remplacent sans toucher au reste du toit. Si la couverture est usée dans son ensemble, je vous propose une réfection complète, avec un devis détaillé poste par poste et la garantie décennale sur les travaux.",
+      "Avant des travaux qui modifient l'aspect de votre toiture ou de votre façade, renseignez-vous sur les règles d'urbanisme : le plan local d'urbanisme fixe les matériaux et les teintes autorisés, et une déclaration préalable est souvent demandée. Le service urbanisme de la mairie de Luisant vous indiquera les démarches à suivre pour votre adresse.",
+    ],
+    mairieAdresse: "108 avenue Maurice-Maunoury",
+    mairieSite: 'https://www.luisant.fr/',
+    a: "à Luisant",
+    de: "de Luisant",
+    hero: { src: '/images/photos/nettoyage-peinture-facade-luisant-hero.webp', srcset: "/images/photos/nettoyage-peinture-facade-luisant-hero-640.webp 640w, /images/photos/nettoyage-peinture-facade-luisant-hero-960.webp 960w, /images/photos/nettoyage-peinture-facade-luisant-hero.webp 1200w", largeur: 1200, hauteur: 1600, alt: "Pignon d'un pavillon à Luisant après nettoyage et peinture par Renaud Rénov, couvreur à Luisant" },
+    portrait: true,
+    voisines: {
+      liees: [{ slug: 'chartres', ancre: "Couvreur à Chartres" }, { slug: 'luce', ancre: "Couvreur à Lucé" }, { slug: 'le-coudray', ancre: "Couvreur au Coudray" }],
+      autres: ["Barjouville"],
+    },
+    realisations: {
+      h2: "Quelques réalisations à Luisant et aux environs",
+      intro:
+        "Un pignon lavé puis repeint à Luisant, une toiture refaite à Lucé, les façades d'une salle municipale au Coudray : voici des chantiers que j'ai menés près de chez vous.",
+      cartes: [
+        {
+          titre: "Nettoyage et peinture de façade à Luisant",
+          href: '/realisations/nettoyage-peinture-facade-luisant/',
+          image: '/images/photos/nettoyage-peinture-facade-luisant-carte.webp',
+          alt: "Pignon d'un pavillon à Luisant après nettoyage et peinture de la façade par Renaud Rénov",
+          texte: "Un pignon verdi par les algues, lavé puis repeint : le mur a retrouvé une teinte claire et uniforme.",
+        },
+        {
+          titre: "Rénovation d'une toiture en tuiles à Lucé",
+          href: '/realisations/renovation-toiture-luce/',
+          image: '/images/photos/renovation-toiture-luce-pavillon.webp',
+          alt: "Pavillon de Lucé et sa toiture en tuiles avant la rénovation par Renaud Rénov",
+          texte: "Sous les tuiles, des liteaux pourris et des tuiles fendues : la couverture a été entièrement déposée puis refaite.",
+        },
+        {
+          titre: "Nettoyage de façade d'une salle au Coudray",
+          href: '/realisations/nettoyage-facade-salle-municipale-le-coudray/',
+          image: '/images/photos/nettoyage-facade-salle-municipale-le-coudray-carte.webp',
+          alt: "Façade de l'Espace Gérard Philipe au Coudray après nettoyage par Renaud Rénov",
+          texte: "Les façades noircies d'une salle municipale ont retrouvé leur teinte claire.",
+        },
+      ],
+    },
+    avisOrdre: 3,
+  },
+
+  // ── LÈVES — ajoutée le 14/11/2026 (règles en vigueur : un seul <strong>
+  //    dans le chapô, un lien par paragraphe, CTA en appel à l'action) ──
+  leves: {
+    title: "Artisan couvreur à Lèves (28) — Devis gratuit — Renaud Rénov",
+    h1: "Couvreur à Lèves",
+    metaDesc:
+      "M. Renaud, artisan couvreur à Lèves, entretient et répare vos toitures : démoussage, réparation, rénovation, nettoyage de façade. ✓ Devis gratuit.",
+    chapo:
+      "Votre toit a besoin d'une réparation, d'un démoussage ou d'une réfection ? Vos façades sont marquées de coulures ? Renaud Rénov est votre <strong>couvreur à Lèves</strong> pour l'entretien et les travaux de votre toiture et de vos murs.",
+    coches: ["Devis gratuit", "Garantie décennale", "Applicateur de solutions Dalep"],
+    servicesH2: "Mes services de couverture à Lèves",
+    cartes: [
+      {
+        type: 'demoussage',
+        titre: "Nettoyage et démoussage de toiture",
+        texte:
+          "Un toit qui verdit garde l'humidité et s'abîme plus vite. Je détruis les mousses avec un produit professionnel, je lave les tuiles à basse pression et je termine par les gouttières.",
+      },
+      {
+        type: 'facade',
+        titre: "Nettoyage de façade",
+        texte:
+          "Coulures brunes, enduit verdi, terrasse encrassée : je traite et je lave vos murs avec des produits adaptés au support. Un pignon de Lèves a ainsi retrouvé sa teinte d'origine.",
+      },
+      {
+        type: 'renovation',
+        titre: "Rénovation et remplacement de toiture",
+        texte:
+          "Tuiles poreuses, liteaux abîmés, infiltrations qui reviennent : je dépose l'ancienne couverture et je pose un écran, un liteaunage et des tuiles neufs, sous garantie décennale.",
+      },
+      {
+        type: 'reparation',
+        titre: "Réparation de toiture",
+        texte:
+          "Après un coup de vent ou une fuite, j'interviens rapidement : recherche de l'origine de l'infiltration, remplacement des tuiles cassées, reprise du faîtage ou des solins.",
+      },
+      {
+        type: 'gouttiere',
+        titre: "Pose et remplacement de gouttières",
+        texte:
+          "Une gouttière percée ou mal réglée mouille les murs. Je la remplace, en zinc, en aluminium ou en PVC, et je vérifie que l'eau s'écoule jusqu'à la descente.",
+      },
+      {
+        type: 'zinguerie',
+        titre: "Zinguerie",
+        texte:
+          "Noues, chéneaux, solins et entourages de cheminée : je façonne et je pose les pièces en zinc qui rendent votre toit étanche aux endroits sensibles.",
+      },
+    ],
+    ctaTitre: "Contactez votre couvreur à Lèves",
+    ctaTexte:
+      "Des tuiles cassées, de la mousse sur le toit, une façade à nettoyer ? Renaud Rénov intervient rapidement à Lèves. Le devis est gratuit et sans engagement.",
+    finalH2: "Faites appel à un couvreur zingueur pour la réparation de votre toiture",
+    finalParas: [
+      "Une fuite ne prévient pas toujours : une tache au plafond, une tuile glissée après un coup de vent, une gouttière qui déborde. Dans ces situations, je recherche l'origine de l'infiltration avant toute intervention, puis je vous propose la <a href=\"/reparation-toiture-28/\">réparation de toiture</a> adaptée. Remplacer quelques tuiles, refaire un solin ou reprendre un faîtage suffit souvent à remettre le toit hors d'eau.",
+      "À Lèves, j'ai notamment mené, sur un pavillon de la commune, le <a href=\"/realisations/nettoyage-facade-leves/\">nettoyage d'un pignon couvert de coulures brunes</a>, qui a retrouvé sa teinte d'origine. Les murs et la toiture vieillissent ensemble : quand j'interviens sur l'un, j'examine aussi l'autre et je vous signale ce que j'observe.",
+      "La zinguerie mérite la même attention. Noues, solins et abergements de cheminée guident l'eau vers les gouttières ; quand ils se décollent ou se percent, l'eau passe sous les tuiles. Je contrôle ces ouvrages à chaque intervention et je les remplace si nécessaire, en zinc façonné à vos mesures.",
+      "Si vos travaux changent l'aspect extérieur de la maison, comme une couverture d'un autre matériau, une fenêtre de toit ou une façade repeinte dans une autre teinte, ils relèvent du code de l'urbanisme. Le plan local d'urbanisme précise ce qui est autorisé et une déclaration préalable est généralement à déposer. Le service urbanisme de la mairie de Lèves vous renseignera sur les règles qui s'appliquent à votre adresse.",
+    ],
+    mairieAdresse: "4 place de l'Église",
+    mairieSite: 'https://www.leves.fr/',
+    a: "à Lèves",
+    de: "de Lèves",
+    hero: { src: '/images/photos/nettoyage-facade-leves-hero.webp', srcset: "/images/photos/nettoyage-facade-leves-hero-640.webp 640w, /images/photos/nettoyage-facade-leves-hero-960.webp 960w, /images/photos/nettoyage-facade-leves-hero.webp 1200w", largeur: 1200, hauteur: 1600, alt: "Pignon d'un pavillon à Lèves après nettoyage par Renaud Rénov, couvreur à Lèves" },
+    portrait: true,
+    voisines: {
+      liees: [{ slug: 'chartres', ancre: "Couvreur à Chartres" }, { slug: 'mainvilliers', ancre: "Couvreur à Mainvilliers" }],
+      autres: ["Champhol", "Saint-Prest", "Poisvilliers"],
+    },
+    realisations: {
+      h2: "Quelques réalisations à Lèves et aux environs",
+      intro:
+        "Un pignon nettoyé à Lèves, un autre lavé puis repeint à Luisant, le mur d'un parc au Coudray : voici des chantiers que j'ai menés près de chez vous.",
+      cartes: [
+        {
+          titre: "Nettoyage de façade d'un pavillon à Lèves",
+          href: '/realisations/nettoyage-facade-leves/',
+          image: '/images/photos/nettoyage-facade-leves-carte.webp',
+          alt: "Pignon d'un pavillon à Lèves après nettoyage de la façade par Renaud Rénov",
+          texte: "Un pignon couvert de coulures brunes, rendu à sa teinte jaune d'origine.",
+        },
+        {
+          titre: "Nettoyage et peinture de façade à Luisant",
+          href: '/realisations/nettoyage-peinture-facade-luisant/',
+          image: '/images/photos/nettoyage-peinture-facade-luisant-carte.webp',
+          alt: "Pignon d'un pavillon à Luisant après nettoyage et peinture de la façade par Renaud Rénov",
+          texte: "Un pignon verdi par les algues, lavé puis repeint : le mur a retrouvé une teinte claire et uniforme.",
+        },
+        {
+          titre: "Nettoyage d'un mur d'enceinte au Coudray",
+          href: '/realisations/nettoyage-mur-enceinte-parc-le-coudray/',
+          image: '/images/photos/nettoyage-mur-enceinte-parc-le-coudray-carte.webp',
+          alt: "Mur d'enceinte du parc du Gord au Coudray après nettoyage par Renaud Rénov",
+          texte: "Le mur d'un parc public, marqué de coulures rouges et vertes, nettoyé sur toute sa longueur.",
+        },
+      ],
+    },
+    avisOrdre: 6,
+  },
+
+  // ── LE COUDRAY — ajoutée le 14/11/2026 (règles en vigueur : un seul <strong>
+  //    dans le chapô, un lien par paragraphe, CTA en appel à l'action) ──
+  'le-coudray': {
+    title: "Couvreur au Coudray (28) — Devis gratuit — Renaud Rénov",
+    h1: "Artisan couvreur au Coudray",
+    metaDesc:
+      "Renaud Rénov, entreprise de couverture au Coudray : rénovation et réparation de toiture, démoussage, nettoyage de façades et de murs. ✓ 02 34 40 17 61.",
+    chapo:
+      "Vous cherchez un artisan pour refaire votre toiture, réparer une fuite ou nettoyer des murs noircis ? Renaud Rénov est votre <strong>couvreur au Coudray</strong>, pour les particuliers comme pour les bâtiments publics.",
+    coches: ["Garantie décennale", "Tous matériaux de couverture", "Devis gratuit"],
+    servicesH2: "Mes prestations de couvreur au Coudray",
+    cartes: [
+      {
+        type: 'renovation',
+        titre: "Rénovation de toiture",
+        texte:
+          "Une couverture en fin de vie se remplace en une fois : dépose, écran de sous-toiture, liteaux neufs, tuiles ou ardoises neuves. Les travaux sont couverts par la garantie décennale.",
+      },
+      {
+        type: 'facade',
+        titre: "Nettoyage de façades et de murs",
+        texte:
+          "Façades noircies, murs de clôture marqués de coulures : je les traite avec des produits professionnels. Au Coudray, j'ai nettoyé une salle municipale et le mur d'enceinte d'un parc.",
+      },
+      {
+        type: 'reparation',
+        titre: "Réparation de toiture",
+        texte:
+          "Une infiltration ou des tuiles déplacées ? J'interviens rapidement, je trouve d'où vient l'eau et je répare la partie atteinte de la couverture.",
+      },
+      {
+        type: 'demoussage',
+        titre: "Démoussage de toiture",
+        texte:
+          "Mousses, lichens et algues abîment les tuiles. Je les traite, je lave la toiture à basse pression et je peux la protéger ensuite par un hydrofuge.",
+      },
+      {
+        type: 'zinguerie',
+        titre: "Travaux de zinguerie",
+        texte:
+          "Je répare et je remplace les noues, les solins, les rives et les entourages de cheminée en zinc, pour que l'eau reste à l'extérieur de la maison.",
+      },
+      {
+        type: 'gouttiere',
+        titre: "Pose de gouttières",
+        texte:
+          "Gouttières et descentes neuves, en zinc, en aluminium ou en PVC : je les pose avec la pente qui convient et je raccorde l'évacuation.",
+      },
+    ],
+    ctaTitre: "Faites intervenir un couvreur au Coudray",
+    ctaTexte:
+      "Votre toiture est à refaire, fuit ou se couvre de mousse ? Renaud Rénov intervient rapidement au Coudray. Le devis est gratuit et sans engagement.",
+    finalH2: "Faites appel à une entreprise de couverture pour la réfection de votre toiture",
+    finalParas: [
+      "Refaire une toiture commence par un examen complet : l'état des tuiles ou des ardoises, celui des liteaux qui les portent, la zinguerie et l'évacuation de l'eau. C'est cet examen qui permet de choisir entre une réparation et une <a href=\"/renovation-toiture-28/\">rénovation de toiture</a>. Quand la couverture est à remplacer, je dépose l'ancienne, je pose un écran de sous-toiture et un liteaunage neuf, puis les tuiles ou les ardoises neuves.",
+      "Au Coudray, j'ai travaillé sur deux sites publics. Les façades noircies de l'Espace Gérard Philipe ont retrouvé leur teinte claire après un <a href=\"/realisations/nettoyage-facade-salle-municipale-le-coudray/\">nettoyage de façade</a>, et le mur d'enceinte du parc du Gord a été traité sur toute sa longueur. Les mêmes produits et la même méthode s'appliquent aux murs d'une maison.",
+      "Entre deux gros chantiers, l'entretien protège votre couverture. Un démoussage retire les mousses qui retiennent l'eau, et des <a href=\"/pose-gouttiere-28/\">gouttières</a> en bon état éloignent la pluie des murs et des fondations. Je vérifie ces points à chaque passage et je vous signale, photos à l'appui, ce qui mérite d'être repris.",
+      "Pour une réfection qui change le matériau ou la couleur de la couverture, pensez aux règles d'urbanisme. Le plan local d'urbanisme encadre l'aspect des toitures et des façades, et une déclaration préalable est à déposer avant le début des travaux dans la plupart des cas. Le service urbanisme de la mairie du Coudray vous précisera les règles propres à votre terrain.",
+    ],
+    mairieAdresse: "32 rue du Gord",
+    mairieSite: 'https://www.ville-lecoudray28.fr/',
+    a: "au Coudray",
+    de: "du Coudray",
+    hero: { src: '/images/photos/nettoyage-facade-salle-municipale-le-coudray-hero.webp', srcset: "/images/photos/nettoyage-facade-salle-municipale-le-coudray-hero-640.webp 640w, /images/photos/nettoyage-facade-salle-municipale-le-coudray-hero-960.webp 960w, /images/photos/nettoyage-facade-salle-municipale-le-coudray-hero-1280.webp 1280w, /images/photos/nettoyage-facade-salle-municipale-le-coudray-hero.webp 1600w", largeur: 1600, hauteur: 1200, alt: "Façade d'une salle municipale au Coudray après nettoyage par Renaud Rénov, couvreur au Coudray" },
+    portrait: true,
+    voisines: {
+      liees: [{ slug: 'chartres', ancre: "Couvreur à Chartres" }, { slug: 'luisant', ancre: "Couvreur à Luisant" }],
+      autres: ["Barjouville", "Morancez", "Gellainville"],
+    },
+    realisations: {
+      h2: "Quelques réalisations au Coudray et aux environs",
+      intro:
+        "Les façades d'une salle municipale et le mur d'un parc au Coudray, un pignon repeint à Luisant : voici des chantiers que j'ai menés près de chez vous.",
+      cartes: [
+        {
+          titre: "Nettoyage de façade d'une salle au Coudray",
+          href: '/realisations/nettoyage-facade-salle-municipale-le-coudray/',
+          image: '/images/photos/nettoyage-facade-salle-municipale-le-coudray-carte.webp',
+          alt: "Façade de l'Espace Gérard Philipe au Coudray après nettoyage par Renaud Rénov",
+          texte: "Les façades noircies d'une salle municipale ont retrouvé leur teinte claire.",
+        },
+        {
+          titre: "Nettoyage d'un mur d'enceinte au Coudray",
+          href: '/realisations/nettoyage-mur-enceinte-parc-le-coudray/',
+          image: '/images/photos/nettoyage-mur-enceinte-parc-le-coudray-carte.webp',
+          alt: "Mur d'enceinte du parc du Gord au Coudray après nettoyage par Renaud Rénov",
+          texte: "Le mur d'un parc public, marqué de coulures rouges et vertes, nettoyé sur toute sa longueur.",
+        },
+        {
+          titre: "Nettoyage et peinture de façade à Luisant",
+          href: '/realisations/nettoyage-peinture-facade-luisant/',
+          image: '/images/photos/nettoyage-peinture-facade-luisant-carte.webp',
+          alt: "Pignon d'un pavillon à Luisant après nettoyage et peinture de la façade par Renaud Rénov",
+          texte: "Un pignon verdi par les algues, lavé puis repeint : le mur a retrouvé une teinte claire et uniforme.",
+        },
+      ],
+    },
+    avisOrdre: 9,
+  },
+
+  // ── MAINVILLIERS — ajoutée le 14/11/2026 (règles en vigueur : un seul <strong>
+  //    dans le chapô, un lien par paragraphe, CTA en appel à l'action) ──
+  mainvilliers: {
+    title: "Entreprise de couverture à Mainvilliers — Renaud Rénov",
+    h1: "Couvreur zingueur à Mainvilliers",
+    metaDesc:
+      "Renaud Rénov, couvreur zingueur à Mainvilliers : réparation de toiture, zinguerie, démoussage et rénovation de couverture. ✓ Devis gratuit ✓ 02 34 40 17 61.",
+    chapo:
+      "Une infiltration, une gouttière qui déborde, des tuiles à remplacer ? Renaud Rénov est votre <strong>couvreur à Mainvilliers</strong> : réparation et rénovation de toiture, zinguerie, démoussage et nettoyage des façades.",
+    coches: ["Devis gratuit", "Plus de 15 années d'expérience", "Garantie décennale"],
+    servicesH2: "Mes services de couverture à Mainvilliers",
+    cartes: [
+      {
+        type: 'reparation',
+        titre: "Réparation de toiture",
+        texte:
+          "Une tache d'humidité au plafond, une tuile tombée dans le jardin : j'interviens rapidement, je localise la fuite et je remets la couverture en état.",
+      },
+      {
+        type: 'zinguerie',
+        titre: "Zinguerie et travail du zinc",
+        texte:
+          "Noue percée, solin décollé, entourage de cheminée fatigué : je refais ces ouvrages en zinc, façonnés à vos mesures.",
+      },
+      {
+        type: 'demoussage',
+        titre: "Démoussage de toiture",
+        texte:
+          "Je débarrasse votre toit des mousses et des lichens avec un traitement professionnel et un lavage à basse pression, qui ménage la surface des tuiles.",
+      },
+      {
+        type: 'gouttiere',
+        titre: "Pose de gouttières",
+        texte:
+          "Gouttière qui déborde ou qui fuit aux raccords ? Je la remplace et je règle la pente pour que l'eau rejoigne la descente.",
+      },
+      {
+        type: 'renovation',
+        titre: "Rénovation et remplacement de toiture",
+        texte:
+          "Quand les réparations ne suffisent plus, je refais la couverture en entier : dépose, écran de sous-toiture, liteaunage et tuiles neufs, sous garantie décennale.",
+      },
+      {
+        type: 'facade',
+        titre: "Nettoyage de façade",
+        texte:
+          "Enduit verdi, pignon marqué de coulures : je nettoie et je traite vos murs pour leur rendre leur teinte d'origine.",
+      },
+    ],
+    ctaTitre: "Contactez votre couvreur à Mainvilliers",
+    ctaTexte:
+      "Une fuite, une gouttière abîmée ou un toit couvert de mousse ? Renaud Rénov intervient rapidement à Mainvilliers. Le devis est gratuit et sans engagement.",
+    finalH2: "Faites appel à un artisan couvreur pour le remplacement de votre toiture",
+    finalParas: [
+      "Une toiture se remplace quand les réparations ne suffisent plus : tuiles poreuses sur l'ensemble du toit, bois des liteaux abîmé, infiltrations qui reviennent. Dans une commune voisine, c'est en soulevant quelques tuiles que j'ai découvert des liteaux pourris, et le chantier s'est conclu par la <a href=\"/realisations/renovation-toiture-luce/\">rénovation complète d'une toiture à Lucé</a>. Avant de décider, j'examine toujours la couverture et ce qui la porte.",
+      "Les ouvrages en zinc comptent autant que les tuiles. Une noue, un solin ou un abergement de cheminée en mauvais état laisse passer l'eau, même sous une couverture neuve. Les travaux de <a href=\"/zinguerie-28/\">zinguerie</a> font partie de mon métier : je façonne et je pose ces pièces à vos mesures, en réparation comme lors d'une réfection.",
+      "L'entretien évite bien des travaux. Je démousse les toitures avec des produits professionnels, à basse pression, et je contrôle au passage les tuiles, le faîtage et les gouttières. Un toit suivi régulièrement vieillit mieux, et les défauts sont repris tant qu'ils sont petits.",
+      "Le remplacement d'une couverture par un matériau ou une teinte différents est soumis au code de l'urbanisme. Le plan local d'urbanisme de la commune fixe les règles à respecter et une déclaration préalable est le plus souvent nécessaire. Le service urbanisme de la mairie de Mainvilliers vous indiquera les pièces à fournir.",
+    ],
+    mairieAdresse: "Hôtel de Ville, place du Marché",
+    mairieSite: 'https://www.ville-mainvilliers.fr/',
+    a: "à Mainvilliers",
+    de: "de Mainvilliers",
+    hero: { src: '/images/photos/couvreur-mainvilliers-pavillon.webp', srcset: "/images/photos/couvreur-mainvilliers-pavillon-640.webp 640w, /images/photos/couvreur-mainvilliers-pavillon-960.webp 960w, /images/photos/couvreur-mainvilliers-pavillon-1280.webp 1280w, /images/photos/couvreur-mainvilliers-pavillon.webp 1600w", largeur: 1600, hauteur: 1200, alt: "Pavillon à Mainvilliers sur lequel Renaud Rénov, couvreur à Mainvilliers, est intervenu" },
+    portrait: true,
+    voisines: {
+      liees: [{ slug: 'luce', ancre: "Couvreur à Lucé" }, { slug: 'chartres', ancre: "Couvreur à Chartres" }, { slug: 'leves', ancre: "Couvreur à Lèves" }],
+      autres: ["Amilly", "Bailleau-l'Évêque"],
+    },
+    realisations: {
+      h2: "Quelques réalisations près de Mainvilliers",
+      intro:
+        "Une toiture refaite à Lucé, un pignon nettoyé à Lèves, une façade remise au propre à Lucé : voici des chantiers que j'ai menés dans les communes voisines.",
+      cartes: [
+        {
+          titre: "Rénovation d'une toiture en tuiles à Lucé",
+          href: '/realisations/renovation-toiture-luce/',
+          image: '/images/photos/renovation-toiture-luce-pavillon.webp',
+          alt: "Pavillon de Lucé et sa toiture en tuiles avant la rénovation par Renaud Rénov",
+          texte: "Sous les tuiles, des liteaux pourris et des tuiles fendues : la couverture a été entièrement déposée puis refaite.",
+        },
+        {
+          titre: "Nettoyage de façade d'un pavillon à Lèves",
+          href: '/realisations/nettoyage-facade-leves/',
+          image: '/images/photos/nettoyage-facade-leves-carte.webp',
+          alt: "Pignon d'un pavillon à Lèves après nettoyage de la façade par Renaud Rénov",
+          texte: "Un pignon couvert de coulures brunes, rendu à sa teinte jaune d'origine.",
+        },
+        {
+          titre: "Nettoyage de façade d'un pavillon à Lucé",
+          href: '/realisations/nettoyage-facade-luce/',
+          image: '/images/photos/nettoyage-facade-luce-pignon-apres.webp',
+          alt: "Pignon d'un pavillon à Lucé après nettoyage de la façade par Renaud Rénov",
+          texte: "Un pignon terni et une descente de garage noircie ont retrouvé leur teinte claire.",
+        },
+      ],
+    },
+    avisOrdre: 12,
   },
 };

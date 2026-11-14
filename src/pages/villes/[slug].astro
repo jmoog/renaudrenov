@@ -21,6 +21,7 @@ import { ZONES_SERVIES, commune, cataloguePrestations } from '../../lib/schema.t
 import services from '../../data/services.json';
 import villes from '../../data/villes.json';
 import { VILLES_CONTENU } from '../../data/villes-contenu.ts';
+import { villeNettoyageParSlug } from '../../data/villes-nettoyage.ts';
 import FilAriane from '../../components/FilAriane.astro';
 import AvisCarrousel from '../../components/AvisCarrousel.astro';
 import CtaDevis from '../../components/CtaDevis.astro';
@@ -37,6 +38,11 @@ export function getStaticPaths() {
 
 const { nom, cp, contenu } = Astro.props;
 const { slug } = Astro.params;
+// « à Chartres » / « au Coudray », « de Chartres » / « du Coudray »
+const aVille = contenu.a ?? `à ${nom}`;
+const deVille = contenu.de ?? `de ${nom}`;
+// La commune a-t-elle sa page démoussage /nettoyage-toiture-{slug}/ ?
+const aSatellite = !!villeNettoyageParSlug(slug);
 
 // ── Les 6 cards de services : visuel + lien par type. L'ordre et les
 // textes viennent des données de la commune (villes-contenu.ts). ──
@@ -44,7 +50,7 @@ const CARTES_BASE: Record<string, { image: string; alt: string; href: string }> 
   demoussage: {
     image: '/images/photos/nettoyage-demoussage-toiture.webp',
     alt: 'Artisan Renaud Rénov nettoyant une toiture au jet en Eure-et-Loir',
-    href: `/nettoyage-toiture-${slug}/`,
+    href: aSatellite ? `/nettoyage-toiture-${slug}/` : '/nettoyage-toiture-28/',
   },
   renovation: {
     image: '/images/photos/renovation-toiture.webp',
@@ -87,14 +93,14 @@ const marquesVille = contenu.logos ?? [
 // dans un script séparé : Google n'avait aucune garantie de fusion.
 const enrichissement = {
   areaServed: [...ZONES_SERVIES, commune(nom, cp)],
-  hasOfferCatalog: cataloguePrestations(`à ${nom}`, slug),
+  hasOfferCatalog: cataloguePrestations(aVille, aSatellite ? slug : undefined),
 };
 ---
 <BaseLayout title={contenu.title} description={contenu.metaDesc} enrichissementEntreprise={enrichissement}>
   <!-- ── Fil d'Ariane ─────────────────────────────────────────── -->
   <section class="section section--sans-bas">
     <div class="conteneur">
-      <FilAriane items={[{ label: 'Accueil', href: '/' }, { label: `Couvreur à ${nom}` }]} />
+      <FilAriane items={[{ label: 'Accueil', href: '/' }, { label: `Couvreur ${aVille}` }]} />
     </div>
   </section>
 
@@ -104,18 +110,24 @@ const enrichissement = {
       <div class="hx__head">
         <h1 class="hx__title">{contenu.h1}</h1>
         <p class="hx__marque">RENAUD RÉNOV</p>
+        {contenu.portrait && (
+          <p class="hx__artisan">
+            <img src="/images/photos/jordy-renaud-artisan-couvreur.webp" alt={`Jordy Renaud, artisan couvreur ${aVille}`} width="240" height="240" />
+            <span><strong>Jordy Renaud</strong>Artisan couvreur</span>
+          </p>
+        )}
       </div>
 
       <div class="hx__right">
         <img
           class="hx__photo"
-          src="/images/photos/hero-renaud-renov.webp"
-          srcset="/images/photos/hero-renaud-renov-640.webp 640w, /images/photos/hero-renaud-renov-960.webp 960w, /images/photos/hero-renaud-renov-1280.webp 1280w, /images/photos/hero-renaud-renov.webp 1600w"
+          src={contenu.hero?.src ?? '/images/photos/hero-renaud-renov.webp'}
+          srcset={contenu.hero?.srcset ?? '/images/photos/hero-renaud-renov-640.webp 640w, /images/photos/hero-renaud-renov-960.webp 960w, /images/photos/hero-renaud-renov-1280.webp 1280w, /images/photos/hero-renaud-renov.webp 1600w'}
           sizes="(min-width: 980px) 46vw, calc(100vw - 2rem)"
-          alt={`Le véhicule de Renaud Rénov devant une maison et sa toiture en tuiles, couvreur à ${nom}`}
+          alt={contenu.hero?.alt ?? `Le véhicule de Renaud Rénov devant une maison et sa toiture en tuiles, couvreur ${aVille}`}
           fetchpriority="high"
-          width="1600"
-          height="1200"
+          width={contenu.hero?.largeur ?? 1600}
+          height={contenu.hero?.hauteur ?? 1200}
         />
         <div class="hx__note">
           <div class="hx__note-top">
@@ -182,10 +194,31 @@ const enrichissement = {
   </section>
 
   <!-- ── Avis clients ─────────────────────────────────────────── -->
-  <AvisCarrousel lieu={`à ${nom}`} ordre={contenu.avisOrdre} titre={`Ce que pensent mes clients à ${nom}`} />
+  <AvisCarrousel lieu={aVille} ordre={contenu.avisOrdre} titre={`Ce que pensent mes clients ${aVille}`} />
 
   <!-- ── CTA photo ────────────────────────────────────────────── -->
   <CtaDevis titre={contenu.ctaTitre} texte={contenu.ctaTexte} />
+
+  <!-- ── Réalisations proches (si renseignées dans villes-contenu.ts) ── -->
+  {contenu.realisations && (
+    <section class="section section--gris">
+      <div class="conteneur">
+        <h2>{contenu.realisations.h2}</h2>
+        <p class="bloc-intro">{contenu.realisations.intro}</p>
+        <div class="grille-realisations">
+          {contenu.realisations.cartes.map((r) => (
+            <article class="carte carte-service carte-lien">
+              <img src={r.image} alt={r.alt} loading="lazy" width="800" height="500" />
+              <div class="carte-service__corps">
+                <h3><a href={r.href}>{r.titre}</a></h3>
+                <p>{r.texte}</p>
+              </div>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+  )}
 
   <!-- ── Section longue : savoir-faire + urbanisme + mairie ───── -->
   <section class="section">
@@ -204,11 +237,11 @@ const enrichissement = {
         <div class="mairie-encart__corps">
           <p class="mairie-encart__invite">
             Avant d'engager des travaux qui modifient l'aspect de votre toiture, renseignez-vous
-            auprès du service urbanisme de la <strong>mairie de {nom}</strong> :
+            auprès du service urbanisme de la <strong>mairie {deVille}</strong> :
           </p>
           <address class="mairie-encart__adresse">{contenu.mairieAdresse}, {cp} {nom}</address>
           <a href={contenu.mairieSite} rel="noopener nofollow" target="_blank" class="btn btn--bleu">
-            Site de la mairie de {nom}
+            Site de la mairie {deVille}
           </a>
         </div>
       </div>
@@ -218,8 +251,8 @@ const enrichissement = {
   <!-- ── Marques & fournisseurs ───────────────────────────────── -->
   <LogosMarques
     marques={marquesVille}
-    titre={`Des matériaux de qualité pour vos toitures à ${nom}`}
-    intro={`Pour vos travaux de toiture à ${nom}, je sélectionne des matériaux de fabricants reconnus, gage d'une couverture durable.`}
+    titre={`Des matériaux de qualité pour vos toitures ${aVille}`}
+    intro={`Pour vos travaux de toiture ${aVille}, je sélectionne des matériaux de fabricants reconnus, gage d'une couverture durable.`}
   />
 
   <!-- ── Communes voisines (si renseignées dans villes-contenu.ts) ── -->
@@ -241,6 +274,21 @@ const enrichissement = {
 </BaseLayout>
 
 <style>
+  /* Portrait de l'artisan sous le H1 (même rendu que la page Lucé) */
+  .hx__artisan { display: flex; align-items: center; gap: 0.85rem; margin: 1.1rem 0 0; }
+  .hx__artisan img { width: 64px; height: 64px; border-radius: 50%; object-fit: cover; flex: none; }
+  .hx__artisan span { display: flex; flex-direction: column; line-height: 1.3; color: var(--gris-700); font-size: var(--fs-sm); }
+  .hx__artisan strong { color: var(--bleu); font-size: var(--fs-base); }
+  @media (max-width: 979px) { .hx__artisan { justify-content: center; } }
+  /* Bloc réalisations : cartes liées par le titre, 1 / 2 / 3 colonnes */
+  .carte-lien { position: relative; }
+  .carte-lien h3 a { color: inherit; text-decoration: none; }
+  .carte-lien h3 a::after { content: ""; position: absolute; inset: 0; }
+  .bloc-intro { max-width: var(--mesure); margin: 0.75rem auto 0; color: var(--gris-700); text-align: center; }
+  @media (max-width: 700px) { .bloc-intro { text-align: left; } }
+  .grille-realisations { display: grid; gap: 1.5rem; grid-template-columns: 1fr; margin: 2rem auto 0; max-width: 68rem; }
+  @media (min-width: 700px) { .grille-realisations { grid-template-columns: repeat(2, 1fr); } }
+  @media (min-width: 1024px) { .grille-realisations { grid-template-columns: repeat(3, 1fr); } }
   /* Communes voisines : nuage centré (même rendu que la page Lucé) */
   .section .voisines {
     display: flex; flex-wrap: wrap; justify-content: center; gap: 0.6rem;

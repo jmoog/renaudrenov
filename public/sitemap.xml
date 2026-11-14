@@ -169,6 +169,30 @@
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://renaud-renov.fr/realisations/nettoyage-peinture-facade-luisant/</loc>
+    <lastmod>2026-11-14</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://renaud-renov.fr/realisations/nettoyage-facade-leves/</loc>
+    <lastmod>2026-11-14</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://renaud-renov.fr/realisations/nettoyage-facade-salle-municipale-le-coudray/</loc>
+    <lastmod>2026-11-14</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://renaud-renov.fr/realisations/nettoyage-mur-enceinte-parc-le-coudray/</loc>
+    <lastmod>2026-11-14</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://renaud-renov.fr/realisations/nettoyage-facade-haras-guainville/</loc>
     <lastmod>2026-07-27</lastmod>
     <changefreq>monthly</changefreq>
@@ -201,6 +225,30 @@
   <url><loc>https://renaud-renov.fr/villes/bouglainval/</loc><lastmod>2026-08-14</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
   <url><loc>https://renaud-renov.fr/villes/chartres/</loc><lastmod>2026-08-14</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
   <url><loc>https://renaud-renov.fr/villes/luce/</loc><lastmod>2026-11-14</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url>
+    <loc>https://renaud-renov.fr/villes/luisant/</loc>
+    <lastmod>2026-11-14</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://renaud-renov.fr/villes/leves/</loc>
+    <lastmod>2026-11-14</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://renaud-renov.fr/villes/le-coudray/</loc>
+    <lastmod>2026-11-14</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://renaud-renov.fr/villes/mainvilliers/</loc>
+    <lastmod>2026-11-14</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
   <url><loc>https://renaud-renov.fr/villes/dreux/</loc><lastmod>2026-08-14</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
   <url><loc>https://renaud-renov.fr/villes/auneau/</loc><lastmod>2026-08-14</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
   <url><loc>https://renaud-renov.fr/villes/rambouillet/</loc><lastmod>2026-08-14</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
