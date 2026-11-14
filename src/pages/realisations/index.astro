@@ -8,7 +8,7 @@ import CtaDevis from '../../components/CtaDevis.astro';
 // Title → le mot-clé + le département ; H1 → la promesse ; Meta → la preuve concrète.
 const title = 'Réalisations : chantiers de couverture en Eure-et-Loir | Renaud Rénov';
 const description =
-  "Toitures démoussées, façades ravivées : chaque chantier est documenté avec ses photos avant / après et le détail de l'intervention, commune par commune.";
+  "Toitures refaites ou démoussées, zinguerie, façades ravivées : chaque chantier est documenté avec ses photos avant / après et le détail de l'intervention, commune par commune.";
 
 const pageUrl = `${SITE.url}/realisations/`;
 
@@ -74,6 +74,86 @@ const realisations = [
       "Le mur d'enceinte du parc du Gord, marqué de coulures rouges et vertes, nettoyé sur toute sa longueur côté rue.",
     img: '/images/photos/nettoyage-mur-enceinte-parc-le-coudray-hero-640.webp',
     alt: "Mur d'enceinte du parc du Gord au Coudray après nettoyage par Renaud Rénov",
+  },
+  {
+    href: '/realisations/renovation-toiture-poigny-la-foret/',
+    titre: "Rénovation de toiture à Poigny-la-Forêt",
+    commune: 'Poigny-la-Forêt (78)',
+    service: 'Rénovation de toiture',
+    resume:
+      "Une couverture moussue déposée jusqu'à la charpente, puis refaite avec des liteaux et des tuiles neufs.",
+    img: '/images/photos/renovation-toiture-poigny-la-foret-carte.webp',
+    alt: "Maison de Poigny-la-Forêt et sa toiture en tuiles neuves après la rénovation par Renaud Rénov",
+  },
+  {
+    href: '/realisations/couverture-bac-acier-villiers-le-morhier/',
+    titre: "Rénovation de toiture à Villiers-le-Morhier",
+    commune: 'Villiers-le-Morhier (28)',
+    service: 'Rénovation de toiture',
+    resume:
+      "Le toit d'une annexe entièrement refait : écran de sous-toiture, liteaux neufs et couverture en bac acier.",
+    img: '/images/photos/couverture-bac-acier-villiers-le-morhier-carte.webp',
+    alt: "Couverture neuve en bac acier sur une annexe à Villiers-le-Morhier, posée par Renaud Rénov",
+  },
+  {
+    href: '/realisations/refection-faitage-pierres/',
+    titre: "Réfection du faîtage d'une toiture à Pierres",
+    commune: 'Pierres (28)',
+    service: 'Réparation de toiture',
+    resume:
+      "Un faîtage ouvert sur toute sa longueur, puis refermé avec un closoir ventilé et des faîtières neuves vissées.",
+    img: '/images/photos/refection-faitage-pierres-carte.webp',
+    alt: "Faîtage neuf sur une toiture en tuiles à Pierres après la réfection par Renaud Rénov",
+  },
+  {
+    href: '/realisations/reparation-cheminee-saint-piat/',
+    titre: "Réparation d'une cheminée à Saint-Piat",
+    commune: 'Saint-Piat (28)',
+    service: 'Réparation de toiture',
+    resume:
+      "Un dessus de cheminée noirci et fissuré, remplacé par un chapeau neuf qui abrite le conduit.",
+    img: '/images/photos/reparation-cheminee-saint-piat-carte.webp',
+    alt: "Chapeau de cheminée neuf sur une toiture en tuiles à Saint-Piat, posé par Renaud Rénov",
+  },
+  {
+    href: '/realisations/zinguerie-aretier-ardoise-epernon/',
+    titre: "Zinguerie sur une toiture en ardoise à Épernon",
+    commune: 'Épernon (28)',
+    service: 'Zinguerie',
+    resume:
+      "Un arêtier habillé de zinc de la gouttière jusqu'au sommet, terminé par un épi de faîtage.",
+    img: '/images/photos/zinguerie-aretier-ardoise-epernon-carte.webp',
+    alt: "Arêtier habillé de zinc et épi de faîtage sur une toiture en ardoise à Épernon, réalisés par Renaud Rénov",
+  },
+  {
+    href: '/realisations/habillage-rive-zinc-hanches/',
+    titre: "Habillage d'une rive de toit en zinc à Hanches",
+    commune: 'Hanches (28)',
+    service: 'Zinguerie',
+    resume:
+      "Le bord d'un toit en tuiles repris : bandeau habillé de zinc, puis tuiles de rive neuves.",
+    img: '/images/photos/habillage-rive-zinc-hanches-carte.webp',
+    alt: "Rive de toit refaite en zinc et tuiles de rive sur une annexe à Hanches par Renaud Rénov",
+  },
+  {
+    href: '/realisations/demoussage-toiture-bouglainval/',
+    titre: "Démoussage de toiture à Bouglainval",
+    commune: 'Bouglainval (28)',
+    service: 'Démoussage de toiture',
+    resume:
+      "Une couverture verdie par la mousse sous les arbres, lavée pan par pan : les tuiles ont retrouvé leur teinte brune.",
+    img: '/images/photos/demoussage-toiture-bouglainval-carte.webp',
+    alt: "Toiture en tuiles d'une maison à Bouglainval après démoussage par Renaud Rénov",
+  },
+  {
+    href: '/realisations/nettoyage-toiture-tremblay-les-villages/',
+    titre: "Nettoyage de toiture à Tremblay-les-Villages",
+    commune: 'Tremblay-les-Villages (28)',
+    service: 'Nettoyage de toiture',
+    resume:
+      "Une couverture devenue presque noire : tuiles lavées, faîtage refait, puis toit remis en couleur.",
+    img: '/images/photos/nettoyage-toiture-tremblay-les-villages-carte.webp',
+    alt: "Toiture d'un pavillon à Tremblay-les-Villages après nettoyage et remise en couleur par Renaud Rénov",
   },
   {
     href: '/realisations/nettoyage-facade-haras-guainville/',

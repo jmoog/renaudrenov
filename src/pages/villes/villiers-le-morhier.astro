@@ -252,6 +252,37 @@ const enrichissement = {
     texte="Installé dans la commune, M. Renaud se déplace chez vous en quelques minutes pour examiner votre toiture et vous donner un avis d'artisan : ce qui presse, ce qui peut attendre. Quinze années d'expérience des travaux de couverture, un savoir-faire familial et un devis gratuit, sans engagement."
   />
 
+  <!-- ── Réalisations proches ─────────────────────────────────── -->
+  <section class="section section--gris">
+    <div class="conteneur">
+      <h2>Quelques réalisations à Villiers-le-Morhier et aux alentours</h2>
+      <p class="bloc-intro">Un toit d'annexe refait à Villiers-le-Morhier, un faîtage refait à Pierres, une toiture démoussée à Maintenon : voici des chantiers que j'ai menés à Villiers-le-Morhier et dans les communes voisines.</p>
+      <div class="grille-realisations">
+          <article class="carte carte-service carte-lien">
+            <img src="/images/photos/couverture-bac-acier-villiers-le-morhier-carte.webp" alt="Couverture neuve en bac acier sur une annexe à Villiers-le-Morhier, posée par Renaud Rénov" loading="lazy" width="800" height="500" />
+            <div class="carte-service__corps">
+              <h3><a href="/realisations/couverture-bac-acier-villiers-le-morhier/">Rénovation de toiture à Villiers-le-Morhier</a></h3>
+              <p>Le toit d'une annexe entièrement refait : écran de sous-toiture, liteaux neufs et couverture en bac acier.</p>
+            </div>
+          </article>
+          <article class="carte carte-service carte-lien">
+            <img src="/images/photos/refection-faitage-pierres-carte.webp" alt="Faîtage neuf sur une toiture en tuiles à Pierres après la réfection par Renaud Rénov" loading="lazy" width="800" height="500" />
+            <div class="carte-service__corps">
+              <h3><a href="/realisations/refection-faitage-pierres/">Réfection du faîtage d'une toiture à Pierres</a></h3>
+              <p>Un faîtage ouvert sur toute sa longueur, puis refermé avec un closoir ventilé et des faîtières neuves vissées.</p>
+            </div>
+          </article>
+          <article class="carte carte-service carte-lien">
+            <img src="/images/photos/demoussage-toiture-maintenon-apres.webp" alt="Toiture en tuiles propre et démoussée par Renaud Rénov à Maintenon" loading="lazy" width="800" height="500" />
+            <div class="carte-service__corps">
+              <h3><a href="/realisations/demoussage-toiture-maintenon/">Démoussage d'une toiture à Maintenon</a></h3>
+              <p>Une couverture en tuiles gagnée par le vert et les traînées sombres, redevenue nette après le démoussage.</p>
+            </div>
+          </article>
+      </div>
+    </div>
+  </section>
+
   <!-- ── Section longue : savoir-faire + urbanisme + mairie ───── -->
   <section class="section">
     <div class="conteneur">
@@ -317,6 +348,16 @@ const enrichissement = {
 </BaseLayout>
 
 <style>
+  /* Bloc réalisations : cartes liées par le titre, 1 / 2 / 3 colonnes */
+  .carte-lien { position: relative; }
+  .carte-lien h3 a { color: inherit; text-decoration: none; }
+  .carte-lien h3 a::after { content: ""; position: absolute; inset: 0; }
+  .bloc-intro { max-width: var(--mesure); margin: 0.75rem auto 0; color: var(--gris-700); text-align: center; }
+  @media (max-width: 700px) { .bloc-intro { text-align: left; } }
+  .grille-realisations { display: grid; gap: 1.5rem; grid-template-columns: 1fr; margin: 2rem auto 0; max-width: 68rem; }
+  @media (min-width: 700px) { .grille-realisations { grid-template-columns: repeat(2, 1fr); } }
+  @media (min-width: 1024px) { .grille-realisations { grid-template-columns: repeat(3, 1fr); } }
+
   /* ══ Hero — design de la page d'accueil (repris de index.astro) ══ */
   .hx { padding-block: clamp(1.6rem, 4vw, 3rem); }
   .hx__grid {

@@ -11,9 +11,9 @@ import { VILLES_NETTOYAGE } from '../data/villes-nettoyage.ts';
 // ── Balises différenciées (règle anti-triplette du projet) ──────────────
 // Title → l'intitulé attendu + la marque ; H1 → la promesse de lecture ;
 // Meta → l'inventaire concret de ce qu'on trouve sur la page.
-const title = 'Plan du site : toutes les pages — Renaud Rénov, couvreur 28';
+const title = 'Plan du site — Renaud Rénov, couvreur en Eure-et-Loir (28)';
 const description =
-  "Prestations de toiture, communes couvertes, chantiers photographiés, devis et mentions légales : chaque page publiée par Renaud Rénov, classée par rubrique.";
+  "Plan du site de Renaud Rénov, artisan couvreur à Villiers-le-Morhier : prestations de toiture et de façade, villes d'intervention, réalisations et coordonnées.";
 
 // ── Le nettoyage de façade n'est pas dans services.json (pilier à plat) :
 // on l'ajoute en fin de liste pour que la rubrique soit complète. ──────
@@ -27,7 +27,7 @@ const prestations = [
   },
 ];
 
-// ── Les chantiers documentés (miroir de /realisations/) ────────────────
+// ── Les réalisations (miroir de /realisations/) ────────────────────────
 const realisations = [
   {
     href: '/realisations/renovation-toiture-luce/',
@@ -60,6 +60,46 @@ const realisations = [
     resume: "Mur d'un parc public marqué de coulures, photos avant / après.",
   },
   {
+    href: '/realisations/renovation-toiture-poigny-la-foret/',
+    titre: "Rénovation de toiture à Poigny-la-Forêt",
+    resume: "Une couverture moussue déposée jusqu'à la charpente, puis refaite avec des liteaux et des tuiles neufs.",
+  },
+  {
+    href: '/realisations/couverture-bac-acier-villiers-le-morhier/',
+    titre: "Rénovation de toiture à Villiers-le-Morhier",
+    resume: "Le toit d'une annexe entièrement refait : écran de sous-toiture, liteaux neufs et couverture en bac acier.",
+  },
+  {
+    href: '/realisations/refection-faitage-pierres/',
+    titre: "Réfection du faîtage d'une toiture à Pierres",
+    resume: "Un faîtage ouvert sur toute sa longueur, puis refermé avec un closoir ventilé et des faîtières neuves vissées.",
+  },
+  {
+    href: '/realisations/reparation-cheminee-saint-piat/',
+    titre: "Réparation d'une cheminée à Saint-Piat",
+    resume: "Un dessus de cheminée noirci et fissuré, remplacé par un chapeau neuf qui abrite le conduit.",
+  },
+  {
+    href: '/realisations/zinguerie-aretier-ardoise-epernon/',
+    titre: "Zinguerie sur une toiture en ardoise à Épernon",
+    resume: "Un arêtier habillé de zinc de la gouttière jusqu'au sommet, terminé par un épi de faîtage.",
+  },
+  {
+    href: '/realisations/habillage-rive-zinc-hanches/',
+    titre: "Habillage d'une rive de toit en zinc à Hanches",
+    resume: "Le bord d'un toit en tuiles repris : bandeau habillé de zinc, puis tuiles de rive neuves.",
+  },
+  {
+    href: '/realisations/demoussage-toiture-bouglainval/',
+    titre: "Démoussage de toiture à Bouglainval",
+    resume: "Une couverture verdie par la mousse sous les arbres, lavée pan par pan : les tuiles ont retrouvé leur teinte brune.",
+  },
+  {
+    href: '/realisations/nettoyage-toiture-tremblay-les-villages/',
+    titre: "Nettoyage de toiture à Tremblay-les-Villages",
+    resume: "Une couverture devenue presque noire : tuiles lavées, faîtage refait, puis toit remis en couleur.",
+  },
+  {
     href: '/realisations/nettoyage-facade-haras-guainville/',
     titre: "Nettoyage de façade d'un haras à Guainville",
     resume: "Trois façades d'un centre équestre débarrassées des mousses et des coulures, sans toucher à l'enduit.",
@@ -74,10 +114,10 @@ const realisations = [
 // ── Sommaire d'ancres de l'en-tête ─────────────────────────────────────
 const sommaire = [
   { href: '#prestations', label: 'Prestations' },
-  { href: '#nettoyage-communes', label: 'Nettoyage par commune' },
-  { href: '#zone', label: "Zone d'intervention" },
+  { href: '#nettoyage-communes', label: 'Démoussage par ville' },
+  { href: '#zone', label: "Villes d'intervention" },
   { href: '#realisations', label: 'Réalisations' },
-  { href: '#pratique', label: 'Infos pratiques' },
+  { href: '#pratique', label: 'Contact' },
 ];
 ---
 <BaseLayout title={title} description={description} typePage="CollectionPage">
@@ -85,12 +125,10 @@ const sommaire = [
   <section class="plan-entete">
     <div class="conteneur">
       <FilAriane items={[{ label: 'Accueil', href: '/' }, { label: 'Plan du site' }]} />
-      <p class="plan-entete__sur">Renaud Rénov — Couvreur en {SITE.departement}</p>
-      <h1>Toutes les pages du site, rubrique par rubrique</h1>
+      <h1>Plan du site de Renaud Rénov</h1>
       <p class="plan-entete__intro">
-        Vous cherchez une prestation précise, la page de votre commune ou un chantier déjà réalisé&nbsp;?
-        Tout est rassemblé ici&nbsp;: sept prestations détaillées, dix-neuf communes suivies, mes
-        réalisations en photos et les pages pour me joindre.
+        Retrouvez ici mes prestations de couvreur, les villes d'{SITE.departement} et des Yvelines
+        où j'interviens, mes réalisations récentes et mes coordonnées.
       </p>
       <nav class="plan-sommaire" aria-label="Sommaire de la page">
         {sommaire.map((s) => (
@@ -103,10 +141,10 @@ const sommaire = [
   <!-- ── 1. Prestations ──────────────────────────────────────── -->
   <section class="section" id="prestations">
     <div class="conteneur">
-      <h2>Ce que je fais sur un toit et sur une façade</h2>
+      <h2>Mes prestations de couvreur en {SITE.departement}</h2>
       <p>
-        Six prestations de couverture et le nettoyage de façade. Chaque page décrit le déroulé de
-        l'intervention, les situations qui la déclenchent et les matériaux employés.
+        Entretien, réparation et rénovation de toiture, zinguerie, gouttières, nettoyage de
+        façade&nbsp;: choisissez la prestation qui correspond à vos travaux.
       </p>
 
       <div class="plan-cartes">
@@ -123,23 +161,21 @@ const sommaire = [
   <!-- ── 2. Cocon nettoyage de toiture ───────────────────────── -->
   <section class="section section--gris" id="nettoyage-communes">
     <div class="conteneur">
-      <h2>Le nettoyage de toiture, commune par commune</h2>
+      <h2>Nettoyage et démoussage de toiture par ville</h2>
       <p>
-        La page d'ensemble décrit le protocole complet, du brossage manuel au traitement. Les pages
-        communales reprennent le même travail, avec les couvertures et les contraintes que l'on
-        rencontre sur place.
+        Votre toiture verdit ou se couvre de mousse&nbsp;? Sélectionnez votre ville pour savoir
+        comment se déroule le nettoyage de votre toit.
       </p>
 
       <a class="plan-pilier" href="/nettoyage-toiture-28/">
-        <span class="plan-pilier__etiquette">Page de référence</span>
         <span class="plan-pilier__titre">Nettoyage et démoussage de toiture en {SITE.departement}</span>
         <span class="plan-pilier__texte">
-          Le protocole détaillé&nbsp;: diagnostic, brossage, basse pression, produits, fréquence et
-          tarifs indicatifs.
+          Diagnostic de la couverture, brossage, nettoyage à basse pression, traitement et tarifs
+          indicatifs.
         </span>
       </a>
 
-      <p class="plan-soustitre">Les {VILLES_NETTOYAGE.length} pages communales&nbsp;:</p>
+      <p class="plan-soustitre">Démoussage de toiture dans votre ville&nbsp;:</p>
       <ul class="nuage-villes">
         {VILLES_NETTOYAGE.map((v) => (
           <li><a href={`/nettoyage-toiture-${v.slug}/`}>{v.nom}</a></li>
@@ -151,11 +187,10 @@ const sommaire = [
   <!-- ── 3. Zone d'intervention ──────────────────────────────── -->
   <section class="section" id="zone">
     <div class="conteneur">
-      <h2>Les communes dans lesquelles j'interviens</h2>
+      <h2>Les villes où j'interviens</h2>
       <p>
-        {SITE.ville} est mon point de départ. Je me déplace dans le nord-est de l'{SITE.departement}
-        et jusqu'aux communes voisines des Yvelines. Chaque page présente l'entreprise sur place et
-        les règles d'urbanisme de la mairie concernée.
+        Installé à {SITE.ville}, j'interviens à Maintenon, à Épernon, à Chartres et dans son
+        agglomération, à Dreux, ainsi qu'à Rambouillet et à Houdan dans les Yvelines.
       </p>
 
       <ul class="plan-villes">
@@ -174,16 +209,17 @@ const sommaire = [
   <!-- ── 4. Réalisations ─────────────────────────────────────── -->
   <section class="section section--gris" id="realisations">
     <div class="conteneur">
-      <h2>Les chantiers documentés</h2>
+      <h2>Mes réalisations en {SITE.departement}</h2>
       <p>
-        Photos avant et après prises au même endroit, avec le détail de ce qui a été fait sur place.
+        Rénovation de toiture, démoussage, nettoyage de façade&nbsp;: des chantiers récents,
+        présentés avec leurs photos avant et après travaux.
       </p>
 
       <div class="plan-cartes plan-cartes--deux">
         <a class="plan-carte plan-carte--index" href="/realisations/">
           <span class="plan-carte__titre">Toutes les réalisations</span>
           <span class="plan-carte__texte">
-            L'ensemble des chantiers publiés, du démoussage de toiture au nettoyage de façade.
+            L'ensemble des chantiers réalisés par l'entreprise, en toiture comme en façade.
           </span>
         </a>
         {realisations.map((r) => (
@@ -199,23 +235,22 @@ const sommaire = [
   <!-- ── 5. Informations pratiques ───────────────────────────── -->
   <section class="section" id="pratique">
     <div class="conteneur">
-      <h2>L'entreprise et les pages pratiques</h2>
+      <h2>L'entreprise et ses coordonnées</h2>
 
       <div class="plan-pratique">
         <div class="plan-pratique__liens">
-          <h3>Les pages</h3>
+          <h3>L'entreprise</h3>
           <ul>
-            <li><a href="/">Accueil</a> <span>— l'entreprise, les services et les avis en un coup d'œil</span></li>
-            <li><a href="/a-propos/">À propos</a> <span>— qui je suis, comment je travaille</span></li>
-            <li><a href="/devis-gratuit/">Devis gratuit</a> <span>— le formulaire pour décrire votre chantier</span></li>
-            <li><a href="/mentions-legales/">Mentions légales</a> <span>— identité de l'entreprise, hébergement, données</span></li>
-            <li><span aria-current="page">Plan du site</span> <span>— vous y êtes</span></li>
+            <li><a href="/">Accueil</a> <span>— présentation de l'entreprise, prestations et avis clients</span></li>
+            <li><a href="/a-propos/">À propos</a> <span>— le parcours et le savoir-faire de l'artisan</span></li>
+            <li><a href="/devis-gratuit/">Devis gratuit</a> <span>— le formulaire pour décrire vos travaux</span></li>
+            <li><a href="/mentions-legales/">Mentions légales</a> <span>— identité de l'entreprise, hébergement, données personnelles</span></li>
           </ul>
           <a href="/devis-gratuit/" class="btn btn--rouge">Demander un devis gratuit<FlecheRonde /></a>
         </div>
 
         <aside class="plan-pratique__nap" aria-label="Coordonnées">
-          <h3>Me joindre</h3>
+          <h3>Coordonnées</h3>
           <dl>
             <dt>Téléphone</dt>
             <dd><a href={SITE.telHref}>{SITE.tel}</a></dd>
@@ -263,14 +298,6 @@ const sommaire = [
     color: rgba(255, 255, 255, 0.7);
   }
   .plan-entete :global(.fil-ariane a:hover) { color: var(--rouge); }
-  .plan-entete__sur {
-    text-transform: uppercase;
-    letter-spacing: 0.14em;
-    font-size: var(--fs-xs);
-    font-weight: 700;
-    color: var(--rouge);
-    margin-bottom: 0.6rem;
-  }
   .plan-entete h1 { color: var(--blanc); margin: 0; }
   .plan-entete__intro {
     max-width: var(--mesure);
@@ -373,13 +400,6 @@ const sommaire = [
     transition: background var(--transition), transform var(--transition);
   }
   .plan-pilier:hover { background: var(--bleu-fonce); transform: translateY(-3px); color: var(--blanc); }
-  .plan-pilier__etiquette {
-    text-transform: uppercase;
-    letter-spacing: 0.12em;
-    font-size: var(--fs-xs);
-    font-weight: 700;
-    color: var(--rouge);
-  }
   .plan-pilier__titre { font-size: var(--fs-lg); font-weight: 700; line-height: 1.3; }
   .plan-pilier__texte {
     font-size: var(--fs-sm);

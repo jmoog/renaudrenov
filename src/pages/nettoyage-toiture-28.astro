@@ -429,6 +429,12 @@ const questions = questionsFaq('/nettoyage-toiture-28/', faq);
           </article>
         ))}
       </div>
+      <p class="chantier-preuve">
+        À Bouglainval, cette méthode a rendu sa couleur à une couverture verdie, lors du <a href="/realisations/demoussage-toiture-bouglainval/">démoussage d'une toiture en tuiles</a>.
+      </p>
+      <p class="chantier-preuve">
+        À Tremblay-les-Villages, le lavage a été suivi d'une remise en couleur&nbsp;: le <a href="/realisations/nettoyage-toiture-tremblay-les-villages/">nettoyage d'une toiture noircie</a>.
+      </p>
     </div>
   </section>
 
@@ -536,6 +542,10 @@ const questions = questionsFaq('/nettoyage-toiture-28/', faq);
 </BaseLayout>
 
 <style>
+  /* Chantiers cités en preuve sous le déroulé */
+  .chantier-preuve { max-width: var(--mesure); margin: 1.2rem auto 0; color: var(--gris-700); text-align: center; text-wrap: pretty; }
+  .chantier-preuve a { color: var(--rouge-fonce); font-weight: 600; }
+
   /* ── Cartes savoir-faire : contraste blanc / marine, image pleine hauteur ── */
   .savoir { display: grid; gap: 2rem; margin-top: 2.5rem; }
   .savoir-carte {

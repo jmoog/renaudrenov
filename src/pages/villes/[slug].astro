@@ -79,6 +79,79 @@ const CARTES_BASE: Record<string, { image: string; alt: string; href: string }> 
   },
 };
 
+// ── Variété des visuels : chaque type de carte dispose de trois photos (celle
+// d'origine + deux photos de chantiers réels) ; la commune en reçoit une selon
+// son rang dans villes.json, avec un décalage par type pour que deux pages
+// voisines n'affichent pas la même série.
+const VARIANTES: Record<string, { image: string; alt: string }[]> = {
+  "renovation": [
+    {
+      "image": "/images/photos/carte-renovation-charpente-poigny-la-foret.webp",
+      "alt": "Charpente mise à nu et liteaunage neuf en cours sur une maison à Poigny-la-Forêt"
+    },
+    {
+      "image": "/images/photos/carte-renovation-ecran-liteaux-villiers-le-morhier.webp",
+      "alt": "Écran de sous-toiture et liteaux neufs sur une toiture à Villiers-le-Morhier"
+    }
+  ],
+  "reparation": [
+    {
+      "image": "/images/photos/carte-reparation-faitage-ouvert-pierres.webp",
+      "alt": "Faîtage ouvert pour réparation sur une toiture en tuiles à Pierres"
+    },
+    {
+      "image": "/images/photos/carte-reparation-faitage-pierres.webp",
+      "alt": "Faîtage en cours de réfection sur une toiture en tuiles à Pierres"
+    }
+  ],
+  "zinguerie": [
+    {
+      "image": "/images/photos/carte-zinguerie-ouvrage-zinc-epernon.webp",
+      "alt": "Ouvrage en zinc posé au pied d'une souche de cheminée à Épernon"
+    },
+    {
+      "image": "/images/photos/carte-zinguerie-bandeau-rive-hanches.webp",
+      "alt": "Bandeau de rive en zinc posé sur une toiture à Hanches"
+    }
+  ],
+  "gouttiere": [
+    {
+      "image": "/images/photos/carte-gouttiere-neuve-illiers-combray.webp",
+      "alt": "Gouttière neuve posée le long d'un pignon à Illiers-Combray"
+    },
+    {
+      "image": "/images/photos/carte-gouttiere-rive-hanches.webp",
+      "alt": "Gouttière et rive d'une toiture en tuiles à Hanches"
+    }
+  ],
+  "demoussage": [
+    {
+      "image": "/images/photos/carte-demoussage-lavage-bouglainval.webp",
+      "alt": "Lavage d'une toiture en tuiles en cours à Bouglainval"
+    },
+    {
+      "image": "/images/photos/carte-demoussage-toiture-bouglainval.webp",
+      "alt": "Toiture d'une maison à Bouglainval après démoussage"
+    }
+  ],
+  "facade": [
+    {
+      "image": "/images/photos/nettoyage-facade-leves-carte.webp",
+      "alt": "Pignon d'un pavillon à Lèves après nettoyage de la façade"
+    },
+    {
+      "image": "/images/photos/nettoyage-peinture-facade-luisant-carte.webp",
+      "alt": "Pignon d'un pavillon à Luisant après nettoyage et peinture"
+    }
+  ]
+};
+const rang = villes.findIndex((x) => x.slug === slug);
+Object.keys(CARTES_BASE).forEach((type, k) => {
+  const serie = [{ image: CARTES_BASE[type].image, alt: CARTES_BASE[type].alt }, ...(VARIANTES[type] ?? [])];
+  const choix = serie[(rang + k) % serie.length];
+  CARTES_BASE[type] = { ...CARTES_BASE[type], ...choix };
+});
+
 // ── Marques : jeu spécifique à la commune si défini, sinon 4 fabricants ──
 const marquesVille = contenu.logos ?? [
   { nom: 'Dalep', url: 'https://www.dalep.com/', logo: '/images/marques/logo-dalep.webp', alt: 'Dalep – traitements hydrofuges et anti-mousse pour toiture' },

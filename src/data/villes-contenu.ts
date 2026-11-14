@@ -138,6 +138,35 @@ export const VILLES_CONTENU: Record<string, VilleContenu> = {
     ],
     mairieAdresse: '1 rue Porte Chartraine',
     mairieSite: 'http://www.nogentleroi.fr/',
+    hero: { src: '/images/photos/couvreur-toiture-aunay-sous-crecy.webp', srcset: "/images/photos/couvreur-toiture-aunay-sous-crecy-640.webp 640w, /images/photos/couvreur-toiture-aunay-sous-crecy-960.webp 960w, /images/photos/couvreur-toiture-aunay-sous-crecy-1280.webp 1280w, /images/photos/couvreur-toiture-aunay-sous-crecy.webp 1600w", largeur: 1600, hauteur: 1200, alt: "Toiture en tuiles d'un pavillon à Aunay-sous-Crécy entretenue par Renaud Rénov" },
+    realisations: {
+      h2: "Quelques réalisations près de Nogent-le-Roi",
+      intro:
+        "Un toit d'annexe refait à Villiers-le-Morhier, un faîtage refait à Pierres, une toiture démoussée à Maintenon : voici des chantiers que j'ai menés dans les communes proches de Nogent-le-Roi.",
+      cartes: [
+        {
+          titre: "Rénovation de toiture à Villiers-le-Morhier",
+          href: '/realisations/couverture-bac-acier-villiers-le-morhier/',
+          image: '/images/photos/couverture-bac-acier-villiers-le-morhier-carte.webp',
+          alt: "Couverture neuve en bac acier sur une annexe à Villiers-le-Morhier, posée par Renaud Rénov",
+          texte: "Le toit d'une annexe entièrement refait : écran de sous-toiture, liteaux neufs et couverture en bac acier.",
+        },
+        {
+          titre: "Réfection du faîtage d'une toiture à Pierres",
+          href: '/realisations/refection-faitage-pierres/',
+          image: '/images/photos/refection-faitage-pierres-carte.webp',
+          alt: "Faîtage neuf sur une toiture en tuiles à Pierres après la réfection par Renaud Rénov",
+          texte: "Un faîtage ouvert sur toute sa longueur, puis refermé avec un closoir ventilé et des faîtières neuves vissées.",
+        },
+        {
+          titre: "Démoussage d'une toiture à Maintenon",
+          href: '/realisations/demoussage-toiture-maintenon/',
+          image: '/images/photos/demoussage-toiture-maintenon-apres.webp',
+          alt: "Toiture en tuiles propre et démoussée par Renaud Rénov à Maintenon",
+          texte: "Une couverture en tuiles gagnée par le vert et les traînées sombres, redevenue nette après le démoussage.",
+        },
+      ],
+    },
     avisOrdre: 2,
   },
 
@@ -206,6 +235,35 @@ export const VILLES_CONTENU: Record<string, VilleContenu> = {
     ],
     mairieAdresse: '8 rue du Général Leclerc',
     mairieSite: 'https://www.ville-epernon.fr/',
+    hero: { src: '/images/photos/couvreur-epernon-ouvrage-zinc.webp', srcset: "/images/photos/couvreur-epernon-ouvrage-zinc-640.webp 640w, /images/photos/couvreur-epernon-ouvrage-zinc-960.webp 960w, /images/photos/couvreur-epernon-ouvrage-zinc.webp 1200w", largeur: 1200, hauteur: 1600, alt: "Ouvrage en zinc posé sur une toiture en ardoise à Épernon par Renaud Rénov" },
+    realisations: {
+      h2: "Quelques réalisations à Épernon et aux alentours",
+      intro:
+        "Un arêtier habillé de zinc à Épernon, une rive de toit reprise à Hanches, une couverture refaite à Poigny-la-Forêt : voici des chantiers que j'ai menés à Épernon et dans les communes voisines.",
+      cartes: [
+        {
+          titre: "Zinguerie sur une toiture en ardoise à Épernon",
+          href: '/realisations/zinguerie-aretier-ardoise-epernon/',
+          image: '/images/photos/zinguerie-aretier-ardoise-epernon-carte.webp',
+          alt: "Arêtier habillé de zinc et épi de faîtage sur une toiture en ardoise à Épernon, réalisés par Renaud Rénov",
+          texte: "Un arêtier habillé de zinc de la gouttière jusqu'au sommet, terminé par un épi de faîtage.",
+        },
+        {
+          titre: "Habillage d'une rive de toit en zinc à Hanches",
+          href: '/realisations/habillage-rive-zinc-hanches/',
+          image: '/images/photos/habillage-rive-zinc-hanches-carte.webp',
+          alt: "Rive de toit refaite en zinc et tuiles de rive sur une annexe à Hanches par Renaud Rénov",
+          texte: "Le bord d'un toit en tuiles repris : bandeau habillé de zinc, puis tuiles de rive neuves.",
+        },
+        {
+          titre: "Rénovation de toiture à Poigny-la-Forêt",
+          href: '/realisations/renovation-toiture-poigny-la-foret/',
+          image: '/images/photos/renovation-toiture-poigny-la-foret-carte.webp',
+          alt: "Maison de Poigny-la-Forêt et sa toiture en tuiles neuves après la rénovation par Renaud Rénov",
+          texte: "Une couverture moussue déposée jusqu'à la charpente, puis refaite avec des liteaux et des tuiles neufs.",
+        },
+      ],
+    },
     avisOrdre: 5,
   },
 
@@ -268,6 +326,35 @@ export const VILLES_CONTENU: Record<string, VilleContenu> = {
     ],
     mairieAdresse: '30 rue de la Barre',
     mairieSite: 'http://www.ville-hanches.fr/',
+    hero: { src: '/images/photos/couvreur-hanches-rive-toiture.webp', srcset: "/images/photos/couvreur-hanches-rive-toiture-640.webp 640w, /images/photos/couvreur-hanches-rive-toiture-960.webp 960w, /images/photos/couvreur-hanches-rive-toiture-1280.webp 1280w, /images/photos/couvreur-hanches-rive-toiture.webp 1600w", largeur: 1600, hauteur: 1200, alt: "Rive et gouttière d'une toiture en tuiles à Hanches après l'intervention de Renaud Rénov" },
+    realisations: {
+      h2: "Quelques réalisations à Hanches et aux alentours",
+      intro:
+        "Une rive de toit reprise à Hanches, un arêtier habillé de zinc à Épernon, un faîtage refait à Pierres : voici des chantiers que j'ai menés à Hanches et dans les communes voisines.",
+      cartes: [
+        {
+          titre: "Habillage d'une rive de toit en zinc à Hanches",
+          href: '/realisations/habillage-rive-zinc-hanches/',
+          image: '/images/photos/habillage-rive-zinc-hanches-carte.webp',
+          alt: "Rive de toit refaite en zinc et tuiles de rive sur une annexe à Hanches par Renaud Rénov",
+          texte: "Le bord d'un toit en tuiles repris : bandeau habillé de zinc, puis tuiles de rive neuves.",
+        },
+        {
+          titre: "Zinguerie sur une toiture en ardoise à Épernon",
+          href: '/realisations/zinguerie-aretier-ardoise-epernon/',
+          image: '/images/photos/zinguerie-aretier-ardoise-epernon-carte.webp',
+          alt: "Arêtier habillé de zinc et épi de faîtage sur une toiture en ardoise à Épernon, réalisés par Renaud Rénov",
+          texte: "Un arêtier habillé de zinc de la gouttière jusqu'au sommet, terminé par un épi de faîtage.",
+        },
+        {
+          titre: "Réfection du faîtage d'une toiture à Pierres",
+          href: '/realisations/refection-faitage-pierres/',
+          image: '/images/photos/refection-faitage-pierres-carte.webp',
+          alt: "Faîtage neuf sur une toiture en tuiles à Pierres après la réfection par Renaud Rénov",
+          texte: "Un faîtage ouvert sur toute sa longueur, puis refermé avec un closoir ventilé et des faîtières neuves vissées.",
+        },
+      ],
+    },
     avisOrdre: 8,
   },
 
@@ -330,6 +417,35 @@ export const VILLES_CONTENU: Record<string, VilleContenu> = {
     ],
     mairieAdresse: '1 place du Jeu de Paume',
     mairieSite: 'https://www.ville-gallardon.fr/',
+    hero: { src: '/images/photos/couvreur-toiture-refaite-poigny-la-foret.webp', srcset: "/images/photos/couvreur-toiture-refaite-poigny-la-foret-640.webp 640w, /images/photos/couvreur-toiture-refaite-poigny-la-foret-960.webp 960w, /images/photos/couvreur-toiture-refaite-poigny-la-foret-1280.webp 1280w, /images/photos/couvreur-toiture-refaite-poigny-la-foret.webp 1600w", largeur: 1600, hauteur: 1200, alt: "Toiture refaite d'une maison à Poigny-la-Forêt par Renaud Rénov" },
+    realisations: {
+      h2: "Quelques réalisations près de Gallardon",
+      intro:
+        "Un arêtier habillé de zinc à Épernon, une cheminée réparée à Saint-Piat, une rive de toit reprise à Hanches : voici des chantiers que j'ai menés dans les communes proches de Gallardon.",
+      cartes: [
+        {
+          titre: "Zinguerie sur une toiture en ardoise à Épernon",
+          href: '/realisations/zinguerie-aretier-ardoise-epernon/',
+          image: '/images/photos/zinguerie-aretier-ardoise-epernon-carte.webp',
+          alt: "Arêtier habillé de zinc et épi de faîtage sur une toiture en ardoise à Épernon, réalisés par Renaud Rénov",
+          texte: "Un arêtier habillé de zinc de la gouttière jusqu'au sommet, terminé par un épi de faîtage.",
+        },
+        {
+          titre: "Réparation d'une cheminée à Saint-Piat",
+          href: '/realisations/reparation-cheminee-saint-piat/',
+          image: '/images/photos/reparation-cheminee-saint-piat-carte.webp',
+          alt: "Chapeau de cheminée neuf sur une toiture en tuiles à Saint-Piat, posé par Renaud Rénov",
+          texte: "Un dessus de cheminée noirci et fissuré, remplacé par un chapeau neuf qui abrite le conduit.",
+        },
+        {
+          titre: "Habillage d'une rive de toit en zinc à Hanches",
+          href: '/realisations/habillage-rive-zinc-hanches/',
+          image: '/images/photos/habillage-rive-zinc-hanches-carte.webp',
+          alt: "Rive de toit refaite en zinc et tuiles de rive sur une annexe à Hanches par Renaud Rénov",
+          texte: "Le bord d'un toit en tuiles repris : bandeau habillé de zinc, puis tuiles de rive neuves.",
+        },
+      ],
+    },
     avisOrdre: 11,
   },
 
@@ -392,6 +508,35 @@ export const VILLES_CONTENU: Record<string, VilleContenu> = {
     ],
     mairieAdresse: 'place Jean Moulin',
     mairieSite: 'https://www.mairie-pierres.fr/',
+    hero: { src: '/images/photos/couvreur-pierres-faitage-toiture.webp', srcset: "/images/photos/couvreur-pierres-faitage-toiture-640.webp 640w, /images/photos/couvreur-pierres-faitage-toiture-960.webp 960w, /images/photos/couvreur-pierres-faitage-toiture.webp 1200w", largeur: 1200, hauteur: 1600, alt: "Faîtage refait sur une toiture en tuiles à Pierres par Renaud Rénov" },
+    realisations: {
+      h2: "Quelques réalisations à Pierres et aux alentours",
+      intro:
+        "Un faîtage refait à Pierres, une toiture démoussée à Maintenon, un toit d'annexe refait à Villiers-le-Morhier : voici des chantiers que j'ai menés à Pierres et dans les communes voisines.",
+      cartes: [
+        {
+          titre: "Réfection du faîtage d'une toiture à Pierres",
+          href: '/realisations/refection-faitage-pierres/',
+          image: '/images/photos/refection-faitage-pierres-carte.webp',
+          alt: "Faîtage neuf sur une toiture en tuiles à Pierres après la réfection par Renaud Rénov",
+          texte: "Un faîtage ouvert sur toute sa longueur, puis refermé avec un closoir ventilé et des faîtières neuves vissées.",
+        },
+        {
+          titre: "Démoussage d'une toiture à Maintenon",
+          href: '/realisations/demoussage-toiture-maintenon/',
+          image: '/images/photos/demoussage-toiture-maintenon-apres.webp',
+          alt: "Toiture en tuiles propre et démoussée par Renaud Rénov à Maintenon",
+          texte: "Une couverture en tuiles gagnée par le vert et les traînées sombres, redevenue nette après le démoussage.",
+        },
+        {
+          titre: "Rénovation de toiture à Villiers-le-Morhier",
+          href: '/realisations/couverture-bac-acier-villiers-le-morhier/',
+          image: '/images/photos/couverture-bac-acier-villiers-le-morhier-carte.webp',
+          alt: "Couverture neuve en bac acier sur une annexe à Villiers-le-Morhier, posée par Renaud Rénov",
+          texte: "Le toit d'une annexe entièrement refait : écran de sous-toiture, liteaux neufs et couverture en bac acier.",
+        },
+      ],
+    },
     avisOrdre: 14,
   },
 
@@ -454,6 +599,35 @@ export const VILLES_CONTENU: Record<string, VilleContenu> = {
     ],
     mairieAdresse: 'place Marcel Binet',
     mairieSite: 'http://www.saint-piat.fr/',
+    hero: { src: '/images/photos/couvreur-saint-piat-chapeau-cheminee.webp', srcset: "/images/photos/couvreur-saint-piat-chapeau-cheminee-640.webp 640w, /images/photos/couvreur-saint-piat-chapeau-cheminee-960.webp 960w, /images/photos/couvreur-saint-piat-chapeau-cheminee-1280.webp 1280w, /images/photos/couvreur-saint-piat-chapeau-cheminee.webp 1600w", largeur: 1600, hauteur: 1200, alt: "Chapeau de cheminée refait sur une toiture à Saint-Piat par Renaud Rénov" },
+    realisations: {
+      h2: "Quelques réalisations à Saint-Piat et aux alentours",
+      intro:
+        "Une cheminée réparée à Saint-Piat, une toiture démoussée à Bouglainval, une toiture démoussée à Maintenon : voici des chantiers que j'ai menés à Saint-Piat et dans les communes voisines.",
+      cartes: [
+        {
+          titre: "Réparation d'une cheminée à Saint-Piat",
+          href: '/realisations/reparation-cheminee-saint-piat/',
+          image: '/images/photos/reparation-cheminee-saint-piat-carte.webp',
+          alt: "Chapeau de cheminée neuf sur une toiture en tuiles à Saint-Piat, posé par Renaud Rénov",
+          texte: "Un dessus de cheminée noirci et fissuré, remplacé par un chapeau neuf qui abrite le conduit.",
+        },
+        {
+          titre: "Démoussage de toiture à Bouglainval",
+          href: '/realisations/demoussage-toiture-bouglainval/',
+          image: '/images/photos/demoussage-toiture-bouglainval-carte.webp',
+          alt: "Toiture en tuiles d'une maison à Bouglainval après démoussage par Renaud Rénov",
+          texte: "Une couverture verdie par la mousse sous les arbres, lavée pan par pan : les tuiles ont retrouvé leur teinte brune.",
+        },
+        {
+          titre: "Démoussage d'une toiture à Maintenon",
+          href: '/realisations/demoussage-toiture-maintenon/',
+          image: '/images/photos/demoussage-toiture-maintenon-apres.webp',
+          alt: "Toiture en tuiles propre et démoussée par Renaud Rénov à Maintenon",
+          texte: "Une couverture en tuiles gagnée par le vert et les traînées sombres, redevenue nette après le démoussage.",
+        },
+      ],
+    },
     avisOrdre: 17,
   },
 
@@ -516,6 +690,35 @@ export const VILLES_CONTENU: Record<string, VilleContenu> = {
     ],
     mairieAdresse: '17 rue de Châteauneuf',
     mairieSite: 'http://www.mairie-bouglainval.fr/',
+    hero: { src: '/images/photos/couvreur-bouglainval-toiture-nettoyee.webp', srcset: "/images/photos/couvreur-bouglainval-toiture-nettoyee-640.webp 640w, /images/photos/couvreur-bouglainval-toiture-nettoyee-960.webp 960w, /images/photos/couvreur-bouglainval-toiture-nettoyee-1280.webp 1280w, /images/photos/couvreur-bouglainval-toiture-nettoyee.webp 1600w", largeur: 1600, hauteur: 1200, alt: "Toiture d'une maison à Bouglainval nettoyée par Renaud Rénov" },
+    realisations: {
+      h2: "Quelques réalisations à Bouglainval et aux alentours",
+      intro:
+        "Une toiture démoussée à Bouglainval, une cheminée réparée à Saint-Piat, une toiture démoussée à Maintenon : voici des chantiers que j'ai menés à Bouglainval et dans les communes voisines.",
+      cartes: [
+        {
+          titre: "Démoussage de toiture à Bouglainval",
+          href: '/realisations/demoussage-toiture-bouglainval/',
+          image: '/images/photos/demoussage-toiture-bouglainval-carte.webp',
+          alt: "Toiture en tuiles d'une maison à Bouglainval après démoussage par Renaud Rénov",
+          texte: "Une couverture verdie par la mousse sous les arbres, lavée pan par pan : les tuiles ont retrouvé leur teinte brune.",
+        },
+        {
+          titre: "Réparation d'une cheminée à Saint-Piat",
+          href: '/realisations/reparation-cheminee-saint-piat/',
+          image: '/images/photos/reparation-cheminee-saint-piat-carte.webp',
+          alt: "Chapeau de cheminée neuf sur une toiture en tuiles à Saint-Piat, posé par Renaud Rénov",
+          texte: "Un dessus de cheminée noirci et fissuré, remplacé par un chapeau neuf qui abrite le conduit.",
+        },
+        {
+          titre: "Démoussage d'une toiture à Maintenon",
+          href: '/realisations/demoussage-toiture-maintenon/',
+          image: '/images/photos/demoussage-toiture-maintenon-apres.webp',
+          alt: "Toiture en tuiles propre et démoussée par Renaud Rénov à Maintenon",
+          texte: "Une couverture en tuiles gagnée par le vert et les traînées sombres, redevenue nette après le démoussage.",
+        },
+      ],
+    },
     avisOrdre: 1,
   },
 
@@ -706,6 +909,35 @@ export const VILLES_CONTENU: Record<string, VilleContenu> = {
     ],
     mairieAdresse: '2 rue de Châteaudun',
     mairieSite: 'http://www.dreux.com/',
+    hero: { src: '/images/photos/couvreur-toiture-tremblay-les-villages.webp', srcset: "/images/photos/couvreur-toiture-tremblay-les-villages-640.webp 640w, /images/photos/couvreur-toiture-tremblay-les-villages-960.webp 960w, /images/photos/couvreur-toiture-tremblay-les-villages-1280.webp 1280w, /images/photos/couvreur-toiture-tremblay-les-villages.webp 1600w", largeur: 1600, hauteur: 1200, alt: "Toiture d'un pavillon à Tremblay-les-Villages, près de Dreux, traitée par Renaud Rénov" },
+    realisations: {
+      h2: "Quelques réalisations près de Dreux",
+      intro:
+        "Une toiture nettoyée à Tremblay-les-Villages, un toit d'annexe refait à Villiers-le-Morhier, les façades d'un haras nettoyées à Guainville : voici des chantiers que j'ai menés dans le Drouais et la vallée de l'Eure.",
+      cartes: [
+        {
+          titre: "Nettoyage de toiture à Tremblay-les-Villages",
+          href: '/realisations/nettoyage-toiture-tremblay-les-villages/',
+          image: '/images/photos/nettoyage-toiture-tremblay-les-villages-carte.webp',
+          alt: "Toiture d'un pavillon à Tremblay-les-Villages après nettoyage et remise en couleur par Renaud Rénov",
+          texte: "Une couverture devenue presque noire : tuiles lavées, faîtage refait, puis toit remis en couleur.",
+        },
+        {
+          titre: "Rénovation de toiture à Villiers-le-Morhier",
+          href: '/realisations/couverture-bac-acier-villiers-le-morhier/',
+          image: '/images/photos/couverture-bac-acier-villiers-le-morhier-carte.webp',
+          alt: "Couverture neuve en bac acier sur une annexe à Villiers-le-Morhier, posée par Renaud Rénov",
+          texte: "Le toit d'une annexe entièrement refait : écran de sous-toiture, liteaux neufs et couverture en bac acier.",
+        },
+        {
+          titre: "Nettoyage de façade d'un haras à Guainville",
+          href: '/realisations/nettoyage-facade-haras-guainville/',
+          image: '/images/photos/nettoyage-facade-haras-guainville-entree-apres.webp',
+          alt: "Façade d'un haras à Guainville ravivée après le nettoyage par Renaud Rénov",
+          texte: "Trois façades d'un centre équestre débarrassées des mousses et des coulures.",
+        },
+      ],
+    },
     avisOrdre: 7,
   },
 
@@ -768,6 +1000,35 @@ export const VILLES_CONTENU: Record<string, VilleContenu> = {
     ],
     mairieAdresse: '1 avenue Gambetta',
     mairieSite: 'http://www.ville-ab2s.fr/',
+    hero: { src: '/images/photos/couvreur-toiture-saint-prest.webp', srcset: "/images/photos/couvreur-toiture-saint-prest-640.webp 640w, /images/photos/couvreur-toiture-saint-prest-960.webp 960w, /images/photos/couvreur-toiture-saint-prest-1280.webp 1280w, /images/photos/couvreur-toiture-saint-prest.webp 1600w", largeur: 1600, hauteur: 1200, alt: "Toiture en tuiles d'un pavillon à Saint-Prest, chantier de Renaud Rénov" },
+    realisations: {
+      h2: "Quelques réalisations en Eure-et-Loir",
+      intro:
+        "Une cheminée réparée à Saint-Piat, un arêtier habillé de zinc à Épernon, une toiture refaite à Lucé : voici des chantiers que j'ai menés dans le département.",
+      cartes: [
+        {
+          titre: "Réparation d'une cheminée à Saint-Piat",
+          href: '/realisations/reparation-cheminee-saint-piat/',
+          image: '/images/photos/reparation-cheminee-saint-piat-carte.webp',
+          alt: "Chapeau de cheminée neuf sur une toiture en tuiles à Saint-Piat, posé par Renaud Rénov",
+          texte: "Un dessus de cheminée noirci et fissuré, remplacé par un chapeau neuf qui abrite le conduit.",
+        },
+        {
+          titre: "Zinguerie sur une toiture en ardoise à Épernon",
+          href: '/realisations/zinguerie-aretier-ardoise-epernon/',
+          image: '/images/photos/zinguerie-aretier-ardoise-epernon-carte.webp',
+          alt: "Arêtier habillé de zinc et épi de faîtage sur une toiture en ardoise à Épernon, réalisés par Renaud Rénov",
+          texte: "Un arêtier habillé de zinc de la gouttière jusqu'au sommet, terminé par un épi de faîtage.",
+        },
+        {
+          titre: "Rénovation d'une toiture en tuiles à Lucé",
+          href: '/realisations/renovation-toiture-luce/',
+          image: '/images/photos/renovation-toiture-luce-pavillon.webp',
+          alt: "Pavillon de Lucé et sa toiture en tuiles avant la rénovation par Renaud Rénov",
+          texte: "Sous les tuiles, des liteaux pourris et des tuiles fendues : la couverture a été entièrement déposée puis refaite.",
+        },
+      ],
+    },
     avisOrdre: 10,
   },
 
@@ -830,6 +1091,35 @@ export const VILLES_CONTENU: Record<string, VilleContenu> = {
     ],
     mairieAdresse: '2 place de la Libération',
     mairieSite: 'https://rambouillet.fr/',
+    hero: { src: '/images/photos/couvreur-rambouillet-nacelle-toiture.webp', srcset: "/images/photos/couvreur-rambouillet-nacelle-toiture-640.webp 640w, /images/photos/couvreur-rambouillet-nacelle-toiture-960.webp 960w, /images/photos/couvreur-rambouillet-nacelle-toiture-1280.webp 1280w, /images/photos/couvreur-rambouillet-nacelle-toiture.webp 1600w", largeur: 1600, hauteur: 1200, alt: "Intervention en nacelle sur la toiture d'un immeuble à Rambouillet par Renaud Rénov" },
+    realisations: {
+      h2: "Quelques réalisations près de Rambouillet",
+      intro:
+        "Une couverture refaite à Poigny-la-Forêt, un arêtier habillé de zinc à Épernon, une rive de toit reprise à Hanches : voici des chantiers que j'ai menés autour de Rambouillet.",
+      cartes: [
+        {
+          titre: "Rénovation de toiture à Poigny-la-Forêt",
+          href: '/realisations/renovation-toiture-poigny-la-foret/',
+          image: '/images/photos/renovation-toiture-poigny-la-foret-carte.webp',
+          alt: "Maison de Poigny-la-Forêt et sa toiture en tuiles neuves après la rénovation par Renaud Rénov",
+          texte: "Une couverture moussue déposée jusqu'à la charpente, puis refaite avec des liteaux et des tuiles neufs.",
+        },
+        {
+          titre: "Zinguerie sur une toiture en ardoise à Épernon",
+          href: '/realisations/zinguerie-aretier-ardoise-epernon/',
+          image: '/images/photos/zinguerie-aretier-ardoise-epernon-carte.webp',
+          alt: "Arêtier habillé de zinc et épi de faîtage sur une toiture en ardoise à Épernon, réalisés par Renaud Rénov",
+          texte: "Un arêtier habillé de zinc de la gouttière jusqu'au sommet, terminé par un épi de faîtage.",
+        },
+        {
+          titre: "Habillage d'une rive de toit en zinc à Hanches",
+          href: '/realisations/habillage-rive-zinc-hanches/',
+          image: '/images/photos/habillage-rive-zinc-hanches-carte.webp',
+          alt: "Rive de toit refaite en zinc et tuiles de rive sur une annexe à Hanches par Renaud Rénov",
+          texte: "Le bord d'un toit en tuiles repris : bandeau habillé de zinc, puis tuiles de rive neuves.",
+        },
+      ],
+    },
     avisOrdre: 13,
   },
 
@@ -892,6 +1182,35 @@ export const VILLES_CONTENU: Record<string, VilleContenu> = {
     ],
     mairieAdresse: '69 Grande Rue',
     mairieSite: 'http://www.villehoudan.fr/',
+    hero: { src: '/images/photos/couvreur-tuiles-neuves-poigny-la-foret.webp', srcset: "/images/photos/couvreur-tuiles-neuves-poigny-la-foret-640.webp 640w, /images/photos/couvreur-tuiles-neuves-poigny-la-foret-960.webp 960w, /images/photos/couvreur-tuiles-neuves-poigny-la-foret-1280.webp 1280w, /images/photos/couvreur-tuiles-neuves-poigny-la-foret.webp 1600w", largeur: 1600, hauteur: 1200, alt: "Couverture en tuiles neuves posée à Poigny-la-Forêt par Renaud Rénov" },
+    realisations: {
+      h2: "Quelques réalisations près de Houdan",
+      intro:
+        "Les façades d'un haras nettoyées à Guainville, une couverture refaite à Poigny-la-Forêt, un toit d'annexe refait à Villiers-le-Morhier : voici des chantiers que j'ai menés autour de Houdan.",
+      cartes: [
+        {
+          titre: "Nettoyage de façade d'un haras à Guainville",
+          href: '/realisations/nettoyage-facade-haras-guainville/',
+          image: '/images/photos/nettoyage-facade-haras-guainville-entree-apres.webp',
+          alt: "Façade d'un haras à Guainville ravivée après le nettoyage par Renaud Rénov",
+          texte: "Trois façades d'un centre équestre débarrassées des mousses et des coulures.",
+        },
+        {
+          titre: "Rénovation de toiture à Poigny-la-Forêt",
+          href: '/realisations/renovation-toiture-poigny-la-foret/',
+          image: '/images/photos/renovation-toiture-poigny-la-foret-carte.webp',
+          alt: "Maison de Poigny-la-Forêt et sa toiture en tuiles neuves après la rénovation par Renaud Rénov",
+          texte: "Une couverture moussue déposée jusqu'à la charpente, puis refaite avec des liteaux et des tuiles neufs.",
+        },
+        {
+          titre: "Rénovation de toiture à Villiers-le-Morhier",
+          href: '/realisations/couverture-bac-acier-villiers-le-morhier/',
+          image: '/images/photos/couverture-bac-acier-villiers-le-morhier-carte.webp',
+          alt: "Couverture neuve en bac acier sur une annexe à Villiers-le-Morhier, posée par Renaud Rénov",
+          texte: "Le toit d'une annexe entièrement refait : écran de sous-toiture, liteaux neufs et couverture en bac acier.",
+        },
+      ],
+    },
     avisOrdre: 16,
   },
 
