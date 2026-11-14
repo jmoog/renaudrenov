@@ -60,7 +60,7 @@ const CARTES_BASE: Record<string, { image: string; alt: string; href: string }> 
   facade: {
     image: '/images/photos/facade-pignon-sale-28.webp',
     alt: "Façade et pignon avant nettoyage dans le 28 — coulures et traces d'humidité",
-    href: '/nettoyage-facade-28/',
+    href: slug === 'chartres' ? '/nettoyage-facade-chartres/' : '/nettoyage-facade-28/',
   },
   reparation: {
     image: '/images/photos/reparation-toiture.webp',

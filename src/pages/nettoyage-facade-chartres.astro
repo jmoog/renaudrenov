@@ -1,0 +1,626 @@
+---
+// ─────────────────────────────────────────────────────────────────────────
+// /nettoyage-facade-chartres/ — seule page façade × ville du site (décision
+// Joseph du 14/11/2026) : elle s'appuie sur cinq chantiers de façade réels
+// menés autour de Chartres (Lucé, Luisant, Lèves, Le Coudray × 2).
+// Ne pas décliner sur les autres communes. Pilier : /nettoyage-facade-28/.
+// ─────────────────────────────────────────────────────────────────────────
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { SITE } from '../data/site.ts';
+import { schemaService, commune } from '../lib/schema.ts';
+import FilAriane from '../components/FilAriane.astro';
+import AvantApresSlider from '../components/AvantApresSlider.astro';
+import LogoGoogle from '../components/LogoGoogle.astro';
+import FlecheRonde from '../components/FlecheRonde.astro';
+import reviews from '../data/reviews.json';
+import CtaDevis from '../components/CtaDevis.astro';
+
+const ville = 'Chartres';
+const cp = '28000';
+
+const title = 'Démoussage et lavage de façade à Chartres (28) | Renaud Rénov';
+const description =
+  "Nettoyage de façade à Chartres par Renaud Rénov : enduits verdis ou noircis lavés et protégés. Cinq chantiers en photos autour de Chartres. Devis gratuit.";
+
+const chemin = '/nettoyage-facade-chartres/';
+const heroImg = '/images/photos/nettoyage-facade-salle-municipale-le-coudray-hero';
+const heroAlt = "Façade nettoyée par Renaud Rénov au Coudray, près de Chartres";
+
+const chantiers = [
+  {
+    titre: "Nettoyage et peinture de façade à Luisant",
+    href: '/realisations/nettoyage-peinture-facade-luisant/',
+    image: '/images/photos/nettoyage-peinture-facade-luisant-carte.webp',
+    alt: "Pignon d'un pavillon à Luisant après nettoyage et peinture de la façade par Renaud Rénov",
+    texte: "Un pignon verdi par les algues, lavé puis repeint : le mur a retrouvé une teinte claire et uniforme.",
+  },
+  {
+    titre: "Nettoyage de façade d'un pavillon à Lèves",
+    href: '/realisations/nettoyage-facade-leves/',
+    image: '/images/photos/nettoyage-facade-leves-carte.webp',
+    alt: "Pignon d'un pavillon à Lèves après nettoyage de la façade par Renaud Rénov",
+    texte: "Un pignon couvert de coulures brunes, rendu à sa teinte jaune d'origine.",
+  },
+  {
+    titre: "Nettoyage de façade d'un pavillon à Lucé",
+    href: '/realisations/nettoyage-facade-luce/',
+    image: '/images/photos/nettoyage-facade-luce-pignon-apres.webp',
+    alt: "Pignon d'un pavillon à Lucé après nettoyage de la façade par Renaud Rénov",
+    texte: "Un pignon terni et une descente de garage noircie : l'enduit et le béton ont retrouvé leur teinte claire.",
+  },
+  {
+    titre: "Nettoyage de façade d'une salle au Coudray",
+    href: '/realisations/nettoyage-facade-salle-municipale-le-coudray/',
+    image: '/images/photos/nettoyage-facade-salle-municipale-le-coudray-carte.webp',
+    alt: "Façade de l'Espace Gérard Philipe au Coudray après nettoyage par Renaud Rénov",
+    texte: "Les façades noircies d'une salle municipale ont retrouvé leur teinte claire.",
+  },
+  {
+    titre: "Nettoyage d'un mur d'enceinte au Coudray",
+    href: '/realisations/nettoyage-mur-enceinte-parc-le-coudray/',
+    image: '/images/photos/nettoyage-mur-enceinte-parc-le-coudray-carte.webp',
+    alt: "Mur d'enceinte du parc du Gord au Coudray après nettoyage par Renaud Rénov",
+    texte: "Le mur d'un parc public, marqué de coulures rouges et vertes, nettoyé sur toute sa longueur.",
+  },
+];
+
+const etapes = [
+  { t: "Examen du mur", d: "Enduit, crépi, pierre ou brique : je regarde la nature du revêtement, le type de salissures et les éventuelles fissures avant de choisir la méthode." },
+  { t: "Traitement des mousses et des algues", d: "Un produit professionnel Dalep est appliqué sur les surfaces atteintes. Il détruit les mousses, les lichens et les algues jusque dans les pores de l'enduit." },
+  { t: "Lavage adapté au revêtement", d: "Le mur est lavé du haut vers le bas, à une pression réglée selon le support, pour retirer les dépôts en préservant l'enduit." },
+  { t: "Protection hydrofuge", d: "Sur un mur propre et sec, un hydrofuge incolore ou teinté peut être appliqué : la pluie ruisselle et la façade reste propre plus longtemps." },
+];
+
+const voisines = [
+  { slug: 'chartres', ancre: 'Couvreur à Chartres' },
+  { slug: 'luce', ancre: 'Couvreur à Lucé' },
+  { slug: 'luisant', ancre: 'Couvreur à Luisant' },
+  { slug: 'leves', ancre: 'Couvreur à Lèves' },
+  { slug: 'le-coudray', ancre: 'Couvreur au Coudray' },
+  { slug: 'mainvilliers', ancre: 'Couvreur à Mainvilliers' },
+];
+
+const schemaPrestation = schemaService({
+  chemin,
+  serviceType: 'Nettoyage et démoussage de façade',
+  nom: 'Nettoyage de façade à Chartres',
+  description: "Démoussage, lavage adapté au revêtement et protection hydrofuge des façades à Chartres (28000) et dans les communes voisines, par Renaud Rénov, artisan d'Eure-et-Loir.",
+  zone: commune(ville, cp),
+  image: `${heroImg}.webp`,
+});
+---
+<BaseLayout
+  title={title}
+  description={description}
+  extraSchemas={[schemaPrestation]}
+  lcpImage={`${heroImg}.webp`}
+  lcpSrcset={`${heroImg}-640.webp 640w, ${heroImg}-960.webp 960w, ${heroImg}-1280.webp 1280w, ${heroImg}.webp 1600w`}
+  lcpSizes="(min-width: 980px) 46vw, calc(100vw - 2rem)"
+>
+  <!-- ── Fil d'Ariane (BreadcrumbList émis par le composant, une seule fois) ── -->
+  <section class="section section--compact">
+    <div class="conteneur">
+      <FilAriane
+        items={[
+          { label: 'Accueil', href: '/' },
+          { label: 'Nettoyage de façade', href: '/nettoyage-facade-28/' },
+          { label: `Nettoyage de façade à ${ville}` },
+        ]}
+      />
+    </div>
+  </section>
+
+  <!-- ── Hero ─────────────────────────────────────────────────── -->
+  <section class="hx">
+    <div class="conteneur hx__grid">
+      <div class="hx__head">
+        <h1 class="hx__title">Nettoyage de façade à {ville}</h1>
+        <p class="hx__marque">RENAUD RÉNOV</p>
+      </div>
+
+      <div class="hx__right">
+        <img
+          class="hx__photo"
+          src={`${heroImg}.webp`}
+          srcset={`${heroImg}-640.webp 640w, ${heroImg}-960.webp 960w, ${heroImg}-1280.webp 1280w, ${heroImg}.webp 1600w`}
+          sizes="(min-width: 980px) 46vw, calc(100vw - 2rem)"
+          alt={heroAlt}
+          width="1600" height="1200"
+          fetchpriority="high"
+        />
+        <div class="hx__note">
+          <div class="hx__note-top">
+            <LogoGoogle taille={26} />
+            <span class="hx__note-stars" aria-label={`${reviews.note} étoiles sur 5`}>
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l2.9 6.26 6.9.6-5.2 4.53 1.55 6.75L12 17.77 5.85 20.7 7.4 13.95 2.2 9.42l6.9-.6L12 2z"/></svg>
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l2.9 6.26 6.9.6-5.2 4.53 1.55 6.75L12 17.77 5.85 20.7 7.4 13.95 2.2 9.42l6.9-.6L12 2z"/></svg>
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l2.9 6.26 6.9.6-5.2 4.53 1.55 6.75L12 17.77 5.85 20.7 7.4 13.95 2.2 9.42l6.9-.6L12 2z"/></svg>
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l2.9 6.26 6.9.6-5.2 4.53 1.55 6.75L12 17.77 5.85 20.7 7.4 13.95 2.2 9.42l6.9-.6L12 2z"/></svg>
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l2.9 6.26 6.9.6-5.2 4.53 1.55 6.75L12 17.77 5.85 20.7 7.4 13.95 2.2 9.42l6.9-.6L12 2z"/></svg>
+            </span>
+          </div>
+          <p class="hx__note-txt">Noté <strong>{reviews.note.toLocaleString('fr-FR')}/5</strong> sur Google · {reviews.nombre} avis</p>
+        </div>
+      </div>
+
+      <div class="hx__body">
+        <p class="hx__chapo">
+          Les murs de votre maison ont verdi ou noirci&nbsp;? Renaud Rénov réalise le
+          <strong>nettoyage de façade à {ville}</strong> et dans les communes voisines&nbsp;:
+          démoussage, lavage adapté à l'enduit et protection hydrofuge. Vos murs retrouvent leur
+          teinte et restent propres plus longtemps.
+        </p>
+
+        <div class="hx__badges">
+          <img src="/images/labels/applicateur-dalep.webp" alt="Applicateur de solutions DALEP certifié" width="240" height="240" loading="lazy" />
+        </div>
+
+        <div class="hx__actions">
+          <a href="/devis-gratuit/" class="btn btn--rouge">Devis gratuit<FlecheRonde /></a>
+          <a href={SITE.telHref} class="btn btn--bleu">
+            <svg class="icone" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6.5 3.5h-2A1.5 1.5 0 0 0 3 5.2C3.4 13 11 20.6 18.8 21a1.5 1.5 0 0 0 1.7-1.5v-2a1.5 1.5 0 0 0-1.3-1.5l-2.5-.35a1.5 1.5 0 0 0-1.4.6l-.7.95a11.5 11.5 0 0 1-4.9-4.9l.95-.7a1.5 1.5 0 0 0 .6-1.4l-.35-2.5a1.5 1.5 0 0 0-1.5-1.3Z"/><path d="M14.5 3.6a5.5 5.5 0 0 1 4.9 4.9"/><path d="M14 7a2.4 2.4 0 0 1 2 2"/></svg>
+            {SITE.tel}
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Le besoin ────────────────────────────────────────────── -->
+  <section class="section section--gris">
+    <div class="conteneur">
+      <div class="section__entete">
+        <h2>Des murs verdis ou noircis à {ville}&nbsp;?</h2>
+      </div>
+      <p class="reno-intro">
+        Un pignon exposé au nord qui verdit, des coulures noires sous les appuis de fenêtres, un
+        crépi qui a perdu sa couleur&nbsp;: ces traces viennent des mousses, des algues et des
+        dépôts que la pluie laisse sur le mur. Elles retiennent l'humidité contre l'enduit et
+        finissent par l'abîmer.
+      </p>
+      <p class="reno-intro">
+        Applicateur certifié des solutions Dalep, je traite ces salissures avec des produits
+        professionnels, choisis selon votre revêtement. À Chartres, je travaille comme pour tout
+        <a href="/nettoyage-facade-28/">nettoyage de façade en Eure-et-Loir</a>.
+      </p>
+    </div>
+  </section>
+
+  <!-- ── Les chantiers autour de Chartres ─────────────────────── -->
+  <section class="section">
+    <div class="conteneur">
+      <div class="section__entete">
+        <h2>Cinq façades nettoyées autour de {ville}</h2>
+      </div>
+      <p class="reno-intro">
+        Pavillons, salle municipale, mur d'enceinte d'un parc&nbsp;: voici des chantiers que j'ai
+        menés à Lucé, Luisant, Lèves et au Coudray, avec leurs photos avant et après.
+      </p>
+      <div class="grille-realisations">
+        {chantiers.map((r) => (
+          <article class="carte carte-service carte-lien">
+            <img src={r.image} alt={r.alt} loading="lazy" width="800" height="500" />
+            <div class="carte-service__corps">
+              <h3><a href={r.href}>{r.titre}</a></h3>
+              <p>{r.texte}</p>
+            </div>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Avant / après ────────────────────────────────────────── -->
+  <section class="section section--gris">
+    <div class="conteneur">
+      <div class="section__entete">
+        <h2>Lavage de façade avant / après</h2>
+      </div>
+      <figure class="luce-aa">
+        <AvantApresSlider
+          avantSrc="/images/photos/nettoyage-facade-salle-municipale-le-coudray-facade-avant.webp"
+          apresSrc="/images/photos/nettoyage-facade-salle-municipale-le-coudray-facade-apres.webp"
+          avantAlt="Façade d'une salle municipale au Coudray avant nettoyage : enduit noirci par les coulures"
+          apresAlt="Façade d'une salle municipale au Coudray après nettoyage : enduit beige redevenu uniforme"
+          width={1600}
+          height={1200}
+        />
+        <figcaption>
+          <strong>Une façade au Coudray</strong>
+          Les traînées noires ont disparu et l'enduit a retrouvé une teinte beige uniforme. Passez
+          la souris sur l'image, ou glissez le doigt sur mobile, pour révéler le résultat.
+        </figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <!-- ── La méthode ───────────────────────────────────────────── -->
+  <section class="section">
+    <div class="conteneur">
+      <div class="section__entete">
+        <h2>Comment je nettoie une façade</h2>
+      </div>
+      <p class="reno-intro">
+        La même méthode s'applique à un pignon de pavillon comme aux murs d'un bâtiment public.
+      </p>
+      <ol class="reno-etapes">
+        {etapes.map((e, i) => (
+          <li class="reno-etape">
+            <span class="reno-etape__num">{i + 1}</span>
+            <div>
+              <h3>{e.t}</h3>
+              <p>{e.d}</p>
+            </div>
+          </li>
+        ))}
+      </ol>
+      <p class="reno-intro luce-ville">
+        Les mousses qui gagnent les murs s'installent aussi sur les tuiles&nbsp;: le
+        <a href="/nettoyage-toiture-chartres/">nettoyage de toiture à Chartres</a> peut être
+        réalisé lors de la même intervention.
+      </p>
+    </div>
+  </section>
+
+  <!-- ── Communes ─────────────────────────────────────────────── -->
+  <section class="section section--gris">
+    <div class="conteneur">
+      <div class="section__entete">
+        <h2>{ville} et les communes voisines</h2>
+      </div>
+      <p class="reno-intro">
+        J'interviens sur les façades de Chartres et des communes de l'agglomération.
+      </p>
+      <ul class="nuage-villes voisines">
+        {voisines.map((l) => (
+          <li><a href={`/villes/${l.slug}/`}>{l.ancre}</a></li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <!-- ── CTA devis ────────────────────────────────────────────── -->
+  <CtaDevis
+    titre="Contactez votre couvreur à Chartres"
+    puces={[
+      'Entreprise familiale, père & fils.',
+      "Un travail d'artisan, mené avec exigence et passion.",
+      'Applicateur certifié de solutions Dalep.',
+    ]}
+    texte="Votre façade a verdi, noirci ou perdu sa couleur ? Renaud Rénov vous remet un devis gratuit et sans engagement."
+  />
+</BaseLayout>
+
+<style>
+  /* Cartes de chantiers : liées par le titre, 1 / 2 / 3 colonnes */
+  .carte-lien { position: relative; }
+  .carte-lien h3 a { color: inherit; text-decoration: none; }
+  .carte-lien h3 a::after { content: ""; position: absolute; inset: 0; }
+  .grille-realisations { display: grid; gap: 1.5rem; grid-template-columns: 1fr; margin: 2rem auto 0; max-width: 68rem; }
+  @media (min-width: 700px) { .grille-realisations { grid-template-columns: repeat(2, 1fr); } }
+  @media (min-width: 1024px) { .grille-realisations { grid-template-columns: repeat(3, 1fr); } }
+  .section .voisines { display: flex; flex-wrap: wrap; justify-content: center; gap: 0.6rem; max-width: none; margin: 2rem 0 0; padding: 0; list-style: none; }
+
+  /* ══ Hero — design de la page d'accueil (repris de index.astro) ══ */
+  .hx { padding-block: clamp(1.6rem, 4vw, 3rem); }
+  .hx__grid {
+    display: grid;
+    gap: 1.6rem;
+    grid-template-columns: 1fr;
+    grid-template-areas: "head" "photo" "body";
+  }
+  @media (min-width: 980px) {
+    .hx__grid {
+      grid-template-columns: 1.05fr 1fr;
+      grid-template-areas: "head photo" "body photo";
+      column-gap: 3.5rem;
+      row-gap: 1.1rem;
+      align-items: center;
+    }
+  }
+  .hx__head { grid-area: head; }
+  .hx__right { grid-area: photo; position: relative; }
+  .hx__right::after {
+    content: "";
+    position: absolute;
+    left: 0; right: 0; bottom: 0;
+    height: 42%;
+    border-radius: 0 0 24px 24px;
+    background: linear-gradient(to top, rgba(15, 34, 45, 0.6), rgba(15, 34, 45, 0));
+    pointer-events: none;
+    z-index: 1;
+  }
+  .hx__body { grid-area: body; }
+  .hx__title { margin: 0; color: var(--bleu); font-size: var(--fs-h1-hero); line-height: 1.2; letter-spacing: -0.01em; }
+  .hx__marque { color: var(--rouge); font-weight: 800; font-size: clamp(1.9rem, 4.4vw, 2.9rem); line-height: 1.1; margin: 0.6rem 0 0; }
+  .hx__photo { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; border-radius: 24px; box-shadow: var(--ombre-forte); display: block; }
+  @media (min-width: 980px) { .hx__photo { aspect-ratio: 4 / 5; } }
+
+  /* Étiquette « Après » sur la photo du hero */
+  .hx__etiquette {
+    position: absolute;
+    top: 1rem; left: 1rem;
+    z-index: 2;
+    padding: 0.35rem 0.85rem;
+    border-radius: 999px;
+    background: var(--rouge);
+    color: var(--blanc);
+    font-size: var(--fs-xs);
+    font-weight: 700;
+  }
+
+  .hx__chapo { color: var(--gris-700); margin: 0 0 1.2rem; max-width: var(--mesure-etroite); }
+  .hx__chapo a { color: var(--rouge-fonce); font-weight: 600; }
+
+  .hx__points { list-style: none; padding: 0; margin: 0.4rem 0 1.2rem; display: grid; gap: 0.9rem; }
+  .hx__points li {
+    display: flex; align-items: center; gap: 0.8rem;
+    font-size: var(--fs-md); font-weight: 600; color: var(--bleu);
+  }
+  .hx__check { color: var(--rouge); flex-shrink: 0; line-height: 0; }
+  .hx__check svg { width: 30px; height: 30px; }
+
+  .hx__note {
+    position: absolute;
+    left: 50%;
+    bottom: 1rem;
+    transform: translateX(-50%);
+    width: max-content;
+    max-width: calc(100% - 1.6rem);
+    display: flex; flex-direction: column; align-items: center; gap: 0.3rem;
+    background: var(--blanc);
+    border-radius: 16px;
+    box-shadow: 0 14px 34px rgba(15, 34, 45, 0.42);
+    padding: 0.8rem 1.5rem;
+    z-index: 2;
+  }
+  .hx__note-top { display: flex; align-items: center; gap: 0.6rem; }
+  .hx__note-stars { display: inline-flex; gap: 0.1em; }
+  .hx__note-stars svg { width: 1.35rem; height: 1.35rem; fill: var(--etoile); }
+  .hx__note-txt { margin: 0; color: var(--gris-700); font-size: var(--fs-base); }
+  .hx__note-txt strong { color: var(--bleu); }
+
+  .hx__badges { display: flex; align-items: center; gap: 1.3rem; flex-wrap: wrap; margin: 0 0 1.6rem; }
+  .hx__badges img { height: 64px; width: auto; }
+
+  .hx__actions { display: flex; flex-wrap: wrap; gap: 0.8rem; }
+  .hx__cta-sub { color: var(--rouge-fonce); font-size: var(--fs-sm); margin: 0.5rem 0 0; }
+
+  @media (max-width: 979px) {
+    .hx__title, .hx__marque { text-align: center; }
+    .hx__chapo { margin-inline: auto; } /* chapô long : reste en drapeau à gauche */
+    .hx__badges, .hx__actions { justify-content: center; }
+    .hx__cta-sub { text-align: center; }
+    .hx__badges img { height: 56px; }
+  }
+
+  /* ══ Fiche chantier (chevauche le hero) ══ */
+  .reno-fiche-wrap { padding-top: 0; padding-bottom: 0; }
+  .reno-fiche-wrap--clair .reno-fiche li { box-shadow: 0 8px 22px rgba(36, 75, 100, 0.09); }
+  .reno-fiche {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    position: relative;
+    z-index: 2;
+    display: grid;
+    gap: 1rem;
+    grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+  }
+  .reno-fiche li {
+    display: flex;
+    align-items: center;
+    gap: 0.9rem;
+    background: #fff;
+    border: 1px solid rgba(36, 75, 100, 0.08);
+    border-radius: 16px;
+    padding: 1.1rem 1.25rem;
+    box-shadow: 0 12px 30px rgba(36, 75, 100, 0.14);
+  }
+  .reno-fiche__icone {
+    flex: 0 0 auto;
+    width: 44px; height: 44px;
+    display: inline-flex; align-items: center; justify-content: center;
+    border-radius: 12px;
+    background: var(--rouge-pale);
+    color: var(--rouge);
+  }
+  .reno-fiche__icone svg { width: 1.4rem; height: 1.4rem; }
+  .reno-fiche__txt { display: flex; flex-direction: column; line-height: 1.3; }
+  .reno-fiche__label { font-size: var(--fs-xs); text-transform: uppercase; letter-spacing: 0.05em; color: var(--gris-500); }
+  .reno-fiche__txt strong { color: var(--bleu); font-size: var(--fs-base); }
+
+  /* ══ Intro de section ══ */
+  .reno-intro {
+    max-width: var(--mesure);
+    margin: 0 auto 1.4rem;
+    /* drapeau à gauche : au-delà de 2 lignes, un texte centré oblige
+       l'œil à rechercher le début de chaque ligne */
+    text-align: left;
+    text-wrap: pretty;
+    color: var(--gris-700);
+  }
+  .reno-intro:last-of-type { margin-bottom: 0; }
+
+  /* ══ Comparateurs avant / après ══ */
+  .reno-compare {
+    display: grid;
+    gap: clamp(1.4rem, 3vw, 2.2rem);
+    margin-top: 2rem;
+  }
+  @media (min-width: 900px) {
+    .reno-compare { grid-template-columns: repeat(2, 1fr); }
+    /* Le premier comparateur occupe toute la largeur : c'est la photo maîtresse. */
+    .reno-compare__item:first-child { grid-column: 1 / -1; }
+  }
+  .reno-compare__item { margin: 0; }
+  .reno-compare figcaption {
+    margin-top: 0.9rem;
+    color: var(--gris-700);
+    font-size: var(--fs-sm);
+    line-height: 1.55;
+  }
+  .reno-compare figcaption strong {
+    display: block;
+    color: var(--bleu);
+    font-size: var(--fs-base);
+    margin-bottom: 0.2rem;
+  }
+
+  /* ══ Déroulé en étapes ══ */
+  .reno-etapes {
+    list-style: none;
+    padding: 0;
+    margin: 2.2rem 0 0;
+    display: grid;
+    gap: 1.2rem;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  }
+  .reno-etape {
+    background: #fff;
+    border-radius: 18px;
+    padding: 1.9rem 1.7rem;
+    box-shadow: 0 10px 28px rgba(36, 75, 100, 0.10);
+  }
+  .reno-etape__num {
+    display: inline-flex;
+    align-items: center; justify-content: center;
+    width: 42px; height: 42px;
+    border-radius: 50%;
+    background: var(--bleu);
+    color: #fff;
+    font-weight: 800;
+    font-size: var(--fs-md);
+    margin-bottom: 1rem;
+  }
+  .reno-etape h3 { margin: 0 0 0.5rem; color: var(--bleu); }
+  .reno-etape p { margin: 0; color: var(--gris-700); }
+
+  /* ══ Encart « particularité du chantier » ══ */
+  .reno-encart {
+    display: grid;
+    gap: clamp(1.5rem, 4vw, 2.6rem);
+    align-items: center;
+    background: #fff;
+    border-radius: 20px;
+    padding: clamp(1.7rem, 4vw, 2.8rem);
+    box-shadow: 0 14px 34px rgba(36, 75, 100, 0.12);
+  }
+  @media (min-width: 900px) {
+    .reno-encart { grid-template-columns: 1.35fr 1fr; }
+  }
+  .reno-encart h2 { margin: 0 0 0.9rem; }
+  .reno-encart p { color: var(--gris-700); margin: 0 0 0.9rem; }
+  .reno-encart p:last-child { margin-bottom: 0; }
+  .reno-encart__liste {
+    list-style: none;
+    margin: 0;
+    padding: clamp(1.2rem, 3vw, 1.6rem);
+    background: var(--bleu-pale);
+    border-radius: 16px;
+    display: grid;
+    gap: 0.85rem;
+  }
+  .reno-encart__liste li {
+    display: flex;
+    gap: 0.6rem;
+    align-items: flex-start;
+    color: var(--bleu);
+    font-weight: 600;
+    line-height: 1.4;
+  }
+  .reno-encart__liste li::before {
+    content: '✓';
+    color: var(--rouge-fonce);
+    font-weight: 800;
+    flex: 0 0 auto;
+  }
+
+  /* ══ Passerelles de maillage ══ */
+  .reno-liens {
+    display: grid;
+    gap: 1.1rem;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    margin-top: 2rem;
+  }
+  .reno-lien {
+    display: block;
+    background: #fff;
+    border: 1px solid var(--gris-200);
+    border-radius: 18px;
+    padding: 1.5rem 1.6rem;
+    text-decoration: none;
+    box-shadow: 0 10px 26px rgba(36, 75, 100, 0.08);
+    transition: transform var(--transition), box-shadow var(--transition), border-color var(--transition);
+  }
+  .reno-lien:hover {
+    transform: translateY(-4px);
+    border-color: transparent;
+    box-shadow: 0 16px 36px rgba(36, 75, 100, 0.16);
+  }
+  .reno-lien strong { display: block; color: var(--bleu); font-size: var(--fs-md); margin-bottom: 0.4rem; }
+  .reno-lien__d { display: block; color: var(--gris-700); font-size: var(--fs-sm); line-height: 1.5; }
+
+  .reno-signature {
+    max-width: var(--mesure-etroite);
+    margin: 2.4rem auto 0;
+    text-align: left;
+    text-wrap: pretty;
+    font-size: var(--fs-md);
+    font-weight: 600;
+    color: var(--bleu);
+  }
+
+  /* ══ Mobile : mêmes règles de centrage que le reste du site ══ */
+  @media (max-width: 800px) {
+    .reno-encart__liste { order: -1; }
+  }
+
+  /* ── Mesure de lecture ────────────────────────────────────────
+     En dessous du seuil où ce bloc passe en deux colonnes, il occupe
+     toute la largeur du conteneur et la ligne dépassait 90 caractères
+     (le confort de lecture s'arrête vers 75). On borne la colonne. */
+  .reno-encart__txt p { max-width: var(--mesure); }
+
+  /* ══ Ajouts propres à la réalisation de Lucé ══ */
+  /* Les quatre constats : photo carrée + légende, 2 colonnes puis 4 */
+  .luce-constats {
+    display: grid; gap: 1.2rem; grid-template-columns: 1fr;
+    margin: 2rem auto 0; max-width: 68rem;
+  }
+  @media (min-width: 620px) { .luce-constats { grid-template-columns: repeat(2, 1fr); } }
+  @media (min-width: 1024px) { .luce-constats { grid-template-columns: repeat(4, 1fr); } }
+  .luce-constat {
+    margin: 0; background: #fff; border-radius: 16px; overflow: hidden;
+    border: 1px solid var(--gris-200); box-shadow: 0 8px 22px rgba(36, 75, 100, 0.08);
+  }
+  .luce-constat img { display: block; width: 100%; aspect-ratio: 1 / 1; object-fit: cover; }
+  .luce-constat figcaption { padding: 1.1rem 1.2rem 1.3rem; }
+  .luce-constat h3 { margin: 0 0 0.4rem; color: var(--bleu); font-size: var(--fs-md); }
+  .luce-constat p { margin: 0; color: var(--gris-700); font-size: var(--fs-sm); line-height: 1.55; }
+
+  /* Photo du liteaunage, entre l'introduction et les étapes */
+  .luce-etape-photo { margin: 2rem auto 0; max-width: 52rem; }
+  .luce-etape-photo img { display: block; width: 100%; height: auto; border-radius: 16px; }
+  .luce-etape-photo figcaption { margin-top: 0.7rem; color: var(--gris-700); font-size: var(--fs-sm); text-align: left; }
+
+  /* Avant / après : paire de photos (pignon) puis comparateur (descente) */
+  .luce-aa { margin: 2rem auto 0; max-width: 56rem; }
+  .luce-aa figcaption { margin-top: 0.8rem; color: var(--gris-700); font-size: var(--fs-sm); line-height: 1.55; text-align: left; }
+  .luce-aa figcaption strong { display: block; color: var(--bleu); font-size: var(--fs-md); margin-bottom: 0.2rem; }
+  .luce-paire { display: grid; gap: 0.8rem; grid-template-columns: repeat(2, 1fr); }
+  .luce-paire__vue { position: relative; }
+  .luce-paire__vue img { display: block; width: 100%; height: auto; border-radius: 16px; }
+  .luce-paire__label {
+    position: absolute; top: 0.7rem; left: 0.7rem; padding: 0.25rem 0.7rem; border-radius: 6px;
+    background: rgba(20, 40, 55, 0.78); color: #fff; font-size: var(--fs-xs); font-weight: 700;
+  }
+
+  /* Trois étapes : une seule rangée sur grand écran */
+  @media (min-width: 900px) {
+    .section .luce-etapes3 { max-width: 68rem; grid-template-columns: repeat(3, 1fr); }
+  }
+
+  .section .luce-fiche { max-width: 68rem; margin: 2rem auto 0; }
+  .luce-ville { margin-top: 2rem; }
+</style>
