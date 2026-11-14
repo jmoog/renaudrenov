@@ -72,7 +72,6 @@ const etapes = [
 ];
 
 const voisines = [
-  { slug: 'chartres', ancre: 'Couvreur à Chartres' },
   { slug: 'luce', ancre: 'Couvreur à Lucé' },
   { slug: 'luisant', ancre: 'Couvreur à Luisant' },
   { slug: 'leves', ancre: 'Couvreur à Lèves' },
@@ -194,7 +193,8 @@ const schemaPrestation = schemaService({
       </div>
       <p class="reno-intro">
         Pavillons, salle municipale, mur d'enceinte d'un parc&nbsp;: voici des chantiers que j'ai
-        menés à Lucé, Luisant, Lèves et au Coudray, avec leurs photos avant et après.
+        menés comme <a href="/villes/chartres/">couvreur à Chartres</a> et dans les communes
+        voisines, à Lucé, Luisant, Lèves et au Coudray, avec leurs photos avant et après.
       </p>
       <div class="grille-realisations">
         {chantiers.map((r) => (
@@ -266,10 +266,10 @@ const schemaPrestation = schemaService({
   <section class="section section--gris">
     <div class="conteneur">
       <div class="section__entete">
-        <h2>{ville} et les communes voisines</h2>
+        <h2>Les communes voisines de {ville}</h2>
       </div>
       <p class="reno-intro">
-        J'interviens sur les façades de Chartres et des communes de l'agglomération.
+        J'interviens aussi sur les façades des communes de l'agglomération.
       </p>
       <ul class="nuage-villes voisines">
         {voisines.map((l) => (
