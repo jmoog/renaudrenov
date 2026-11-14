@@ -218,7 +218,10 @@ export function photoChantier({ pageUrl, cle, fichier, nom, legende, lieu, princ
     caption: legende,
     encodingFormat: 'image/webp',
     contentLocation: lieu,
-    creator: { '@id': ID_ENTREPRISE },
+    // Google (métadonnées d'image) n'accepte ici qu'un nœud typé Organization ou
+    // Person : une simple référence au #localbusiness (RoofingContractor) est
+    // signalée « type d'objet non valide ». On déclare donc l'auteur en clair.
+    creator: { '@type': 'Organization', name: SITE.nom, url: SITE.url },
     copyrightHolder: { '@id': ID_ENTREPRISE },
     creditText: SITE.nom,
     copyrightNotice: `© ${SITE.nomLegal}`,
