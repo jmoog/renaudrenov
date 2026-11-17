@@ -1186,7 +1186,7 @@ export const VILLES_CONTENU: Record<string, VilleContenu> = {
     realisations: {
       h2: "Quelques réalisations près de Houdan",
       intro:
-        "Les façades d'un haras nettoyées à Guainville, une couverture refaite à Poigny-la-Forêt, un toit d'annexe refait à Villiers-le-Morhier : voici des chantiers que j'ai menés autour de Houdan.",
+        "Les façades d'un haras nettoyées à Guainville, une couverture refaite à Poigny-la-Forêt, un toit d'annexe refait à Villiers-le-Morhier, le chéneau d'un hangar remis en étanchéité à Vert : voici des chantiers que j'ai menés autour de Houdan.",
       cartes: [
         {
           titre: "Nettoyage de façade d'un haras à Guainville",
@@ -1208,6 +1208,13 @@ export const VILLES_CONTENU: Record<string, VilleContenu> = {
           image: '/images/photos/couverture-bac-acier-villiers-le-morhier-carte.webp',
           alt: "Couverture neuve en bac acier sur une annexe à Villiers-le-Morhier, posée par Renaud Rénov",
           texte: "Le toit d'une annexe entièrement refait : écran de sous-toiture, liteaux neufs et couverture en bac acier.",
+        },
+        {
+          titre: "Zinguerie à Vert : chéneau et toiture d'un hangar",
+          href: '/realisations/zinguerie-cheneau-hangar-vert/',
+          image: '/images/photos/zinguerie-cheneau-hangar-vert-carte.webp',
+          alt: "Toiture d'un hangar à Vert après les travaux de zinguerie et d'étanchéité menés par Renaud Rénov",
+          texte: "Un chéneau en acier rouillé nettoyé puis remis en étanchéité, comme la sortie de toit et les tôles du hangar.",
         },
       ],
     },
